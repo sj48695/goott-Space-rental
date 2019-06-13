@@ -1,0 +1,310 @@
+@charset "utf-8";
+/* CSS Document */
+
+/******************************
+
+[Table of Contents]
+
+1. 1620px
+2. 1440px
+3. 1280px
+4. 1199px
+5. 1024px
+6. 991px
+7. 959px
+8. 880px
+9. 768px
+10. 767px
+11. 539px
+12. 479px
+13. 400px
+
+******************************/
+
+/************
+1. 1620px
+************/
+
+@media only screen and (max-width: 1620px)
+{
+	
+}
+
+/************
+2. 1440px
+************/
+
+@media only screen and (max-width: 1440px)
+{
+	
+}
+
+/************
+3. 1380px
+************/
+
+@media only screen and (max-width: 1380px)
+{
+	
+}
+
+/************
+3. 1280px
+************/
+
+@media only screen and (max-width: 1280px)
+{
+	.main_nav ul li:not(:last-of-type)
+	{
+		margin-right: 25px;
+	}
+	.add_listing
+	{
+		margin-left: 30px;
+	}
+	.log_reg
+	{
+		margin-left: 20px;
+	}
+}
+
+/************
+4. 1199px
+************/
+
+@media only screen and (max-width: 1199px)
+{
+	.container_custom .container
+	{
+		max-width: 960px;
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	.contact_content
+	{
+		padding-left: 0;
+	}
+	.contact_map_container
+	{
+		height: 650px;
+	}
+	.contact_form_col
+	{
+		margin-bottom: 21px;
+	}
+	.footer_container
+	{
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
+/************
+4. 1100px
+************/
+
+@media only screen and (max-width: 1100px)
+{
+	
+}
+
+/************
+5. 1024px
+************/
+
+@media only screen and (max-width: 1024px)
+{
+	
+}
+
+/************
+6. 991px
+************/
+
+@media only screen and (max-width: 991px)
+{
+	.container_custom .container
+	{
+		max-width: 720px;
+	}
+	.main_nav
+	{
+		display: none;
+	}
+	.hamburger
+	{
+		display: block;
+	}
+	.search_input
+	{
+		width: calc(100% - 170px);
+	}
+	.search_button
+	{
+		width: 152px;
+	}
+	.footer_nav ul li:not(:last-of-type)
+	{
+		margin-right: 31px;
+	}
+}
+
+/************
+7. 959px
+************/
+
+@media only screen and (max-width: 959px)
+{
+	
+}
+
+/************
+8. 880px
+************/
+
+@media only screen and (max-width: 880px)
+{
+	
+}
+
+/************
+9. 768px
+************/
+
+@media only screen and (max-width: 768px)
+{
+	
+}
+
+/************
+10. 767px
+************/
+
+@media only screen and (max-width: 767px)
+{
+	.container_custom .container
+	{
+		max-width: 540px;
+	}
+	.add_listing
+	{
+		width: 122px;
+		height: 38px;
+	}
+	.add_listing
+	{
+		display: none;
+	}
+	.log_reg ul li a
+	{
+		font-size: 14px;
+	}
+	.menu_link
+	{
+		display: block;
+	}
+	.blog_post
+	{
+		width: 100%;
+	}
+	.footer_container
+	{
+		height: auto;
+		padding-top: 30px;
+		padding-bottom: 30px;
+	}
+	.copyright
+	{
+		margin-top: 20px;
+	}
+}
+
+/************
+11. 575px
+************/
+
+@media only screen and (max-width: 575px)
+{
+	.container_custom .container
+	{
+		max-width: 100%;
+	}
+	.button
+	{
+		width: 156px;
+		height: 47px;
+	}
+	.button a
+	{
+		font-size: 14px;
+		line-height: 47px;
+	}
+	.header_content
+	{
+		height: 90px;
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	.logo a
+	{
+		font-size: 20px;
+	}
+	.search_button
+	{
+		margin-top: 15px;
+	}
+	.search_input
+	{
+		padding-left: 0;
+		width: 100%;
+		text-align: center;
+	}
+	.home
+	{
+		height: 350px;
+	}
+	.home_content
+	{
+		padding-bottom: 85px;
+	}
+	.home_title
+	{
+		font-size: 36px;
+	}
+}
+
+/************
+11. 539px
+************/
+
+@media only screen and (max-width: 539px)
+{
+	
+}
+
+/************
+12. 480px
+************/
+
+@media only screen and (max-width: 480px)
+{
+	
+}
+
+/************
+13. 479px
+************/
+
+@media only screen and (max-width: 479px)
+{
+	
+}
+
+/************
+14. 400px
+************/
+
+@media only screen and (max-width: 400px)
+{
+	
+}

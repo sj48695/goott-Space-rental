@@ -46,8 +46,8 @@
 				<!-- <div class="add_listing text-center trans_200"><a href="#">+Add Listing</a></div> -->
 				<div class="log_reg">
 					<ul class="d-flex flex-row align-items-center justify-content-start">
-						<li><a href="#">Login</a></li>
-						<li><a href="#">Register</a></li>
+						<li><a href="/spacerental/account/login">Login</a></li>
+						<li><a href="/spacerental/account/register">Register</a></li>
 					</ul>
 				</div> 
 				<div class="hamburger">
@@ -221,6 +221,8 @@
 		</div>
 
 		
-		
-</div>
+	</div><!-- super container inner -->
+
+</div><!-- super container -->
+
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/> 

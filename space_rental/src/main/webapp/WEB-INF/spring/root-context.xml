@@ -1,8 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:jee="http://www.springframework.org/schema/jee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/jee https://www.springframework.org/schema/jee/spring-jee.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<property name="location" value="classpath:env.properties" />
+	</bean>
+	
+	<!-- Apache Commons DBCP -->
+	<bean id="dataSource"
+		  class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="${ds.driver}" />
+		<property name="url" value="${ds.url}" />
+		<property name="username" value="${ds.username}" />
+		<property name="password" value="${ds.password}" />
+		<property name="maxIdle" value="10" />
+		<property name="maxTotal" value="20" />
+		<property name="maxWaitMillis" value="-1" />
+	</bean>
+	
+	<!-- SqlSessionFactoryBean.getObject() -> SqlSessionFactory를 반환 -->
+	<bean id="sqlSessionFactory" 
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+	</bean>
+	
+	<!-- Spring sqlSessionTemplate (SqlSession을 내장) 객체 등록 -->
+	<bean id="sqlSessionTemplate" 
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="memberRepository" class="com.spacerental.repository.MemberRepositoryImpl">
+		<property name="memberMapper" ref="memberMapper" />
+	</bean>
+	
+	<bean id="memberService" class="com.spacerental.service.MemberServiceImpl">
+		<property name="memberRepository" ref="memberRepository" />	
+	</bean>
+	
+	<!-- MapperFactoryBean.getObject()호출 -> MemberMapper 인터페이스 구현 객체 반환 -->
+	<bean id="memberMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.spacerental.mapper.MemberMapper" />
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
 		
 </beans>

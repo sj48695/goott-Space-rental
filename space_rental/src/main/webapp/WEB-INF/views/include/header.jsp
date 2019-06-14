@@ -16,5 +16,6 @@
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/plugins/OwlCarousel2-2.3.4/animate.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/main_styles.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/responsive.css">
+
 </head>
 <body>

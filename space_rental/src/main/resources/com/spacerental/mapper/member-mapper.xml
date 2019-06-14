@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spacerental.mapper.MemberMapper">
+
+	<select id="selectMemberByIdAndPasswd" parameterType="hashmap" resultType="Member">
+		select memberNo, memberId, passwd, email, regDate, deleted, userType, gender 
+		from Member 
+		where memberId = #{ memberId } and passwd = #{ passwd }
+		and deleted = '0'
+	</select>
+	
+	<insert id="insertMember" parameterType="Member">	
+		insert into member (memberNo, memberId, passwd, email, gender) 
+		values (member_sequence.nextval, #{ memberId }, #{ passwd }, #{ email }, #{ gender })
+	</insert>
+	
+	<select id="selectMemberList" parameterType="hashmap" resultType="Member">
+		select memberNo, memberId, email, regDate, gender 
+		from Member 
+		where deleted = '0'
+			<if test="keyWord != ''">
+				<choose>
+					<when test="keyField == 'all'">
+						and ( memberId like '%'||#{ keyWord }||'%' or gender like '%'||#{ keyWord }||'%' )
+					</when>
+					<when test="keyField == 'memberId'">
+						and memberId like '%'||#{ keyWord }||'%'
+					</when>
+					<when test="keyField == 'gender'">
+						and gender like '%'||#{ keyWord }||'%'
+					</when>
+				</choose>
+			</if>
+		 order by memberId
+	</select>
+	
+	<select id="selectMemberByMemberNo" parameterType="int" resultType="Member">
+		select memberNo, memberId, passwd, email, regDate, gender
+		from Member
+		where memberNo = #{ memberNo } and deleted='0'
+	</select>
+	
+	<update id="deleteMember" parameterType="int">
+		update Member 
+		set deleted = '1'
+		where memberNo = #{ memberNo }
+	</update>
+	
+	<update id="updateMember" parameterType="Member">
+		update Member
+		set passwd = #{ passwd }, email = #{ email }
+		where memberId = #{ memberId }
+	</update>
+	
+</mapper>

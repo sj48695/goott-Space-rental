@@ -1,8 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd
+						http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+	
+	
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:component-scan base-package="com.spacerental.repository" />
+	<context:component-scan base-package="com.spacerental.service" />
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:env.properties" />
+	</bean>
+	
+	<!-- Apache Commons DBCP -->
+	<bean id="dataSource"
+		  class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="${ds.driver}" />
+		<property name="url" value="${ds.url}" />
+		<property name="username" value="${ds.username}" />
+		<property name="password" value="${ds.password}" />
+		<property name="maxIdle" value="10" />
+		<property name="maxTotal" value="20" />
+		<property name="maxWaitMillis" value="-1" />
+	</bean>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+	</bean>
+	
+	<!-- Spring SqlSessionTemplate(sqlSession을 내장) 객체 등록 -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="spaceRepository" class="com.spacerental.repository.SpaceRepositoryImpl" >
+		<property name="spaceMapper" ref="spaceMapper"/>
+	</bean>
+	<bean id="spaceService" class="com.spacerental.service.SpaceServiceImpl">
+		<property name="spaceRepository" ref="spaceRepository" />
+	</bean>
+	
+	<bean id="spaceMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.spacerental.mapper.SpaceMapper"/>
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
+	</bean>
 		
+		
+	<!-- ========================================================================== -->
+	
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- 미리 만들어져서 사용할 수 있는 Advice 객체 ( <bean에 대한 정의 ) -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="*Tx"/><!-- Tx가 붙는 메서드들은 트랜젝션을 수행 -->
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution( * com.teamone.service.*.*(..) )"/>
+	</aop:config>
 </beans>

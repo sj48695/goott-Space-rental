@@ -19,6 +19,8 @@
  -->
 <c:set var="title" value="공지사항" scope="request" />
 <jsp:include page="/WEB-INF/views/include/header.jsp" /> 
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog.css">
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog_responsive.css">
 <!-- Menu -->
 
 <div class="menu">

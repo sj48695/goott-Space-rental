@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spacerental.mapper.SpaceMapper">
+
+	<insert id="insertSpace" parameterType="Space">
+		<selectKey keyProperty="spaceNo" order="AFTER" resultType="int">
+			SELECT Space_SEQUENCE.CURRVAL FROM DUAL
+		</selectKey>
+		INSERT INTO Space(
+			<include refid="spaceBasicColumns" />
+		)
+		VALUES
+		(
+			Space_SEQUENCE.NEXTVAL
+			,#{spaceName}
+			,#{content}
+			,#{uploader}
+			,#{playDate}
+			,#{genre}
+			,#{country}
+			,#{rating}
+			,#{director}
+			,#{performers}
+		)
+	</insert>
+	
+	<insert id="insertSpaceFile" parameterType="SpaceFile">
+		INSERT INTO SpaceFILE(
+			<include refid="spaceFileBasicColumns" />
+		)
+		VALUES
+		(
+			SpaceFILE_SEQUENCE.NEXTVAL
+			, #{spaceNo}
+			, #{savedFileName}
+			, #{userFileName}
+			, #{downloadCount}
+			, #{poster}
+		)
+	</insert>
+
+</mapper>

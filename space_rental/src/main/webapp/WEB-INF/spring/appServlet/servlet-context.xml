@@ -23,6 +23,13 @@
 	
 	<context:component-scan base-package="com.spacerental.controller" />
 	
-	
+	<beans:bean id="authInterceptor" class="com.spacerental.interceptor.AuthInterceptor" />
+				
+	<interceptors>
+		<interceptor>
+			<mapping path="/views/**" />  <!-- ** 두개 써줘야 하위경로 전체를 가져온다 -->
+			<beans:ref bean="authInterceptor" />
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>

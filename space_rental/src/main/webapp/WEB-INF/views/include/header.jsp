@@ -1,10 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	     
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-<title>찾아조 빌려조 다조</title>
+<title>${ requestScope.title }</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="DirectoryPlus template project">
@@ -16,5 +15,8 @@
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/plugins/OwlCarousel2-2.3.4/animate.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/main_styles.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/responsive.css">
+
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog.css">
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog_responsive.css">
 </head>
 <body>

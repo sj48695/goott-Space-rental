@@ -8,6 +8,8 @@
 	<!-- type에 지정된 some.package.name.ClassName을 alias에 지정된 이름으로 대체하는 설정 -->
 	<typeAliases>
 		<typeAlias type="com.spacerental.vo.Member" alias="Member"/>
+		<typeAlias type="com.spacerental.vo.Space" alias="Space" />
+		<typeAlias type="com.spacerental.vo.SpaceFile" alias="SpaceFile" />
 	</typeAliases>
 
 	<environments default="development">
@@ -25,6 +27,6 @@
 	<!-- SQL + Object Mapping Configuration -->
 	<mappers>
 		<mapper resource="com/spacerental/mapper/member-mapper.xml" />
+		<mapper resource="com/spacerental/mapper/space-mapper.xml" />
 	</mappers>
-	
 </configuration>

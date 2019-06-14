@@ -1,63 +1,9 @@
+<%@page import="java.net.URLEncoder"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" language="java" contentType="text/html; charset=utf-8"
 	     pageEncoding="utf-8"%>
-<jsp:include page="/WEB-INF/views/include/header.jsp"/> 
-
-<!-- Menu -->
-
-<div class="menu">
-	<div class="menu_container text-right">
-		<div class="menu_close">close</div>
-		<nav class="menu_nav">
-			<ul>
-				<li><a href="/spacerental/">홈</a></li>
-				<li><a href="listings.html">장소</a></li>
-				<li><a href="blog.html">분실물</a></li>
-				<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
-			</ul>
-		</nav>
-		<div class="menu_link">
-			<a href="#">+Add Listing</a>
-		</div>
-	</div>
-</div>
-
-<div class="super_container">
-
-	<!-- Header -->
-
-	<header class="header">
-		<div class="header_overlay"></div>
-		<div class="header_content d-flex flex-row align-items-center justify-content-start">
-			
-			<!-- Logo -->
-			<div class="logo"><a href="/spacerental/">빌려조<br> 찾아조<br><span>&nbsp;&nbsp;&nbsp;&nbsp;다조</span><span>+</span></a></div>
-
-			<!-- Header Nav -->
-			<div class="header_right d-flex flex-row align-items-center justify-content-start ml-auto">
-				<nav class="main_nav">
-					<ul class="d-flex flex-row align-items-center justify-content-start">
-						<li class="active"><a href="/spacerental/">홈</a></li>
-						<li><a href="listings.html">장소</a></li>
-						<li><a href="blog.html">분실물</a></li>
-						<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
-					</ul>
-				</nav>
-				<!-- <div class="add_listing text-center trans_200"><a href="#">+Add Listing</a></div> -->
-				<div class="log_reg">
-					<ul class="d-flex flex-row align-items-center justify-content-start">
-						<li><a href="/spacerental/account/login">Login</a></li>
-						<li><a href="/spacerental/account/register">Register</a></li>
-					</ul>
-				</div> 
-				<div class="hamburger">
-					<i class="fa fa-bars trans_200"></i>
-				</div>
-			</div>
-
-		</div>
-	</header>
-
+<c:set var="title" value="찾아줘 빌려줘 다조" scope="request" />
+<jsp:include page="/WEB-INF/views/include/header.jsp" /> 
 	<div class="super_container_inner">
 		<div class="super_overlay"></div>
 
@@ -219,10 +165,5 @@
 				</div>
 			</div>
 		</div>
-
-		
 	</div><!-- super container inner -->
-
-</div><!-- super container -->
-
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/> 

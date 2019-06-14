@@ -164,12 +164,35 @@
 		    <artifactId>mybatis</artifactId>
 		    <version>3.5.1</version>
 		</dependency>
-		
-		<!-- MyBatis - Spring -->
+	
+		<!-- MyBatis-Spring -->
 		<dependency>
 		    <groupId>org.mybatis</groupId>
 		    <artifactId>mybatis-spring</artifactId>
 		    <version>2.0.1</version>
+		</dependency>
+		
+		<!-- Lombok : https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.8</version>
+		    <scope>provided</scope>
+		</dependency>
+		
+		
+		<!-- Commons-io : https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.6</version>
+		</dependency>
+	
+		<!-- Commons-fileupload : https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.4</version>
 		</dependency>
 	
 		<!-- Test -->

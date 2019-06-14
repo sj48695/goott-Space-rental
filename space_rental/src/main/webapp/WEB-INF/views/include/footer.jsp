@@ -13,5 +13,7 @@
 <script src="/spacerental/resources/plugins/parallax-js-master/parallax.min.js"></script>
 <script src="/spacerental/resources/js/custom.js"></script>
 <script src="/spacerental/resources/js/main.js"></script>
+<script src="/spacerental/resources/js/blog.js"></script>
+</div>
 </body>
 </html>

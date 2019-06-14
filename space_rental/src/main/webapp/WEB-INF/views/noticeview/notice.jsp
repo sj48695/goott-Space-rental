@@ -2,21 +2,10 @@
 <%@ page session="false" language="java" contentType="text/html; charset=utf-8"
 	     pageEncoding="utf-8"%>
 	     
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>공지사항</title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="DirectoryPlus template project">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/bootstrap-4.1.2/bootstrap.min.css">
-<link href="/spacerental/resources/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<c:set var="title" value="공지사항" scope="request" />
+<jsp:include page="/WEB-INF/views/include/header.jsp" /> 
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog_responsive.css">
-</head>
-<body>
-
 <!-- Menu -->
 
 <div class="menu">
@@ -319,21 +308,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			</div>
 		</footer>
 	</div>
-		
 </div>
 
-<script src="/spacerental/resources/js/jquery-3.3.1.min.js"></script>
-<script src="/spacerental/resources/styles/bootstrap-4.1.2/popper.js"></script>
-<script src="/spacerental/resources/styles/bootstrap-4.1.2/bootstrap.min.js"></script>
-<script src="/spacerental/resources/plugins/greensock/TweenMax.min.js"></script>
-<script src="/spacerental/resources/plugins/greensock/TimelineMax.min.js"></script>
-<script src="/spacerental/resources/plugins/scrollmagic/ScrollMagic.min.js"></script>
-<script src="/spacerental/resources/plugins/greensock/animation.gsap.min.js"></script>
-<script src="/spacerental/resources/plugins/greensock/ScrollToPlugin.min.js"></script>
-<script src="/spacerental/resources/plugins/easing/easing.js"></script>
-<script src="/spacerental/resources/plugins/Isotope/isotope.pkgd.min.js"></script>
-<script src="/spacerental/resources/plugins/progressbar/progressbar.min.js"></script>
-<script src="/spacerental/resources/plugins/parallax-js-master/parallax.min.js"></script>
 <script src="/spacerental/resources/js/blog.js"></script>
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/include/footer.jsp"/> 

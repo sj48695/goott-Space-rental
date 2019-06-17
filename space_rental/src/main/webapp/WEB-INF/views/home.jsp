@@ -2,8 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" language="java" contentType="text/html; charset=utf-8"
 	     pageEncoding="utf-8"%>
+
 <c:set var="title" value="찾아줘 빌려줘 다조" scope="request" />
 <jsp:include page="/WEB-INF/views/include/header.jsp" /> 
+
 	<div class="super_container_inner">
 		<div class="super_overlay"></div>
 
@@ -25,9 +27,9 @@
 										<div class="home_content text-center">
 											<div class="home_title"><h1>종류별  찾기</h1></div>
 											<div class="search_form_container">
-												<form action="#" class="search_form" id="search_form">
+												<form action="search/room?&value"class="search_form" id="search_form">
 													<div class="d-flex flex-sm-row flex-column align-items-sm-start align-items-center justify-content-sm-between">
-														<input type="text" class="search_input" placeholder="ex) 스터디룸, 회의실, 세미나실..." required="required">
+														<input type="text" class="search_input" placeholder="ex) 스터디룸, 회의실, 세미나실.etc" name="value" required="required">
 														<button class="search_button">Search</button>
 													</div>
 												</form>
@@ -49,9 +51,9 @@
 										<div class="home_content text-center">
 											<div class="home_title"><h1>주소지로 찾기</h1></div>
 											<div class="search_form_container">
-												<form action="#" class="search_form" id="search_form">
+												<form action="search/address?value" class="search_form" id="search_form">
 													<div class="d-flex flex-sm-row flex-column align-items-sm-start align-items-center justify-content-sm-between">
-														<input type="text" class="search_input" placeholder="ex)강남구, 서초구, 동작구, 송파구..." required="required">
+														<input type="text" class="search_input" placeholder="ex)강남구, 서초구, 동작구, 송파구.etc" name="value" required="required">
 														<button class="search_button">Search</button>
 													</div>
 												</form>
@@ -73,9 +75,9 @@
 										<div class="home_content text-center">
 											<div class="home_title"><h1>분실물 찾기</h1></div>
 											<div class="search_form_container">
-												<form action="#" class="search_form" id="search_form">
+												<form action="search/lose?&value" class="search_form" id="search_form">
 													<div class="d-flex flex-sm-row flex-column align-items-sm-start align-items-center justify-content-sm-between">
-														<input type="text" class="search_input" placeholder="ex)지갑, 핸드폰, 손목시계 ..." required="required">
+														<input type="text" class="search_input" placeholder="ex)지갑, 핸드폰, 손목시계 .etc" name="value" required="required">
 														<button class="search_button">Search</button>
 													</div>
 												</form>
@@ -159,11 +161,10 @@
 									</div>
 								</a>
 							</div>
-
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div><!-- super container inner -->
-<jsp:include page="/WEB-INF/views/include/footer.jsp"/> 
+<jsp:include page="/WEB-INF/views/include/footer.jsp"/>

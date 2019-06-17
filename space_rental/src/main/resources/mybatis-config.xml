@@ -4,13 +4,13 @@
 	PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
-
 	<!-- type에 지정된 some.package.name.ClassName을 alias에 지정된 이름으로 대체하는 설정 -->
 	<typeAliases>
 		<typeAlias type="com.spacerental.vo.Member" alias="Member"/>
 		<typeAlias type="com.spacerental.vo.Space" alias="Space" />
 		<typeAlias type="com.spacerental.vo.SpaceFile" alias="SpaceFile" />
 		<typeAlias type="com.spacerental.vo.Host" alias="Host" />
+		<typeAlias type="com.spacerental.vo.Notice" alias = "Notice"/>
 	</typeAliases>
 
 	<environments default="development">
@@ -29,5 +29,7 @@
 	<mappers>
 		<mapper resource="com/spacerental/mapper/member-mapper.xml" />
 		<mapper resource="com/spacerental/mapper/space-mapper.xml" />
+		<mapper resource="com/spacerental/mapper/notice-mapper.xml" />
+		<mapper resource="com/spacerental/mapper/search-mapper.xml"/>
 	</mappers>
 </configuration>

@@ -8,6 +8,7 @@
 
 <section id="contents" class="contents contents_register" role="main">
 	<form action="register_host" method="post">
+		<input type="hidden" name="hostId" value="${ loginuser.id }">
 		<div class="heading">
 			<h3>사업장 정보를 입력해주세요.</h3>
 			<span class="option"><span class="txt_required"><span class="ico_required">* </span>필수입력</span></span>
@@ -147,24 +148,28 @@
 			<div class="tit">
 				<label for="space_text">이용시간<span class="ico_required">*</span></label>
 			</div>
-			<div class="select row">
-				<select name="open_start" class="col-6">
-					<option>9:00</option>
-					<option>10:00</option>
-					<option>11:00</option>
-					<option>12:00</option>
-					<option>13:00</option>
-					<option>14:00</option>
-				</select>
-				~
-				<select name="open_end" class="col-6">
-					<option>20:00</option>
-					<option>21:00</option>
-					<option>22:00</option>
-					<option>23:00</option>
-					<option>24:00</option>
-					<option>1:00</option>
-				</select>
+			<div class="row">
+				<div class="select col-sm-3">
+					<select name="open_start" class="col-6">
+						<option>9:00</option>
+						<option>10:00</option>
+						<option>11:00</option>
+						<option>12:00</option>
+						<option>13:00</option>
+						<option>14:00</option>
+					</select>
+				</div>
+					<font size="6" style="vertical-align: center">~</font>
+				<div class="select col-sm-3">
+					<select name="open_end" class="col-6">
+						<option>20:00</option>
+						<option>21:00</option>
+						<option>22:00</option>
+						<option>23:00</option>
+						<option>24:00</option>
+						<option>1:00</option>
+					</select>
+				</div>
 			</div>
 			<p class="p_guide warn">
 				<i class="sp_icon ico_alert"></i>이용시간은 필수 입력입니다.

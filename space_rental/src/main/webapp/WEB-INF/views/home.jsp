@@ -1,7 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" language="java" contentType="text/html; charset=utf-8"
 	     pageEncoding="utf-8"%>
-<jsp:include page="/WEB-INF/views/include/header.jsp"/> 
+<jsp:include page="/WEB-INF/views/include/header.jsp">
+	<jsp:param value="빌려조" name="title"/>
+</jsp:include> 
+
 
 <!-- Menu -->
 
@@ -38,7 +41,7 @@
 				<nav class="main_nav">
 					<ul class="d-flex flex-row align-items-center justify-content-start">
 						<li class="active"><a href="/spacerental/">홈</a></li>
-						<li><a href="listings.html">장소</a></li>
+						<li><a href="/spacerental/space/list">장소</a></li>
 						<li><a href="blog.html">분실물</a></li>
 						<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
 					</ul>
@@ -222,5 +225,6 @@
 
 		
 		
+</div>
 </div>
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/> 

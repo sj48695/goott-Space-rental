@@ -26,18 +26,18 @@ public class SpaceController {
 	@Qualifier("spaceService")
 	private SpaceService spaceService;
 	
-	@RequestMapping(value="/list", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	@RequestMapping(value="/spacelist", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
 	public String list() {
 		 
 		
-		return "/space/spacelist";
+		return "space/spacelist";
 	}
 	
 	@RequestMapping(value="/detail", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
 	public String detail() {
 		 
 		
-		return "/space/detail";
+		return "space/detail";
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.GET)

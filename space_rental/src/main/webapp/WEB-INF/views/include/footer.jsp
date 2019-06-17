@@ -23,8 +23,8 @@
 <script src="/spacerental/resources/space/js/jquery.stellar.min.js"></script>
 <script src="/spacerental/resources/space/js/jquery.countdown.min.js"></script>
 <script src="/spacerental/resources/space/js/jquery.magnific-popup.min.js"></script>
-<!-- <script src="/spacerental/resources/space/js/aos.js"></script> -->
-<script src="/spacerental/resources/space/js/circleaudioplayer.js"></script>
+<script src="/spacerental/resources/space/js/aos.js"></script>
+<!-- <script src="/spacerental/resources/space/js/circleaudioplayer.js"></script> -->
 <script src="/spacerental/resources/space/js/main.js"></script>
 <script src="/spacerental/resources/js/write.js"></script>
 

@@ -21,8 +21,9 @@
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/responsive.css">
 
 <!-- space css -->
+<link rel="stylesheet" href="/spacerental/resources/space/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
-<link rel="stylesheet" href="fonts/icomoon/style.css">
+<link rel="stylesheet" href="/spacerental/resources/space/fonts/icomoon/style.css">
 <link rel="stylesheet" href="/spacerental/resources/space/css/owl.carousel.min.css">
 <link rel="stylesheet" href="/spacerental/resources/space/css/magnific-popup.css">
 <link rel="stylesheet" href="/spacerental/resources/space/css/owl.theme.default.min.css">
@@ -38,7 +39,7 @@
 			<nav class="menu_nav">
 				<ul>
 					<li><a href="/spacerental/">홈</a></li>
-					<li><a href="/spacerental/space/write">장소</a></li>
+					<li><a href="/spacerental/space/spacelist">장소</a></li>
 					<li><a href="blog.html">분실물</a></li>
 					<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
 				</ul>

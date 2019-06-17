@@ -15,7 +15,7 @@
       <div class="site-mobile-menu-body"></div>
     </div> <!-- .site-mobile-menu -->
 
-    <div class="site-navbar mt-4">
+    <!-- <div class="site-navbar mt-4">
         <div class="container py-1">
           <div class="row align-items-center">
             <div class="col-8 col-md-8 col-lg-4">
@@ -58,7 +58,7 @@
 
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="slide-one-item home-slider owl-carousel">

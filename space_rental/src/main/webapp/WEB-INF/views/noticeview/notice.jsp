@@ -1,33 +1,46 @@
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.spacerental.vo.Notice" %>
-<%@ page session="false" language="java" contentType="text/html; charset=utf-8"
-	     pageEncoding="utf-8"%>
-	     
+<%@ page session="false" language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>공지사항</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="DirectoryPlus template project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<c:set var="title" value="공지사항" scope="request" />
-<jsp:include page="/WEB-INF/views/include/header.jsp" />
+<!-- home & notice -->
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/bootstrap-4.1.2/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/plugins/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/plugins/OwlCarousel2-2.3.4/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/plugins/OwlCarousel2-2.3.4/owl.theme.default.css">
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/plugins/OwlCarousel2-2.3.4/animate.css">
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/main_styles.css">
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/responsive.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog_responsive.css">
-<!-- Menu -->
 
-<div class="menu">
-	<div class="menu_container text-right">
-		<div class="menu_close">close</div>
-		<nav class="menu_nav">
-			<ul>
-				<li><a href="/spacerental/">홈</a></li>
-				<li><a href="listings.html">장소</a></li>
-				<li><a href="blog.html">분실물</a></li>
-				<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
-			</ul>
-		</nav>
-		
+</head>
+<body>
+
+	<!-- Menu -->
+	<div class="menu">
+		<div class="menu_container text-right">
+			<div class="menu_close">close</div>
+			<nav class="menu_nav">
+				<ul>
+					<li><a href="/spacerental/">홈</a></li>
+					<li><a href="/spacerental/space/write">장소</a></li>
+					<li><a href="blog.html">분실물</a></li>
+					<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
+				</ul>
+			</nav>
+			<div class="menu_link">
+				<a href="#">+Add Listing</a>
+			</div>
+		</div>
 	</div>
-</div>
-
-<div class="super_container">
-
+	<div class="super_container">
 	<!-- Header -->
 
 	<header class="header">
@@ -64,12 +77,11 @@
 
 	<div class="super_container_inner">
 		<div class="super_overlay"></div>
-
+	
 		<!-- Home -->
-
+	
 		<div class="home">
-		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~-->
-			<div class="parallax_background parallax-window" data-parallax="scroll" style="background-image: url('/spacerental/resources/images/blog.jpg')" data-speed="0.8"></div>
+			<div class="parallax_background parallax-window" data-parallax="scroll" style="background-image:url(/spacerental/resources/images/blog.jpg)" data-speed="0.8"></div>
 			<div class="home_container">
 				<div class="container">
 					<div class="row">
@@ -82,6 +94,7 @@
 				</div>
 			</div>
 		</div>
+	
 
 		<div class="blog">
 			<div class="container">
@@ -119,7 +132,6 @@
 								
 								</div>
 							</c:forEach>
-								
 					</div>
 				</div>
 				<div class="row">
@@ -132,14 +144,14 @@
 			</div>		
 		</div>
 
-		<!-- Footer -->
+	<!-- Footer -->
 
-		<footer class="footer container_custom">
-			<div class="container">
-				<div class="row">
-					<div class="col">
-						<div class="footer_container d-flex flex-md-row flex-column align-items-center justify-content-md-start justify-content-center">
-							<div class="copyright order-md-1 order-2"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+	<footer class="footer container_custom">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="footer_container d-flex flex-md-row flex-column align-items-center justify-content-md-start justify-content-center">
+						<div class="copyright order-md-1 order-2"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 </div>
@@ -163,10 +175,3 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </div>
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/>
 
-
-
-
-
-
-
- 

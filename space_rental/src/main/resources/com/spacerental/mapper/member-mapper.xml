@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spacerental.mapper.MemberMapper">
+	
+	<!-- 회원등록 -->
+	<insert id="insertMember" parameterType="Member">	
+		insert into Member (id, passwd, name, phone, type) 
+		values (#{ id }, #{ passwd }, #{ name }, #{ phone }, #{ type })
+	</insert>
+	
+	<select id="selectMemberByIdAndPasswd" parameterType="hashmap" resultType="Member">
+		select id, passwd, name, phone, type 
+		from Member 
+		where id = #{ id } and passwd = #{ passwd }
+	</select>
+	
+	
+	<!--  host등록   -->    	
+	<insert id="insertHost" parameterType="Host">
+		INSERT INTO HOST(
+			hostId
+			, name
+			, content
+			, type
+			, address
+			, parking
+			, open
+		) VALUES(
+			#{ hostId }
+			, #{ name }
+			, #{ content }
+			, #{ type }
+			, #{ address }
+			, #{ parking }
+			, #{ open }
+		) 
+	</insert>
+</mapper>

@@ -8,25 +8,6 @@
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog_responsive.css">
 
-<!-- Menu -->
-
-<div class="menu">
-	<div class="menu_container text-right">
-		<div class="menu_close">close</div>
-		<nav class="menu_nav">
-			<ul>
-				<li><a href="/spacerental/">홈</a></li>
-				<li><a href="listings.html">장소</a></li>
-				<li><a href="/spacerental/loseview/lose">분실물</a></li>
-				<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
-			</ul>
-		</nav>
-		<div class="menu_link">
-			<a href="#">+Add Listing</a>
-		</div>
-	</div>
-</div>
-
 <div class="super_container">
 
 	<!-- Header -->

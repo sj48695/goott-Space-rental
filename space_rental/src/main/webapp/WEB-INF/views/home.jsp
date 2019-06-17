@@ -14,7 +14,7 @@
 			<ul>
 				<li><a href="/spacerental/">홈</a></li>
 				<li><a href="listings.html">장소</a></li>
-				<li><a href="blog.html">분실물</a></li>
+				<li><a href="/spacerental/loseview/lose">분실물</a></li>
 				<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
 			</ul>
 		</nav>
@@ -41,7 +41,7 @@
 					<ul class="d-flex flex-row align-items-center justify-content-start">
 						<li class="active"><a href="/spacerental/">홈</a></li>
 						<li><a href="listings.html">장소</a></li>
-						<li><a href="blog.html">분실물</a></li>
+						<li><a href="/spacerental/loseview/lose">분실물</a></li>
 						<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
 					</ul>
 				</nav>

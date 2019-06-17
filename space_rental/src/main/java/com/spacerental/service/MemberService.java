@@ -11,4 +11,6 @@ public interface MemberService {
 
 	Member selectMemberByIdAndPasswd(String id, String passwd);
 
+	Member selectMemberByMemberId(int id);
+
 }

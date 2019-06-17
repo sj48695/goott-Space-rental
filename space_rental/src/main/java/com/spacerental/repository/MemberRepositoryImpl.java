@@ -50,4 +50,10 @@ public class MemberRepositoryImpl implements MemberRepository {
 		return member;
 	}
 
+	@Override
+	public Member selectMemberByMemberId(int id) {
+		Member member = memberMapper.selectMemberByMemberId(id);
+		return member;
+	}
+
 }

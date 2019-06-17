@@ -65,18 +65,18 @@
 					<!-- <div class="add_listing text-center trans_200"><a href="#">+Add Listing</a></div> -->				
 						<c:choose>
 			            <c:when test="${ empty loginuser }">
-			            <div class="log_reg">
-							<ul class="d-flex flex-row align-items-center justify-content-start">
-				            	<li><a href="/spacerental/account/login">Login</a></li>
-								<li><a href="/spacerental/account/register">Register</a></li>
-							</ul>
-						</div>
-						<div class="hamburger"><i class="fa fa-bars trans_200"></i></div>
+				            <div class="log_reg">
+								<ul class="d-flex flex-row align-items-center justify-content-start">
+					            	<li><a href="/spacerental/account/login">Login</a></li>
+									<li><a href="/spacerental/account/register">Register</a></li>
+								</ul>
+							</div>
+							<div class="hamburger"><i class="fa fa-bars trans_200"></i></div>
 			            </c:when>
 			            <c:otherwise>
-				            <a href="/spacerental/space/mypage/${ loginuser.id }" style="text-decoration: none">
-								${ loginuser.id }님 환영합니다.
-							</a>     				   	
+							<a href="/spacerental/mypage/${ loginuser.type }/${ loginuser.id }" style="text-decoration: none">
+								${ loginuser.id }님
+							</a>									   	
 			            	<li><a href="/spacerental/account/logout">로그아웃</a></li>
 			            </c:otherwise>
 			            </c:choose>						

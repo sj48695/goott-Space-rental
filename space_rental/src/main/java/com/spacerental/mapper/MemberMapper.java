@@ -12,4 +12,6 @@ public interface MemberMapper {
 	void insertHost(Host host);
 
 	Member selectMemberByIdAndPasswd(HashMap<String, Object> params);
+
+	Member selectMemberByMemberId(int id);
 }

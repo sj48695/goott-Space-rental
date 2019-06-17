@@ -17,6 +17,11 @@
 		where id = #{ id } and passwd = #{ passwd }
 	</select>
 	
+	<select id="selectMemberByMemberId" parameterType="int" resultType="Member">
+		select id, passwd, name, phone, type
+		from Member
+		where id = #{ id }
+	</select>
 	
 	<!--  host등록   -->    	
 	<insert id="insertHost" parameterType="Host">

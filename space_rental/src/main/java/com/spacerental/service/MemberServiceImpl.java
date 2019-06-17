@@ -39,7 +39,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public Member selectMemberByMemberId(int id) {
+	public Member selectMemberByMemberId(String id) {
 		Member member = memberRepository.selectMemberByMemberId(id);
 		return member;
 	}

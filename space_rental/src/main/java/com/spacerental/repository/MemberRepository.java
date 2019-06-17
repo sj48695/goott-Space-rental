@@ -11,6 +11,6 @@ public interface MemberRepository {
 
 	Member selectMemberByIdAndPasswd(String id, String passwd);
 
-	Member selectMemberByMemberId(int id);
+	Member selectMemberByMemberId(String id);
 
 }

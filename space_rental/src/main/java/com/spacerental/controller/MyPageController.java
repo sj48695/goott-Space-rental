@@ -19,26 +19,17 @@ public class MyPageController {
 	@Qualifier("memberService")
 	private MemberService memberService;
 
-	@RequestMapping(path = "/customer/{id}", method = RequestMethod.GET)
-	public String showCustomerForm(@PathVariable int id, int Id, Model model) {
-		Member member = memberService.selectMemberByMemberId(Id);
+	@RequestMapping(path = "/{type}/{id}", method = RequestMethod.GET)
+	public String showCustomerForm(@PathVariable String id, @PathVariable String type, Model model) {
+		
+		Member member = memberService.selectMemberByMemberId(id);
 		if (member == null) {
 			return "redirect:list";
 		}		
 
 		model.addAttribute("member", member);
-		
-		return "/customer";
-	}
-	
-	@RequestMapping(path = "/manager/{id}", method = RequestMethod.GET)
-	public String showmanagerForm(@PathVariable int id) {
-		return "/mypage";
-	}
-	
-	@RequestMapping(path = "/host/{id}", method = RequestMethod.GET)
-	public String showhostForm(@PathVariable int id) {
-		return "/mypage";
+		System.out.println(type);
+		return "mypage/" + type ;
 	}
 
 }

@@ -13,5 +13,5 @@ public interface MemberMapper {
 
 	Member selectMemberByIdAndPasswd(HashMap<String, Object> params);
 
-	Member selectMemberByMemberId(int id);
+	Member selectMemberByMemberId(String id);
 }

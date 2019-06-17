@@ -51,7 +51,7 @@ public class MemberRepositoryImpl implements MemberRepository {
 	}
 
 	@Override
-	public Member selectMemberByMemberId(int id) {
+	public Member selectMemberByMemberId(String id) {
 		Member member = memberMapper.selectMemberByMemberId(id);
 		return member;
 	}

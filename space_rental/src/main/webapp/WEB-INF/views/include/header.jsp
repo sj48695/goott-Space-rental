@@ -85,7 +85,7 @@
 						<ul class="d-flex flex-row align-items-center justify-content-start">
 							<li class="active"><a href="/spacerental/">홈</a></li>
 							<li><a href="/spacerental/space/spacelist">장소</a></li>
-							<li><a href="/spacerental/lost">분실물</a></li>
+							<li><a href="/spacerental/loseview/lose">분실물</a></li>
 							<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
 						</ul>
 					</nav>
@@ -101,10 +101,12 @@
 							<div class="hamburger"><i class="fa fa-bars trans_200"></i></div>
 			            </c:when>
 			            <c:otherwise>
-							<a href="/spacerental/mypage/${ loginuser.type }/${ loginuser.id }" style="text-decoration: none">
-								${ loginuser.id }님
-							</a>									   	
-			            	<li><a href="/spacerental/account/logout">로그아웃</a></li>
+			             <div class="log_reg">
+							<ul class="d-flex flex-row align-items-center justify-content-start">
+				            	<li><a href="/spacerental/mypage/${ loginuser.type }/${ loginuser.id }" style="text-decoration: none">${ loginuser.id }님</a></li>												   	
+				            	<li><a href="/spacerental/account/logout">로그아웃</a></li>
+							</ul>
+						</div>				
 			            </c:otherwise>
 			            </c:choose>						
 				</div>

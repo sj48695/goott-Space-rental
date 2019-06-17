@@ -1,14 +1,24 @@
-
+<%@page import="org.springframework.web.bind.annotation.SessionAttribute"%>
+<%@ page import ="com.spacerental.vo.Notice" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="com.spacerental.vo.Notice" %>
 <%@ page session="false" language="java" contentType="text/html; charset=utf-8"
 	     pageEncoding="utf-8"%>
 	     
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>공지작성</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="DirectoryPlus template project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/bootstrap-4.1.2/bootstrap.min.css">
+<link href="/spacerental/resources/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/contact.css">
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/contact_responsive.css">
+</head>
+<body>
 
-<c:set var="title" value="공지사항" scope="request" />
-<jsp:include page="/WEB-INF/views/include/header.jsp" />
-<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog.css">
-<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog_responsive.css">
 <!-- Menu -->
 
 <div class="menu">
@@ -22,7 +32,6 @@
 				<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
 			</ul>
 		</nav>
-		
 	</div>
 </div>
 
@@ -43,12 +52,13 @@
 				<nav class="main_nav">
 					<ul class="d-flex flex-row align-items-center justify-content-start">
 						<li><a href="/spacerental/">홈</a></li>
-						<li><a href="#">장소</a></li>
-						<li><a href="listings.html">분실물</a></li>
-						<li class="active"><a href="/spacerental/noticeview/notice">공지사항</a></li>
-						</ul>
+				<li><a href="listings.html">장소</a></li>
+				<li><a href="blog.html">분실물</a></li>
+				<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
+					</ul>
 				</nav>
-					<div class="log_reg">
+				<div class="add_listing text-center trans_200"><a href="#">+Add Listing</a></div>
+				<div class="log_reg">
 					<ul class="d-flex flex-row align-items-center justify-content-start">
 						<li><a href="#">Login</a></li>
 						<li><a href="#">Register</a></li>
@@ -68,14 +78,13 @@
 		<!-- Home -->
 
 		<div class="home">
-		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~-->
-			<div class="parallax_background parallax-window" data-parallax="scroll" style="background-image: url('/spacerental/resources/images/blog.jpg')" data-speed="0.8"></div>
+			<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="/spacerental/resources/images/contact.jpg" data-speed="0.8"></div>
 			<div class="home_container">
 				<div class="container">
 					<div class="row">
 						<div class="col">
 							<div class="home_content">
-								<div class="home_title">공지사항</div>
+								<div class="home_title">공지작성</div>
 							</div>
 						</div>
 					</div>
@@ -83,53 +92,35 @@
 			</div>
 		</div>
 
-		<div class="blog">
+		<!-- Contact -->
+
+		<div class="contact container_custom">
 			<div class="container">
 				<div class="row">
-					<div class="col">
-						<div class="blog_posts_container">
-							<div class="blog_posts">
-								
-								<!-- Blog Post -->
-							
-						<c:forEach var="notice" items="${ notices }">
-								<div class="blog_post">
-								
-									<div class="blog_post_container">
-										<div class="blog_post_image"><a href="noticedetail.jsp"></a></div>
-										
-										<div class="blog_post_content">
-										
-											<div class="blog_post_date"><a href="noticedetail=${notice.noticeNo }">${notice.noticeNo }</a></div>
-											<div class="blog_post_title"><a href="noticedetail=${notice.title}">${notice.title }</a></div>
-											<div class="blog_post_tags">
-											
-												<!-- <ul class="d-flex flex-row align-items-start justify-content-start">
-													<li><a href="#">Local</a></li>
-													<li><a href="#">tips</a></li>
-												</ul>
- -->											</div>
-											<div class="blog_post_text">
-											<p>${notice.content.substring(0,5)}  </p>
-											</div>
-										
-										</div>	
-																	
+
+					<!-- Contact Content -->
+					<div class="col-xl-6">
+						<div class="contact_content">
+							<div class="contact_form_container">
+								<div class="section_title"><h1>작성란</h1></div>
+								<form action="/spacerental/noticeview/noticeupload" method="get" class="contact_form" id="contact_form" >
+									
+									<div>
+										<input type="text" class="contact_input" placeholder="제목" name="title">
 									</div>
+									<div>
+										<textarea class="contact_input contact_textarea" placeholder="내용" required="required" name="content"></textarea>
+									</div>
+									<button class="contact_button trans_200">작성완료</button>
+								</form>
 								
 								</div>
-							</c:forEach>
-								
-					</div>
-				</div>
-				<div class="row">
-					<div class="col">
-						<div class="blog_posts_more">
-							<div class="button load_more_button ml-auto mr-auto"><a href="noticewrite">공지작성</a></div>
+							</div>
 						</div>
 					</div>
+
 				</div>
-			</div>		
+			</div>
 		</div>
 
 		<!-- Footer -->
@@ -145,11 +136,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 </div>
 							<nav class="footer_nav ml-md-auto order-md-2 order-1">
 								<ul class="d-flex flex-row align-items-center justify-content-start">
-									<li><a href="/spacerental/">홈</a></li>
-									
-									<li><a href="listings.html">장소</a></li>
-									<li><a href="blog.html">분실물</a></li>
-									<li class="active"><a href="/spacerental/noticeview/notice">공지사항</a></li>
+									<li><a href="index.html">Home</a></li>
+									<li><a href="#">About us</a></li>
+									<li><a href="listings.html">Listings</a></li>
+									<li><a href="blog.html">News</a></li>
+									<li class="active"><a href="contact.html">Contact</a></li>
 								</ul>
 							</nav>
 						</div>
@@ -158,15 +149,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			</div>
 		</footer>
 	</div>
-</div>
-	</div>
-</div>
+		
+
+
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/>
-
-
-
-
-
-
-
- 

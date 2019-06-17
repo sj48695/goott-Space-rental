@@ -16,7 +16,8 @@
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/main_styles.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/responsive.css">
 
-<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog.css">
-<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog_responsive.css">
+
+<!-- <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog.css">
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog_responsive.css"> -->
 </head>
 <body>

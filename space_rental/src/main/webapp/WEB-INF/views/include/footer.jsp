@@ -12,7 +12,6 @@
 <script src="/spacerental/resources/plugins/progressbar/progressbar.min.js"></script>
 <script src="/spacerental/resources/plugins/parallax-js-master/parallax.min.js"></script>
 
-
 <!-- space -->
 <script src="/spacerental/resources/space/js/jquery-migrate-3.0.1.min.js"></script>
 <script src="/spacerental/resources/space/js/jquery-ui.js"></script>

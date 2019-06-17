@@ -27,9 +27,9 @@
 		<property name="url" value="${ds.url}" />
 		<property name="username" value="${ds.username}" />
 		<property name="password" value="${ds.password}" />
-		<property name="maxIdle" value="10" />
-		<property name="maxTotal" value="20" />
-		<property name="maxWaitMillis" value="-1" />
+		<property name="maxIdle" value="${ds.maxidle}" />
+		<property name="maxTotal" value="${ds.maxtotal}" />
+		<property name="maxWaitMillis" value="${ds.waitmillis}" />
 	</bean>
 	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
@@ -70,7 +70,40 @@
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
 	</bean>
 		
-		
+	<bean id="NoticeRepository"
+		class="com.spacerental.repository.NoticeRepositoryImpl">
+		<property name="noticeMapper" ref="NoticeMapper" />
+	</bean>
+	
+	<bean id="NoticeService"
+		class="com.spacerental.service.NoticeServiceImpl">
+		<property name="noticeRepository" ref="NoticeRepository" />
+	</bean>
+	
+	<bean id="NoticeMapper"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.spacerental.mapper.NoticeMapper" />
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+	
+	
+	
+	<bean id="SearchRepository"
+		class="com.spacerental.repository.SearchRepositoryImpl">
+		<property name="searchMapper" ref="SearchMapper" />
+	</bean>
+	
+	<bean id="SearchService"
+		class="com.spacerental.service.SearchServiceImpl">
+		<property name="searchRepository" ref="SearchRepository" />
+	</bean>
+	
+	<bean id="SearchMapper"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.spacerental.mapper.SearchMapper" />
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+	
 	<!-- ========================================================================== -->
 	
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

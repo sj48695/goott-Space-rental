@@ -9,4 +9,6 @@ public interface MemberRepository {
 
 	void insertHost(Host host);
 
+	Member selectMemberByIdAndPasswd(String id, String passwd);
+
 }

@@ -3,6 +3,8 @@
     pageEncoding="UTF-8"%>
 <c:set var="title" value="사업장 등록" scope="request"/>
 <jsp:include page="/WEB-INF/views/include/header.jsp"/>
+<!-- space-writeForm -->
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/spacewrite.css">
 
 <section id="contents" class="contents contents_register" role="main">
 	<form action="register_host" method="post">

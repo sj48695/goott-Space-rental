@@ -1,5 +1,7 @@
 package com.spacerental.repository;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.spacerental.mapper.MemberMapper;
@@ -36,6 +38,16 @@ public class MemberRepositoryImpl implements MemberRepository {
 	@Override
 	public void insertHost(Host host) {
 		memberMapper.insertHost(host);
+	}
+
+	@Override
+	public Member selectMemberByIdAndPasswd(String id, String passwd) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		params.put("passwd", passwd);
+		
+		Member member = memberMapper.selectMemberByIdAndPasswd(params);
+		return member;
 	}
 
 }

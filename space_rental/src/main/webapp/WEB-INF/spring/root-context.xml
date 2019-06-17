@@ -85,6 +85,6 @@
 	</tx:advice>
 	
 	<aop:config>
-		<aop:advisor advice-ref="txAdvice" pointcut="execution( * com.teamone.service.*.*(..) )"/>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution( * com.spacerental.service.*.*(..) )"/>
 	</aop:config>
 </beans>

@@ -2,6 +2,7 @@ package com.spacerental.service;
 
 import com.spacerental.common.Util;
 import com.spacerental.repository.MemberRepository;
+import com.spacerental.vo.Host;
 import com.spacerental.vo.Member;
 
 public class MemberServiceImpl implements MemberService{
@@ -23,6 +24,11 @@ public class MemberServiceImpl implements MemberService{
 		member.setPasswd(passwd);  
 		memberRepository.insertMember(member);
 		
+	}
+
+	@Override
+	public void insertHost(Host host) {
+		memberRepository.insertHost(host);
 	}
 	
 }

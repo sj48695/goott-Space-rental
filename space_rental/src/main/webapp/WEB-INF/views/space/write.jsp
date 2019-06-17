@@ -3,9 +3,23 @@
     pageEncoding="UTF-8"%>
 <c:set var="title" value="공간 등록" scope="request"/>
 <jsp:include page="/WEB-INF/views/include/header.jsp"/>
-
+<style>
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 100;
+	background: #3a1a48;
+	-webkit-transition: all 400ms ease;
+	-moz-transition: all 400ms ease;
+	-ms-transition: all 400ms ease;
+	-o-transition: all 400ms ease;
+	transition: all 400ms ease;
+}
+</style>
 <section id="contents" class="contents contents_register" role="main">
-	<form action="write" method="post">
+	<form action="write" method="post" enctype="multipart/form-data" id="writeForm">
 		<div class="heading">
 			<h3>공간 정보를 입력해주세요.</h3>
 			<span class="option"><span class="txt_required"><span class="ico_required">* </span>필수입력</span></span>
@@ -16,7 +30,7 @@
 			</div>
 			<span class="option"><span class="txt_count"><em id="spcNmCnt">0</em>자/<em>18</em>자</span></span>
 			<div class="input">
-				<input type="text" id="space_name" minlength="1" maxlength="18" name="spaceName">
+				<input type="text" id="space_name" min="1" maxlength="18" name="spaceName">
 			</div>
 			<p class="p_guide normal">
 				<i class="sp_icon ico_alert"></i>사용 가능한 특수문자 : ( , ) , [ , ] , - , .(마침표), ,(쉼표)
@@ -25,69 +39,7 @@
 				<i class="sp_icon ico_alert"></i>공간이름 입력은 필수입니다.
 			</p>
 		</div>
-		<div class="box_form">
-			<div class="tit">
-				<label for="space_intro">공간 유형<span class="ico_required">*</span></label>
-			</div>
-			<p class="option">
-				<span class="txt_guide">최대 5개 선택가능</span><span class="txt_required">필수선택</span>
-			</p>
-			<div class="row">
-				<ul class="check_list space">
-					<li>
-						<input type="checkbox" name="type" value="회의실" id="cate1">
-						<label for="cate1" class="ellip">회의실</label>
-					</li>
-					<li>
-						<input type="checkbox" name="type" value="세미나실" id="cate2">
-						<label for="cate2" class="ellip">세미나실</label>
-					</li>
-					<li>
-						<input type="checkbox" name="type" value="다목적홀" id="cate3">
-						<label for="cate3" class="ellip">다목적홀</label>
-					</li>
-					<li>
-						<input type="checkbox" name="type" value="작업실" id="cate4">
-						<label for="cate4" class="ellip">작업실</label>
-					</li>
-					<li>
-						<input type="checkbox" name="type" value="레저시설" id="cate5">
-						<label for="cate5" class="ellip">레저시설</label>
-					</li>
-					<li>
-						<input type="checkbox" name="type" value="파티룸" id="cate6">
-						<label for="cate6" class="ellip">파티룸</label>
-					</li>
-					<li>
-						<input type="checkbox" name="type" value="공연장" id="cate7">
-						<label for="cate7" class="ellip">공연장</label>
-					</li>
-					<li>
-						<input type="checkbox" name="type" value="연습실" id="cate8">
-						<label for="cate8" class="ellip">연습실</label>
-					</li>
-					<li>
-						<input type="checkbox" name="type" value="카페" id="cate9">
-						<label for="cate9" class="ellip">카페</label>
-					</li>
-					<li>
-						<input type="checkbox" name="type" value="스터디룸" id="cate10">
-						<label for="cate10" class="ellip">스터디룸</label>
-					</li>
-					<li>
-						<input type="checkbox" name="type" value="엠티장소" id="cate11">
-						<label for="cate11" class="ellip">엠티장소</label>
-					</li>
-				</ul>
-			</div>
-			<p class="p_guide warn usual">
-				<i class="sp_icon ico_alert"></i>검수 후에는 <span class="underline">유형 변경이 불가</span>합니다.
-			</p>
-			<p class="p_guide warn usual">
-				<i class="sp_icon ico_alert"></i>관련도가 떨어지는 유형을 선택하시면 검수시 무통보 삭제/변경됩니다.
-			</p>
-		</div>
-		<div class="box_form">
+		<!-- <div class="box_form">
 			<div class="tit">
 				<label for="space_intro">공간 한줄 소개<span class="ico_required">*</span></label>
 			</div>
@@ -99,22 +51,23 @@
 			<p class="p_guide warn">
 				<i class="sp_icon ico_alert"></i>공간을 소개하는 한 줄은 필수입니다.
 			</p>
-		</div>
-		<!-- <div class="box_form">
+		</div> -->
+		 <div class="box_form">
 			<div class="tit">
 				<label for="space_text">공간 소개<span class="ico_required">*</span></label>
 			</div>
 			<span class="option">
-				<span class="txt_count"><em>0</em>자/<em>500</em>자<span class="txt_guide">(최소 20자)</span></span>
+				<span class="txt_count"><em id="spcCtCnt">0</em>자/<em>500</em>자<span class="txt_guide">(최소 20자)</span></span>
 			</span>
 			<div class="input">
-				<textarea id="space_text" minlength="20" maxlength="500" required="" style="height: 108px;"
+				<textarea id="space_text" minlength="20" maxlength="500" style="height: 108px;" name="content"
 					placeholder="공간을 상세하게 소개해보세요. 공간의 특징이나 주변환경 등의 세부정보를 작성하시면 효과적입니다."></textarea>
 			</div>
 			<p class="p_guide warn">
 				<i class="sp_icon ico_alert"></i>공간 소개는 필수 입력입니다.
 			</p>
 		</div>
+		<!-- 
 		<div class="box_form">
 			<div class="tit">
 				<label for="space_tag">공간 태그<span class="ico_required"> *</span></label>
@@ -170,8 +123,8 @@
 			<div class="file ">
 				<div class="inner inner_img">이미지 파일을 추가해 주세요. (JPG, JPEG, PNG)</div>
 				<div class="btn_box">
-					<label class="btn" for="srimg"><div>파일첨부</div> 
-					<input type="file" class="_fileRel" name="uploadFile" id="srimg"
+					<label class="titleImgBtn btn" for="titleImgFile"><div>파일첨부</div> 
+					<input type="file" class="_fileRel" name="titleImgFile" id="titleImgFile"
 						accept="image/*" style="display: none;"></label>
 				</div>
 			</div>
@@ -185,14 +138,14 @@
 				2048 * 1158 권장, 한 장당 최대 3MB<span class="txt_guide">(최대 10장)</span>
 			</p>
 			<div class="file ">
-				<div class="inner">이미지 파일을 추가해 주세요. (JPG, JPEG, PNG)</div>
+				<div class="inner inner_imgs">이미지 파일을 추가해 주세요. (JPG, JPEG, PNG)</div>
 				<div class="btn_box">
-					<label class="btn" for="snimg"><div>파일첨부</div> 
-						<input type="file" class="_fileRel" name="uploadFile" id="snimg" style="display: none;"
+					<label class="imgBtn btn" for="imgFile"><div>파일첨부</div> 
+						<input type="file" class="_fileRel" name="imgFile" id="imgFile" style="display: none;"
 							accept="image/*" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, PNG)">
 					</label>
 					<div class="nav_btn">
-						<a class="btn_move ">
+						<a class="btn_move">
 							<i class="sp_icon ico_select_prev"></i>
 							<em class="blind">앞으로 순서 이동</em>
 						</a>
@@ -209,72 +162,121 @@
 			</div>
 		</div>
 		<div class="box_form">
-			<span class="tit"><label for="sp_adrs">주소(위치)<span
-					class="ico_required">*</span></label></span>
-			<div class="file ">
-				<input type="text" name="roadAddr" id="roadAddr" placeholder="주소등록 버튼을 눌러주세요." disabled="disabled">
-				<div class="btn_box">
-					<a class="addrBtn btn" title="레이어 팝업 열림">주소등록</a>
-				</div>
+			<div class="tit">
+				<label for="space_text">최대인원<span class="ico_required">*</span></label>
 			</div>
 			<div class="input">
-				<input type="text" name="detailAddr" id="detailAddr" placeholder="상세 주소">
-				<input type="text" name="extraAddr" id="extraAddr" placeholder="참고 항목">
+				<input type="text" name="maximum">
 			</div>
 			<p class="p_guide warn">
-				<i class="sp_icon ico_alert"></i>주소(위치)는 필수 입력입니다.
+				<i class="sp_icon ico_alert"></i>주차는 필수 입력입니다.
 			</p>
 		</div>
-		
-<!--autoload=false 파라미터를 이용하여 자동으로 로딩되는 것을 막습니다.-->
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
-<script type="text/javascript">
-
-daum.postcode.load(function(){
-	
-    //load함수를 이용하여 core스크립트의 로딩이 완료된 후, 우편번호 서비스를 실행합니다.
-    $(".addrBtn").on("click",function (){
-    	new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 참고 항목 변수
-
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraRoadAddr !== ''){
-                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                //document.getElementById('sample4_postcode').value = data.zonecode;
-                //document.getElementById("roadAddress").value = roadAddr;
-                $("#roadAddr").attr("value", roadAddr);
-                //document.getElementById("jibunAddress").value = data.jibunAddress;
-                
-                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-                if(roadAddr !== ''){
-                    document.getElementById("extraAddr").value = extraRoadAddr;
-                } else {
-                    document.getElementById("extraAddr").value = '';
-                } 
-
-            }
-        }).open();
-    });
-});
-</script>
+		<div class="box_form">
+			<div class="tit">
+				<label for="space_text">빔프로젝터<span class="ico_required">*</span></label>
+			</div>
+			<div class="row">
+				<ul class="check_list space">
+					<li>
+						<input type="radio" name="bim" value="유" id="radio1">
+						<label for="radio1" class="ellip">유</label>
+					</li>
+					<li>
+						<input type="radio" name="bim" value="무" id="radio2">
+						<label for="radio2" class="ellip">무</label>
+					</li>
+				</ul>
+			</div>
+			<p class="p_guide warn">
+				<i class="sp_icon ico_alert"></i>주차는 필수 입력입니다.
+			</p>
+		</div>
+		<div class="box_form">
+			<div class="tit">
+				<label for="space_text">흡연실<span class="ico_required">*</span></label>
+			</div>
+			<div class="row">
+				<ul class="check_list space">
+					<li>
+						<input type="radio" name="smoking" value="유" id="radio3">
+						<label for="radio3" class="ellip">유</label>
+					</li>
+					<li>
+						<input type="radio" name="smoking" value="무" id="radio4">
+						<label for="radio4" class="ellip">무</label>
+					</li>
+				</ul>
+			</div>
+			<p class="p_guide warn">
+				<i class="sp_icon ico_alert"></i>주차는 필수 입력입니다.
+			</p>
+		</div>
+		<div class="box_form">
+			<div class="tit">
+				<label for="space_text">음식물 반입<span class="ico_required">*</span></label>
+			</div>
+			<div class="row">
+				<ul class="check_list space">
+					<li>
+						<input type="radio" name="food" value="가능" id="radio5">
+						<label for="radio5" class="ellip">가능</label>
+					</li>
+					<li>
+						<input type="radio" name="food" value="불가능" id="radio6">
+						<label for="radio6" class="ellip">불가능</label>
+					</li>
+				</ul>
+			</div>
+			<p class="p_guide warn">
+				<i class="sp_icon ico_alert"></i>주차는 필수 입력입니다.
+			</p>
+		</div>
+		<div class="box_form">
+			<div class="tit">
+				<label for="space_text">인터넷/Wi-Fi<span class="ico_required">*</span></label>
+			</div>
+			<div class="row">
+				<ul class="check_list space">
+					<li>
+						<input type="radio" name="wifi" value="가능" id="radio7">
+						<label for="radio7" class="ellip">가능</label>
+					</li>
+					<li>
+						<input type="radio" name="wifi" value="불가능" id="radio8">
+						<label for="radio8" class="ellip">불가능</label>
+					</li>
+				</ul>
+			</div>
+			<p class="p_guide warn">
+				<i class="sp_icon ico_alert"></i>주차는 필수 입력입니다.
+			</p>
+		</div>
+		<div class="box_form">
+			<div class="tit">
+				<label for="space_text">컴퓨터<span class="ico_required">*</span></label>
+			</div>
+			<div class="row">
+				<ul class="check_list space">
+					<li>
+						<input type="radio" name="computer" value="가능" id="radio9">
+						<label for="radio9" class="ellip">가능</label>
+					</li>
+					<li>
+						<input type="radio" name="computer" value="불가능" id="radio10">
+						<label for="radio10" class="ellip">불가능</label>
+					</li>
+				</ul>
+			</div>
+			<p class="p_guide warn">
+				<i class="sp_icon ico_alert"></i>주차는 필수 입력입니다.
+			</p>
+		</div>
+		<div class="box_form">
+			<div class="btn_box">
+				<input type="submit" class="btn" value="공간 등록">
+			</div>
+		</div>
 	</form>
 </section>
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/>

@@ -14,6 +14,7 @@
 <script src="/spacerental/resources/js/custom.js"></script>
 <script src="/spacerental/resources/js/main.js"></script>
 <script src="/spacerental/resources/js/blog.js"></script>
+<script src="/spacerental/resources/js/write.js"></script>
 </div>
 </body>
 </html>

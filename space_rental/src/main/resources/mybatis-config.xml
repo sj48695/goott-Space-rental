@@ -10,6 +10,7 @@
 		<typeAlias type="com.spacerental.vo.Member" alias="Member"/>
 		<typeAlias type="com.spacerental.vo.Space" alias="Space" />
 		<typeAlias type="com.spacerental.vo.SpaceFile" alias="SpaceFile" />
+		<typeAlias type="com.spacerental.vo.Host" alias="Host" />
 	</typeAliases>
 
 	<environments default="development">

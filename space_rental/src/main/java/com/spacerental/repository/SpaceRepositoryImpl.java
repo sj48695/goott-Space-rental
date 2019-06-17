@@ -1,6 +1,7 @@
 package com.spacerental.repository;
 
 import com.spacerental.mapper.SpaceMapper;
+import com.spacerental.vo.Host;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
@@ -18,13 +19,12 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 
 	@Override
 	public int insertSpace(Space space) {
-		// TODO Auto-generated method stub
-		return 0;
+		spaceMapper.insertSpace(space);
+		return space.getSpaceNo();
 	}
 
 	@Override
 	public void insertSpaceFile(SpaceFile file) {
 		spaceMapper.insertSpaceFile(file);
 	}
-	
 }

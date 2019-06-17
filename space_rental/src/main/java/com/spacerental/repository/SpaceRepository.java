@@ -1,5 +1,6 @@
 package com.spacerental.repository;
 
+import com.spacerental.vo.Host;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 

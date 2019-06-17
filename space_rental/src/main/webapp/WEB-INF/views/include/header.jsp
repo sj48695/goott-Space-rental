@@ -59,15 +59,15 @@
 						<ul class="d-flex flex-row align-items-center justify-content-start">
 							<li class="active"><a href="/spacerental/">홈</a></li>
 							<li><a href="/spacerental/space/write">장소</a></li>
-							<li><a href="blog.html">분실물</a></li>
+							<li><a href="/spacerental/lost">분실물</a></li>
 							<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
 						</ul>
 					</nav>
 					<!-- <div class="add_listing text-center trans_200"><a href="#">+Add Listing</a></div> -->
 					<div class="log_reg">
 						<ul class="d-flex flex-row align-items-center justify-content-start">
-							<li><a href="#">Login</a></li>
-							<li><a href="#">Register</a></li>
+							<li><a href="/spacerental/account/login">Login</a></li>
+							<li><a href="/spacerental/account/register">Register</a></li>
 						</ul>
 					</div>
 					<div class="hamburger"><i class="fa fa-bars trans_200"></i></div>

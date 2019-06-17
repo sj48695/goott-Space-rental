@@ -46,6 +46,11 @@
 						<i class="fa fa-user" aria-hidden="true"></i>
 					</span>
 				</div>
+				
+				<div class="wrap-input100">
+					<input type="radio" name="type" value="customer">개인
+					<input type="radio" name="type" value="host">사업자
+				</div>
 
 				<div class="container-contact100-form-btn">
 					<input class="contact100-form-btn" id="register" type="submit" value="가입하기" style="width:150px"/>

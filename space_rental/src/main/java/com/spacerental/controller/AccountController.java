@@ -1,5 +1,7 @@
 package com.spacerental.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,20 @@ public class AccountController {
 	@RequestMapping(path = "/login", method = RequestMethod.GET)
 	public String showLoginForm() {
 		return "account/login";
+	}
+	
+	@RequestMapping(path = "/login", method = RequestMethod.POST)
+	public String login(String id, String passwd, HttpSession session) {
+
+		Member member = memberService.selectMemberByIdAndPasswd(id, passwd);
+
+		if (member != null) {
+			session.setAttribute("loginuser", member);
+			return "redirect:/"; 			
+		} else {
+			return "account/login";			
+		}
+		
 	}
 
 	@RequestMapping(path = "/register", method = RequestMethod.GET)

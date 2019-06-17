@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	     
 <!DOCTYPE html>
 <html lang="ko">
@@ -8,8 +9,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="DirectoryPlus template project">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- space-writeForm -->
-<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/spacewrite.css">
 
 <!-- home & notice -->
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/bootstrap-4.1.2/bootstrap.min.css">
@@ -63,14 +62,24 @@
 							<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
 						</ul>
 					</nav>
-					<!-- <div class="add_listing text-center trans_200"><a href="#">+Add Listing</a></div> -->
-					<div class="log_reg">
-						<ul class="d-flex flex-row align-items-center justify-content-start">
-							<li><a href="/spacerental/account/login">Login</a></li>
-							<li><a href="/spacerental/account/register">Register</a></li>
-						</ul>
-					</div>
-					<div class="hamburger"><i class="fa fa-bars trans_200"></i></div>
+					<!-- <div class="add_listing text-center trans_200"><a href="#">+Add Listing</a></div> -->				
+						<c:choose>
+			            <c:when test="${ empty loginuser }">
+			            <div class="log_reg">
+							<ul class="d-flex flex-row align-items-center justify-content-start">
+				            	<li><a href="/spacerental/account/login">Login</a></li>
+								<li><a href="/spacerental/account/register">Register</a></li>
+							</ul>
+						</div>
+						<div class="hamburger"><i class="fa fa-bars trans_200"></i></div>
+			            </c:when>
+			            <c:otherwise>
+				            <a href="/spacerental/space/mypage/${ loginuser.id }" style="text-decoration: none">
+								${ loginuser.id }님 환영합니다.
+							</a>     				   	
+			            	<li><a href="/spacerental/account/logout">로그아웃</a></li>
+			            </c:otherwise>
+			            </c:choose>						
 				</div>
 
 			</div>

@@ -30,5 +30,12 @@ public class MemberServiceImpl implements MemberService{
 	public void insertHost(Host host) {
 		memberRepository.insertHost(host);
 	}
+
+	@Override
+	public Member selectMemberByIdAndPasswd(String id, String passwd) {
+		passwd = Util.getHashedString(passwd, "SHA-256");
+		Member member = memberRepository.selectMemberByIdAndPasswd(id, passwd);
+		return member;
+	}
 	
 }

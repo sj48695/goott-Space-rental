@@ -3,6 +3,8 @@
     pageEncoding="UTF-8"%>
 <c:set var="title" value="공간 등록" scope="request"/>
 <jsp:include page="/WEB-INF/views/include/header.jsp"/>
+<!-- space-writeForm -->
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/spacewrite.css">
 <style>
 .header {
 	position: fixed;

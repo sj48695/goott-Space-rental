@@ -50,20 +50,4 @@ public class AccountController {
 		return "redirect:/account/login";
 	}
 
-	@RequestMapping(path = "/register_host", method = RequestMethod.GET)
-	public String showHostRegisterForm() {
-		return "account/register_host";
-	}
-
-	@RequestMapping(path = "/register_host", method = RequestMethod.POST)
-	public String hostRegister(Host host, String open_start, String open_end, String roadAddr, String detailAddr, String extraAddr) {
-		host.setHostId("123");
-		host.setOpen(open_start + " ~ " + open_end);
-		host.setAddress(roadAddr + " " + detailAddr + " " +extraAddr);
-		System.out.println(host);
-		memberService.insertHost(host);
-		return "redirect:/account/login";
-
-	}
-
 }

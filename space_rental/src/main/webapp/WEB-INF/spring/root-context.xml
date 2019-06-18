@@ -60,6 +60,7 @@
 	
 	<bean id="spaceRepository" class="com.spacerental.repository.SpaceRepositoryImpl" >
 		<property name="spaceMapper" ref="spaceMapper"/>
+		<property name="hostMapper" ref="hostMapper" />
 	</bean>
 	<bean id="spaceService" class="com.spacerental.service.SpaceServiceImpl">
 		<property name="spaceRepository" ref="spaceRepository" />
@@ -69,6 +70,11 @@
 		<property name="mapperInterface" value="com.spacerental.mapper.SpaceMapper"/>
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
 	</bean>
+		
+	<bean id="hostMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.spacerental.mapper.HostMapper"/>
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
+	</bean>	
 		
 	<bean id="NoticeRepository"
 		class="com.spacerental.repository.NoticeRepositoryImpl">

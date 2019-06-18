@@ -1,7 +1,11 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
-
+<%--줄바꿈 문자열을 저장하는 변수 만들기 --%>
+<c:set var="enter" value="
+"/>
 	<div class="site-loader"></div>
   
   <div class="site-wrap">
@@ -28,7 +32,7 @@
            <div class="bg-white property-body border-bottom border-left border-right border-top">
               <div class="row mb-5">
                 <div class="col-md-6">
-                  <h1 class="text-black">영영세미나실</h1>
+                  <h1 class="text-black">${ host.name }</h1>
                 </div>
                 <div class="col-md-6">
                   <ul class="property-specs-wrap mb-3 mb-lg-0  float-lg-right">
@@ -61,15 +65,15 @@
            
            	  <div class="my-4">
 	             <h5 class="text-black">공간 소개</h5>
-	              	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda aperiam perferendis deleniti vitae asperiores accusamus tempora facilis sapiente, quas! Quos asperiores alias fugiat sunt tempora molestias quo deserunt similique sequi.</p>
+	              <%-- 	<p>${ fn:replace(host.content,enter,"<br>") }</p> --%>
 	             <ul class="py-3" style="list-style:none;padding-left:0px;">
 	              	<li>
 		              	<span class="pr-3 text-black">영업시간</span> 
-		              	<span>6~22시</span>
+		              	<span>${ host.open }</span>
 	              	</li> 
 	              	<li>
 	              		<span class="pr-3 text-black">휴무일</span> 
-	              		<span>없음</span> 
+	              		<span>${ host.holiday }</span> 
 	             	</li>
 	             </ul>
 			  </div>

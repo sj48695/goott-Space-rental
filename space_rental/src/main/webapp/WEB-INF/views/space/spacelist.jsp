@@ -118,7 +118,7 @@
         <div class="row mb-5">
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="property-entry h-100">
-              <a href="/spacerental/space/detail" class="property-thumbnail">
+              <a href="/spacerental/space/detail/1" class="property-thumbnail">
                 <div class="offer-type-wrap">
                   <span class="offer-type bg-danger">Sale</span>
                   <span class="offer-type bg-success">Rent</span>

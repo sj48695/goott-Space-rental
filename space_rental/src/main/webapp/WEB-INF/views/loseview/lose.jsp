@@ -8,10 +8,6 @@
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog_responsive.css">
 
-
-<script>
-</script>
-
 <a id="topID"></a>
 
 
@@ -26,10 +22,6 @@
 <div id="ctWrap">
 
 	<div id="container">
-
-
-<script></script>
-
 <!-- 게시물 읽기 시작 { -->
 <article id="lose_v" style="width:100%">
     <header>

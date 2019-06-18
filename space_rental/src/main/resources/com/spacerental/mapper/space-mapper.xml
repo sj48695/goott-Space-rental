@@ -21,7 +21,7 @@
 			SELECT SPACE_SEQUENCE.CURRVAL FROM DUAL
 		</selectKey>
 		INSERT INTO SPACE(
-			spaceNo, spaceName, content, maximum, bim, smoking, food, wifi, computer, hostid
+			spaceNo, spaceName, content, maximum, bim, smoking, food, wifi, computer, hostNo, hostId
 		)
 		VALUES
 		(
@@ -34,7 +34,8 @@
 			, #{ food }
 			, #{ wifi }
 			, #{ computer }
-			, #{ hostid }
+			, #{ hostNo }
+			, #{ hostId }
 		)
 	</insert>
 	

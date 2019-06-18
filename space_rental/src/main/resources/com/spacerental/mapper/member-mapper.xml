@@ -17,25 +17,4 @@
 		where id = #{ id } and passwd = #{ passwd }
 	</select>
 	
-	
-	<!--  host등록   -->    	
-	<insert id="insertHost" parameterType="Host">
-		INSERT INTO HOST(
-			hostId
-			, name
-			, content
-			, type
-			, address
-			, parking
-			, open
-		) VALUES(
-			#{ hostId }
-			, #{ name }
-			, #{ content }
-			, #{ type }
-			, #{ address }
-			, #{ parking }
-			, #{ open }
-		) 
-	</insert>
 </mapper>

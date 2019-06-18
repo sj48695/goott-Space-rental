@@ -16,7 +16,8 @@ public class Space {
 	private String food;
 	private String wifi;
 	private String computer;
-	private String hostid;
+	private String hostId;
+	private int hostNo;
 	
 	private SpaceFile file;//대표사진 flag=1
 	private ArrayList<SpaceFile> files; //flag=0

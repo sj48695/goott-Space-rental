@@ -36,11 +36,6 @@ public class MemberRepositoryImpl implements MemberRepository {
 	}
 
 	@Override
-	public void insertHost(Host host) {
-		memberMapper.insertHost(host);
-	}
-
-	@Override
 	public Member selectMemberByIdAndPasswd(String id, String passwd) {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);

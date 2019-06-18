@@ -21,7 +21,9 @@
 }
 </style>
 <section id="contents" class="contents contents_register" role="main">
-	<form action="write" method="post" enctype="multipart/form-data" id="writeForm">
+	<form action="/spacerental/space/write" method="post" enctype="multipart/form-data" id="writeForm">
+		<input type="hidden" name="hostId" value="${ loginuser.id }">
+		<input type="hidden" name="hostNo" value="${ hostNo }"> 
 		<div class="heading">
 			<h3>공간 정보를 입력해주세요.</h3>
 			<span class="option"><span class="txt_required"><span class="ico_required">* </span>필수입력</span></span>

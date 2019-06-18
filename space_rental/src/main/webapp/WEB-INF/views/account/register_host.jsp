@@ -110,7 +110,7 @@
 			<span class="tit"><label for="sp_adrs">주소(위치)<span
 					class="ico_required">*</span></label></span>
 			<div class="file ">
-				<input type="text" name="roadAddr" id="roadAddr" placeholder="주소등록 버튼을 눌러주세요." disabled="disabled">
+				<input type="text" name="roadAddr" id="roadAddr" placeholder="주소등록 버튼을 눌러주세요.">
 				<div class="btn_box">
 					<a class="addrBtn btn" title="레이어 팝업 열림">주소등록</a>
 				</div>
@@ -177,7 +177,7 @@
 		</div>
 		<div class="box_form">
 			<div class="btn_box">
-				<input type="submit" class="btn" value="사업장 등록">
+				<input type="submit" class="btn" value="세부공간 등록하기">
 			</div>
 		</div>
 	</form>

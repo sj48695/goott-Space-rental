@@ -123,7 +123,6 @@
 				<i class="sp_icon ico_alert"></i>주소(위치)는 필수 입력입니다.
 			</p>
 		</div>
-		
 		<div class="box_form">
 			<div class="tit">
 				<label for="space_text">주차<span class="ico_required">*</span></label>
@@ -176,8 +175,28 @@
 			</p>
 		</div>
 		<div class="box_form">
+			<div class="tit">
+				<label for="space_text">휴무일<span class="ico_required">*</span></label>
+			</div>
+			<div class="row select">
+				<select name="holiday">
+					<option>없음</option>
+					<option>월</option>
+					<option>화</option>
+					<option>수</option>
+					<option>목</option>
+					<option>금</option>
+					<option>토</option>
+					<option>일</option>
+				</select>
+			</div>
+			<p class="p_guide warn">
+				<i class="sp_icon ico_alert"></i>주차는 필수 입력입니다.
+			</p>
+		</div>
+		<div class="box_form">
 			<div class="btn_box">
-				<input type="submit" class="btn" value="세부공간 등록하기">
+				<input type="submit" class="btn" value="세부공간 등록">
 			</div>
 		</div>
 	</form>

@@ -51,16 +51,14 @@ public class SpaceController {
 	}
 
 	@RequestMapping(path = "/register_host", method = RequestMethod.POST)
-	public String hostRegister(Host host, HttpSession session, String open_start, String open_end
+	public String hostRegister(Host host, HttpSession session
+			, String open_start, String open_end
 			, String roadAddr, String detailAddr, String extraAddr) {
 		Member loginuer = (Member)session.getAttribute("loginuser");
 		host.setHostId(loginuer.getId());
 		host.setOpen(open_start + " ~ " + open_end);
 		host.setAddress(roadAddr + " " + detailAddr + " " +extraAddr);
-		host.setHoliday("없음");
-		System.out.println(host);
 		int newHostNo = spaceService.registerHost(host);
-		System.out.println(newHostNo);
 		return "redirect:/space/write/"+newHostNo;
 
 	}
@@ -68,7 +66,6 @@ public class SpaceController {
 	@RequestMapping(value = "/write/{hostNo}", method = RequestMethod.GET)
 	public String writeForm(HttpSession session, Model model,@PathVariable int hostNo) {
 		model.addAttribute("hostNo",hostNo);
-		System.out.println(hostNo);
 		return "space/write";
 	}
 	
@@ -128,6 +125,7 @@ public class SpaceController {
 			space.setHostId(loginuser.getId().toString());
 			space.setHostNo(hostNo);
 			spaceService.registerSpaceTx(space);
+			System.out.println(space);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

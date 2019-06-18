@@ -65,7 +65,7 @@
            
            	  <div class="my-4">
 	             <h5 class="text-black">공간 소개</h5>
-	              <%-- 	<p>${ fn:replace(host.content,enter,"<br>") }</p> --%>
+	               	<p>${ fn:replace(host.content,enter,"<br>") }</p> 
 	             <ul class="py-3" style="list-style:none;padding-left:0px;">
 	              	<li>
 		              	<span class="pr-3 text-black">영업시간</span> 

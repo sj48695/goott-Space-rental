@@ -39,9 +39,14 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public Member selectMemberByMemberId(String id) {
-		Member member = memberRepository.selectMemberByMemberId(id);
-		return member;
+	public void updateMember(Member member) {
+		memberRepository.updateMember(member);	
+	}
+
+	@Override
+	public void deleteMember(String id) {
+		memberRepository.deleteMember(id);
+		
 	}
 	
 }

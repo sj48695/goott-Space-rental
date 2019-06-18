@@ -11,6 +11,8 @@ public interface MemberService {
 
 	Member selectMemberByIdAndPasswd(String id, String passwd);
 
-	Member selectMemberByMemberId(String id);
+	void updateMember(Member member);
+
+	void deleteMember(String id);
 
 }

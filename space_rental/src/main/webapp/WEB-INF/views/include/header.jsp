@@ -107,7 +107,7 @@
 			            <c:otherwise>
 			             <div class="log_reg">
 							<ul class="d-flex flex-row align-items-center justify-content-start">
-				            	<li><a href="/spacerental/mypage/${ loginuser.type }/${ loginuser.id }" style="text-decoration: none">${ loginuser.id }님</a></li>												   	
+				            	<li><a href="/spacerental/mypage/${ loginuser.type }" style="text-decoration: none">${ loginuser.id }님</a></li>												   	
 				            	<li><a href="/spacerental/account/logout">로그아웃</a></li>
 							</ul>
 						</div>				

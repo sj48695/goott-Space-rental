@@ -1,5 +1,7 @@
 package com.spacerental.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -19,17 +21,53 @@ public class MyPageController {
 	@Qualifier("memberService")
 	private MemberService memberService;
 
-	@RequestMapping(path = "/{type}/{id}", method = RequestMethod.GET)
-	public String showCustomerForm(@PathVariable String id, @PathVariable String type, Model model) {
+	@RequestMapping(path = "/{type}", method = RequestMethod.GET)
+	public String showCustomerForm(@PathVariable String type, Model model, HttpSession session) {
 		
-		Member member = memberService.selectMemberByMemberId(id);
+		Member member = (Member) session.getAttribute("loginuser");
+		
 		if (member == null) {
-			return "redirect:list";
+			return "redirect:/spacerental/account/login";
+		}		 
+
+		model.addAttribute("member", member);
+		return "mypage/" + type ;
+		
+	}
+	
+	@RequestMapping(path = "/update", method = RequestMethod.POST)
+	public String updateForm (Member member) {  
+
+		memberService.updateMember(member);	
+		return "redirect:/mypage/update/" + member.getId(); 
+		
+	}
+	
+	@RequestMapping(path = "/update", method = RequestMethod.GET)
+	public String updateForm (Model model, HttpSession session) {   
+		
+		Member member = (Member) session.getAttribute("loginuser");
+
+		if (member == null) { 
+			return "redirect:mypage/{type}";
 		}		
 
 		model.addAttribute("member", member);
-		System.out.println(type);
-		return "mypage/" + type ;
+
+		return "mypage/update"; 
+	}
+	
+	@RequestMapping(path = "/delete", method = RequestMethod.GET)
+	public String delete (HttpSession session) {  
+
+		Member loginuser = (Member) session.getAttribute("loginuser");
+		String id = loginuser.getId();
+
+		memberService.deleteMember(id);
+		session.removeAttribute("loginuser");
+
+		return "redirect:/";
+		
 	}
 
 }

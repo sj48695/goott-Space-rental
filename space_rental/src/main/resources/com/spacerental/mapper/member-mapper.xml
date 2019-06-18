@@ -5,7 +5,7 @@
 
 <mapper namespace="com.spacerental.mapper.MemberMapper">
 	
-	<!-- 회원등록 -->
+	<!-- 회원관리 -->
 	<insert id="insertMember" parameterType="Member">	
 		insert into Member (id, passwd, name, phone, type) 
 		values (#{ id }, #{ passwd }, #{ name }, #{ phone }, #{ type })
@@ -17,11 +17,16 @@
 		where id = #{ id } and passwd = #{ passwd }
 	</select>
 	
-	<select id="selectMemberByMemberId" parameterType="String" resultType="Member">
-		select id, passwd, name, phone, type
-		from Member
+	<update id="updateMember" parameterType="Member">
+		update Member
+		set passwd = #{ passwd }, phone = #{ phone }
 		where id = #{ id }
-	</select>
+	</update>
+	
+	<delete id="deleteMember" parameterType="String">
+		delete from Member
+		where id = #{ id }
+	</delete>
 	
 	<!--  host등록   -->    	
 	<insert id="insertHost" parameterType="Host">

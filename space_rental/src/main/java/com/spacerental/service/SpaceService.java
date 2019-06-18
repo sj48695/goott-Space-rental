@@ -7,6 +7,8 @@ import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
 public interface SpaceService {
+	
+	int registerHost(Host host);
 
 	Integer registerSpaceTx(Space space);
 	
@@ -21,6 +23,5 @@ public interface SpaceService {
 	List<SpaceFile> findSpaceFilesBySpaceNo(int spaceNo);
 	
 	List<SpaceFile> findHostFilesByHostNo(int hostNo);
-	
 	
 }

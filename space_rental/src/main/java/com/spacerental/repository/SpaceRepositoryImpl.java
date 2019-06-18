@@ -11,7 +11,7 @@ import com.spacerental.vo.SpaceFile;
 public class SpaceRepositoryImpl implements SpaceRepository {
 
 	private SpaceMapper spaceMapper;
-	
+
 	public SpaceMapper getSpaceMapper() {
 		return spaceMapper;
 	}
@@ -21,13 +21,19 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 	}
 
 	private HostMapper hostMapper;
-	
+
 	public HostMapper getHostMapper() {
 		return hostMapper;
 	}
 
 	public void setHostMapper(HostMapper hostMapper) {
 		this.hostMapper = hostMapper;
+	}
+
+	@Override
+	public int insertHost(Host host) {
+		int newHostNo = hostMapper.insertHost(host);
+		return newHostNo;
 	}
 
 	@Override
@@ -81,5 +87,6 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 		List<SpaceFile> hostfiles = hostMapper.selectHostFilesByHostNo(hostNo);
 		
 		return hostfiles;
+
 	}
 }

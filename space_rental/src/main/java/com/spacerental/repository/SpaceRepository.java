@@ -7,11 +7,13 @@ import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
 public interface SpaceRepository {
+	
+	int insertHost(Host host);
 
 	int insertSpace(Space space);
 
 	void insertSpaceFile(SpaceFile file);
-	
+
 	List<Space> selectSpace();
 
 	List<Host> selectHost();
@@ -23,5 +25,6 @@ public interface SpaceRepository {
 	List<SpaceFile> selectSpaceFilesBySpaceNo(int spaceNo);
 
 	List<SpaceFile> selectHostFilesByHostNo(int hostNo);
+
 
 }

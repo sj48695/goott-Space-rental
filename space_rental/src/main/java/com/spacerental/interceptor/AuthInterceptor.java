@@ -15,7 +15,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter { // class 상속
 		
 		String uri = req.getRequestURI();
 		
-		if (uri.contains("/spacerental/")) {
+		if (uri.contains("/write") || uri.contains("/register_host")) {
 			HttpSession session = req.getSession();
 			if (session.getAttribute("loginuser") == null) {//로그인하지 않은 경우				
 				resp.sendRedirect("/spacerental/account/login");

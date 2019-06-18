@@ -20,4 +20,5 @@ public class Host {
 	
 	private SpaceFile file;//대표사진 flag=1
 	private ArrayList<SpaceFile> files; //flag=0
+
 }

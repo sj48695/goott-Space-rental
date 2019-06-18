@@ -20,16 +20,6 @@
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/main_styles.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/responsive.css">
 
-<!-- lose -->
-<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/css/default.css?ver=1011">
-<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/skin/board/basic/style.css?v2">
-<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/css/board.common.css?ver=1011">
-<link rel="stylesheet" href="http://sample.paged.kr/purewhite/js/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/css/mobile.css?ver=1011">
-<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/css/contents.css?ver=1011">
-<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/plugin/featherlight/featherlight.min.css?ver=1011">
-
-
 <!-- space css -->
 <link rel="stylesheet" href="/spacerental/resources/space/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
@@ -38,17 +28,6 @@
 <link rel="stylesheet" href="/spacerental/resources/space/css/magnific-popup.css">
 <link rel="stylesheet" href="/spacerental/resources/space/css/owl.theme.default.min.css">
 <link rel="stylesheet" href="/spacerental/resources/space/css/style.css">
-
-
-<!-- lose -->
-<script src="http://sample.paged.kr/purewhite/theme/pagedtheme/js/jquery-1.11.0.min.js"></script>
-<script src="http://sample.paged.kr/purewhite/theme/pagedtheme/js/jquery.menu.min.js?ver=171222"></script>
-<script src="http://sample.paged.kr/purewhite/js/common.js?ver=171222"></script>
-<script src="http://sample.paged.kr/purewhite/theme/pagedtheme/js/WEBsiting.js?ver=221712222"></script>
-<script src="http://sample.paged.kr/purewhite/js/wrest.js?ver=171222"></script>
-<script src="http://sample.paged.kr/purewhite/js/placeholders.min.js"></script>
-<script src="http://sample.paged.kr/purewhite/theme/pagedtheme/plugin/shuffleLetters/jquery.shuffleLetters.min.js"></script>
-<script src="http://sample.paged.kr/purewhite/theme/pagedtheme/plugin/featherlight/featherlight.min.js"></script>
 
 </head>
 <body>
@@ -61,7 +40,7 @@
 				<ul>
 					<li><a href="/spacerental/">홈</a></li>
 					<li><a href="/spacerental/space/spacelist">장소</a></li>
-					<li><a href="/spacerental/space/lose">분실물</a></li>
+					<li><a href="/spacerental/loseview/lose">분실물</a></li>
 					<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
 				</ul>
 			</nav>
@@ -89,6 +68,9 @@
 						<ul class="d-flex flex-row align-items-center justify-content-start">
 							<li class="active"><a href="/spacerental/">홈</a></li>
 							<li><a href="/spacerental/space/spacelist">장소</a></li>
+							<c:if test="${ loginuser.type eq 'host' }">
+							<li><a href="/spacerental/space/register_host">장소 등록하기</a></li>
+							</c:if>
 							<li><a href="/spacerental/loseview/lose">분실물</a></li>
 							<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
 						</ul>
@@ -96,22 +78,23 @@
 					<!-- <div class="add_listing text-center trans_200"><a href="#">+Add Listing</a></div> -->				
 						<c:choose>
 			            <c:when test="${ empty loginuser }">
-			            <div class="log_reg">
-							<ul class="d-flex flex-row align-items-center justify-content-start">
-				            	<li><a href="/spacerental/account/login">Login</a></li>
-								<li><a href="/spacerental/account/register">Register</a></li>
-							</ul>
-						</div>
-						<div class="hamburger"><i class="fa fa-bars trans_200"></i></div>
+				            <div class="log_reg">
+								<ul class="d-flex flex-row align-items-center justify-content-start">
+					            	<li><a href="/spacerental/account/login">Login</a></li>
+									<li><a href="/spacerental/account/register">Register</a></li>
+								</ul>
+							</div>
+							<div class="hamburger"><i class="fa fa-bars trans_200"></i></div>
 			            </c:when>
 			            <c:otherwise>
-				            <a href="/spacerental/space/mypage/${ loginuser.id }" style="text-decoration: none">
-								${ loginuser.id }님 환영합니다.
-							</a>     				   	
-			            	<li><a href="/spacerental/account/logout">로그아웃</a></li>
+			             <div class="log_reg">
+							<ul class="d-flex flex-row align-items-center justify-content-start">
+				            	<li><a href="/spacerental/mypage/${ loginuser.type }" style="text-decoration: none">${ loginuser.id }님</a></li>												   	
+				            	<li><a href="/spacerental/account/logout">로그아웃</a></li>
+							</ul>
+						</div>				
 			            </c:otherwise>
 			            </c:choose>						
 				</div>
-
 			</div>
 		</header>

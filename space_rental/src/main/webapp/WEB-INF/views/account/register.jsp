@@ -6,8 +6,21 @@
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/css/select2.min.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/css/util.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/css/main.css">
-
-<div class="bg-contact100" style="background-image: url('/spacerental/resources/images/register_background.jpg');">
+<style>
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 100;
+	background: #3a1a48;
+	-webkit-transition: all 400ms ease;
+	-moz-transition: all 400ms ease;
+	-ms-transition: all 400ms ease;
+	-o-transition: all 400ms ease;
+	transition: all 400ms ease;
+}
+</style>
 	<div class="container-contact100">
 		<div class="wrap-contact100">
 			<div class="contact100-pic js-tilt" data-tilt>

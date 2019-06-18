@@ -8,7 +8,7 @@ import com.spacerental.vo.SpaceFile;
 
 public interface HostMapper {
 
-	void insertHost(Host host);
+	int insertHost(Host host);
 	
 	Host selectHostByHostNo(int hostNo);
 	

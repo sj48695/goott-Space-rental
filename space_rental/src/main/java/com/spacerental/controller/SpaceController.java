@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.spacerental.common.Util;
 import com.spacerental.service.SpaceService;
 import com.spacerental.vo.Host;
+import com.spacerental.vo.Member;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
@@ -40,10 +42,9 @@ public class SpaceController {
 		}
 		
 		model.addAttribute("hosts", hosts);
-		
+
 		return "space/spacelist";
 	}
-	
 	
 //	  public String list(Model model) {
 //	  
@@ -68,17 +69,36 @@ public class SpaceController {
 		host.setFiles((ArrayList<SpaceFile>)hostfiles);
 		
 		 model.addAttribute("host", host);
-		
+
 		return "space/detail";
 	}
+	
+	@RequestMapping(path = "/register_host", method = RequestMethod.GET)
+	public String showHostRegisterForm() {
+		return "account/register_host";
+	}
 
-	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String writeForm() {
+	@RequestMapping(path = "/register_host", method = RequestMethod.POST)
+	public String hostRegister(Host host, HttpSession session
+			, String open_start, String open_end
+			, String roadAddr, String detailAddr, String extraAddr) {
+		Member loginuer = (Member)session.getAttribute("loginuser");
+		host.setHostId(loginuer.getId());
+		host.setOpen(open_start + " ~ " + open_end);
+		host.setAddress(roadAddr + " " + detailAddr + " " +extraAddr);
+		int newHostNo = spaceService.registerHost(host);
+		return "redirect:/space/write/"+newHostNo;
+
+	}
+
+	@RequestMapping(value = "/write/{hostNo}", method = RequestMethod.GET)
+	public String writeForm(HttpSession session, Model model,@PathVariable int hostNo) {
+		model.addAttribute("hostNo",hostNo);
 		return "space/write";
 	}
 	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String write(Space space, MultipartHttpServletRequest req) {
+	public String write(Space space, MultipartHttpServletRequest req,HttpSession session,int hostNo) {
 		SpaceFile spaceFile = new SpaceFile();
 		ServletContext application = req.getServletContext();
 		String path = application.getRealPath("/resources/files/space-files");// 최종 파일 저장 경로
@@ -129,8 +149,11 @@ public class SpaceController {
 					space.setFiles(files);
 				}
 			}
-			space.setHostid("sj");
+			Member loginuser = (Member)session.getAttribute("loginuser");
+			space.setHostId(loginuser.getId().toString());
+			space.setHostNo(hostNo);
 			spaceService.registerSpaceTx(space);
+			System.out.println(space);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

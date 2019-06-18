@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spacerental.mapper.LoseMapper">
+
+<!--	<select id="selectLose">
+		SELECT <include refid="loseBasicColumns" /> FROM LOSE 
+	</select>
+	
+	<select id="selectLoseFile">
+		SELECT <include refid="loseFileBasicColumns" /> FROM LOSEFILE
+	</select> -->
+	
+	<insert id="insertLose" parameterType="Lose">
+		INSERT INTO LOSE(LOSENO, TITLE, CONTENT, LOSEDATE, SPACENO, TYPE, UPLOADER)
+		VALUES
+		(
+			LOSE_SEQUENCE.NEXTVAL
+			, #{ title }
+			, #{ content }
+			, #{ loseDate }
+			, #{ spaceNo }
+			, #{ type }
+			, #{ Uploader }
+		)
+	</insert>
+	
+	<insert id="insertLose2" parameterType="Lose">
+		INSERT INTO LOSE(LOSENO, TITLE, CONTENT, LOSEDATE, SPACENO, TYPE, UPLOADER)
+		VALUES ( LOSE_SEQUENCE.NEXTVAL
+			, #{ title }
+			, #{ content }
+			, #{ loseDate }
+			, #{ spaceNo }
+			, #{ type }
+			, #{ Uploader }
+		)
+	</insert>
+	
+	<insert id="insertLoseFile" parameterType="LoseFile">
+		INSERT INTO LOSEFILE(
+			loseFileNo, savedFileName, loseNo
+		)
+		VALUES
+		(
+			LOSEFILE_SEQUENCE.NEXTVAL
+			, #{ userFileName }
+			, #{ savedFileName }
+			, #{ loseNo }
+		)
+	</insert>
+	
+	<select id="findList" resultType="Lose">
+		SELECT loseNo, title, content, loseDate, spaceNo, type, uploader
+		FROM LOSE
+	</select>
+</mapper>

@@ -15,5 +15,5 @@ public class Lose {
 	private String type;
 	private String uploader;
 	
-	private ArrayList<Lose> files;
+	private ArrayList<LoseFile> files;
 }

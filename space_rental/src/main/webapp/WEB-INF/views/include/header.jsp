@@ -19,23 +19,15 @@
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/main_styles.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/responsive.css">
 
-<!-- lose -->
-<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/css/default.css?ver=1011">
-<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/skin/board/basic/style.css?v2">
-<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/css/board.common.css?ver=1011">
-<link rel="stylesheet" href="http://sample.paged.kr/purewhite/js/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/css/mobile.css?ver=1011">
-<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/css/contents.css?ver=1011">
-<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/plugin/featherlight/featherlight.min.css?ver=1011">
+<!-- space css -->
+<link rel="stylesheet" href="/spacerental/resources/space/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,700,900|Roboto+Mono:300,400,500"> 
+<link rel="stylesheet" href="/spacerental/resources/space/fonts/icomoon/style.css">
+<link rel="stylesheet" href="/spacerental/resources/space/css/owl.carousel.min.css">
+<link rel="stylesheet" href="/spacerental/resources/space/css/magnific-popup.css">
+<link rel="stylesheet" href="/spacerental/resources/space/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="/spacerental/resources/space/css/style.css">
 
-<script src="http://sample.paged.kr/purewhite/theme/pagedtheme/js/jquery-1.11.0.min.js"></script>
-<script src="http://sample.paged.kr/purewhite/theme/pagedtheme/js/jquery.menu.min.js?ver=171222"></script>
-<script src="http://sample.paged.kr/purewhite/js/common.js?ver=171222"></script>
-<script src="http://sample.paged.kr/purewhite/theme/pagedtheme/js/WEBsiting.js?ver=221712222"></script>
-<script src="http://sample.paged.kr/purewhite/js/wrest.js?ver=171222"></script>
-<script src="http://sample.paged.kr/purewhite/js/placeholders.min.js"></script>
-<script src="http://sample.paged.kr/purewhite/theme/pagedtheme/plugin/shuffleLetters/jquery.shuffleLetters.min.js"></script>
-<script src="http://sample.paged.kr/purewhite/theme/pagedtheme/plugin/featherlight/featherlight.min.js"></script>
 
 </head>
 <body>
@@ -47,7 +39,7 @@
 			<nav class="menu_nav">
 				<ul>
 					<li><a href="/spacerental/">홈</a></li>
-					<li><a href="/spacerental/space/write">장소</a></li>
+					<li><a href="/spacerental/space/spacelist">장소</a></li>
 					<li><a href="/spacerental/loseview/lose">분실물</a></li>
 					<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
 				</ul>
@@ -75,7 +67,7 @@
 					<nav class="main_nav">
 						<ul class="d-flex flex-row align-items-center justify-content-start">
 							<li class="active"><a href="/spacerental/">홈</a></li>
-							<li><a href="/spacerental/space/write">장소</a></li>
+							<li><a href="/spacerental/space/spacelist">장소</a></li>
 							<li><a href="/spacerental/loseview/lose">분실물</a></li>
 							<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
 						</ul>
@@ -99,6 +91,5 @@
 			            </c:otherwise>
 			            </c:choose>						
 				</div>
-
 			</div>
 		</header>

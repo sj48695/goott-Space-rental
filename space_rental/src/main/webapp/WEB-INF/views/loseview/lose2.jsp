@@ -4,9 +4,16 @@
 	     
 <c:set var="title" value="분실물찾기" scope="request" />
 <jsp:include page="/WEB-INF/views/include/header.jsp" /> 
+<!-- lose -->
+<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/css/default.css?ver=1011">
+<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/skin/board/basic/style.css?v2">
+<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/css/board.common.css?ver=1011">
+<link rel="stylesheet" href="http://sample.paged.kr/purewhite/js/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/css/mobile.css?ver=1011">
+<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/css/contents.css?ver=1011">
+<link rel="stylesheet" href="http://sample.paged.kr/purewhite/theme/pagedtheme/plugin/featherlight/featherlight.min.css?ver=1011">
 
-<script>
-</script>
+
 
 <a id="topID"></a>
 
@@ -19,8 +26,6 @@
 <div id="ctWrap">
 
 	<div id="container">
-
-<script></script>
 
 <!-- 게시물 읽기 시작 { -->
 <article id="lose_v" style="width:100%">
@@ -112,6 +117,14 @@ var char_max = parseInt(0); // 최대
 <footer id="footer">
 </footer>
 
+<script src="http://sample.paged.kr/purewhite/theme/pagedtheme/js/jquery-1.11.0.min.js"></script>
+<script src="http://sample.paged.kr/purewhite/theme/pagedtheme/js/jquery.menu.min.js?ver=171222"></script>
+<script src="http://sample.paged.kr/purewhite/js/common.js?ver=171222"></script>
+<script src="http://sample.paged.kr/purewhite/theme/pagedtheme/js/WEBsiting.js?ver=221712222"></script>
+<script src="http://sample.paged.kr/purewhite/js/wrest.js?ver=171222"></script>
+<script src="http://sample.paged.kr/purewhite/js/placeholders.min.js"></script>
+<script src="http://sample.paged.kr/purewhite/theme/pagedtheme/plugin/shuffleLetters/jquery.shuffleLetters.min.js"></script>
+<script src="http://sample.paged.kr/purewhite/theme/pagedtheme/plugin/featherlight/featherlight.min.js"></script>
 <!-- 현재위치 및 서브메뉴 활성화 설정// -->
 <script>
 $(function(){$('.snb.bo_tablebasic, .snb .snb2d_bo_tablebasic').addClass('active');});/*  보테이블 : bo_tablebasic  */

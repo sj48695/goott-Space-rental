@@ -24,7 +24,7 @@ public class NoticeController {
 	@Qualifier("NoticeService")
 	private NoticeService NoticeService;
 
-	@RequestMapping(path = { "/notice" }, method = RequestMethod.GET)
+	@RequestMapping(path = "/notice" , method = RequestMethod.GET)
 	public String Noticelist(Model model) {
 		List<Notice> Notice = NoticeService.selectNoticelist();
 		model.addAttribute("notices", Notice);

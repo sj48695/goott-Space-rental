@@ -4,17 +4,40 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.spacerental.mapper.NoticeMapper">
-	
-	<select id="selectNoticelist" resultType ="Notice">
-	SELECT NoticeNo, Title, Content, ID
-	FROM NOTICE
-	ORDER BY NoticeNo ASC
+
+	<select id="selectNoticelist" resultType="Notice">
+		SELECT noticeNo, title, content, ID
+		FROM NOTICE
+		ORDER BY NoticeNo ASC
 	</select>
 	
-	
 	<insert id="noticeUpload" parameterType="Notice">
-	INSERT INTO NOTICE(noticeNo,title,content)
-	VALUES(NOTICE_SEQUENCE.NEXTVAL,#{title},#{content})
+		INSERT INTO NOTICE (NOTICENO, TITLE, CONTENT)
+		VALUES (NOTICE_SEQUENCE.NEXTVAL, #{ title }, #{ content } )
 	</insert>
+	
+	<select id="noticeDetail" parameterType="int" resultType="Notice">
+		SELECT noticeNo, title, content
+		FROM NOTICE
+		WHERE noticeNo = #{ noticeNo }
+	</select>
+	
+	<delete id="noticeDelete" parameterType="int">
+		DELETE FROM NOTICE
+		WHERE noticeNo = #{ noticeNo }
+	</delete>
+	
+	<select id="findNoticeByNoticeNo" parameterType="Notice" resultType="Notice">
+		SELECT noticeNo, title, content
+		FROM NOTICE
+		WHERE noticeNo = #{ noticeNo }
+	</select>
+	
+	<update id="updateNoticeUpdate" parameterType="Notice">
+	UPDATE NOTICE
+	SET title =#{title}, content=#{content}
+	WHERE noticeNo=#{noticeNo}	
+	</update>	
+
 	
 </mapper>

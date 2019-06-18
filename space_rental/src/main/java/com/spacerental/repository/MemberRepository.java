@@ -7,8 +7,6 @@ public interface MemberRepository {
 
 	void insertMember(Member member);
 
-	void insertHost(Host host);
-
 	Member selectMemberByIdAndPasswd(String id, String passwd);
 
 	void updateMember(Member member);

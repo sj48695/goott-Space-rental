@@ -47,8 +47,13 @@ public class MyPageController {
 	
 	@RequestMapping(path = "/update", method = RequestMethod.GET)
 	public String updateForm (Model model, HttpSession session) {   
-		
+
 		Member loginuser = (Member) session.getAttribute("loginuser");
+		
+		if (loginuser == null) {
+			return "redirect:/";
+		}		
+
 		model.addAttribute("loginuser", loginuser);
 
 		return "mypage/update"; 

@@ -27,11 +27,6 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void insertHost(Host host) {
-		memberRepository.insertHost(host);
-	}
-
-	@Override
 	public Member selectMemberByIdAndPasswd(String id, String passwd) {
 		passwd = Util.getHashedString(passwd, "SHA-256");
 		Member member = memberRepository.selectMemberByIdAndPasswd(id, passwd);
@@ -41,7 +36,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void updateMember(Member member) {
 		String passwd = Util.getHashedString(member.getPasswd(), "SHA-256");
-		member.setPasswd(passwd);  
+		member.setPasswd(passwd); 
 		memberRepository.updateMember(member);	
 	}
 

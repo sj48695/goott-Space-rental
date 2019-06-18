@@ -1,5 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %><%-- JSTL의 함수를 제공하는 taglib --%>
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
 	<div class="site-loader"></div>
@@ -20,6 +24,7 @@
     </div>
 
 <!-- 디테일 박스 -->
+	
     <div class="site-section site-section-sm">
       <div class="container">
         <div class="row">
@@ -28,53 +33,42 @@
            <div class="bg-white property-body border-bottom border-left border-right border-top">
               <div class="row mb-5">
                 <div class="col-md-6">
-                  <h1 class="text-black">영영세미나실</h1>
-                </div>
-                <div class="col-md-6">
-                  <ul class="property-specs-wrap mb-3 mb-lg-0  float-lg-right">
-                  <li>
-                    <span class="property-specs">Beds</span>
-                    <span class="property-specs-number">2 <sup>+</sup></span>
-                    
-                  </li>
-                  <li>
-                    <span class="property-specs">Baths</span>
-                    <span class="property-specs-number">2</span>
-                    
-                  </li>
-                  <li>
-                    <span class="property-specs">SQ FT</span>
-                    <span class="property-specs-number">7,000</span>
-                    
-                  </li>
-                </ul>
+                  <h1 class="text-black">${ host.name }</h1>
+                  <h6 class="py-2">[ ${ host.type } ]</h6>
                 </div>
               </div>
           <!-- 공간 이미지 -->
             <div>
               <div class="slide-one-item home-slider owl-carousel">
-                <div><img src="/spacerental/resources/space/images/hero_bg_1.jpg" alt="Image" class="img-fluid"></div>
-                <div><img src="/spacerental/resources/space/images/hero_bg_2.jpg" alt="Image" class="img-fluid"></div>
-                <div><img src="/spacerental/resources/space/images/hero_bg_3.jpg" alt="Image" class="img-fluid"></div>
+	              <c:forEach var="file" items="${ host.files }" >
+	          		 <div><img src="/spacerental/resources/files/space-files/${ file.savedFileName }" alt="Image" class="img-fluid"></div>
+	              </c:forEach>
               </div>
             </div>
            
            	  <div class="my-4">
 	             <h5 class="text-black">공간 소개</h5>
-	              	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda aperiam perferendis deleniti vitae asperiores accusamus tempora facilis sapiente, quas! Quos asperiores alias fugiat sunt tempora molestias quo deserunt similique sequi.</p>
+<%-- 줄바꿈 문자열을 저장하고 있는 변수 만들기 --%>	
+<c:set var="enter" value="
+" />
+	              	<p>${ fn:replace(host.content, enter, '<br>') }</p>
 	             <ul class="py-3" style="list-style:none;padding-left:0px;">
 	              	<li>
 		              	<span class="pr-3 text-black">영업시간</span> 
-		              	<span>6~22시</span>
+		              	<span>${ host.open }</span>
 	              	</li> 
 	              	<li>
 	              		<span class="pr-3 text-black">휴무일</span> 
-	              		<span>없음</span> 
+	              		<span>${ host.holiday }</span> 
+	             	</li>
+	             	<li>
+	              		<span class="pr-3 text-black">주차</span> 
+	              		<span>${ host.parking }</span> 
 	             	</li>
 	             </ul>
 			  </div>
 			  
-			  <div class="my-4">
+			  <!-- <div class="my-4">
 	              <h5 class="text-black">시설 안내</h5>
 	              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda aperiam perferendis deleniti vitae asperiores accusamus tempora facilis sapiente, quas! Quos asperiores alias fugiat sunt tempora molestias quo deserunt similique sequi.</p>
 	              <p>Nisi voluptatum error ipsum repudiandae, autem deleniti, velit dolorem enim quaerat rerum incidunt sed, qui ducimus! Tempora architecto non, eligendi vitae dolorem laudantium dolore blanditiis assumenda in eos hic unde.</p>
@@ -86,17 +80,19 @@
 	              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda aperiam perferendis deleniti vitae asperiores accusamus tempora facilis sapiente, quas! Quos asperiores alias fugiat sunt tempora molestias quo deserunt similique sequi.</p>
 	              <p>Nisi voluptatum error ipsum repudiandae, autem deleniti, velit dolorem enim quaerat rerum incidunt sed, qui ducimus! Tempora architecto non, eligendi vitae dolorem laudantium dolore blanditiis assumenda in eos hic unde.</p>
 	              <p>Voluptatum debitis cupiditate vero tempora error fugit aspernatur sint veniam laboriosam eaque eum, et hic odio quibusdam molestias corporis dicta! Beatae id magni, laudantium nulla iure ea sunt aliquam. A.</p>
-			  </div>
+			  </div> -->
 			 
 			  <!-- 갤러리 -->
               <div class="row no-gutters mt-5">
                 <div class="col-12">
                   <h2 class="h4 text-black mb-3">Gallery</h2>
                 </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
-                  <a href="/spacerental/resources/space/images/img_1.jpg" class="image-popup gal-item"><img src="/spacerental/resources/space/images/img_1.jpg" alt="Image" class="img-fluid"></a>
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-3">
+                <c:forEach var="file" items="${ host.files }" >
+	                <div class="col-sm-6 col-md-4 col-lg-3">
+	                  <a href="/spacerental/resources/files/space-files/${ file.savedFileName }" class="image-popup gal-item"><img src="/spacerental/resources/files/space-files/${ file.savedFileName }" alt="Image" class="img-fluid"></a>
+	                </div>
+                </c:forEach>
+                <!-- <div class="col-sm-6 col-md-4 col-lg-3">
                   <a href="/spacerental/resources/space/images/img_2.jpg" class="image-popup gal-item"><img src="/spacerental/resources/space/images/img_2.jpg" alt="Image" class="img-fluid"></a>
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-3">
@@ -128,12 +124,15 @@
                 </div>
                 <div class="col-sm-6 col-md-4 col-lg-3">
                   <a href="/spacerental/resources/space/images/img_4.jpg" class="image-popup gal-item"><img src="/spacerental/resources/space/images/img_4.jpg" alt="Image" class="img-fluid"></a>
-                </div>
+                </div> -->
               </div>
               
               <!-- 지도 -->
               <div class="py-5">
-              	<h5 class="text-black">지도</h5>
+              	<h3 class="text-black">지도</h3>
+              	<div>
+              		<span class="property-icon icon-room"></span>${ host.address }
+              	</div>
 	              <div id="map" style="width:650px;height:400px;"></div>
 					<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28206a2925ab959e756fce927cd2cde4&libraries=services"></script>
 					<script>
@@ -146,7 +145,7 @@
 	
 			               var geocoder = new daum.maps.services.Geocoder();
 	
-			               geocoder.addressSearch('서울특별시 영등포구 도림로143길 32', function(result, status) {
+			               geocoder.addressSearch('${ host.address }', function(result, status) {
 	
 			                    if (status === daum.maps.services.Status.OK) {
 	
@@ -158,7 +157,7 @@
 			                       });
 	
 			                       var infowindow = new daum.maps.InfoWindow({
-			                           content: '<div style="width:150px;text-align:center;padding:6px 0;">까꿍</div>'
+			                           content: '<div style="width:150px;text-align:center;padding:6px 0;">${ host.name }</div>'
 			                       });
 			                       infowindow.open(map, marker);
 	
@@ -221,7 +220,8 @@
     </div>
 
 
-    <footer class="site-footer">
+
+   <footer class="site-footer">
       <div class="container">
         <div class="row">
           <div class="col-lg-4">
@@ -274,9 +274,9 @@
         <div class="row pt-5 mt-5 text-center">
           <div class="col-md-12">
             <p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
             Copyright &copy;<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
             </p>
           </div>
           

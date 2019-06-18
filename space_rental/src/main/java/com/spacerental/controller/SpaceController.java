@@ -2,12 +2,16 @@ package com.spacerental.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +19,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spacerental.common.Util;
 import com.spacerental.service.SpaceService;
+import com.spacerental.vo.Host;
+import com.spacerental.vo.Member;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
@@ -27,26 +33,72 @@ public class SpaceController {
 	private SpaceService spaceService;
 	
 	@RequestMapping(value="/spacelist", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
-	public String list() {
+	public String list(Model model) {
 		 
+		List<Host> hosts = spaceService.findHostList();
 		
+		for(Host host : hosts) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", hosts);
+
 		return "space/spacelist";
 	}
 	
-	@RequestMapping(value="/detail", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
-	public String detail() {
-		 
+//	  public String list(Model model) {
+//	  
+//	  List<Space> spaces = spaceService.findSpaceList();
+//	  
+//	  model.addAttribute("spaces", spaces);
+//	  
+//	  return "space/spacelist"; 
+//	}
+	
+	
+	@RequestMapping(value="/detail/{hostNo}", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	public String detail(@PathVariable int hostNo, Model model) {
 		
+		 Host host = spaceService.findHostByHostNo(hostNo);
+		 
+		 if(host == null) { //productno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
+				return "redirect:spacelist";
+			}
+
+		List<SpaceFile> hostfiles = spaceService.findHostFilesByHostNo(hostNo);
+		host.setFiles((ArrayList<SpaceFile>)hostfiles);
+		
+		 model.addAttribute("host", host);
+
 		return "space/detail";
 	}
+	
+	@RequestMapping(path = "/register_host", method = RequestMethod.GET)
+	public String showHostRegisterForm() {
+		return "account/register_host";
+	}
 
-	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String writeForm() {
+	@RequestMapping(path = "/register_host", method = RequestMethod.POST)
+	public String hostRegister(Host host, HttpSession session
+			, String open_start, String open_end
+			, String roadAddr, String detailAddr, String extraAddr) {
+		Member loginuer = (Member)session.getAttribute("loginuser");
+		host.setHostId(loginuer.getId());
+		host.setOpen(open_start + " ~ " + open_end);
+		host.setAddress(roadAddr + " " + detailAddr + " " +extraAddr);
+		int newHostNo = spaceService.registerHost(host);
+		return "redirect:/space/write/"+newHostNo;
+
+	}
+
+	@RequestMapping(value = "/write/{hostNo}", method = RequestMethod.GET)
+	public String writeForm(HttpSession session, Model model,@PathVariable int hostNo) {
+		model.addAttribute("hostNo",hostNo);
 		return "space/write";
 	}
 	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String write(Space space, MultipartHttpServletRequest req) {
+	public String write(Space space, MultipartHttpServletRequest req,HttpSession session,int hostNo) {
 		SpaceFile spaceFile = new SpaceFile();
 		ServletContext application = req.getServletContext();
 		String path = application.getRealPath("/resources/files/space-files");// 최종 파일 저장 경로
@@ -97,8 +149,11 @@ public class SpaceController {
 					space.setFiles(files);
 				}
 			}
-			space.setHostid("sj");
+			Member loginuser = (Member)session.getAttribute("loginuser");
+			space.setHostId(loginuser.getId().toString());
+			space.setHostNo(hostNo);
 			spaceService.registerSpaceTx(space);
+			System.out.println(space);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

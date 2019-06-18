@@ -8,7 +8,8 @@
 	<sql id="spaceFileBasicColumns">
 		spaceFileNo, spaceNo, savedFileName, flag
 	</sql>
-	<select id="selectSpace">
+	
+	<select id="selectSpace" resultType="Space">
 		SELECT <include refid="spaceBasicColumns" /> FROM SPACE 
 	</select>
 	
@@ -16,12 +17,19 @@
 		SELECT <include refid="spaceFileBasicColumns" /> FROM SPACEFILE
 	</select>
 	
+	<select id="selectSpaceFilesBySpaceNo" parameterType="int" resultType="SpaceFile">
+		select <include refid="spaceFileBasicColumns"/> 
+		from spacefile
+		where spaceno = #{ spaceNo } 
+	</select>
+	
+	
 	<insert id="insertSpace" parameterType="Space">
 		<selectKey keyProperty="spaceNo" order="AFTER" resultType="int">
 			SELECT SPACE_SEQUENCE.CURRVAL FROM DUAL
 		</selectKey>
 		INSERT INTO SPACE(
-			spaceNo, spaceName, content, maximum, bim, smoking, food, wifi, computer, hostid
+			spaceNo, spaceName, content, maximum, bim, smoking, food, wifi, computer, hostNo, hostId
 		)
 		VALUES
 		(
@@ -34,7 +42,8 @@
 			, #{ food }
 			, #{ wifi }
 			, #{ computer }
-			, #{ hostid }
+			, #{ hostNo }
+			, #{ hostId }
 		)
 	</insert>
 	
@@ -50,4 +59,5 @@
 			, #{ flag }
 		)
 	</insert>
+
 </mapper>

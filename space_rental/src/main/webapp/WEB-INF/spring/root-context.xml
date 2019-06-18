@@ -60,7 +60,9 @@
 	
 	<bean id="spaceRepository" class="com.spacerental.repository.SpaceRepositoryImpl" >
 		<property name="spaceMapper" ref="spaceMapper"/>
+		<property name="hostMapper" ref="hostMapper" />
 	</bean>
+	
 	<bean id="spaceService" class="com.spacerental.service.SpaceServiceImpl">
 		<property name="spaceRepository" ref="spaceRepository" />
 	</bean>
@@ -69,7 +71,12 @@
 		<property name="mapperInterface" value="com.spacerental.mapper.SpaceMapper"/>
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
 	</bean>
-		
+	
+	<bean id="hostMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.spacerental.mapper.HostMapper"/>
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
+	</bean>
+	
 	<bean id="NoticeRepository"
 		class="com.spacerental.repository.NoticeRepositoryImpl">
 		<property name="noticeMapper" ref="NoticeMapper" />
@@ -86,8 +93,22 @@
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
 	</bean>
 	
+	<bean id="loseRepository"
+		class="com.spacerental.repository.LoseRepositoryImpl">
+		<property name="loseMapper" ref="loseMapper" />
+	</bean>
 	
+	<bean id="loseService"
+		class="com.spacerental.service.LoseServiceImpl">
+		<property name="loseRepository" ref="loseRepository" />
+	</bean>
 	
+	<bean id="loseMapper"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.spacerental.mapper.LoseMapper" />
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+
 	<bean id="SearchRepository"
 		class="com.spacerental.repository.SearchRepositoryImpl">
 		<property name="searchMapper" ref="SearchMapper" />
@@ -107,17 +128,19 @@
 	<!-- ========================================================================== -->
 	
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
+		<property name="dataSource" ref="dataSource"/>
 	</bean>
 	
-	<!-- 미리 만들어져서 사용할 수 있는 Advice 객체 ( <bean에 대한 정의 ) -->
+	<!-- 미리 만들어져서 사용할 수 있는 Advice 객체 (<bean에 대한 정의)-->
 	<tx:advice id="txAdvice" transaction-manager="txManager">
 		<tx:attributes>
-			<tx:method name="*Tx"/><!-- Tx가 붙는 메서드들은 트랜젝션을 수행 -->
+			<tx:method name="*Tx"/>
 		</tx:attributes>
 	</tx:advice>
 	
 	<aop:config>
 		<aop:advisor advice-ref="txAdvice" pointcut="execution( * com.spacerental.service.*.*(..) )"/>
 	</aop:config>
+	
+
 </beans>

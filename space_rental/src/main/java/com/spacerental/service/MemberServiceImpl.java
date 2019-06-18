@@ -17,6 +17,7 @@ public class MemberServiceImpl implements MemberService{
 		this.memberRepository = memberRepository;
 	}
 
+	
 	@Override
 	public void insertMember(Member member) {
 		
@@ -35,6 +36,8 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public void updateMember(Member member) {
+		String passwd = Util.getHashedString(member.getPasswd(), "SHA-256");
+		member.setPasswd(passwd); 
 		memberRepository.updateMember(member);	
 	}
 

@@ -21,5 +21,31 @@
 		WHERE  bookName  LIKE  '%'||#{ value }||'%'
 	</select>
 	
+	<select id="computerlist"  resultType="Space">
+		SELECT SPACENO, SPACENAME, CONTENT, MAXIMUM, BIM, SMOKING, FOOD, WIFI, COMPUTER, HOSTID, HOSTNO, HOLIDAY
+		FROM SPACE
+		WHERE 
+	</select>
+	<select id="beamprojectlist"  resultType="Space">
+		SELECT SPACENO, SPACENAME, CONTENT, MAXIMUM, BIM, SMOKING, FOOD, WIFI, COMPUTER, HOSTID, HOSTNO, HOLIDAY
+		FROM SPACE
+		WHERE 
+	</select>
+	<select id="wifilist"  resultType="Space">
+		SELECT SPACENO, SPACENAME, CONTENT, MAXIMUM, BIM, SMOKING, FOOD, WIFI, COMPUTER, HOSTID, HOSTNO, HOLIDAY
+		FROM SPACE
+		WHERE 
+	</select>
 	
+	<!-- <select id="tenlesslist" resultType="Space">
+		SELECT SPACENO, SPACENAME, CONTENT, MAXIMUM, BIM, SMOKING, FOOD, WIFI, COMPUTER, HOSTID, HOSTNO, HOLIDAY
+		FROM SPACE
+		WHERE MAXIMUM < 10
+	</select>
+	
+	<select id="tenmorelist"  resultType="Space">
+		SELECT SPACENO, SPACENAME, CONTENT, MAXIMUM, BIM, SMOKING, FOOD, WIFI, COMPUTER, HOSTID, HOSTNO, HOLIDAY
+		FROM SPACE
+		WHERE MAXIMUM >= 10
+	</select>  -->
 </mapper>

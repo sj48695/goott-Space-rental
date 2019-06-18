@@ -48,7 +48,7 @@ public class MyPageController {
 		
 		Member member = (Member) session.getAttribute("loginuser");
 
-		if (member == null) { 
+		if (member == null) {
 			return "redirect:mypage/{type}";
 		}		
 

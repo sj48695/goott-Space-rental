@@ -4,7 +4,6 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.spacerental.mapper.MemberMapper">
-	
 	<!-- 회원관리 -->
 	<insert id="insertMember" parameterType="Member">	
 		insert into Member (id, passwd, name, phone, type) 
@@ -27,5 +26,4 @@
 		delete from Member
 		where id = #{ id }
 	</delete>
-	
 </mapper>

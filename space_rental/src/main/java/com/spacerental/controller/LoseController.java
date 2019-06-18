@@ -1,54 +1,123 @@
 package com.spacerental.controller;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-/**
- * Handles requests for the application home page.
- */
+import com.spacerental.common.Util;
+import com.spacerental.service.LoseService;
+import com.spacerental.vo.Lose;
+import com.spacerental.vo.LoseFile;
+
 @Controller
 @RequestMapping(path="/loseview")
 public class LoseController {
 	
+	@Autowired
+	@Qualifier("loseService")
+	private LoseService loseService;
 	
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = {"/lose"}, method = RequestMethod.GET)
+	@RequestMapping(path = "/lose", method = RequestMethod.GET)
 	public String Lose() {
-		
 		
 		return "loseview/lose";
 	}
 		
-	@RequestMapping(value = {"/loselistA"}, method = RequestMethod.GET)
-	public String LoseListA() {
-		
-		
-		return "loseview/loselistA";
+	@RequestMapping(path = "/loselist", method = RequestMethod.GET)
+	public String LoseList(Model model) {
+
+		List<Lose> lose = loseService.findList();
+		System.out.println(lose);
+
+		model.addAttribute("loses", lose);
+		return "loseview/loselist";
 	}
 	
-	@RequestMapping(value = {"/losewriteA"}, method = RequestMethod.GET)
-	public String LoseWriteA() {
-		
-		
-		return "loseview/losewriteA";
+	@RequestMapping(path = "/losewrite", method = RequestMethod.GET)
+	public String Losewrite() {
+		return "loseview/losewrite";
 	}
 	
-	@RequestMapping(value = {"/loselistB"}, method = RequestMethod.GET)
-	public String LoseListB() {
+	@RequestMapping(path = "/losewrite", method = RequestMethod.POST)
+	public String loseWrite(MultipartHttpServletRequest req, Lose lose) {
 		
+		System.out.println(lose);
 		
-		return "loseview/loselistB";
+		MultipartFile mf = req.getFile("attach");
+		boolean k = mf.isEmpty();
+		
+		if (k == false) {
+			
+			ServletContext application = req.getServletContext();
+			String path = application.getRealPath("/upload-files");
+			
+			String userFileName = mf.getOriginalFilename();
+			if (userFileName.contains("\\")) { // iexplore 경우
+				//C:\AAA\BBB\CCC.png -> CCC.png 
+				userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
+			}
+			String savedFileName = Util.makeUniqueFileName(userFileName);
+			
+			try {
+				mf.transferTo(new File(path, savedFileName)); //파일 저장
+								
+				LoseFile loseFile = new LoseFile();
+				loseFile.setUserFileName(userFileName);
+				loseFile.setSavedFileName(savedFileName);
+				ArrayList<LoseFile> files = new ArrayList<LoseFile>();
+				files.add(loseFile);
+				lose.setFiles(files);
+				
+				//데이터 저장				
+				loseService.registerLose(lose);
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		} else if (k == true) {
+			loseService.registerLose2(lose);
+			return "redirect:loselist";
+		}
+		
+		return "redirect:loselist";
 	}
 	
-	@RequestMapping(value = {"/losewriteB"}, method = RequestMethod.GET)
-	public String LoseWriteB() {
+	@RequestMapping(path = "/findlist", method = RequestMethod.GET)
+	public String findList() {
 		
-		
-		return "loseview/losewriteB";
+		return "loseview/findlist";
 	}
+	
+	@RequestMapping(path = "/findwrite", method = RequestMethod.GET)
+	public String FindWrite() {
+		
+		return "loseview/findwrite";
+	}
+	
+//	@RequestMapping(path = "/losedetail", method = RequestMethod.GET)
+//	public String losedetail(@RequestParam(name="loseno") int loseNo, Model model) {
+//		
+//		Lose lose = loseService.findLoseByLoseNo(loseNo);
+//		if (lose == null) { 
+//			return "redirect:loselist";
+//		}		
+//		List<LoseFile> files = loseService.findLoseFilesByLoseNo(loseNo);
+//		lose.setFiles((ArrayList<LoseFile>)files);
+//		
+//		model.addAttribute("lose", lose);
+//		
+//		return "loseview/losedetail"; 
+//	}
 	
 }

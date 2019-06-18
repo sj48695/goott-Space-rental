@@ -23,46 +23,37 @@
 					<div class="row">
 						<div class="col">
 							<div class="home_content">
-								<div class="home_title">공지상세</div>
+								<div class="home_title">공지수정</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 		<!-- Contact -->
- <!-- Contact -->
-<!-- 
-      <div class="contact container_custom" style="margin:auto">
-       <div class="container">
-         <div class="row"> -->
-		<div align="center" style="width:100%; height:100%">
+
+      <!-- <div class="contact container_custom" style="margin:auto">
+         <div class="container">
+            <div class="row"> -->
+
                <!-- Contact Content -->
-           <div class="col-xl-6" >
-                <div class="contact_content" align="center">
-                   <div class="contact_form_container">
-                       <div class="section_title"><h1>공지사항</h1></div>   
-                       <form action="noticeupdate" method="get" class="contact_form" id="contact_form" >
-                         <div>
-                             <textarea class="contact_input" name="title" readonly="readonly" style="fontsize:200%">${ notices.title }</textarea>
+        	<div align="center" style="width:100%; height:100%">
+              <div class="col-xl-6"> 
+                  <div class="contact_content">
+                     <div class="contact_form_container">
+                        <div class="section_title"><h1>공지사항</h1></div>   
+                        <form action="/spacerental/noticeview/noticeupdatefirm" method="get" class="contact_form" id="contact_form" >
+                        <c:forEach items="${ noticess }" var="notice">
+                        <input type="hidden" name="noticeNo" value="${notice.noticeNo }"/>
+                           <div>
+                              <textarea type="text" class="contact_input" name="title">${ notice.title }</textarea>
                            </div>
-                          <div>
-                             <h6> <textarea class="contact_input contact_textarea" name="content" required="required"  readonly="readonly">${ notices.content }</textarea></h6>
+                           <div>
+                              <textarea class="contact_input contact_textarea" name="content" required="required" >${ notice.content }</textarea>
                            </div>
-                           
-                          	<c:choose>
-			           			<c:when test="${ id eq 'manager' }">
-                          			<input  type="button" class="contact_button trans_200" id="update" value="수정" />
-                           			<input  type="button" class="contact_button trans_200" id="delete" value="삭제" />
-                           			<input  type="button" class="contact_button trans_200" id="return" value="돌아가기" />
-                        		</c:when>
-                          		<c:otherwise>
-                        			<!-- <input  type="button" class="contact_button trans_200" id="update" value="수정" />
-                           			<input  type="button" class="contact_button trans_200" id="delete" value="삭제" /> -->
-                           			<input  type="button" class="contact_button trans_200" id="return1" value="돌아가기" />
-                         		</c:otherwise>
-			        			</c:choose>
+                        </c:forEach>
+                           <button class="contact_button trans_200">수정완료</button>
+                           <input  type="button" class="contact_button trans_200" id="return" value="돌아가기" />
                         </form>
                       <!--  <div class="contact_info"> --><div align="left">
                              </div>
@@ -89,20 +80,18 @@
                               </ul>
                            </div>
                            </div>
-                 
                   
                <!-- <div class="col-xl-6">
-                 <div class="contact_map_container">
+                  <div class="contact_map_container">
                      <img src="/spacerental/resources/images/icon_1.svg" style="margin:0">
 
                   </div>
-               </div>
-             </div> -->
+               </div> -->
 <!-- 
-            </div>
-         </div>
       </div>
- -->
+         </div>
+      </div>  -->
+		
 		<!-- Footer -->
 
 		<footer class="footer container_custom">
@@ -129,45 +118,18 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			</div>
 		</footer>
 	</div>
-	
-	
-	
-	<script type="text/javascript">
-	window.addEventListener('load',function(event){
 		
-		var btnUpdate=document.querySelector('#update');
-		btnUpdate.addEventListener('click',function(event){
-			location.href="/spacerental/noticeview/noticeupdate/${notices.noticeNo}";
-		});
-		
-		var btnDelete=document.querySelector('#delete');
-		btnDelete.addEventListener('click',function(event){
-			var ok = confirm("${notices.noticeNo}번 공지를 삭제할까요?");
-			if(ok){
-			location.href="/spacerental/noticeview/noticedelete/${notices.noticeNo}";
-			}
-		});
-	
-		var btnReturn=document.querySelector('#return');
-		btnReturn.addEventListener('click',function(event){
-			location.href="/spacerental/noticeview/notice";
-		});
-	});
+
+<script type="text/javascript">
 	
 	window.addEventListener('load',function(event){
 		
 		
-		var btnReturn=document.querySelector('#return1');
+		var btnReturn = document.querySelector('#return');
 		btnReturn.addEventListener('click',function(event){
-			location.href="/spacerental/noticeview/notice";
-		});
+		location.href="/spacerental/noticeview/notice";
 	});
-	
-	
-	</script>
-
-
-
-
-
+		
+	});
+</script>
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/>

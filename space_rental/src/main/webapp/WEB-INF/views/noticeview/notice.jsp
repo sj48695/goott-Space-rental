@@ -1,79 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<title>공지사항</title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="DirectoryPlus template project">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- home & notice -->
-<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/bootstrap-4.1.2/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="/spacerental/resources/plugins/font-awesome-4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="/spacerental/resources/plugins/OwlCarousel2-2.3.4/owl.carousel.css">
-<link rel="stylesheet" type="text/css" href="/spacerental/resources/plugins/OwlCarousel2-2.3.4/owl.theme.default.css">
-<link rel="stylesheet" type="text/css" href="/spacerental/resources/plugins/OwlCarousel2-2.3.4/animate.css">
-<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/main_styles.css">
-<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/responsive.css">
+<c:set var="title" value="공간 등록" scope="request"/>
+<jsp:include page="/WEB-INF/views/include/header.jsp"/>
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog_responsive.css">
-
-</head>
-<body>
-
-	<!-- Menu -->
-	<div class="menu">
-		<div class="menu_container text-right">
-			<div class="menu_close">close</div>
-			<nav class="menu_nav">
-				<ul>
-					<li><a href="/spacerental/">홈</a></li>
-					<li><a href="/spacerental/space/write">장소</a></li>
-					<li><a href="blog.html">분실물</a></li>
-					<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
-				</ul>
-			</nav>
-			<div class="menu_link">
-				<a href="#">+Add Listing</a>
-			</div>
-		</div>
-	</div>
-	<div class="super_container">
-	<!-- Header -->
-
-	<header class="header">
-		<div class="header_background"><div class="background_image" style="background-image:url(/spacerental/resources/images/header.jpg)"></div></div>
-		<div class="header_overlay"></div>
-		<div class="header_content d-flex flex-row align-items-center justify-content-start">
-			
-			<!-- Logo -->
-			<div class="logo"><a href="/spacerental/">빌려조<br> 찾아조<br><span>&nbsp;&nbsp;&nbsp;&nbsp;다조</span><span>+</span></a></div>
-
-			<!-- Header Nav -->
-			<div class="header_right d-flex flex-row align-items-center justify-content-start ml-auto">
-				<nav class="main_nav">
-					<ul class="d-flex flex-row align-items-center justify-content-start">
-						<li><a href="/spacerental/">홈</a></li>
-						<li><a href="#">장소</a></li>
-						<li><a href="listings.html">분실물</a></li>
-						<li class="active"><a href="/spacerental/noticeview/notice">공지사항</a></li>
-						</ul>
-				</nav>
-					<div class="log_reg">
-					<ul class="d-flex flex-row align-items-center justify-content-start">
-						<li><a href="#">Login</a></li>
-						<li><a href="#">Register</a></li>
-					</ul>
-				</div>
-				<div class="hamburger">
-					<i class="fa fa-bars trans_200"></i>
-				</div>
-			</div>
-
-		</div>
-	</header>
 
 	<div class="super_container_inner">
 		<div class="super_overlay"></div>
@@ -105,7 +36,7 @@
 								
 								<!-- Blog Post -->
 							
-						<c:forEach var="notice" items="${ notices }">
+						<c:forEach var="notice" items="${ Notices }">
 								<div class="blog_post">
 								
 									<div class="blog_post_container">
@@ -113,17 +44,12 @@
 										
 										<div class="blog_post_content">
 										
-											<div class="blog_post_date"><a href="noticedetail=${notice.noticeNo }">${notice.noticeNo }</a></div>
-											<div class="blog_post_title"><a href="noticedetail=${notice.title}">${notice.title }</a></div>
+											<div >${notice.noticeNo }</div>
+											<div class="blog_post_title"><h4><a href="noticedetail/${ notice.noticeNo }">${ notice.title }</a></h4></div>
 											<div class="blog_post_tags">
-											
-												<!-- <ul class="d-flex flex-row align-items-start justify-content-start">
-													<li><a href="#">Local</a></li>
-													<li><a href="#">tips</a></li>
-												</ul>
- -->											</div>
+											</div>
 											<div class="blog_post_text">
-											<p>${notice.content.substring(0,5)}  </p>
+											<p>${notice.content.substring(0,45)}</p>
 											</div>
 										
 										</div>	
@@ -134,13 +60,27 @@
 							</c:forEach>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col">
-						<div class="blog_posts_more">
-							<div class="button load_more_button ml-auto mr-auto"><a href="noticewrite">공지작성</a></div>
-						</div>
-					</div>
-				</div>
+				
+				<c:choose>
+			            <c:when test="${ loginuser.equals(manager) }">
+					        <div class="row">
+								<div class="col">
+									<div class="blog_posts_more">
+										<div class="button load_more_button ml-auto mr-auto"><a href="noticewrite">공지작성</a></div>
+									</div>
+								</div>
+							</div>
+			            </c:when>
+			            <c:otherwise>
+			            <div class="row">
+								<div class="col">
+									<div class="blog_posts_more">
+										<!-- <div class="button load_more_button ml-auto mr-auto"><a href="noticewrite">공지작성</a></div> -->
+									</div>
+								</div>
+							</div>
+			            </c:otherwise>
+			        </c:choose>
 			</div>		
 		</div>
 
@@ -174,4 +114,3 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/>
-

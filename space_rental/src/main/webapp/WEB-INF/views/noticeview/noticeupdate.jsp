@@ -23,7 +23,7 @@
 					<div class="row">
 						<div class="col">
 							<div class="home_content">
-								<div class="home_title">공지작성</div>
+								<div class="home_title">공지수정</div>
 							</div>
 						</div>
 					</div>
@@ -32,31 +32,35 @@
 		</div>
 		<!-- Contact -->
 
-		<!-- <div class="contact container_custom" >
-			<div class="container" >
-				<div class="row"> -->
+      <!-- <div class="contact container_custom" style="margin:auto">
+         <div class="container">
+            <div class="row"> -->
 
-					<!-- Contact Content -->
-					<div align ="center" >
-					<div class="col-xl-6" >
-						<div class="contact_content" >
-							<div class="contact_form_container">
-								<div class="section_title"><h1>작성란</h1></div>
-								<form action="/spacerental/noticeview/noticeupload" method="get" class="contact_form" id="contact_form" >
-									
-									<div>
-										<input type="text" class="contact_input" placeholder="제목" name="title">
-									</div>
-									<div>
-										<textarea  class="contact_input contact_textarea" placeholder="내용" required="required" name="content"></textarea>
-									</div>
-									<button class="contact_button trans_200">작성완료</button>
-								</form>
-								
-								</div>
-							</div>
-						</div>
-					<br> <br> <br> 
+               <!-- Contact Content -->
+        	<div align="center" style="width:100%; height:100%">
+              <div class="col-xl-6"> 
+                  <div class="contact_content">
+                     <div class="contact_form_container">
+                        <div class="section_title"><h1>공지사항</h1></div>   
+                        <form action="/spacerental/noticeview/noticeupdatefirm" method="get" class="contact_form" id="contact_form" >
+                        <c:forEach items="${ noticess }" var="notice">
+                        <input type="hidden" name="noticeNo" value="${notice.noticeNo }"/>
+                           <div>
+                              <textarea type="text" class="contact_input" name="title">${ notice.title }</textarea>
+                           </div>
+                           <div>
+                              <textarea class="contact_input contact_textarea" name="content" required="required" >${ notice.content }</textarea>
+                           </div>
+                        </c:forEach>
+                           <button class="contact_button trans_200">수정완료</button>
+                           <input  type="button" class="contact_button trans_200" id="return" value="돌아가기" />
+                        </form>
+                      <!--  <div class="contact_info"> --><div align="left">
+                             </div>
+                     </div>
+                  </div>
+               </div>   
+                      <br> <br> <br> 
                      	<div align="left">
                      	<div class="section_title" align="left"><h4>구트아카데미<br></h4></div>
                            <div >
@@ -75,13 +79,19 @@
                                  </li>
                               </ul>
                            </div>
-                       <!--     </div>
-					</div> -->
+                           </div>
+                  
+               <!-- <div class="col-xl-6">
+                  <div class="contact_map_container">
+                     <img src="/spacerental/resources/images/icon_1.svg" style="margin:0">
 
-				</div>
-		<!-- 	</div>
-		</div> -->
-
+                  </div>
+               </div> -->
+<!-- 
+      </div>
+         </div>
+      </div>  -->
+		
 		<!-- Footer -->
 
 		<footer class="footer container_custom">
@@ -110,5 +120,16 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</div>
 		
 
-
+<script type="text/javascript">
+	
+	window.addEventListener('load',function(event){
+		
+		
+		var btnReturn = document.querySelector('#return');
+		btnReturn.addEventListener('click',function(event){
+		location.href="/spacerental/noticeview/notice";
+	});
+		
+	});
+</script>
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/>

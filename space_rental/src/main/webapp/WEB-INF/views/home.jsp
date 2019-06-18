@@ -23,7 +23,7 @@
 								<div class="row">
 									<div class="col-xl-8 offset-xl-2">
 										<div class="home_content text-center">
-											<div class="home_title"><h1>종류별  찾기</h1></div>
+											<div class="home_title"><h1>유형으로 검색하기</h1></div>
 											<div class="search_form_container">
 												<form action="search/room?&value"class="search_form" id="search_form">
 													<div class="d-flex flex-sm-row flex-column align-items-sm-start align-items-center justify-content-sm-between">
@@ -47,7 +47,7 @@
 								<div class="row">
 									<div class="col-xl-8 offset-xl-2">
 										<div class="home_content text-center">
-											<div class="home_title"><h1>주소지로 찾기</h1></div>
+											<div class="home_title"><h1>주소지로 검색하기</h1></div>
 											<div class="search_form_container">
 												<form action="search/address?value" class="search_form" id="search_form">
 													<div class="d-flex flex-sm-row flex-column align-items-sm-start align-items-center justify-content-sm-between">
@@ -71,7 +71,7 @@
 								<div class="row">
 									<div class="col-xl-8 offset-xl-2">
 										<div class="home_content text-center">
-											<div class="home_title"><h1>분실물 찾기</h1></div>
+											<div class="home_title"><h1>분실물 검색하기</h1></div>
 											<div class="search_form_container">
 												<form action="search/lose?&value" class="search_form" id="search_form">
 													<div class="d-flex flex-sm-row flex-column align-items-sm-start align-items-center justify-content-sm-between">
@@ -93,9 +93,10 @@
 
 				<div class="home_slider_dots">
 					<ul id="home_slider_custom_dots" class="home_slider_custom_dots">
-						<li class="home_slider_custom_dot active">종류별 찾기</li>
-						<li class="home_slider_custom_dot">주소로 찾기</li>
-						<li class="home_slider_custom_dot">분실물 검색</li>
+						
+						<li class="home_slider_custom_dot">01.</li>						
+						<li class="home_slider_custom_dot">02.</li>
+						<li class="home_slider_custom_dot">03.</li>
 					</ul>
 				</div>
 
@@ -112,50 +113,50 @@
 							
 							<!-- Category -->
 							<div class="category text-center">
-								<a href="listings.html">
+								<a href="/spacerental/search/computer">
 									<div class="d-flex flex-md-column flex-row align-items-md-center align-items-md-start align-items-center justify-content-start">
-										<div class="cat_icon"><img src="/spacerental/resources/images/icon_1.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
-										<div class="cat_title">Restaurants</div>
+										<div class="cat_icon"><img src="/spacerental/resources/images/computer.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
+										<div class="cat_title">컴퓨터</div>
 									</div>
 								</a>
 							</div>
 
 							<!-- Category -->
 							<div class="category text-center">
-								<a href="listings.html">
+								<a href="/spacerental/search/beamproject">
 									<div class="d-flex flex-md-column flex-row align-items-md-center align-items-md-start align-items-center justify-content-start">
-										<div class="cat_icon"><img src="/spacerental/resources/images/icon_2.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
-										<div class="cat_title">Hotels</div>
+										<div class="cat_icon"><img src="/spacerental/resources/images/beam.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
+										<div class="cat_title">빔 프로젝터</div>
 									</div>	
 								</a>
 							</div>
 
 							<!-- Category -->
 							<div class="category text-center">
-								<a href="listings.html">
+								<a href="/spacerental/search/wifi">
 									<div class="d-flex flex-md-column flex-row align-items-md-center align-items-md-start align-items-center justify-content-start">
-										<div class="cat_icon"><img src="/spacerental/resources/images/icon_3.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
-										<div class="cat_title">Nightlife</div>
+										<div class="cat_icon"><img src="/spacerental/resources/images/wifi.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
+										<div class="cat_title">WIFI</div>
 									</div>
 								</a>
 							</div>
 
 							<!-- Category -->
 							<div class="category text-center">
-								<a href="listings.html">
+								<a href="/spacerental/search/10less">
 									<div class="d-flex flex-md-column flex-row align-items-md-center align-items-md-start align-items-center justify-content-start">
-										<div class="cat_icon"><img src="/spacerental/resources/images/icon_4.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
-										<div class="cat_title">Coffeeshops</div>
+										<div class="cat_icon"><img src="/spacerental/resources/images/10less.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
+										<div class="cat_title">10인 미만</div>
 									</div>
 								</a>
 							</div>
 
 							<!-- Category -->
 							<div class="category text-center">
-								<a href="listings.html">
+								<a href="/spacerental/search/10more">
 									<div class="d-flex flex-md-column flex-row align-items-md-center align-items-md-start align-items-center justify-content-start">
-										<div class="cat_icon"><img src="/spacerental/resources/images/icon_5.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
-										<div class="cat_title">Culture</div>
+										<div class="cat_icon"><img src="/spacerental/resources/images/10more.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
+										<div class="cat_title">10인 이상</div>
 									</div>
 								</a>
 							</div>

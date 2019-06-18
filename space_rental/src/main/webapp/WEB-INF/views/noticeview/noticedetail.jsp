@@ -4,73 +4,12 @@
 <%@ page session="false" language="java" contentType="text/html; charset=utf-8"
 	     pageEncoding="utf-8"%>
 	     
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<title>공지작성</title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="DirectoryPlus template project">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/bootstrap-4.1.2/bootstrap.min.css">
-<link href="/spacerental/resources/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<c:set var="title" value="공간 등록" scope="request"/>
+<jsp:include page="/WEB-INF/views/include/header.jsp"/>
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog.css">
+<link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog_responsive.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/contact.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/contact_responsive.css">
-</head>
-<body>
-
-<!-- Menu -->
-
-<div class="menu">
-	<div class="menu_container text-right">
-		<div class="menu_close">close</div>
-		<nav class="menu_nav">
-			<ul>
-				<li><a href="/spacerental/">홈</a></li>
-				<li><a href="listings.html">장소</a></li>
-				<li><a href="blog.html">분실물</a></li>
-				<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
-			</ul>
-		</nav>
-	</div>
-</div>
-
-<div class="super_container">
-
-	<!-- Header -->
-
-	<header class="header">
-		<div class="header_background"><div class="background_image" style="background-image:url(/spacerental/resources/images/header.jpg)"></div></div>
-		<div class="header_overlay"></div>
-		<div class="header_content d-flex flex-row align-items-center justify-content-start">
-			
-			<!-- Logo -->
-			<div class="logo"><a href="/spacerental/">빌려조<br> 찾아조<br><span>&nbsp;&nbsp;&nbsp;&nbsp;다조</span><span>+</span></a></div>
-
-			<!-- Header Nav -->
-			<div class="header_right d-flex flex-row align-items-center justify-content-start ml-auto">
-				<nav class="main_nav">
-					<ul class="d-flex flex-row align-items-center justify-content-start">
-						<li><a href="/spacerental/">홈</a></li>
-				<li><a href="listings.html">장소</a></li>
-				<li><a href="blog.html">분실물</a></li>
-				<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
-					</ul>
-				</nav>
-				<div class="add_listing text-center trans_200"><a href="#">+Add Listing</a></div>
-				<div class="log_reg">
-					<ul class="d-flex flex-row align-items-center justify-content-start">
-						<li><a href="#">Login</a></li>
-						<li><a href="#">Register</a></li>
-					</ul>
-				</div>
-				<div class="hamburger">
-					<i class="fa fa-bars trans_200"></i>
-				</div>
-			</div>
-
-		</div>
-	</header>
 
 	<div class="super_container_inner">
 		<div class="super_overlay"></div>
@@ -78,7 +17,7 @@
 		<!-- Home -->
 
 		<div class="home">
-			<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="/spacerental/resources/images/contact.jpg" data-speed="0.8"></div>
+			<div class="parallax_background parallax-window" data-parallax="scroll" style="background-image: url(/spacerental/resources/images/contact.jpg)" data-speed="0.8"></div>
 			<div class="home_container">
 				<div class="container">
 					<div class="row">
@@ -93,36 +32,77 @@
 		</div>
 
 		<!-- Contact -->
+ <!-- Contact -->
+<!-- 
+      <div class="contact container_custom" style="margin:auto">
+       <div class="container">
+         <div class="row"> -->
+		<div align="center" style="width:100%; height:100%">
+               <!-- Contact Content -->
+           <div class="col-xl-6" >
+                <div class="contact_content" align="center">
+                   <div class="contact_form_container">
+                       <div class="section_title"><h1>공지사항</h1></div>   
+                       <form action="noticeupdate" method="get" class="contact_form" id="contact_form" >
+                         <div>
+                             <textarea class="contact_input" name="title" readonly="readonly" style="fontsize:200%">${ notices.title }</textarea>
+                           </div>
+                          <div>
+                             <h6> <textarea class="contact_input contact_textarea" name="content" required="required"  readonly="readonly">${ notices.content }</textarea></h6>
+                           </div>
+                           
+                          	<c:choose>
+			           			<c:when test="${ loginuser.equals(manager) }">
+                          			<input  type="button" class="contact_button trans_200" id="update" value="수정" />
+                           			<input  type="button" class="contact_button trans_200" id="delete" value="삭제" />
+                           			<input  type="button" class="contact_button trans_200" id="return" value="돌아가기" />
+                        		</c:when>
+                          		<c:otherwise>
+                        			<!-- <input  type="button" class="contact_button trans_200" id="update" value="수정" />
+                           			<input  type="button" class="contact_button trans_200" id="delete" value="삭제" /> -->
+                           			<input  type="button" class="contact_button trans_200" id="return1" value="돌아가기" />
+                         		</c:otherwise>
+			        			</c:choose>
+                        </form>
+                      <!--  <div class="contact_info"> --><div align="left">
+                             </div>
+                     </div>
+                  </div>
+               </div>   
+                      <br> <br> <br> 
+                     	<div align="left">
+                     	<div class="section_title" align="left"><h4>구트아카데미<br></h4></div>
+                           <div >
+                              <ul>
+                                 <li class="d-flex flex-row align-items-start justify-content-start">
+                                    <div class="contact_info_icon"><br><img src="/spacerental/resources/images/info_1.png" alt=""></div>
+                                    <div class="contact_info_content"><br><span>주소: </span>서울시 구로구 시흥대로 163길 33 주호타워 2층 구트 아카데미 학원(구로동 1129-1)</div>
+                                 </li>
+                                 <li class="d-flex flex-row align-items-start justify-content-start">
+                                    <div class="contact_info_icon"><img src="/spacerental/resources/images/info_2.png" alt=""></div>
+                                    <div class="contact_info_content"><span>전화번호: </span>02-837-9922</div>
+                                 </li>
+                                 <li class="d-flex flex-row align-items-start justify-content-start">
+                                    <div class="contact_info_icon"><img src="/spacerental/resources/images/info_3.png" alt=""></div>
+                                    <div class="contact_info_content"><span>Copyright ©</span>주식회사구트. ALL RIGHTS RESERVED </div>
+                                 </li>
+                              </ul>
+                           </div>
+                           </div>
+                 
+                  
+               <!-- <div class="col-xl-6">
+                 <div class="contact_map_container">
+                     <img src="/spacerental/resources/images/icon_1.svg" style="margin:0">
 
-		<div class="contact container_custom">
-			<div class="container">
-				<div class="row">
-
-					<!-- Contact Content -->
-					<div class="col-xl-6">
-						<div class="contact_content">
-							<div class="contact_form_container">
-								<div class="section_title"><h1>작성란</h1></div>
-								<form action="/spacerental/noticeview/noticeupload" method="get" class="contact_form" id="contact_form" >
-									
-									<div>
-										<input type="text" class="contact_input" placeholder="제목" name="title">
-									</div>
-									<div>
-										<textarea class="contact_input contact_textarea" placeholder="내용" required="required" name="content"></textarea>
-									</div>
-									<button class="contact_button trans_200">작성완료</button>
-								</form>
-								
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-
+                  </div>
+               </div>
+             </div> -->
+<!-- 
+            </div>
+         </div>
+      </div>
+ -->
 		<!-- Footer -->
 
 		<footer class="footer container_custom">
@@ -149,7 +129,45 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			</div>
 		</footer>
 	</div>
+	
+	
+	
+	<script type="text/javascript">
+	window.addEventListener('load',function(event){
 		
+		var btnUpdate=document.querySelector('#update');
+		btnUpdate.addEventListener('click',function(event){
+			location.href="/spacerental/noticeview/noticeupdate/${notices.noticeNo}";
+		});
+		
+		var btnDelete=document.querySelector('#delete');
+		btnDelete.addEventListener('click',function(event){
+			var ok = confirm("${notices.noticeNo}번 공지를 삭제할까요?");
+			if(ok){
+			location.href="/spacerental/noticeview/noticedelete/${notices.noticeNo}";
+			}
+		});
+	
+		var btnReturn=document.querySelector('#return');
+		btnReturn.addEventListener('click',function(event){
+			location.href="/spacerental/noticeview/notice";
+		});
+	});
+	
+	window.addEventListener('load',function(event){
+		
+		
+		var btnReturn=document.querySelector('#return1');
+		btnReturn.addEventListener('click',function(event){
+			location.href="/spacerental/noticeview/notice";
+		});
+	});
+	
+	
+	</script>
+
+
+
 
 
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/>

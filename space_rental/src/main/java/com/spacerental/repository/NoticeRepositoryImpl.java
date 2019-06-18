@@ -31,5 +31,25 @@ public class NoticeRepositoryImpl implements NoticeRepository {
 		NoticeMapper.noticeUpload(notice);
 		
 	}
+	@Override
+	public Notice noticeDetail(int noticeNo) {
+		Notice notice = NoticeMapper.noticeDetail(noticeNo);
+		return notice;
+	}
+	@Override
+	public void noticeDelete(int noticeNo) {
+		NoticeMapper.noticeDelete(noticeNo);
+		
+	}
+	@Override
+	public ArrayList<Notice> findNoticeByNoticeNo(int noticeNo) {
+		List<Notice> notice = NoticeMapper.findNoticeByNoticeNo(noticeNo);
+		return (ArrayList<Notice>)notice;
+	}
+	@Override
+	public void updateNoticeUpdate(Notice notice) {
+		NoticeMapper.updateNoticeUpdate(notice);
+		
+	}
 
 }

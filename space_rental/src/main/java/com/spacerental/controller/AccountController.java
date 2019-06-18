@@ -38,6 +38,14 @@ public class AccountController {
 		}
 		
 	}
+	
+	@RequestMapping(path = "/logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		
+		session.removeAttribute("loginuser");
+		return "redirect:/";
+		
+	}
 
 	@RequestMapping(path = "/register", method = RequestMethod.GET)
 	public String showRegisterForm() {

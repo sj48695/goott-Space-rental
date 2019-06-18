@@ -9,4 +9,8 @@ public interface MemberRepository {
 
 	Member selectMemberByIdAndPasswd(String id, String passwd);
 
+	void updateMember(Member member);
+
+	void deleteMember(String id);
+
 }

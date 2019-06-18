@@ -32,5 +32,16 @@ public class MemberServiceImpl implements MemberService{
 		Member member = memberRepository.selectMemberByIdAndPasswd(id, passwd);
 		return member;
 	}
+
+	@Override
+	public void updateMember(Member member) {
+		memberRepository.updateMember(member);	
+	}
+
+	@Override
+	public void deleteMember(String id) {
+		memberRepository.deleteMember(id);
+		
+	}
 	
 }

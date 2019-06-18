@@ -19,8 +19,7 @@ public class MemberServiceImpl implements MemberService{
 
 	
 	@Override
-	public void insertMember(Member member) {
-		
+	public void insertMember(Member member) {		
 		String passwd = Util.getHashedString(member.getPasswd(), "SHA-256"); //패스워드 암호화 (복원불가능)
 		member.setPasswd(passwd);  
 		memberRepository.insertMember(member);
@@ -42,7 +41,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void updateMember(Member member) {
 		String passwd = Util.getHashedString(member.getPasswd(), "SHA-256");
-		member.setPasswd(passwd); 
+		member.setPasswd(passwd);  
 		memberRepository.updateMember(member);	
 	}
 

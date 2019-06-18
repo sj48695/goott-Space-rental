@@ -36,23 +36,20 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(path = "/update", method = RequestMethod.POST)
-	public String updateForm (Member member) {  
-
-		memberService.updateMember(member);	
-		return "redirect:/mypage/update/" + member.getId(); 
+	public String updateForm (HttpSession session) {  
+		
+		Member loginuser = (Member) session.getAttribute("loginuser");		
+		memberService.updateMember(loginuser);	
+		
+		return "redirect:/mypage/" + loginuser.getType(); 
 		
 	}
 	
 	@RequestMapping(path = "/update", method = RequestMethod.GET)
 	public String updateForm (Model model, HttpSession session) {   
 		
-		Member member = (Member) session.getAttribute("loginuser");
-
-		if (member == null) { 
-			return "redirect:/spacerental/account/login";
-		}		
-
-		model.addAttribute("member", member);
+		Member loginuser = (Member) session.getAttribute("loginuser");
+		model.addAttribute("loginuser", loginuser);
 
 		return "mypage/update"; 
 	}
@@ -66,8 +63,7 @@ public class MyPageController {
 		memberService.deleteMember(id);
 		session.removeAttribute("loginuser");
 
-		return "redirect:/";
-		
+		return "redirect:/";		
 	}
 
 }

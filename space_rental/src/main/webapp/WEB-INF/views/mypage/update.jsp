@@ -28,7 +28,7 @@
 			<table class="table" >
 				<tr>
 					<th>아이디</th>
-					<td><input type="text" name="id" value="${ member.id }" readonly /></td>
+					<td><input type="text" name="id" value="${ loginuser.id }" readonly /></td>
 				</tr>
 				<tr>
 					<th>비밀번호</th>
@@ -36,22 +36,22 @@
 				</tr>
 				<tr>
 					<th>이름</th>
-					<td><input type="text" name="name" value="${ member.name }" readonly /></td>
+					<td><input type="text" name="name" value="${ loginuser.name }" readonly /></td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
-					<td><input type="text" name="phone" value="${ member.phone }" /></td>
+					<td><input type="text" name="phone" value="${ loginuser.phone }" /></td>
 				</tr>
 			</table>
 			<br>
 			<div class="buttons">
-				<input type="submit" class="btn col-sm-3" value="수정" style="margin-left:23%" />
+				<input type="submit" class="btn col-sm-3" value="수정" style="margin-left:20%" />
 				<input type="button" class="btn col-sm-3" id="cancel_button" value="취소" />
 				<script type="text/javascript">
 	        	window.addEventListener('load', function(event) {
 		        	var btnCancel = document.querySelector('#cancel_button');
 	        		btnCancel.addEventListener('click', function(event) {
-	        			location.href = "/spacerental/mypage/${ member.type }";
+	        			location.href = "/spacerental/mypage/${ loginuser.type }";
 	        		});
 	        	});
         		</script>

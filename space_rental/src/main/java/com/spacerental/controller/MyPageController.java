@@ -49,7 +49,7 @@ public class MyPageController {
 		Member member = (Member) session.getAttribute("loginuser");
 
 		if (member == null) { 
-			return "redirect:mypage/{type}";
+			return "redirect:/spacerental/account/login";
 		}		
 
 		model.addAttribute("member", member);

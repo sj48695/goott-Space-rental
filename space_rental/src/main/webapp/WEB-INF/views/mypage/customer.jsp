@@ -6,18 +6,28 @@
 
 <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
 <style>
-body{
-	background-color: #f1f1f194;
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 100;
+	background: #3a1a48;
+	-webkit-transition: all 400ms ease;
+	-moz-transition: all 400ms ease;
+	-ms-transition: all 400ms ease;
+	-o-transition: all 400ms ease;
+	transition: all 400ms ease;
 }
 </style>
 
-<div class="jumbotron" style="margin-top:10%; background-color:white; width:40%;margin-left:30%">
-<div class="container">
+<div class="jumbotron" style="margin-top:10%; background-color:white; width:40%;margin-left:29%">
+<div class="container" style="border: solid 1px; padding:5%">
 	<form class="form-signin">
 	  <div class="text-center mb-4">
-	    <h1 class="h3 mb-3 font-weight-normal"><strong>마이페이지</strong></h1><br>
+	    <h1><strong>마이페이지</strong></h1><br>
 	  </div>
-	  <table class="table table-borderless">
+	  <table class="table">
 	      <tr>
 	          <th>아이디</th>
 	          <td>${ member.id }</td>
@@ -33,8 +43,8 @@ body{
 	  </table>
 	  <br>
 	  <div class="buttons">
-       	<input type="button" class="btn col-sm-3" id="update_button" value="수정" />
-       	<input type="button" class="btn col-sm-3" id="delete_button" value="탈퇴" />     	
+       	<input type="button" class="btn col-sm-3" id="update_button" value="수정" style="margin-left:23%" />
+       	<input type="button" class="btn col-sm-3" id="delete_button" value="탈퇴"/>     	
        	<script type="text/javascript">
        	window.addEventListener('load', function(event) {	        		
        		var btnDelete = document.querySelector('#delete_button');

@@ -2,12 +2,15 @@ package com.spacerental.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spacerental.common.Util;
 import com.spacerental.service.SpaceService;
+import com.spacerental.vo.Host;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
@@ -27,15 +31,43 @@ public class SpaceController {
 	private SpaceService spaceService;
 	
 	@RequestMapping(value="/spacelist", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
-	public String list() {
+	public String list(Model model) {
 		 
+		List<Host> hosts = spaceService.findHostList();
+		
+		for(Host host : hosts) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", hosts);
 		
 		return "space/spacelist";
 	}
 	
-	@RequestMapping(value="/detail", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
-	public String detail() {
+	
+//	  public String list(Model model) {
+//	  
+//	  List<Space> spaces = spaceService.findSpaceList();
+//	  
+//	  model.addAttribute("spaces", spaces);
+//	  
+//	  return "space/spacelist"; 
+//	}
+	
+	
+	@RequestMapping(value="/detail/{hostNo}", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	public String detail(@PathVariable int hostNo, Model model) {
+		
+		 Host host = spaceService.findHostByHostNo(hostNo);
 		 
+		 if(host == null) { //productno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
+				return "redirect:spacelist";
+			}
+
+		List<SpaceFile> hostfiles = spaceService.findHostFilesByHostNo(hostNo);
+		host.setFiles((ArrayList<SpaceFile>)hostfiles);
+		
+		 model.addAttribute("host", host);
 		
 		return "space/detail";
 	}

@@ -1,5 +1,8 @@
 package com.spacerental.repository;
 
+import java.util.List;
+
+import com.spacerental.mapper.HostMapper;
 import com.spacerental.mapper.SpaceMapper;
 import com.spacerental.vo.Host;
 import com.spacerental.vo.Space;
@@ -17,6 +20,16 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 		this.spaceMapper = spaceMapper;
 	}
 
+	private HostMapper hostMapper;
+	
+	public HostMapper getHostMapper() {
+		return hostMapper;
+	}
+
+	public void setHostMapper(HostMapper hostMapper) {
+		this.hostMapper = hostMapper;
+	}
+
 	@Override
 	public int insertSpace(Space space) {
 		spaceMapper.insertSpace(space);
@@ -26,5 +39,47 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 	@Override
 	public void insertSpaceFile(SpaceFile file) {
 		spaceMapper.insertSpaceFile(file);
+	}
+
+	@Override
+	public List<Space> selectSpace() {
+		List<Space> spaces = spaceMapper.selectSpace();
+		
+		return spaces;
+	}
+
+	@Override
+	public List<Host> selectHost() {
+		List<Host> hosts = hostMapper.selectHost();
+		
+		return hosts;
+	}
+
+	@Override
+	public Host selectHostByHostNo(int hostNo) {
+		Host host = hostMapper.selectHostByHostNo(hostNo);
+		
+		return host;
+	}
+
+	@Override
+	public SpaceFile selectHostFile(int hostNo) {
+		SpaceFile file = hostMapper.selectHostFile(hostNo);
+		
+		return file;
+	}
+
+	@Override
+	public List<SpaceFile> selectSpaceFilesBySpaceNo(int spaceNo) {
+		List<SpaceFile> files = spaceMapper.selectSpaceFilesBySpaceNo(spaceNo);
+		
+		return files;
+	}
+
+	@Override
+	public List<SpaceFile> selectHostFilesByHostNo(int hostNo) {
+		List<SpaceFile> hostfiles = hostMapper.selectHostFilesByHostNo(hostNo);
+		
+		return hostfiles;
 	}
 }

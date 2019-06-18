@@ -1,5 +1,7 @@
 package com.spacerental.service;
 
+import java.util.List;
+
 import com.spacerental.repository.SpaceRepository;
 import com.spacerental.vo.Host;
 import com.spacerental.vo.Space;
@@ -33,6 +35,54 @@ public class SpaceServiceImpl implements SpaceService {
 			spaceRepository.insertSpaceFile(file);
 		}
 		return newSpaceNo;
+	}
+
+	@Override
+	public List<Space> findSpaceList() {
+		
+		List<Space> spaces = spaceRepository.selectSpace();
+		
+		return spaces;
+	}
+
+	@Override
+	public List<Host> findHostList() {
+		
+		List<Host> hosts = spaceRepository.selectHost();
+		
+		return hosts;
+	}
+
+	@Override
+	public Host findHostByHostNo(int hostNo) {
+		
+		Host host = spaceRepository.selectHostByHostNo(hostNo);
+		
+		return host;
+	}
+
+	@Override
+	public SpaceFile findHostFile(int hostNo) {
+		
+		SpaceFile file = spaceRepository.selectHostFile(hostNo);
+		
+		return file;
+	}
+
+	@Override
+	public List<SpaceFile> findSpaceFilesBySpaceNo(int spaceNo) {
+		
+		List<SpaceFile> files = spaceRepository.selectSpaceFilesBySpaceNo(spaceNo);
+		
+		return files;
+	}
+
+	@Override
+	public List<SpaceFile> findHostFilesByHostNo(int hostNo) {
+		
+		List<SpaceFile> hostfiles = spaceRepository.selectHostFilesByHostNo(hostNo);
+		
+		return hostfiles;
 	}
 
 }

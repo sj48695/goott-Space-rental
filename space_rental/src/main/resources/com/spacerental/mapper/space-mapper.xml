@@ -8,13 +8,21 @@
 	<sql id="spaceFileBasicColumns">
 		spaceFileNo, spaceNo, savedFileName, flag
 	</sql>
-	<select id="selectSpace">
+	
+	<select id="selectSpace" resultType="Space">
 		SELECT <include refid="spaceBasicColumns" /> FROM SPACE 
 	</select>
 	
 	<select id="selectSpaceFile">
 		SELECT <include refid="spaceFileBasicColumns" /> FROM SPACEFILE
 	</select>
+	
+	<select id="selectSpaceFilesBySpaceNo" parameterType="int" resultType="SpaceFile">
+		select <include refid="spaceFileBasicColumns"/> 
+		from spacefile
+		where spaceno = #{ spaceNo } 
+	</select>
+	
 	
 	<insert id="insertSpace" parameterType="Space">
 		<selectKey keyProperty="spaceNo" order="AFTER" resultType="int">
@@ -50,4 +58,5 @@
 			, #{ flag }
 		)
 	</insert>
+
 </mapper>

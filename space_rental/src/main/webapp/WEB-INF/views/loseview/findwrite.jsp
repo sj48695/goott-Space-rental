@@ -16,168 +16,177 @@
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog_responsive.css">
 
-<div class="super_container">
 
 <a id="topID"></a>
 
 <!-- 상단 시작  -->
 <aside id="topSpacer"></aside>
 <aside id="sideBarCover"></aside>
-<!-- } 상단 끝 --><hr>
+<!-- } 상단 끝 -->
+<hr>
 
 <!-- 콘텐츠 시작  -->
 <div id="ctWrap">
-<div id="container">
+	<div id="container">
+		<form action="/space_rental/loseview/findwrite" method="get">
+			<header>
+				<h2 id="lose_title">
+					<span class="bo_v_tit">습득물 신고</span>
+				</h2>
+			</header>
 
-<form action="/space_rental/loseview/losewrite" method="get" >
-<div class="bo_w_info write_div">
-            <label for="wr_uploader" class="sound_only">작성자</label>
-            <input type="text" name="wr_uploader" value="" id="wr_uploader" class="frm_input uploader " placeholder="작성자">
-    
-            <label for="wr_date" class="sound_only">등록일</label>
-            <input type="text" name="wr_date" value="" id="wr_date" class="frm_input date " placeholder="등록일">
-            
-            <label for="wr_email" class="sound_only">유형</label>
-            <input type="text" name="wr_type" value="" id="wr_type" class="frm_input type " placeholder="유형">
-        </div>
-        
-    <br>
+			<section id="bo_v_info"></section>
+			<div class="bo_w_info write_div">
+				<label for="wr_uploader" class="sound_only">작성자</label> 
+				<input type="text" name="wr_uploader" id="wr_uploader" class="frm_input uploader " placeholder="작성자"> 
+				
+				<label for="wr_date" class="sound_only">등록일</label> 
+				<input type="text" name="wr_date" value="" id="wr_date" class="frm_input date " placeholder="등록일"> 
+				
+				<label for="wr_email" class="sound_only">유형</label>
+				<input type="text" name="wr_type" id="wr_type" class="frm_input type " placeholder="유형">
+			</div>
+			<br>
+			<div class="bo_w_tit write_div">
+				<label for="wr_subject" class="sound_only">제목</label>
+				<div id="autosave_wrapper write_div">
+					<input type="text" name="wr_subject" id="wr_subject"
+						required class="frm_input full_input required" size="30"
+						maxlength="230" placeholder="제목">
+				</div>
+			</div>
+			<br>
+			<div class="write_div">
+				<label for="wr_content" class="sound_only">내용</label>
+				<div class="wr_content smarteditor2">
+					<script>
+						var g5_editor_url = "", oEditors = [], ed_nonce = "";
+					</script>
+					<textarea id="wr_content" name="wr_content" class="smarteditor2" maxlength="65536" style="width: 100%; height: 300px" min=""></textarea>
+					<span class="sound_only"></span>
+				</div>
+			</div>
+			<div class="bo_w_flie write_div">
+				<div class="file_wr write_div">
+					<label for="bf_file_1" class="lb_icon"><i class="fa fa-download" aria-hidden="true"></i>
+					<span class="sound_only">파일</span></label> 
+					<input type="file" name="bf_file[]" class="frm_file "
+						id="bf_file_1" title="파일첨부 1 : 용량 1,048,576 바이트 이하만 업로드 가능">
+				</div>
+			</div>
+			<div class="btn_confirm write_div">
+				<a href="findlist" class="btn_cancel btn">취소</a> 
+				<input type="submit" value="작성완료" id="btn_submit" class="btn_submit btn">
+			</div>
+		</form>
 
-    <div class="bo_w_tit write_div">
-        <label for="wr_subject" class="sound_only">제목</label>
-        
-        <div id="autosave_wrapper write_div">
-            <input type="text" name="wr_subject" value="" id="wr_subject" required class="frm_input full_input required" size="30" maxlength="230" placeholder="제목">
-                    </div>
-    </div>
-    
-      <br>
+		<script>
+			function html_auto_br(obj) {
+				if (obj.checked) {
+					result = confirm("자동 줄바꿈을 하시겠습니까?\n\n자동 줄바꿈은 게시물 내용중 줄바뀐 곳을<br>태그로 변환하는 기능입니다.");
+					if (result)
+						obj.value = "html2";
+					else
+						obj.value = "html1";
+				} else
+					obj.value = "";
+			}
 
-    <div class="write_div">
-        <label for="wr_content" class="sound_only">내용</label>
-        <div class="wr_content smarteditor2">
-                        
-<script src=""></script>
-<script>var g5_editor_url = "", oEditors = [], ed_nonce = "";</script>
-<script src=""></script>
+			function fwrite_submit(f) {
+				var wr_content_editor_data = oEditors.getById['wr_content']
+						.getIR();
+				oEditors.getById['wr_content']
+						.exec('UPDATE_CONTENTS_FIELD', []);
+				if (jQuery.inArray(document.getElementById('wr_content').value
+						.toLowerCase().replace(/^\s*|\s*$/g, ''), [ '&nbsp;',
+						'<p>&nbsp;</p>', '<p><br></p>', '<div><br></div>',
+						'<p></p>', '<br>', '' ]) != -1) {
+					document.getElementById('wr_content').value = '';
+				}
+				if (!wr_content_editor_data
+						|| jQuery.inArray(wr_content_editor_data.toLowerCase(),
+								[ '&nbsp;', '<p>&nbsp;</p>', '<p><br></p>',
+										'<p></p>', '<br>' ]) != -1) {
+					alert("내용을 입력해 주십시오.");
+					oEditors.getById['wr_content'].exec('FOCUS');
+					return false;
+				}
 
-<textarea id="wr_content" name="wr_content" class="smarteditor2" maxlength="65536" style="width:100%;height:300px"></textarea>
-<span class="sound_only"></span></div>
-        
-    </div>
+				var subject = "";
+				var content = "";
+				$.ajax({
+					url : g5_bbs_url + "/ajax.filter.php",
+					type : "POST",
+					data : {
+						"subject" : f.wr_subject.value,
+						"content" : f.wr_content.value
+					},
+					dataType : "json",
+					async : false,
+					cache : false,
+					success : function(data, textStatus) {
+						subject = data.subject;
+						content = data.content;
+					}
+				});
 
-        <div class="bo_w_flie write_div">
-        <div class="file_wr write_div">
-            <label for="bf_file_1" class="lb_icon"><i class="fa fa-download" aria-hidden="true"></i><span class="sound_only">파일</span></label>
-            <input type="file" name="bf_file[]" id="bf_file_1" title="파일첨부 1 : 용량 1,048,576 바이트 이하만 업로드 가능" class="frm_file ">
-        </div>
-                
-    </div>
+				if (subject) {
+					alert("제목에 금지단어('" + subject + "')가 포함되어있습니다");
+					f.wr_subject.focus();
+					return false;
+				}
 
-    <div class="btn_confirm write_div">
-        <a href="findlist" class="btn_cancel btn">취소</a>
-        <input type="submit" value="작성완료" id="btn_submit" class="btn_submit btn">
-    </div>
-    </form>
+				if (content) {
+					alert("내용에 금지단어('" + content + "')가 포함되어있습니다");
+					if (typeof (ed_wr_content) != "undefined")
+						ed_wr_content.returnFalse();
+					else
+						f.wr_content.focus();
+					return false;
+				}
 
-    <script>
-        function html_auto_br(obj)
-    {
-        if (obj.checked) {
-            result = confirm("자동 줄바꿈을 하시겠습니까?\n\n자동 줄바꿈은 게시물 내용중 줄바뀐 곳을<br>태그로 변환하는 기능입니다.");
-            if (result)
-                obj.value = "html2";
-            else
-                obj.value = "html1";
-        }
-        else
-            obj.value = "";
-    }
+				if (document.getElementById("char_count")) {
+					if (char_min > 0 || char_max > 0) {
+						var cnt = parseInt(check_byte("wr_content",
+								"char_count"));
+						if (char_min > 0 && char_min > cnt) {
+							alert("내용은 " + char_min + "글자 이상 쓰셔야 합니다.");
+							return false;
+						} else if (char_max > 0 && char_max < cnt) {
+							alert("내용은 " + char_max + "글자 이하로 쓰셔야 합니다.");
+							return false;
+						}
+					}
+				}
 
-    function fwrite_submit(f)
-    {
-        var wr_content_editor_data = oEditors.getById['wr_content'].getIR();
-oEditors.getById['wr_content'].exec('UPDATE_CONTENTS_FIELD', []);
-if(jQuery.inArray(document.getElementById('wr_content').value.toLowerCase().replace(/^\s*|\s*$/g, ''), ['&nbsp;','<p>&nbsp;</p>','<p><br></p>','<div><br></div>','<p></p>','<br>','']) != -1){document.getElementById('wr_content').value='';}
-if (!wr_content_editor_data || jQuery.inArray(wr_content_editor_data.toLowerCase(), ['&nbsp;','<p>&nbsp;</p>','<p><br></p>','<p></p>','<br>']) != -1) { alert("내용을 입력해 주십시오."); oEditors.getById['wr_content'].exec('FOCUS'); return false; }
+				if (!chk_captcha())
+					return false;
 
-        var subject = "";
-        var content = "";
-        $.ajax({
-            url: g5_bbs_url+"/ajax.filter.php",
-            type: "POST",
-            data: {
-                "subject": f.wr_subject.value,
-                "content": f.wr_content.value
-            },
-            dataType: "json",
-            async: false,
-            cache: false,
-            success: function(data, textStatus) {
-                subject = data.subject;
-                content = data.content;
-            }
-        });
+				document.getElementById("btn_submit").disabled = "disabled";
 
-        if (subject) {
-            alert("제목에 금지단어('"+subject+"')가 포함되어있습니다");
-            f.wr_subject.focus();
-            return false;
-        }
-
-        if (content) {
-            alert("내용에 금지단어('"+content+"')가 포함되어있습니다");
-            if (typeof(ed_wr_content) != "undefined")
-                ed_wr_content.returnFalse();
-            else
-                f.wr_content.focus();
-            return false;
-        }
-
-        if (document.getElementById("char_count")) {
-            if (char_min > 0 || char_max > 0) {
-                var cnt = parseInt(check_byte("wr_content", "char_count"));
-                if (char_min > 0 && char_min > cnt) {
-                    alert("내용은 "+char_min+"글자 이상 쓰셔야 합니다.");
-                    return false;
-                }
-                else if (char_max > 0 && char_max < cnt) {
-                    alert("내용은 "+char_max+"글자 이하로 쓰셔야 합니다.");
-                    return false;
-                }
-            }
-        }
-
-        if (!chk_captcha()) return false;
-
-        document.getElementById("btn_submit").disabled = "disabled";
-
-        return true;
-    }
-    </script>
-</section>
-
-    
+				return true;
+			}
+		</script>
 <script>
 // 글자수 제한
 var char_min = parseInt(0); // 최소
 var char_max = parseInt(0); // 최대
 </script>
 
-<hr>
-</section>
+		<hr>
 
-    </div><!-- // #container 닫음 -->
+	</div>
+	<!-- // #container 닫음 -->
 	<jsp:include page="sideBar.jsp" />
 
-</div><!-- // #ctWrap 닫음 -->
+</div>
+<!-- // #ctWrap 닫음 -->
 <!-- } 콘텐츠 끝 -->
 
 <hr>
 
 <!-- 하단 시작 { -->
-<footer id="footer">
-</footer>
+<footer id="footer"></footer>
 
 <script src="http://sample.paged.kr/purewhite/theme/pagedtheme/js/jquery-1.11.0.min.js"></script>
 <script src="http://sample.paged.kr/purewhite/theme/pagedtheme/js/jquery.menu.min.js?ver=171222"></script>

@@ -31,6 +31,28 @@ public class NoticeServiceImpl implements NoticeService {
 		NoticeRepository.noticeUpload(notice);
 		
 	}
+	@Override
+	public Notice noticeDetail(int noticeNo) {
+		Notice notice = NoticeRepository.noticeDetail(noticeNo);
+		return notice;
+	}
+	@Override
+	public void noticeDelete(int noticeNo) {
+		NoticeRepository.noticeDelete(noticeNo);
+		
+	}
+	@Override
+	public List<Notice> findNoticeByNoticeNo(int noticeNo) {
+		
+		ArrayList<Notice> notice = NoticeRepository.findNoticeByNoticeNo(noticeNo);
+		return notice;
+	}
+	@Override
+	public void updateNoticeUpdate(Notice notice) {
+		NoticeRepository.updateNoticeUpdate(notice);
+		
+	}
 
 	
 }
+

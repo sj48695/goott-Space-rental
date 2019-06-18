@@ -25,9 +25,7 @@
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog_responsive.css">
 
-<div class="super_container">
 	<a id="topID"></a>
-
 	<aside id="topSpacer"></aside>
 	<hr>
 
@@ -61,7 +59,7 @@
 							</div>
 							<div class="td_subject" style="padding-left: 0px">
 								<div class="bo_tit">
-									<a href="">분실물 찾아주세요 게시판입니다.</a>
+									<a href="">분실물 찾아가세요 게시판입니다.</a>
 								</div>
 							</div> <span class="onlyMvV" style="padding-left: 0px"></span>
 							<div class="mvInlinev td_name sv_use">
@@ -103,7 +101,7 @@
 		<!-- } 게시글 읽기 끝 -->
 
 		<jsp:include page="sideBar.jsp" />
-</div>
+	</div>
 <!-- // #ctWrap 닫음 -->
 <!-- } 콘텐츠 끝 -->
 

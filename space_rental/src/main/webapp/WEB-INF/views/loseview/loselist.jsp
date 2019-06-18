@@ -25,7 +25,6 @@
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog_responsive.css">
 
-<div class="super_container">
 	<a id="topID"></a>
 
 	<aside id="topSpacer"></aside>
@@ -103,7 +102,7 @@
 		<!-- } 게시글 읽기 끝 -->
 
 		<jsp:include page="sideBar.jsp" />
-</div>
+	</div>
 <!-- // #ctWrap 닫음 -->
 <!-- } 콘텐츠 끝 -->
 

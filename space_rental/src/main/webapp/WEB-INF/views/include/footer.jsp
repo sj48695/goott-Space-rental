@@ -33,6 +33,7 @@
 <script src="/spacerental/resources/js/main.js"></script>
 <script src="/spacerental/resources/js/blog.js"></script>
 
+
 </div>
 </body>
 </html>

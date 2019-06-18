@@ -62,25 +62,25 @@
 				</div>
 				
 				<c:choose>
-			            <c:when test="${ loginuser.equals(manager) }">
-					        <div class="row">
-								<div class="col">
-									<div class="blog_posts_more">
-										<div class="button load_more_button ml-auto mr-auto"><a href="noticewrite">공지작성</a></div>
-									</div>
+		            <c:when test='${ id eq "manager" }'>
+				        <div class="row">
+							<div class="col">
+								<div class="blog_posts_more">
+									<div class="button load_more_button ml-auto mr-auto"><a href="noticewrite">공지작성</a></div>
 								</div>
 							</div>
-			            </c:when>
-			            <c:otherwise>
-			            <div class="row">
-								<div class="col">
-									<div class="blog_posts_more">
-										<!-- <div class="button load_more_button ml-auto mr-auto"><a href="noticewrite">공지작성</a></div> -->
-									</div>
+						</div>
+		            </c:when>
+		            <c:otherwise>
+		            <div class="row">
+							<div class="col">
+								<div class="blog_posts_more">
+									<!-- <div class="button load_more_button ml-auto mr-auto"><a href="noticewrite">공지작성</a></div> -->
 								</div>
 							</div>
-			            </c:otherwise>
-			        </c:choose>
+						</div>
+		            </c:otherwise>
+		        </c:choose>
 			</div>		
 		</div>
 

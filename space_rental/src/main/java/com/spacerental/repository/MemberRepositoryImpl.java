@@ -50,4 +50,16 @@ public class MemberRepositoryImpl implements MemberRepository {
 		return member;
 	}
 
+	@Override
+	public void updateMember(Member member) {
+		memberMapper.updateMember(member);
+		
+	}
+
+	@Override
+	public void deleteMember(String id) {
+		memberMapper.deleteMember(id);
+		
+	}
+
 }

@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -26,6 +25,20 @@ public class SpaceController {
 	@Autowired
 	@Qualifier("spaceService")
 	private SpaceService spaceService;
+	
+	@RequestMapping(value="/spacelist", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	public String list() {
+		 
+		
+		return "space/spacelist";
+	}
+	
+	@RequestMapping(value="/detail", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	public String detail() {
+		 
+		
+		return "space/detail";
+	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String writeForm() {
@@ -125,6 +138,5 @@ public class SpaceController {
 ////		//titleImg.substring(12);
 ////		return titleImg.replace("C:\\fakepath\\", "");
 //	}
-	
 	
 }

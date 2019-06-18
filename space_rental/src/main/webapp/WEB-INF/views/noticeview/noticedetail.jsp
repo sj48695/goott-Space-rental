@@ -52,7 +52,7 @@
                            </div>
                            
                           	<c:choose>
-			           			<c:when test="${ loginuser.equals(manager) }">
+			           			<c:when test="${ id eq 'manager' }">
                           			<input  type="button" class="contact_button trans_200" id="update" value="수정" />
                            			<input  type="button" class="contact_button trans_200" id="delete" value="삭제" />
                            			<input  type="button" class="contact_button trans_200" id="return" value="돌아가기" />

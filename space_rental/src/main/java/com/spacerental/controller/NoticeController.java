@@ -2,7 +2,6 @@ package com.spacerental.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spacerental.service.NoticeService;
+import com.spacerental.vo.Member;
 import com.spacerental.vo.Notice;
 
 
@@ -29,11 +27,13 @@ public class NoticeController {
 	
 
 	@RequestMapping(path = "/notice", method = RequestMethod.GET)
-	public String noticelist(Model model, HttpServletRequest req) {
-		
+	public String noticelist(Model model,HttpSession session) {
+		Member loginuser = (Member) session.getAttribute("loginuser");
 		List<Notice> Notice = NoticeService.selectNoticelist();
 		model.addAttribute("Notices", Notice);
-
+		if(loginuser!=null) {
+			model.addAttribute("id", loginuser.getId());
+		}
 		return "noticeview/notice";
 	}
 	
@@ -50,11 +50,14 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(path = "/noticedetail/{noticeNo}", method = RequestMethod.GET)
-	public String noticeDetail(@PathVariable int noticeNo, Model model) {
-
+	public String noticeDetail(@PathVariable int noticeNo, Model model,HttpSession session) {
+		Member loginuser = (Member) session.getAttribute("loginuser");
 		Notice notice = NoticeService.noticeDetail(noticeNo);
 
 		model.addAttribute("notices", notice);
+		if(loginuser!=null) {
+			model.addAttribute("id", loginuser.getId());
+		}
 		return "noticeview/noticedetail";
 	}
 	

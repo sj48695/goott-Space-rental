@@ -50,43 +50,48 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 	@Override
 	public List<Space> selectSpace() {
 		List<Space> spaces = spaceMapper.selectSpace();
-		
 		return spaces;
 	}
 
 	@Override
 	public List<Host> selectHost() {
 		List<Host> hosts = hostMapper.selectHost();
-		
 		return hosts;
 	}
 
 	@Override
 	public Host selectHostByHostNo(int hostNo) {
 		Host host = hostMapper.selectHostByHostNo(hostNo);
-		
 		return host;
 	}
 
 	@Override
 	public SpaceFile selectHostFile(int hostNo) {
 		SpaceFile file = hostMapper.selectHostFile(hostNo);
-		
 		return file;
 	}
 
 	@Override
 	public List<SpaceFile> selectSpaceFilesBySpaceNo(int spaceNo) {
 		List<SpaceFile> files = spaceMapper.selectSpaceFilesBySpaceNo(spaceNo);
-		
 		return files;
 	}
 
 	@Override
 	public List<SpaceFile> selectHostFilesByHostNo(int hostNo) {
 		List<SpaceFile> hostfiles = hostMapper.selectHostFilesByHostNo(hostNo);
-		
 		return hostfiles;
+	}
 
+	@Override
+	public List<Space> selectSpacesByHostNo(int hostNo) {
+		List<Space> spaces = spaceMapper.selectSpacesByHostNo(hostNo);
+		return spaces;
+	}
+
+	@Override
+	public Space selectSpaceBySpaceNo(int spaceNo) {
+		Space space = spaceMapper.selectSpaceBySpaceNo(spaceNo);
+		return space;
 	}
 }

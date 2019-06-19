@@ -18,4 +18,8 @@ public interface SpaceMapper {
 	
 	List<SpaceFile> selectSpaceFilesBySpaceNo(int spaceNo);
 
+	List<Space> selectSpacesByHostNo(int hostNo);
+
+	Space selectSpaceBySpaceNo(int spaceNo);
+
 }

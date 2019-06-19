@@ -51,4 +51,32 @@ $(function() {
         $("#spcCtCnt").html(content.length);
     });
     $("#space_text").keyup();
+    
+//    $('.enter').on('mouseenter', function(event){
+//    	$(this).css('background-color','#7777ff');
+//    });
+    
+    
 });
+
+
+function dayCheck(i) {
+	if($('#day'+i).is(":checked")){
+		$('td').removeClass('datepick');
+		$('#day'+i).parent().addClass('datepick');
+	}else{
+		$('#day'+i).parent().removeClass('datepick');
+	}
+}
+
+/* function Change(){
+$.ajax({
+	method : "POST",
+	url : "/spacerental/space/calender",
+	data : {obj:obj},
+	success : function(data,status,xhr){
+		alert(data);
+	}
+});
+} */
+

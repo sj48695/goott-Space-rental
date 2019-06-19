@@ -1,8 +1,12 @@
 package com.spacerental.controller;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -18,9 +22,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spacerental.common.Util;
+import com.spacerental.service.RentService;
 import com.spacerental.service.SpaceService;
 import com.spacerental.vo.Host;
 import com.spacerental.vo.Member;
+import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
@@ -32,15 +38,19 @@ public class SpaceController {
 	@Qualifier("spaceService")
 	private SpaceService spaceService;
 	
-	@RequestMapping(value="/spacelist", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	@Autowired
+	@Qualifier("rentService")
+	private RentService rentService;
+	
+	@RequestMapping(value = "/spacelist", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
 	public String list(Model model) {
-		 
+
 		List<Host> hosts = spaceService.findHostList();
-		
-		for(Host host : hosts) {
+
+		for (Host host : hosts) {
 			host.setFile(spaceService.findHostFile(host.getHostNo()));
 		}
-		
+
 		model.addAttribute("hosts", hosts);
 
 		return "space/spacelist";
@@ -56,22 +66,119 @@ public class SpaceController {
 //	}
 	
 	
-	@RequestMapping(value="/detail/{hostNo}", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	@RequestMapping(value = "/detail/{hostNo}", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
 	public String detail(@PathVariable int hostNo, Model model) {
-		
-		 Host host = spaceService.findHostByHostNo(hostNo);
-		 
-		 if(host == null) { //productno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
-				return "redirect:spacelist";
-			}
+
+		Host host = spaceService.findHostByHostNo(hostNo);
+		List<Space> spaces = spaceService.findSpacesByHostNo(hostNo);
+
+		if (host == null) { // productno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
+			return "redirect:spacelist";
+		}
 
 		List<SpaceFile> hostfiles = spaceService.findHostFilesByHostNo(hostNo);
-		host.setFiles((ArrayList<SpaceFile>)hostfiles);
-		
-		 model.addAttribute("host", host);
+		host.setFiles((ArrayList<SpaceFile>) hostfiles);
+
+		model.addAttribute("host", host);
+		model.addAttribute("spaces",spaces);
 
 		return "space/detail";
 	}
+	
+	@RequestMapping(value = "/rent", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	public String rentForm(int spaceNo, Model model//, int year, int month
+			) {
+		int year=2019;
+		int month=6;
+		int day=19;
+
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		StringTokenizer st = new StringTokenizer(sdf.format(date), "-");
+
+		if (year == 0) {
+			year = Integer.parseInt(st.nextToken());
+		}
+		if (month == 0) {
+			month = Integer.parseInt(st.nextToken());
+		}
+		if (day == 0) {
+			month = Integer.parseInt(st.nextToken());
+		}
+		String[] strWeek = { "일", "월", "화", "수", "목", "금", "토" };
+		int[] lastDay = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+		
+		model.addAttribute("nowYear", year);
+		model.addAttribute("nowMonth", month);
+		model.addAttribute("nowDay", day);
+		model.addAttribute("strWeek", strWeek);
+		model.addAttribute("strMonth", month);
+		model.addAttribute("strYear", year);
+
+		// 요일 출력 end
+		// 달력 출력 start
+		int total = (year - 1) * 365 + (year - 1) / 4 - (year - 1) / 100 + (year - 1) / 400;
+
+		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+			lastDay[1] = 29;
+		} else {
+			lastDay[1] = 28;
+		}
+
+		for (int i = 0; i < month - 1; i++) {
+			total += lastDay[i];
+		}
+
+		total++;
+
+		int week = total % 7;
+
+		model.addAttribute("lastDay", lastDay[month-1]);
+		model.addAttribute("week", week);
+
+		
+		
+		
+		
+		/*--------------------------------------------------*/	
+		
+		Space space = spaceService.findSpaceBySpaceNo(spaceNo);
+		if (space == null) { // productno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
+			return "redirect:spacelist";
+		}
+		Host host = spaceService.findHostByHostNo(space.getHostNo());
+		
+		model.addAttribute("host", host);
+		model.addAttribute("space", space);
+
+		return "space/rent";
+	}
+	
+
+	@RequestMapping(value = "/rent", method = RequestMethod.POST) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	public String rent(Model model, Rent rent,int year, int month, int day, HttpSession session) {
+		Member loginuser = (Member) session.getAttribute("loginuser");
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+
+		System.out.println(rent);
+		rent.setId(loginuser.getId());
+		String strDate = year+"-"+month+"-"+day;
+		Date date = null;
+		try {
+			date = sdf.parse(strDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		rent.setRentDate(date);
+		System.out.println(rent);
+		rentService.registerRent(rent);
+		
+		return "redirect:rent?spaceNo="+rent.getSpaceNo();
+	}
+	
+	
 	
 	@RequestMapping(path = "/register_host", method = RequestMethod.GET)
 	public String showHostRegisterForm() {
@@ -92,13 +199,13 @@ public class SpaceController {
 	}
 
 	@RequestMapping(value = "/write/{hostNo}", method = RequestMethod.GET)
-	public String writeForm(HttpSession session, Model model,@PathVariable int hostNo) {
-		model.addAttribute("hostNo",hostNo);
+	public String writeForm(HttpSession session, Model model, @PathVariable int hostNo) {
+		model.addAttribute("hostNo", hostNo);
 		return "space/write";
 	}
 	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String write(Space space, MultipartHttpServletRequest req,HttpSession session,int hostNo) {
+	public String write(Space space, MultipartHttpServletRequest req, HttpSession session, int hostNo) {
 		SpaceFile spaceFile = new SpaceFile();
 		ServletContext application = req.getServletContext();
 		String path = application.getRealPath("/resources/files/space-files");// 최종 파일 저장 경로
@@ -149,7 +256,7 @@ public class SpaceController {
 					space.setFiles(files);
 				}
 			}
-			Member loginuser = (Member)session.getAttribute("loginuser");
+			Member loginuser = (Member) session.getAttribute("loginuser");
 			space.setHostId(loginuser.getId().toString());
 			space.setHostNo(hostNo);
 			spaceService.registerSpaceTx(space);

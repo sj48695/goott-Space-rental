@@ -24,6 +24,7 @@
 		and s.spaceno = sf.spaceno 
 		and sf.flag = 1 
 		and h.hostno = #{ hostNo }
+		and rownum = 1
 	</select>
 	
 	<!-- detail-files -->

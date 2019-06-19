@@ -2,23 +2,10 @@ package com.spacerental.repository;
 
 import java.util.HashMap;
 
-import org.mybatis.spring.SqlSessionTemplate;
-
 import com.spacerental.mapper.MemberMapper;
-import com.spacerental.vo.Host;
 import com.spacerental.vo.Member;
 
 public class MemberRepositoryImpl implements MemberRepository {
-
-	private SqlSessionTemplate sqlSessionTemplate;
-
-	public SqlSessionTemplate getSqlSessionTemplate() {
-		return sqlSessionTemplate;
-	}
-
-	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
-		this.sqlSessionTemplate = sqlSessionTemplate;
-	}
 
 	private MemberMapper memberMapper;
 

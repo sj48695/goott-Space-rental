@@ -10,27 +10,6 @@ function readURL(input,target) {
 	}
 }
 $("#writeForm").on("change", "#titleImgFile", function(event) {
-	
-// var formData = $('#writeForm').serialize();
-//	$.ajax({
-//		method : "POST",
-//		enctype:"multipart/form-data",
-//		url : "/spacerental/space/titleImg",
-//		data : formData,
-//		processData: false, //processData : false로 선언 시 formData를 string으로 변환하지 않음
-//        contentType: false,//contentType : false 로 선언 시 content-type 헤더가 multipart/form-data로 전송되게 함
-//        cache: false,
-//		success : function(data, status, xhr) {
-//			alert(data+ " / "+formData);
-//			console.log("s");
-//			var result = "<img src='/resources/files/space-files/" + data + "'>";
-//			$(".inner_img").html(result);
-//			//alert(result);
-//		},
-//		error : function(xhr, status, err) {
-//			alert(err);
-//		}
-//	});
 	readURL(this,$(".inner_img"));
 });
 $("#writeForm").on("change", "#imgFile", function(event) {
@@ -50,13 +29,7 @@ $(function() {
         $(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
         $("#spcCtCnt").html(content.length);
     });
-    $("#space_text").keyup();
-    
-//    $('.enter').on('mouseenter', function(event){
-//    	$(this).css('background-color','#7777ff');
-//    });
-    
-    
+    $("#space_text").keyup();    
 });
 
 
@@ -69,14 +42,21 @@ function dayCheck(i) {
 	}
 }
 
-/* function Change(){
-$.ajax({
-	method : "POST",
-	url : "/spacerental/space/calender",
-	data : {obj:obj},
-	success : function(data,status,xhr){
-		alert(data);
-	}
-});
-} */
+function change() {
+//	$.ajax({
+//		method : "GET",
+//		url : "/spacerental/space/rent",
+//		data : {
+//			"year" : $('#year').val(),
+//			"month" : $('#month').val(),
+//			"spaceNo" : $('#spaceNo').val()
+//		},
+//		success : function(data, status, xhr) {
+//			
+//		}
+//	});
+	window.location.href="/spacerental/space/rent?year="+$('#year').val()+
+										"&month="+$('#month').val()+
+										"&spaceNo="+$('#spaceNo').val();
+} 
 

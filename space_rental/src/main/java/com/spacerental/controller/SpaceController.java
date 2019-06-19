@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -56,16 +57,6 @@ public class SpaceController {
 		return "space/spacelist";
 	}
 	
-//	  public String list(Model model) {
-//	  
-//	  List<Space> spaces = spaceService.findSpaceList();
-//	  
-//	  model.addAttribute("spaces", spaces);
-//	  
-//	  return "space/spacelist"; 
-//	}
-	
-	
 	@RequestMapping(value = "/detail/{hostNo}", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
 	public String detail(@PathVariable int hostNo, Model model) {
 
@@ -86,12 +77,10 @@ public class SpaceController {
 	}
 	
 	@RequestMapping(value = "/rent", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
-	public String rentForm(int spaceNo, Model model//, int year, int month
-			) {
-		int year=2019;
-		int month=6;
-		int day=19;
+	public String rentForm(int spaceNo, Model model, int year, int month) {
 
+		int day = 0;
+		
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -104,7 +93,7 @@ public class SpaceController {
 			month = Integer.parseInt(st.nextToken());
 		}
 		if (day == 0) {
-			month = Integer.parseInt(st.nextToken());
+			day = Integer.parseInt(st.nextToken());
 		}
 		String[] strWeek = { "일", "월", "화", "수", "목", "금", "토" };
 		int[] lastDay = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -268,37 +257,9 @@ public class SpaceController {
 	}
 	
 //	@ResponseBody
-//	@RequestMapping(value = "/titleImg"
-//					, method = RequestMethod.POST
-//					//, produces="text/plain;charset=utf-8"
-//	 				, consumes ="multipart/form-data")
-//	public String titleImg(MultipartHttpServletRequest req) {
-//
-//		String uniqueFileName = "";
-//		try {
-//			System.out.println(req.getContentType());
-//			MultipartFile img = req.getFile("titleImgFile");
-//			ServletContext application = req.getServletContext();
-//			String path = application.getRealPath("/resources/files/space-files");// 최종 파일 저장 경로
-//			if (img != null) {
-//				String userFileName = img.getOriginalFilename();
-//				if (userFileName != null && userFileName.length() > 0) { // 내용이 있는 경우
-//					if (userFileName.contains("\\")) { // iexplore 경우
-//						// C:\AAA\BBB\CCC.png -> CCC.png
-//						userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
-//					}
-//					uniqueFileName = Util.makeUniqueFileName(path, userFileName);// 파일이름_1.jpg
-//				}
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return uniqueFileName;
-//		
-//		
-////		System.out.println(titleImg);
-////		//titleImg.substring(12);
-////		return titleImg.replace("C:\\fakepath\\", "");
+//	@RequestMapping(value = "/calender",method = RequestMethod.POST)
+//	public String calender(int year, int month) {
+//		System.out.println(year + " / " + month);
+//		return "redirect:rent";
 //	}
-	
 }

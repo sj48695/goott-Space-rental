@@ -83,9 +83,9 @@
 		<div class="col-lg-4">
 			<div class="bg-white widget border rounded">
 				<form action="rent" method="post">
-					<input type="hidden" name="spaceNo" value="${ space.spaceNo }">
+					<input type="hidden" name="spaceNo", id="spaceNo" value="${ space.spaceNo }">
 					<h4>${ nowYear }년 ${ nowMonth }월 일정</h4>
-					<select name="year" onchange="change()">
+					<select name="year" id="year" onchange="change()">
 						<c:forEach var="year" begin="2019" end="2020" varStatus="y_status">
 							<c:if test="${ year eq nowYear}">
 								<option selected>${ y_status.index }</option>
@@ -95,7 +95,7 @@
 							</c:if>
 						</c:forEach>
 					</select>년도&nbsp;&nbsp;&nbsp; 
-					<select name="month" onchange="change()">
+					<select name="month" id="month" onchange="change()">
 						<c:forEach var="month" begin="1" end="12" varStatus="m_status">
 							<c:if test="${ month eq nowMonth}">
 								<option selected>${ m_status.index }</option>

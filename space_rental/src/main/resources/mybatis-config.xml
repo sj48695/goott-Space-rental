@@ -6,13 +6,14 @@
 <configuration>
 	<!-- type에 지정된 some.package.name.ClassName을 alias에 지정된 이름으로 대체하는 설정 -->
 	<typeAliases>
-		<typeAlias type="com.spacerental.vo.Member" alias="Member"/>
+		<typeAlias type="com.spacerental.vo.Member" alias="Member" />
 		<typeAlias type="com.spacerental.vo.Space" alias="Space" />
 		<typeAlias type="com.spacerental.vo.SpaceFile" alias="SpaceFile" />
 		<typeAlias type="com.spacerental.vo.Host" alias="Host" />
-		<typeAlias type="com.spacerental.vo.Notice" alias = "Notice"/>
-		<typeAlias type="com.spacerental.vo.Lose" alias = "Lose"/>
-		<typeAlias type="com.spacerental.vo.LoseFile" alias = "LoseFile"/>
+		<typeAlias type="com.spacerental.vo.Notice" alias="Notice" />
+		<typeAlias type="com.spacerental.vo.Lose" alias="Lose" />
+		<typeAlias type="com.spacerental.vo.LoseFile" alias="LoseFile" />
+		<typeAlias type="com.spacerental.vo.Rent" alias="Rent" />
 	</typeAliases>
 
 	<environments default="development">
@@ -35,5 +36,6 @@
 		<mapper resource="com/spacerental/mapper/notice-mapper.xml" />
 		<mapper resource="com/spacerental/mapper/search-mapper.xml"/>
 		<mapper resource="com/spacerental/mapper/lose-mapper.xml"/>
+		<mapper resource="com/spacerental/mapper/rent-mapper.xml"/>
 	</mappers>
 </configuration>

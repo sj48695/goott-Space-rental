@@ -24,5 +24,9 @@ public interface SpaceRepository {
 
 	List<SpaceFile> selectHostFilesByHostNo(int hostNo);
 
+	List<Space> selectSpacesByHostNo(int hostNo);
+
+	Space selectSpaceBySpaceNo(int spaceNo);
+
 
 }

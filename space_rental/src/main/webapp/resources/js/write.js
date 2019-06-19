@@ -50,3 +50,15 @@ $(function() {
     $("#space_text").keyup();
 });
 
+
+function dayCheck(i) {
+	if($('#day'+i).is(":checked")){
+		$('td').removeClass('datepick');
+		$('#day'+i).parent().addClass('datepick');
+	}else{
+		$('#day'+i).parent().removeClass('datepick');
+	}
+}
+
+
+

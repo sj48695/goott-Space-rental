@@ -21,5 +21,9 @@ public interface SpaceService {
 	List<SpaceFile> findSpaceFilesBySpaceNo(int spaceNo);
 	
 	List<SpaceFile> findHostFilesByHostNo(int hostNo);
+
+	List<Space> findSpacesByHostNo(int hostNo);
+
+	Space findSpaceBySpaceNo(int spaceNo);
 	
 }

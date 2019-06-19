@@ -86,4 +86,16 @@ public class SpaceServiceImpl implements SpaceService {
 	
 	}
 
+	@Override
+	public List<Space> findSpacesByHostNo(int hostNo) {
+		List<Space> spaces =spaceRepository.selectSpacesByHostNo(hostNo);
+		return spaces;
+	}
+
+	@Override
+	public Space findSpaceBySpaceNo(int spaceNo) {
+		Space space = spaceRepository.selectSpaceBySpaceNo(spaceNo);
+		return space;
+	}
+
 }

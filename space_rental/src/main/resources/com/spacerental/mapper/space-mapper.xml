@@ -13,10 +13,22 @@
 		SELECT <include refid="spaceFileBasicColumns" /> FROM SPACEFILE
 	</select>
 	
+	<select id="selectSpaceBySpaceNo" parameterType="int" resultType="Space">
+		select <include refid="spaceBasicColumns"/> 
+		from space
+		where spaceno = #{ spaceNo } 
+	</select>
+	
 	<select id="selectSpaceFilesBySpaceNo" parameterType="int" resultType="SpaceFile">
 		select <include refid="spaceFileBasicColumns"/> 
 		from spacefile
 		where spaceno = #{ spaceNo } 
+	</select>
+	
+	<select id="selectSpacesByHostNo" parameterType="int" resultType="Space">
+		select <include refid="spaceBasicColumns"/> 
+		from space
+		where hostNo = #{ hostNo } 
 	</select>
 	
 	

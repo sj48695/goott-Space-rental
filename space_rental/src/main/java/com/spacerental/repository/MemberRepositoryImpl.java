@@ -1,24 +1,14 @@
 package com.spacerental.repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-
-import org.mybatis.spring.SqlSessionTemplate;
+import java.util.List;
 
 import com.spacerental.mapper.MemberMapper;
-import com.spacerental.vo.Host;
 import com.spacerental.vo.Member;
+import com.spacerental.vo.Rent;
 
 public class MemberRepositoryImpl implements MemberRepository {
-
-	private SqlSessionTemplate sqlSessionTemplate;
-
-	public SqlSessionTemplate getSqlSessionTemplate() {
-		return sqlSessionTemplate;
-	}
-
-	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
-		this.sqlSessionTemplate = sqlSessionTemplate;
-	}
 
 	private MemberMapper memberMapper;
 
@@ -55,6 +45,12 @@ public class MemberRepositoryImpl implements MemberRepository {
 	public void deleteMember(String id) {
 		memberMapper.deleteMember(id);
 		
+	}
+
+	@Override
+	public List<Rent> selectlentList(String id) {
+		List<Rent> rent = memberMapper.selectlentList(id);
+		return rent;
 	}
 
 }

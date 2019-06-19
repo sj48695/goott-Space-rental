@@ -20,9 +20,10 @@
 <div class="site-blocks-cover inner-page-cover overlay" data-aos="fade" data-stellar-background-ratio="0.5"
    style="background-image: url(/spacerental/resources/files/space-files/${host.file.savedFileName});"></div>
 
-<!-- 디테일 박스 -->
 
+<!-- 디테일 박스 -->
 <div class="site-section site-section-sm container">
+<<<<<<< HEAD
    <div class="row">
       <div class="col-lg-8">
          <div class="bg-white property-body border-bottom border-left border-right border-top">
@@ -43,6 +44,7 @@
 <%-- 줄바꿈 문자열을 저장하고 있는 변수 만들기 --%>
 <c:set var="enter" value="
 " />
+<<<<<<< HEAD
                <p>${ fn:replace(host.content, enter, '<br>') }</p>
                <ul class="py-3" style="list-style: none; padding-left: 0px;">
                   <li><span class="pr-3 text-black"><strong>영업시간</strong></span> <span>${ host.open }</span></li>
@@ -368,4 +370,5 @@
       });   
    });
 </script>
+
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />

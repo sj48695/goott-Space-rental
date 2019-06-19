@@ -4,6 +4,19 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.spacerental.mapper.MemberMapper">
+
+	<resultMap id="rentMap" type="com.spacerental.vo.Rent">
+		<id column="rentNo" property="rentNo" />
+		<result column="rentDate" property="rentDate"/>
+		<result column="headCount" property="headCount"/>
+		<result column="startTime" property="startTime"/>
+		<result column="endTime" property="endTime"/>
+		<result column="spaceName" property="spaceName"/>
+		<result column="s.spaceNo" property="spaceNo"/>
+		<result column="id" property="id"/>
+
+	</resultMap>
+
 	<!-- 회원관리 -->
 	<insert id="insertMember" parameterType="Member">	
 		insert into Member (id, passwd, name, phone, type) 
@@ -26,4 +39,13 @@
 		delete from Member
 		where id = #{ id }
 	</delete>
+	
+	<select id="selectlentList" parameterType="String" resultMap="rentMap">
+		select rentNo, rentDate,headCount,startTime, endTime ,spaceName,r.spaceNo, id
+		from Rent r, Space s
+		where r.spaceNo = s.spaceNo
+		and id = #{ id }
+		order by rentNo desc
+	</select>
+	
 </mapper>

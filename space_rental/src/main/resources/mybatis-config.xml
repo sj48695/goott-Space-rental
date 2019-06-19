@@ -13,6 +13,7 @@
 		<typeAlias type="com.spacerental.vo.Notice" alias = "Notice"/>
 		<typeAlias type="com.spacerental.vo.Lose" alias = "Lose"/>
 		<typeAlias type="com.spacerental.vo.LoseFile" alias = "LoseFile"/>
+		<typeAlias type="com.spacerental.vo.Rent" alias = "Rent"/>
 	</typeAliases>
 
 	<environments default="development">

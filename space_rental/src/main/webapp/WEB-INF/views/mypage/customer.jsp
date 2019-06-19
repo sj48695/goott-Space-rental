@@ -4,7 +4,6 @@
 <c:set var="title" value="마이페이지" scope="request"/>
 <jsp:include page="/WEB-INF/views/include/header.jsp"/> 
 
-<link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
 <style>
 .header {
 	position: fixed;

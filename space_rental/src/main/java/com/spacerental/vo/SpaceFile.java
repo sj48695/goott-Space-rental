@@ -1,5 +1,7 @@
 package com.spacerental.vo;
 
+import java.util.ArrayList;
+
 import lombok.Data;
 
 @Data

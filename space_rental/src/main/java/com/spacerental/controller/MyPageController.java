@@ -1,5 +1,7 @@
 package com.spacerental.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.spacerental.service.MemberService;
 import com.spacerental.vo.Member;
+import com.spacerental.vo.Rent;
 
 @Controller
 @RequestMapping(value = "/mypage")
@@ -69,6 +72,19 @@ public class MyPageController {
 		session.removeAttribute("loginuser");
 
 		return "redirect:/";		
+	}
+	
+	@RequestMapping(path = "/lentList", method = RequestMethod.GET)
+	public String lentList(Model model, HttpSession session) {
+		
+		Member loginuser = (Member) session.getAttribute("loginuser");
+		String id = loginuser.getId();
+		
+		List<Rent> rent = memberService.selectlentList(id);
+		model.addAttribute("rent", rent);
+		model.addAttribute("loginuser", loginuser);
+		
+		return "mypage/lentList";
 	}
 
 }

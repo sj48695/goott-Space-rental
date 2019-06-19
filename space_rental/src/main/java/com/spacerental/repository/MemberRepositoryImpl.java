@@ -1,9 +1,12 @@
 package com.spacerental.repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.spacerental.mapper.MemberMapper;
 import com.spacerental.vo.Member;
+import com.spacerental.vo.Rent;
 
 public class MemberRepositoryImpl implements MemberRepository {
 
@@ -42,6 +45,12 @@ public class MemberRepositoryImpl implements MemberRepository {
 	public void deleteMember(String id) {
 		memberMapper.deleteMember(id);
 		
+	}
+
+	@Override
+	public List<Rent> selectlentList(String id) {
+		List<Rent> rent = memberMapper.selectlentList(id);
+		return rent;
 	}
 
 }

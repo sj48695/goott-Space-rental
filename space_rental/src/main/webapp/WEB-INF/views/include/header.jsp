@@ -10,7 +10,6 @@
 <meta name="description" content="DirectoryPlus template project">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
 <!-- home & notice -->
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/bootstrap-4.1.2/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/plugins/font-awesome-4.7.0/css/font-awesome.min.css">

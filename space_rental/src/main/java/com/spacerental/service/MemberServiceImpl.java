@@ -1,9 +1,12 @@
 package com.spacerental.service;
 
+import java.util.List;
+
 import com.spacerental.common.Util;
 import com.spacerental.repository.MemberRepository;
 import com.spacerental.vo.Host;
 import com.spacerental.vo.Member;
+import com.spacerental.vo.Rent;
 
 public class MemberServiceImpl implements MemberService{
 
@@ -19,8 +22,7 @@ public class MemberServiceImpl implements MemberService{
 
 	
 	@Override
-	public void insertMember(Member member) {
-		
+	public void insertMember(Member member) {		
 		String passwd = Util.getHashedString(member.getPasswd(), "SHA-256"); //패스워드 암호화 (복원불가능)
 		member.setPasswd(passwd);  
 		memberRepository.insertMember(member);
@@ -45,6 +47,12 @@ public class MemberServiceImpl implements MemberService{
 	public void deleteMember(String id) {
 		memberRepository.deleteMember(id);
 		
+	}
+
+	@Override
+	public List<Rent> selectlentList(String id) {
+		List<Rent> rent = memberRepository.selectlentList(id);
+		return rent;
 	}
 	
 }

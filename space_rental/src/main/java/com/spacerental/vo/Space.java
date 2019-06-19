@@ -18,7 +18,8 @@ public class Space {
 	private String computer;
 	private String hostId;
 	private int hostNo;
-	
+
+	private ArrayList<Rent> rent;
 	private SpaceFile file;//대표사진 flag=1
 	private ArrayList<SpaceFile> files; //flag=0
 }

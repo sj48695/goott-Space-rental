@@ -9,6 +9,7 @@
 	<select id="selectHost" resultType="Host">
 		select <include refid="hostBasicColumns" />, ok
 		from host
+		order by hostNo desc
 	</select>
 	
 	<select id="selectHostByHostNo" parameterType="int" resultType="Host">
@@ -24,6 +25,7 @@
 		and s.spaceno = sf.spaceno 
 		and sf.flag = 1 
 		and h.hostno = #{ hostNo }
+		and rownum = 1
 	</select>
 	
 	<!-- detail-files -->

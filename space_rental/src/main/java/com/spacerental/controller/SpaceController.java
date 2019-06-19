@@ -40,21 +40,11 @@ public class SpaceController {
 		for(Host host : hosts) {
 			host.setFile(spaceService.findHostFile(host.getHostNo()));
 		}
-		
+	
 		model.addAttribute("hosts", hosts);
 
 		return "space/spacelist";
 	}
-	
-//	  public String list(Model model) {
-//	  
-//	  List<Space> spaces = spaceService.findSpaceList();
-//	  
-//	  model.addAttribute("spaces", spaces);
-//	  
-//	  return "space/spacelist"; 
-//	}
-	
 	
 	@RequestMapping(value="/detail/{hostNo}", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
 	public String detail(@PathVariable int hostNo, Model model) {
@@ -64,12 +54,14 @@ public class SpaceController {
 		 if(host == null) { //productno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
 				return "redirect:spacelist";
 			}
-
+		 
 		List<SpaceFile> hostfiles = spaceService.findHostFilesByHostNo(hostNo);
 		host.setFiles((ArrayList<SpaceFile>)hostfiles);
 		
+		host.setFile(spaceService.findHostFile(host.getHostNo()));
+		
 		 model.addAttribute("host", host);
-
+		 
 		return "space/detail";
 	}
 	
@@ -99,11 +91,12 @@ public class SpaceController {
 	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String write(Space space, MultipartHttpServletRequest req,HttpSession session,int hostNo) {
-		SpaceFile spaceFile = new SpaceFile();
+		
 		ServletContext application = req.getServletContext();
 		String path = application.getRealPath("/resources/files/space-files");// 최종 파일 저장 경로
 		String userFileName = "";
 		try {
+			
 			MultipartFile titleImg = req.getFile("titleImgFile");
 			if (titleImg != null) {
 				userFileName = titleImg.getOriginalFilename();
@@ -120,40 +113,46 @@ public class SpaceController {
 					// String uniqueFileName=Util.makeUniqueFileName(fileName);//고유한 파일이름.jpg
 					titleImg.transferTo(new File(path, uniqueFileName));// 파일 저장
 
+					SpaceFile spaceFile = new SpaceFile();
 					spaceFile.setSavedFileName(uniqueFileName);
 					spaceFile.setFlag(true);
 					space.setFile(spaceFile);
 				}
 			}
 
-			MultipartFile img = req.getFile("imgFile");
+			List<MultipartFile> img = req.getFiles("imgFile");
+			
 			if (img != null) {
-				userFileName = img.getOriginalFilename();
-				if (userFileName.contains("\\")) { // iexplore 경우
-					// C:\AAA\BBB\CCC.png -> CCC.png
-					userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
-				}
-				if (userFileName != null && userFileName.length() > 0) { // 내용이 있는 경우
+				File file = new File(path);
+				ArrayList<SpaceFile> files = new ArrayList<SpaceFile>();
+				
+				for (int i = 0; i < img.size(); i++) {
+					userFileName = img.get(i).getOriginalFilename();
 					if (userFileName.contains("\\")) { // iexplore 경우
 						// C:\AAA\BBB\CCC.png -> CCC.png
 						userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
 					}
-					String uniqueFileName = Util.makeUniqueFileName(path, userFileName);// 파일이름_1.jpg
-					// String uniqueFileName=Util.makeUniqueFileName(fileName);//고유한 파일이름.jpg
-					img.transferTo(new File(path, uniqueFileName));// 파일 저장
-
-					ArrayList<SpaceFile> files = new ArrayList<SpaceFile>();
-					spaceFile.setSavedFileName(uniqueFileName);
-					spaceFile.setFlag(false);
-					files.add(spaceFile);
-					space.setFiles(files);
+					if (userFileName != null && userFileName.length() > 0) { // 내용이 있는 경우
+						
+						System.out.println(userFileName +" 업로드");
+						//파일 업로드 소스 여기에 삽입
+						String uniqueFileName = Util.makeUniqueFileName(path, userFileName);// 파일이름_1.jpg
+					    file = new File(path, uniqueFileName);
+						img.get(i).transferTo(file); 
+					
+						
+						SpaceFile spaceFile = new SpaceFile();
+						spaceFile.setSavedFileName(uniqueFileName);
+						spaceFile.setFlag(false);
+						files.add(spaceFile);
+						space.setFiles(files);
+					}
 				}
 			}
 			Member loginuser = (Member)session.getAttribute("loginuser");
 			space.setHostId(loginuser.getId().toString());
 			space.setHostNo(hostNo);
 			spaceService.registerSpaceTx(space);
-			System.out.println(space);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

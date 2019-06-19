@@ -12,8 +12,6 @@ public interface SpaceService {
 
 	Integer registerSpaceTx(Space space);
 	
-	List<Space> findSpaceList();
-	
 	List<Host> findHostList();
 	
 	Host findHostByHostNo(int hostNo);

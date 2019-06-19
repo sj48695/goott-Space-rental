@@ -48,13 +48,6 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 	}
 
 	@Override
-	public List<Space> selectSpace() {
-		List<Space> spaces = spaceMapper.selectSpace();
-		
-		return spaces;
-	}
-
-	@Override
 	public List<Host> selectHost() {
 		List<Host> hosts = hostMapper.selectHost();
 		

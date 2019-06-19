@@ -28,12 +28,12 @@ public class SpaceServiceImpl implements SpaceService {
 		SpaceFile titleFile = space.getFile();
 		titleFile.setSpaceNo(newSpaceNo);
 		spaceRepository.insertSpaceFile(titleFile);
-		System.out.println(titleFile);
+		//System.out.println(titleFile);
 //		이미지
 		for (SpaceFile file : space.getFiles()) {
 			file.setSpaceNo(newSpaceNo);
 			spaceRepository.insertSpaceFile(file);
-			System.out.println(file);
+			//System.out.println(file);
 		}
 		return newSpaceNo;
 	}
@@ -42,14 +42,6 @@ public class SpaceServiceImpl implements SpaceService {
 	public int registerHost(Host host) {
 		int newHostNo = spaceRepository.insertHost(host);
 		return newHostNo;
-	}
-
-	@Override
-	public List<Space> findSpaceList() {
-		
-		List<Space> spaces = spaceRepository.selectSpace();
-		
-		return spaces;
 	}
 
 	@Override

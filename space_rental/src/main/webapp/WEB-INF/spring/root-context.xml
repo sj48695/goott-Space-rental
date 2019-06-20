@@ -86,10 +86,6 @@
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
 	</bean>
 	
-	
-	
-	
-	
 	<bean id="loseRepository"
 		class="com.spacerental.repository.LoseRepositoryImpl">
 		<property name="loseMapper" ref="loseMapper" />
@@ -105,11 +101,6 @@
 		<property name="mapperInterface" value="com.spacerental.mapper.LoseMapper" />
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
 	</bean>
-	
-	
-	
-	
-	
 	
 	<bean id="SearchRepository"
 		class="com.spacerental.repository.SearchRepositoryImpl">
@@ -129,5 +120,19 @@
 	
 	<!-- ========================================================================== -->
 	
-
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!-- 미리 만들어져서 사용할 수 있는 Advice 객체 (<bean에 대한 정의)-->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="*Tx"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution( * com.spacerental.service.*.*(..) )"/>
+	</aop:config>
+	
 </beans>

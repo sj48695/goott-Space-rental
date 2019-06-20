@@ -4,7 +4,6 @@
 <c:set var="title" value="마이페이지" scope="request"/>
 <jsp:include page="/WEB-INF/views/include/header.jsp"/> 
 
-<link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/floating-labels/">
 <style>
 .header {
 	position: fixed;
@@ -43,8 +42,9 @@
 	  </table>
 	  <br>
 	  <div class="buttons">
-       	<input type="button" class="btn col-sm-3" id="update_button" value="수정" style="margin-left:23%" />
-       	<input type="button" class="btn col-sm-3" id="delete_button" value="탈퇴"/>     	
+       	<input type="button" class="btn col-sm-3" id="update_button" value="수정" style="margin-left:13%" />
+       	<input type="button" class="btn col-sm-3" id="list_button" value="예약리스트 확인" />
+       	<input type="button" class="btn btn-link col-sm-3" id="delete_button" value="탈퇴"/>
        	<script type="text/javascript">
        	window.addEventListener('load', function(event) {	        		
        		var btnDelete = document.querySelector('#delete_button');
@@ -53,6 +53,11 @@
        			if (ok) {
         			location.href = "/spacerental/mypage/delete";		        			
        			}
+       		});
+       		
+       		var btnUpdate = document.querySelector('#list_button');
+       		btnUpdate.addEventListener('click', function(event) {
+       			location.href = "/spacerental/mypage/lentList";
        		});
        		
        		var btnUpdate = document.querySelector('#update_button');

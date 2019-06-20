@@ -18,6 +18,7 @@
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog_responsive.css">
 
+<a id="topID"></a>
 <!-- 상단 시작  -->
 <aside id="topSpacer"></aside>
 <aside id="sideBarCover"></aside>

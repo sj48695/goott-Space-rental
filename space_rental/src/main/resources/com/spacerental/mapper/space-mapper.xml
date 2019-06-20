@@ -3,18 +3,17 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spacerental.mapper.SpaceMapper">
 	<sql id="spaceBasicColumns">
-		spaceNo, spaceName, content, maximum, bim, smoking, food, wifi, computer, hostid
+		spaceNo, spaceName, content, maximum, bim, smoking, food, wifi, computer, hostNo, hostid
 	</sql>
 	<sql id="spaceFileBasicColumns">
 		spaceFileNo, spaceNo, savedFileName, flag
 	</sql>
 	
-	<select id="selectSpace" resultType="Space">
-		SELECT <include refid="spaceBasicColumns" /> FROM SPACE 
-	</select>
-	
-	<select id="selectSpaceFile">
-		SELECT <include refid="spaceFileBasicColumns" /> FROM SPACEFILE
+	<select id="selectSpaceFile" parameterType="int" resultType="SpaceFile">
+		SELECT <include refid="spaceFileBasicColumns" />
+		FROM SPACEFILE
+		where spaceNo = #{ spaceNo }
+		and flag = 1
 	</select>
 	
 	<select id="selectSpaceBySpaceNo" parameterType="int" resultType="Space">

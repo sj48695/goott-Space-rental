@@ -15,7 +15,8 @@ public class Host {
 	private String type;
 	private String address;
 	private String parking;
-	private String open;
+    private int openStart;
+    private int openEnd;
 	private String holiday;
 	
 	private SpaceFile file;//대표사진 flag=1

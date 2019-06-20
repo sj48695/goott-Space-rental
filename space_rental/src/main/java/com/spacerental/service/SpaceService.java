@@ -12,13 +12,11 @@ public interface SpaceService {
 
 	Integer registerSpaceTx(Space space);
 	
-	List<Space> findSpaceList();
-	
 	List<Host> findHostList();
 	
 	Host findHostByHostNo(int hostNo);
 	
-	SpaceFile findHostFile(int productNo);
+	SpaceFile findHostFile(int hostNo);
 	
 	List<SpaceFile> findSpaceFilesBySpaceNo(int spaceNo);
 	
@@ -27,5 +25,7 @@ public interface SpaceService {
 	List<Space> findSpacesByHostNo(int hostNo);
 
 	Space findSpaceBySpaceNo(int spaceNo);
+
+	SpaceFile findSpcaeFile(int hostNo);
 	
 }

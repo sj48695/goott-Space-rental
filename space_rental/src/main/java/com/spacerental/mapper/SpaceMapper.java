@@ -12,8 +12,6 @@ public interface SpaceMapper {
 
 	void insertSpaceFile(SpaceFile file);
 	
-	List<Space> selectSpace();
-	
 	List<Host> selectHost();
 	
 	List<SpaceFile> selectSpaceFilesBySpaceNo(int spaceNo);
@@ -21,5 +19,7 @@ public interface SpaceMapper {
 	List<Space> selectSpacesByHostNo(int hostNo);
 
 	Space selectSpaceBySpaceNo(int spaceNo);
+
+	SpaceFile selectSpaceFile(int spaceNo);
 
 }

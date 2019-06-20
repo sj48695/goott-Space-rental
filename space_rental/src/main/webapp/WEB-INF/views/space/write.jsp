@@ -71,56 +71,6 @@
 				<i class="sp_icon ico_alert"></i>공간 소개는 필수 입력입니다.
 			</p>
 		</div>
-		<!-- 
-		<div class="box_form">
-			<div class="tit">
-				<label for="space_tag">공간 태그<span class="ico_required"> *</span></label>
-			</div>
-			<p class="option">최대 5개</p>
-			<div class="input_add">
-				<input type="text" id="space_tag" placeholder="태그를 입력해 주세요." maxlength="30">
-				<div class="btn_box">
-					<a href="javascript:void(0);" class="btn active"><span class="btn_inner">추가</span></a>
-				</div>
-			</div>
-		</div>
-		<div class="box_form">
-			<div class="tit">
-				<label for="space_nam">시설안내<span class="ico_required">*</span></label>
-			</div>
-			<span class="option"><span class="txt_count"><em>0</em>자/<em>100</em>자</span></span>
-			<div class="input_add ">
-				<input type="text" name="space_guide" id="space_guide"
-					placeholder="최대 10개까지 작성가능합니다." maxlength="100" value="">
-				<div class="btn_box">
-					<a class="btn"><span class="btn_inner">추가</span></a>
-				</div>
-			</div>
-		</div>
-		<div class="box_form">
-			<div class="tit">
-				<label for="space_nam">예약 시 주의사항<span class="ico_required">*</span></label>
-			</div>
-			<span class="option"><span class="txt_count"><em>0</em>자/<em>100</em>자</span></span>
-			<div class="input_add">
-				<input type="text" name="space_rsv_caution" id="space_rsv_caution"
-					placeholder="최대 10개까지 작성가능합니다." maxlength="100">
-				<div class="btn_box">
-					<a href="javascript:void(0);" class="btn"><span class="btn_inner">추가</span></a>
-				</div>
-			</div>
-		</div>
-		<div class="box_form">
-			<div class="tit">
-				<label for="space_url">웹사이트</label>
-			</div>
-			<div class="input">
-				<input type="text" id="space_url" placeholder="웹사이트 URL을 입력해주세요.">
-			</div>
-			<p class="p_guide warn">
-				<i class="sp_icon ico_alert"></i>유효하지 않은 웹사이트 주소입니다.
-			</p>
-		</div> -->
 		<div class="box_form">
 			<span class="tit">대표이미지<span class="ico_required"> *</span></span>
 			<p class="option">2048 *1158 권장, 최대 3MB</p>
@@ -146,7 +96,7 @@
 				<div class="btn_box">
 					<label class="imgBtn btn" for="imgFile"><div>파일첨부</div> 
 						<input type="file" class="_fileRel" name="imgFile" id="imgFile" style="display: none;"
-							accept="image/*" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, PNG)">
+							accept="image/*" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, PNG)" multiple>
 					</label>
 					<div class="nav_btn">
 						<a class="btn_move">
@@ -183,11 +133,11 @@
 			<div class="row">
 				<ul class="check_list space">
 					<li>
-						<input type="radio" name="bim" value="유" id="radio1">
+						<input type="radio" name="bim" value="1" id="radio1">
 						<label for="radio1" class="ellip">유</label>
 					</li>
 					<li>
-						<input type="radio" name="bim" value="무" id="radio2">
+						<input type="radio" name="bim" value="0" id="radio2">
 						<label for="radio2" class="ellip">무</label>
 					</li>
 				</ul>
@@ -203,11 +153,11 @@
 			<div class="row">
 				<ul class="check_list space">
 					<li>
-						<input type="radio" name="smoking" value="유" id="radio3">
+						<input type="radio" name="smoking" value="1" id="radio3">
 						<label for="radio3" class="ellip">유</label>
 					</li>
 					<li>
-						<input type="radio" name="smoking" value="무" id="radio4">
+						<input type="radio" name="smoking" value="0" id="radio4">
 						<label for="radio4" class="ellip">무</label>
 					</li>
 				</ul>
@@ -223,11 +173,11 @@
 			<div class="row">
 				<ul class="check_list space">
 					<li>
-						<input type="radio" name="food" value="가능" id="radio5">
+						<input type="radio" name="food" value="1" id="radio5">
 						<label for="radio5" class="ellip">가능</label>
 					</li>
 					<li>
-						<input type="radio" name="food" value="불가능" id="radio6">
+						<input type="radio" name="food" value="0" id="radio6">
 						<label for="radio6" class="ellip">불가능</label>
 					</li>
 				</ul>
@@ -243,11 +193,11 @@
 			<div class="row">
 				<ul class="check_list space">
 					<li>
-						<input type="radio" name="wifi" value="가능" id="radio7">
+						<input type="radio" name="wifi" value="1" id="radio7">
 						<label for="radio7" class="ellip">가능</label>
 					</li>
 					<li>
-						<input type="radio" name="wifi" value="불가능" id="radio8">
+						<input type="radio" name="wifi" value="0" id="radio8">
 						<label for="radio8" class="ellip">불가능</label>
 					</li>
 				</ul>
@@ -263,11 +213,11 @@
 			<div class="row">
 				<ul class="check_list space">
 					<li>
-						<input type="radio" name="computer" value="가능" id="radio9">
+						<input type="radio" name="computer" value="1" id="radio9">
 						<label for="radio9" class="ellip">가능</label>
 					</li>
 					<li>
-						<input type="radio" name="computer" value="불가능" id="radio10">
+						<input type="radio" name="computer" value="0" id="radio10">
 						<label for="radio10" class="ellip">불가능</label>
 					</li>
 				</ul>

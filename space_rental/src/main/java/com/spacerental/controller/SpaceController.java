@@ -63,15 +63,17 @@ public class SpaceController {
 		Host host = spaceService.findHostByHostNo(hostNo);
 		List<Space> spaces = spaceService.findSpacesByHostNo(hostNo);
 
-		if (host == null) { // productno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
+		if (host == null) { // hostno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
 			return "redirect:spacelist";
 		}
 
 		List<SpaceFile> hostfiles = spaceService.findHostFilesByHostNo(hostNo);
+
 		host.setFiles((ArrayList<SpaceFile>) hostfiles);
+		host.setFile(spaceService.findHostFile(host.getHostNo()));
 
 		model.addAttribute("host", host);
-		model.addAttribute("spaces",spaces);
+		model.addAttribute("spaces", spaces);
 
 		return "space/detail";
 	}
@@ -80,7 +82,7 @@ public class SpaceController {
 	public String rentForm(int spaceNo, Model model, int year, int month) {
 
 		int day = 0;
-		
+
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -97,47 +99,38 @@ public class SpaceController {
 		}
 		String[] strWeek = { "일", "월", "화", "수", "목", "금", "토" };
 		int[] lastDay = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-		
-		model.addAttribute("nowYear", year);
-		model.addAttribute("nowMonth", month);
-		model.addAttribute("nowDay", day);
-		model.addAttribute("strWeek", strWeek);
-		model.addAttribute("strMonth", month);
-		model.addAttribute("strYear", year);
 
-		// 요일 출력 end
-		// 달력 출력 start
 		int total = (year - 1) * 365 + (year - 1) / 4 - (year - 1) / 100 + (year - 1) / 400;
-
-		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {//2월 lastDay
 			lastDay[1] = 29;
 		} else {
 			lastDay[1] = 28;
 		}
-
 		for (int i = 0; i < month - 1; i++) {
 			total += lastDay[i];
 		}
-
 		total++;
-
 		int week = total % 7;
 
-		model.addAttribute("lastDay", lastDay[month-1]);
+		model.addAttribute("nowYear", year);
+		model.addAttribute("nowMonth", month);
+		model.addAttribute("nowDay", day);
+		model.addAttribute("strWeek", strWeek);
+		model.addAttribute("lastDay", lastDay[month - 1]);
 		model.addAttribute("week", week);
 
-		
-		
-		
-		
-		/*--------------------------------------------------*/	
-		
+		/*--------------------------------------------------*/
+
 		Space space = spaceService.findSpaceBySpaceNo(spaceNo);
 		if (space == null) { // productno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
 			return "redirect:spacelist";
 		}
 		Host host = spaceService.findHostByHostNo(space.getHostNo());
 		
+		host.setFile(spaceService.findHostFile(space.getHostNo()));
+		space.setFiles((ArrayList<SpaceFile>) spaceService.findSpaceFilesBySpaceNo(space.getSpaceNo()));
+		space.setFile(spaceService.findSpcaeFile(space.getSpaceNo()));
+
 		model.addAttribute("host", host);
 		model.addAttribute("space", space);
 
@@ -176,13 +169,12 @@ public class SpaceController {
 
 	@RequestMapping(path = "/register_host", method = RequestMethod.POST)
 	public String hostRegister(Host host, HttpSession session
-			, String open_start, String open_end
 			, String roadAddr, String detailAddr, String extraAddr) {
 		Member loginuer = (Member)session.getAttribute("loginuser");
 		host.setHostId(loginuer.getId());
-		host.setOpen(open_start + " ~ " + open_end);
 		host.setAddress(roadAddr + " " + detailAddr + " " +extraAddr);
 		int newHostNo = spaceService.registerHost(host);
+		System.out.println(newHostNo);
 		return "redirect:/space/write/"+newHostNo;
 
 	}
@@ -195,11 +187,11 @@ public class SpaceController {
 	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String write(Space space, MultipartHttpServletRequest req, HttpSession session, int hostNo) {
-		SpaceFile spaceFile = new SpaceFile();
 		ServletContext application = req.getServletContext();
 		String path = application.getRealPath("/resources/files/space-files");// 최종 파일 저장 경로
 		String userFileName = "";
 		try {
+
 			MultipartFile titleImg = req.getFile("titleImgFile");
 			if (titleImg != null) {
 				userFileName = titleImg.getOriginalFilename();
@@ -216,50 +208,108 @@ public class SpaceController {
 					// String uniqueFileName=Util.makeUniqueFileName(fileName);//고유한 파일이름.jpg
 					titleImg.transferTo(new File(path, uniqueFileName));// 파일 저장
 
+					SpaceFile spaceFile = new SpaceFile();
 					spaceFile.setSavedFileName(uniqueFileName);
 					spaceFile.setFlag(true);
 					space.setFile(spaceFile);
 				}
 			}
 
-			MultipartFile img = req.getFile("imgFile");
+			List<MultipartFile> img = req.getFiles("imgFile");
+
 			if (img != null) {
-				userFileName = img.getOriginalFilename();
-				if (userFileName.contains("\\")) { // iexplore 경우
-					// C:\AAA\BBB\CCC.png -> CCC.png
-					userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
-				}
-				if (userFileName != null && userFileName.length() > 0) { // 내용이 있는 경우
+				File file = new File(path);
+				ArrayList<SpaceFile> files = new ArrayList<SpaceFile>();
+
+				for (int i = 0; i < img.size(); i++) {
+					userFileName = img.get(i).getOriginalFilename();
 					if (userFileName.contains("\\")) { // iexplore 경우
 						// C:\AAA\BBB\CCC.png -> CCC.png
 						userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
 					}
-					String uniqueFileName = Util.makeUniqueFileName(path, userFileName);// 파일이름_1.jpg
-					// String uniqueFileName=Util.makeUniqueFileName(fileName);//고유한 파일이름.jpg
-					img.transferTo(new File(path, uniqueFileName));// 파일 저장
+					if (userFileName != null && userFileName.length() > 0) { // 내용이 있는 경우
 
-					ArrayList<SpaceFile> files = new ArrayList<SpaceFile>();
-					spaceFile.setSavedFileName(uniqueFileName);
-					spaceFile.setFlag(false);
-					files.add(spaceFile);
-					space.setFiles(files);
+						System.out.println(userFileName + " 업로드");
+						// 파일 업로드 소스 여기에 삽입
+						String uniqueFileName = Util.makeUniqueFileName(path, userFileName);// 파일이름_1.jpg
+						file = new File(path, uniqueFileName);
+						img.get(i).transferTo(file);
+
+						SpaceFile spaceFile = new SpaceFile();
+						spaceFile.setSavedFileName(uniqueFileName);
+						spaceFile.setFlag(false);
+						files.add(spaceFile);
+						space.setFiles(files);
+					}
 				}
 			}
 			Member loginuser = (Member) session.getAttribute("loginuser");
 			space.setHostId(loginuser.getId().toString());
 			space.setHostNo(hostNo);
 			spaceService.registerSpaceTx(space);
-			System.out.println(space);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "redirect:/";
 	}
 	
-//	@ResponseBody
-//	@RequestMapping(value = "/calender",method = RequestMethod.POST)
-//	public String calender(int year, int month) {
-//		System.out.println(year + " / " + month);
-//		return "redirect:rent";
-//	}
+	@RequestMapping(value = "/calendar", method = RequestMethod.POST) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	public String calendar(int spaceNo, Model model, int year, int month) {
+
+		int day = 0;
+
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		StringTokenizer st = new StringTokenizer(sdf.format(date), "-");
+
+		if (year == 0) {
+			year = Integer.parseInt(st.nextToken());
+		}
+		if (month == 0) {
+			month = Integer.parseInt(st.nextToken());
+		}
+		if (day == 0) {
+			day = Integer.parseInt(st.nextToken());
+		}
+		String[] strWeek = { "일", "월", "화", "수", "목", "금", "토" };
+		int[] lastDay = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+		int total = (year - 1) * 365 + (year - 1) / 4 - (year - 1) / 100 + (year - 1) / 400;
+		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {//2월 lastDay
+			lastDay[1] = 29;
+		} else {
+			lastDay[1] = 28;
+		}
+		for (int i = 0; i < month - 1; i++) {
+			total += lastDay[i];
+		}
+		total++;
+		int week = total % 7;
+
+		model.addAttribute("nowYear", year);
+		model.addAttribute("nowMonth", month);
+		model.addAttribute("nowDay", day);
+		model.addAttribute("strWeek", strWeek);
+		model.addAttribute("lastDay", lastDay[month - 1]);
+		model.addAttribute("week", week);
+
+		/*--------------------------------------------------*/
+
+		Space space = spaceService.findSpaceBySpaceNo(spaceNo);
+		if (space == null) { // productno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
+			return "redirect:spacelist";
+		}
+		Host host = spaceService.findHostByHostNo(space.getHostNo());
+		
+		host.setFile(spaceService.findHostFile(space.getHostNo()));
+		space.setFiles((ArrayList<SpaceFile>) spaceService.findSpaceFilesBySpaceNo(space.getSpaceNo()));
+		space.setFile(spaceService.findSpcaeFile(space.getSpaceNo()));
+
+		model.addAttribute("host", host);
+		model.addAttribute("space", space);
+
+		return "space/calendar";
+	}
+
 }

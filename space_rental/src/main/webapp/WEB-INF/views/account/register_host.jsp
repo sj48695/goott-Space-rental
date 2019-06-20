@@ -164,7 +164,7 @@
 			</div>
 			<div class="row">
 				<div class="select col-sm-3">
-					<select name="open_start" class="col-6">
+					<select name="openStart" class="col-6">
 						<option>9:00</option>
 						<option>10:00</option>
 						<option>11:00</option>
@@ -175,7 +175,7 @@
 				</div>
 					<font size="6" style="vertical-align: center">~</font>
 				<div class="select col-sm-3">
-					<select name="open_end" class="col-6">
+					<select name="openEnd" class="col-6">
 						<option>20:00</option>
 						<option>21:00</option>
 						<option>22:00</option>

@@ -77,6 +77,22 @@
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
 	</bean>
 	
+	<bean id="rentRepository"
+		class="com.spacerental.repository.RentRepositoryImpl">
+		<property name="rentMapper" ref="rentMapper" />
+	</bean>
+	
+	<bean id="rentService"
+		class="com.spacerental.service.RentServiceImpl">
+		<property name="rentRepository" ref="rentRepository" />
+	</bean>
+	
+	<bean id="rentMapper"
+		class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.spacerental.mapper.RentMapper" />
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+	
 	<bean id="NoticeRepository"
 		class="com.spacerental.repository.NoticeRepositoryImpl">
 		<property name="noticeMapper" ref="NoticeMapper" />

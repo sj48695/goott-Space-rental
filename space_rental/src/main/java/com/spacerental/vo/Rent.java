@@ -14,7 +14,7 @@ public class Rent {
 	private int endTime;
 	private int spaceNo;
 	private String id;
-	
+
 	private String spaceName;
-	
+
 }

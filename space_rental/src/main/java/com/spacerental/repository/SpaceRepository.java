@@ -14,8 +14,6 @@ public interface SpaceRepository {
 
 	void insertSpaceFile(SpaceFile file);
 
-	List<Space> selectSpace();
-
 	List<Host> selectHost();
 
 	Host selectHostByHostNo(int hostNo);
@@ -25,6 +23,10 @@ public interface SpaceRepository {
 	List<SpaceFile> selectSpaceFilesBySpaceNo(int spaceNo);
 
 	List<SpaceFile> selectHostFilesByHostNo(int hostNo);
+
+	List<Space> selectSpacesByHostNo(int hostNo);
+
+	Space selectSpaceBySpaceNo(int spaceNo);
 
 
 }

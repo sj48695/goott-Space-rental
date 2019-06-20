@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spacerental.mapper.RentMapper">
+	<sql id="rentBasicColumns">
+		rentNo, rentDate, headCount, startTime, endTime, spaceNo, id
+	</sql>
+	
+	<select id="selectRent" resultType="Rent">
+		SELECT <include refid="rentBasicColumns" /> FROM Rent 
+	</select>
+	
+	<insert id="insertRent" parameterType="Rent">
+		INSERT INTO Rent(
+			<include refid="rentBasicColumns" />
+		)
+		VALUES
+		(
+			Rent_SEQUENCE.NEXTVAL
+			, #{ rentDate }
+			, #{ headCount }
+			, #{ startTime }
+			, #{ endTime }
+			, #{ spaceNo }
+			, #{ id }
+		)
+	</insert>
+
+</mapper>

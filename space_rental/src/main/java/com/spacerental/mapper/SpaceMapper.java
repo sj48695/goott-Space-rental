@@ -12,10 +12,12 @@ public interface SpaceMapper {
 
 	void insertSpaceFile(SpaceFile file);
 	
-	List<Space> selectSpace();
-	
 	List<Host> selectHost();
 	
 	List<SpaceFile> selectSpaceFilesBySpaceNo(int spaceNo);
+
+	List<Space> selectSpacesByHostNo(int hostNo);
+
+	Space selectSpaceBySpaceNo(int spaceNo);
 
 }

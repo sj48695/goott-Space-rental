@@ -77,7 +77,7 @@
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="property-entry h-100">
               <a href="/spacerental/space/detail/${ host.hostNo }" class="property-thumbnail">
-                <img src="/spacerental/resources/files/space-files/${ host.file.savedFileName  }" alt="Image" class="img-fluid">
+                <img src="/spacerental/resources/files/space-files/${ host.file.savedFileName  }" style="width:400px;height:300px" alt="Image" class="img-fluid">
               </a>
               <div class="p-4 property-body">
                 <h2 class="property-title"><a href="detail/${ host.hostNo }">${ host.name }</a></h2>

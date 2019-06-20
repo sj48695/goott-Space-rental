@@ -46,6 +46,7 @@
 	
 	<bean id="memberRepository" class="com.spacerental.repository.MemberRepositoryImpl">
 		<property name="memberMapper" ref="memberMapper" />
+		<property name="rentMapper" ref="rentMapper" />
 	</bean>
 	
 	<bean id="memberService" class="com.spacerental.service.MemberServiceImpl">
@@ -124,7 +125,7 @@
 		<property name="mapperInterface" value="com.spacerental.mapper.LoseMapper" />
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
 	</bean>
-
+	
 	<bean id="SearchRepository"
 		class="com.spacerental.repository.SearchRepositoryImpl">
 		<property name="searchMapper" ref="SearchMapper" />
@@ -158,5 +159,4 @@
 		<aop:advisor advice-ref="txAdvice" pointcut="execution( * com.spacerental.service.*.*(..) )"/>
 	</aop:config>
 	
-
 </beans>

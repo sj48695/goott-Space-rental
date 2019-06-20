@@ -59,27 +59,11 @@ function dayCheck(i) {
 	}
 }
 
-function change() {
-//	$.ajax({
-//		method : "GET",
-//		url : "/spacerental/space/rent",
-//		data : {
-//			"year" : $('#year').val(),
-//			"month" : $('#month').val(),
-//			"spaceNo" : $('#spaceNo').val()
-//		},
-//		success : function(data, status, xhr) {
-//			
-//		}
-//	});
-	
+function change() {	
 	$('#calendar-table').load("/spacerental/space/calendar",{
 		"year" : $('#year').val(),
 		"month" : $('#month').val(),
 		"spaceNo" : $('#spaceNo').val()
 	});
-//	window.location.href="/spacerental/space/rent?year="+$('#year').val()+
-//										"&month="+$('#month').val()+
-//										"&spaceNo="+$('#spaceNo').val();
 } 
 

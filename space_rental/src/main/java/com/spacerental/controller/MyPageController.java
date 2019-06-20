@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.spacerental.service.MemberService;
+import com.spacerental.vo.Host;
 import com.spacerental.vo.Member;
 import com.spacerental.vo.Rent;
+import com.spacerental.vo.SpaceFile;
 
 @Controller
 @RequestMapping(value = "/mypage")
@@ -30,7 +32,7 @@ public class MyPageController {
 		Member member = (Member) session.getAttribute("loginuser");
 		
 		if (member == null) {
-			return "redirect:/spacerental/account/login";
+			return "redirect:/account/login";
 		}		 
 
 		model.addAttribute("member", member);
@@ -74,17 +76,48 @@ public class MyPageController {
 		return "redirect:/";		
 	}
 	
-	@RequestMapping(path = "/lentList", method = RequestMethod.GET)
-	public String lentList(Model model, HttpSession session) {
+	@RequestMapping(path = "/rentList", method = RequestMethod.GET)
+	public String rentList(Model model, HttpSession session) {
 		
 		Member loginuser = (Member) session.getAttribute("loginuser");
 		String id = loginuser.getId();
 		
-		List<Rent> rent = memberService.selectlentList(id);
+		List<Rent> rent = memberService.selectrentList(id);
 		model.addAttribute("rent", rent);
 		model.addAttribute("loginuser", loginuser);
 		
-		return "mypage/lentList";
+		return "mypage/myrentlist";
+	}
+	
+	@RequestMapping(path = "/hostList", method = RequestMethod.GET)
+	public String hostList(Model model, HttpSession session) {
+		
+		Member loginuser = (Member) session.getAttribute("loginuser");
+		String id = loginuser.getId();
+		
+		List<Host> hosts = memberService.selectHostList(id);
+		
+		for (Host host : hosts) {
+			host.setFile(memberService.selectHostFile(id));
+		}
+				
+		model.addAttribute("hosts", hosts);
+		model.addAttribute("loginuser", loginuser);
+		
+		return "mypage/hostlist";
+	}
+	
+	@RequestMapping(path = "/hostRentList/{hostNo}", method = RequestMethod.GET)
+	public String hostRentList(Model model, HttpSession session, @PathVariable int hostNo) {
+		
+		Member loginuser = (Member) session.getAttribute("loginuser");
+		
+		List<Rent> rentlist = memberService.selectHostRentList(hostNo);
+		
+		model.addAttribute("rentlist",rentlist);
+		model.addAttribute("loginuser", loginuser);
+		
+		return "mypage/hostrentlist";
 	}
 
 }

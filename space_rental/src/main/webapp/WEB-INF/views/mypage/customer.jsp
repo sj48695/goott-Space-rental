@@ -57,7 +57,7 @@
        		
        		var btnUpdate = document.querySelector('#list_button');
        		btnUpdate.addEventListener('click', function(event) {
-       			location.href = "/spacerental/mypage/lentList";
+       			location.href = "/spacerental/mypage/rentList";
        		});
        		
        		var btnUpdate = document.querySelector('#update_button');

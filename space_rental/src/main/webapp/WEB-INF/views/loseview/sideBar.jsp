@@ -1,19 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <aside id="sideBar">
 	<!-- SNB // -->
 	<ul id="snb">
 		<li class="snb bo_tablebasic  bo_tablebasic bo_tableqna bo_tablefaq bo_tablewebzine bo_tableform ">
 			<h2>
-				<a href="lose" target="_self"><b>╨п╫г╧╟ ╟т╫цфг</b></a>
+				<a href="/spacerental/loseview/lose/" target="_self"><b>К╤└Л▀╓К╛╪ Й╡▄Л▀°М▄░</b></a>
 			</h2>
 			<!-- 	<em class="snb2dDown"><i class="fa fa-angle-down"></i><u class="fa fa-angle-up"></u></em> -->
 			<ul class="snb2dul">
-				<li class="snb2d snb2d_bo_tableqna"><a href="loselist">
-					<b><i class="fa fa-angle-right"></i>цё╬фаж╪╪©Д</b></a>
+				<li class="snb2d snb2d_bo_tableqna"><a href="/spacerental/loseview/loselist/К╤└Л▀╓К╛╪">
+					<b><i class="fa fa-angle-right"></i>Л╟╬Л∙└Лё╪Л└╦Л ■</b></a>
 				</li>
-				<li class="snb2d snb2d_bo_tablefaq"><a href="findlist">
-					<b><i class="fa fa-angle-right"></i>цё╬ф╟║╪╪©Д</b></a>
+				<li class="snb2d snb2d_bo_tablefaq"><a href="/spacerental/loseview/loselist/Л┼╣К⌠²К╛╪">
+					<b><i class="fa fa-angle-right"></i>Л╟╬Л∙└Й╟─Л└╦Л ■</b></a>
 				</li>
 			</ul>
 		</li>
@@ -26,7 +26,7 @@
 		<dd>
 			<strong><i class="fa fa-phone-square"></i><span> Tel.070-0000-0000</span></strong> 
 			<b><span> E-mail. <a href='mailto:admin@websiting.co.kr'>admin@space.co.kr</a></span></b> 
-			<b><span>Fax. 050-0000-0000</span></b> <br> <span>╟М╟╢╪╬ем ©Н©╣╫ц╟ё <br>09:00 ~ 18:00</span>
+			<b><span>Fax. 050-0000-0000</span></b> <br> <span>ЙЁ═Й╟²Л└╪М└╟ Л ╢Л≤│Л▀°Й╟└ <br>09:00 ~ 18:00</span>
 		</dd>
 	</dl>
 </aside>

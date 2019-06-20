@@ -1,12 +1,15 @@
 package com.spacerental.repository;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import com.spacerental.mapper.MemberMapper;
+import com.spacerental.mapper.RentMapper;
+import com.spacerental.mapper.SpaceMapper;
+import com.spacerental.vo.Host;
 import com.spacerental.vo.Member;
 import com.spacerental.vo.Rent;
+import com.spacerental.vo.SpaceFile;
 
 public class MemberRepositoryImpl implements MemberRepository {
 
@@ -20,6 +23,17 @@ public class MemberRepositoryImpl implements MemberRepository {
 		this.memberMapper = memberMapper;
 	}
 
+	private RentMapper rentMapper;
+	
+	public RentMapper getRentMapper() {
+		return rentMapper;
+	}
+
+	public void setRentMapper(RentMapper rentMapper) {
+		this.rentMapper = rentMapper;
+	}
+	
+	
 	@Override
 	public void insertMember(Member member) {
 		memberMapper.insertMember(member);
@@ -48,9 +62,27 @@ public class MemberRepositoryImpl implements MemberRepository {
 	}
 
 	@Override
-	public List<Rent> selectlentList(String id) {
-		List<Rent> rent = memberMapper.selectlentList(id);
+	public List<Rent> selectrentList(String id) {
+		List<Rent> rent = rentMapper.selectrentList(id);
 		return rent;
+	}
+
+	@Override
+	public List<Host> selectHostList(String id) {
+		List<Host> host = memberMapper.selectHostList(id);
+		return host;
+	}
+
+	@Override
+	public SpaceFile selectHostFile(String id) {
+		SpaceFile file = memberMapper.selectHostFile(id);
+		return file;
+	}
+
+	@Override
+	public List<Rent> selectHostRentList(int hostNo) {
+		List<Rent> rentlist = rentMapper.selectHostRentList(hostNo);
+		return rentlist;
 	}
 
 }

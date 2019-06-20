@@ -3,6 +3,7 @@ package com.spacerental.mapper;
 import java.util.List;
 
 import com.spacerental.vo.Host;
+import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 

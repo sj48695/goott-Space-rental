@@ -23,7 +23,6 @@
 
 <!-- 디테일 박스 -->
 <div class="site-section site-section-sm container">
-<<<<<<< HEAD
    <div class="row">
       <div class="col-lg-8">
          <div class="bg-white property-body border-bottom border-left border-right border-top">
@@ -44,10 +43,9 @@
 <%-- 줄바꿈 문자열을 저장하고 있는 변수 만들기 --%>
 <c:set var="enter" value="
 " />
-<<<<<<< HEAD
                <p>${ fn:replace(host.content, enter, '<br>') }</p>
                <ul class="py-3" style="list-style: none; padding-left: 0px;">
-                  <li><span class="pr-3 text-black"><strong>영업시간</strong></span> <span>${ host.open }</span></li>
+                  <li><span class="pr-3 text-black"><strong>영업시간</strong></span> <span>${ host.openStart }</span> ~ <span>${ host.openEnd }</span></li>
                   <li><span class="pr-3 text-black"><strong>휴무일</strong></span> <span>${ host.holiday }</span></li>
                   <li><span class="pr-3 text-black"><strong>주차</strong></span> <span>${ host.parking }</span></li>
                </ul>

@@ -179,11 +179,9 @@ public class SpaceController {
 
 	@RequestMapping(path = "/register_host", method = RequestMethod.POST)
 	public String hostRegister(Host host, HttpSession session
-			, String open_start, String open_end
 			, String roadAddr, String detailAddr, String extraAddr) {
 		Member loginuer = (Member)session.getAttribute("loginuser");
 		host.setHostId(loginuer.getId());
-		host.setOpen(open_start + " ~ " + open_end);
 		host.setAddress(roadAddr + " " + detailAddr + " " +extraAddr);
 		int newHostNo = spaceService.registerHost(host);
 		System.out.println(newHostNo);

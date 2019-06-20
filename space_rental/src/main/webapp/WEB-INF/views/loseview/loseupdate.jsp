@@ -16,43 +16,41 @@
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog_responsive.css">
 
-
 <a id="topID"></a>
 
 <!-- 상단 시작  -->
 <aside id="topSpacer"></aside>
 <aside id="sideBarCover"></aside>
-<!-- } 상단 끝 -->
-<hr>
+<!-- } 상단 끝 --><hr>
 
 <!-- 콘텐츠 시작  -->
 <div id="ctWrap">
 	<div id="container">
-		<form action="/space_rental/loseview/findwrite" method="get">
 			<header>
 				<h2 id="lose_title">
-					<span class="bo_v_tit">습득물 신고</span>
+					<span class="bo_v_tit">분실물 신고</span>
 				</h2>
 			</header>
-
+		<form action="/spacerental/loseview/loseupdate" method="post" class="contact_form" id="contact_form">
+			<input type="hidden" name="loseNo" value="${ lose.loseNo }">
+			<input type="hidden" name="type" value="${ lose.type }">
 			<section id="bo_v_info"></section>
 			<div class="bo_w_info write_div">
 				<label for="wr_uploader" class="sound_only">작성자</label> 
-				<input type="text" name="wr_uploader" id="wr_uploader" class="frm_input uploader " placeholder="작성자"> 
+				<input type="text" name="uploader" id="wr_uploader" class="frm_input uploader " placeholder="작성자" value="${ lose.uploader }"/>
 				
-				<label for="wr_date" class="sound_only">등록일</label> 
-				<input type="text" name="wr_date" value="" id="wr_date" class="frm_input date " placeholder="등록일"> 
+				<label for="wr_date" class="sound_only">분실일자</label> 
+				<input type="date" name="loseDate" id="wr_date" class="frm_input date " required/> 
 				
-				<label for="wr_email" class="sound_only">유형</label>
-				<input type="text" name="wr_type" id="wr_type" class="frm_input type " placeholder="유형">
+				<label for="wr_roomno" class="sound_only">방 번호</label>
+				<input type="text" name="spaceNo" id="wr_type" class="frm_input type " placeholder="방번호" value="${ lose.spaceNo }"/>
 			</div>
 			<br>
 			<div class="bo_w_tit write_div">
 				<label for="wr_subject" class="sound_only">제목</label>
 				<div id="autosave_wrapper write_div">
-					<input type="text" name="wr_subject" id="wr_subject"
-						required class="frm_input full_input required" size="30"
-						maxlength="230" placeholder="제목">
+					<input type="text" name="title" id="wr_subject" required class="frm_input full_input required" size="30"
+						maxlength="230" placeholder="제목" value="${ lose.title }">
 				</div>
 			</div>
 			<br>
@@ -62,7 +60,7 @@
 					<script>
 						var g5_editor_url = "", oEditors = [], ed_nonce = "";
 					</script>
-					<textarea id="wr_content" name="wr_content" class="smarteditor2" maxlength="65536" style="width: 100%; height: 300px" min=""></textarea>
+					<textarea id="wr_content" name="content" class="smarteditor2" maxlength="65536" style="width: 100%; height: 300px">${ lose.content }</textarea>
 					<span class="sound_only"></span>
 				</div>
 			</div>
@@ -70,16 +68,15 @@
 				<div class="file_wr write_div">
 					<label for="bf_file_1" class="lb_icon"><i class="fa fa-download" aria-hidden="true"></i>
 					<span class="sound_only">파일</span></label> 
-					<input type="file" name="bf_file[]" class="frm_file "
+					<input type="file" name="attach" class="frm_file "
 						id="bf_file_1" title="파일첨부 1 : 용량 1,048,576 바이트 이하만 업로드 가능">
 				</div>
 			</div>
 			<div class="btn_confirm write_div">
-				<a href="findlist" class="btn_cancel btn">취소</a> 
-				<input type="submit" value="작성완료" id="btn_submit" class="btn_submit btn">
+				<a href="/spacerental/loseview/loselist" class="btn_cancel btn">취소</a> 
+				<button type="submit"  id="btn_submit" class="btn_submit btn">수정완료</button>
 			</div>
 		</form>
-
 		<script>
 			function html_auto_br(obj) {
 				if (obj.checked) {
@@ -172,21 +169,19 @@
 var char_min = parseInt(0); // 최소
 var char_max = parseInt(0); // 최대
 </script>
+<hr>
 
-		<hr>
-
-	</div>
-	<!-- // #container 닫음 -->
+    </div><!-- // #container 닫음 -->
 	<jsp:include page="sideBar.jsp" />
 
-</div>
-<!-- // #ctWrap 닫음 -->
+</div><!-- // #ctWrap 닫음 -->
 <!-- } 콘텐츠 끝 -->
 
 <hr>
 
 <!-- 하단 시작 { -->
-<footer id="footer"></footer>
+<footer id="footer">
+</footer>
 
 <script src="http://sample.paged.kr/purewhite/theme/pagedtheme/js/jquery-1.11.0.min.js"></script>
 <script src="http://sample.paged.kr/purewhite/theme/pagedtheme/js/jquery.menu.min.js?ver=171222"></script>
@@ -199,8 +194,23 @@ var char_max = parseInt(0); // 최대
 
 <!-- 현재위치 및 서브메뉴 활성화 설정// -->
 <script>
-$(function(){$('.snb.bo_tablebasic, .snb .snb2d_bo_tablebasic').addClass('active');});/*  보테이블 : bo_tablebasic  */
-$(document).ready(function(){ if ( $("#snb > li").is(".snb.active") ) { $('.loc1D').text( $('#snb .bo_tablebasic h2 a b').text());$('.loc2D').html( $('.snb2d_bo_tablebasic a b').html());$('.faArr').html('<i class="fa fa-angle-right"></i>');var index = $("#snb > li").index("#snb > li.active");$( "#page_title" ).addClass("subTopBg_0"+($("#snb > li.bo_tablebasic").index() + 1) ); } else { $('.loc1D').text('기본게시판'); $('.noInfoPageTit').html('<h2><a><b>기본게시판</b><sub></sub></a></h2>'); $('.noInfoPageTit').addClass('active');$('#page_title').addClass('subTopBg_00'); } });  </script>
+$(function(){$('.snb.bo_tablebasic, .snb .snb2d_bo_tablebasic').addClass('active');});
+$(document).ready(function(){ 
+	if ( $("#snb > li").is(".snb.active") ) {
+		$('.loc1D').text( $('#snb .bo_tablebasic h2 a b').text());
+		$('.loc2D').html( $('.snb2d_bo_tablebasic a b').html());
+		$('.faArr').html('<i class="fa fa-angle-right"></i>');
+		var index = $("#snb > li").index("#snb > li.active");
+		$( "#page_title" ).addClass("subTopBg_0"+($("#snb > li.bo_tablebasic").index() + 1) ); 
+	} else { 
+		$('.loc1D').text('기본게시판'); 
+		$('.noInfoPageTit').html('<h2><a><b>기본게시판</b><sub></sub></a></h2>'); 
+		$('.noInfoPageTit').addClass('active');
+		$('#page_title').addClass('subTopBg_00'); 
+	} 
+});  
+</script>
+
 <!-- //현재위치 및 서브메뉴 활성화 설정 -->
 
 </body>

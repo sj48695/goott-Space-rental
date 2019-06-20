@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" language="java" contentType="text/html; charset=utf-8"
-	     pageEncoding="utf-8"%>
+<%@ page session="false" language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page import ="com.spacerental.vo.Lose" %>
+<%@ page import ="com.spacerental.vo.LoseFile" %>
 	     
 <c:set var="title" value="상세보기" scope="request" />
 <jsp:include page="/WEB-INF/views/include/header.jsp" /> 
@@ -17,47 +18,73 @@
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog.css">
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/blog_responsive.css">
 
-<a id="topID"></a>
-
-
 <!-- 상단 시작  -->
 <aside id="topSpacer"></aside>
 <aside id="sideBarCover"></aside>
-<!-- } 상단 끝 -->
-<hr>
+<!-- } 상단 끝 --><hr>
 
 <!-- 콘텐츠 시작  -->
 <div id="ctWrap">
 	<div id="container">
+		<!-- 게시물 읽기 시작 { -->
+		<article id="detail_v" style="width: 100%">
+			<script>
+				// 글자수 제한
+				var char_min = parseInt(0); // 최소
+				var char_max = parseInt(0); // 최대
+			</script>
 
-
-		<article id="bo_v" style="width: 100%">
-			<header>
-				<h2 id="bo_v_title">
-					<span class="bo_v_tit"></span>
-				</h2>
-			</header>
-
-			<section id="bo_v_info">
-				<h2>페이지 정보</h2>
-				<span class="sound_only">작성자</span> 
-				<span class="sound_only">댓글</span>
-				<span class="sound_only">조회</span> 
-				<strong class="if_date">
-					<span class="sound_only">작성일</span>
-					<i class="fa fa-clock-o" aria-hidden="true"></i>
-				</strong>
-			</section>
+			<section id="bo_v_info"></section>
 
 			<section id="bo_v_atc">
 				<h2 id="bo_v_atc_title">본문</h2>
-
-				<div id="bo_v_img"></div>
-
+				
+				<h5><div class="contents">
+					<div class="pageSection">
+						<form name="viewForm" id="viewForm" method="get">
+						<input type="hidden" name="currentPageNo" value="1" />
+						<input type="hidden" name="searchCondition" value="title" />
+						<input type="hidden" name="searchKeyword" value="" />
+						<input type="hidden" name="procMode" id="procMode" value="INSERT"/>
+						<input type="hidden" name="idx" id="idx" value="544"/>
+						<input type="hidden" name="fileIdx" id="fileIdx" value=""/>
+						<div class="tblWrap">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bd00view">
+								<colgroup>
+									<col width="120px" />
+									<col width="240px" />
+									<col width="120px" />
+									<col />
+								</colgroup>
+								<tr>
+									<th class="bd01th" scope="row">작성자</th>
+									<td class="bd01td">${ lose.uploader }</td>
+									<th class="bd01th" scope="row">분실일자</th>
+									<td class="bd01td">${ lose.loseDate }</td>
+									<th class="bd01th" scope="row">유 형</th>
+									<td class="bd01td">${ lose.type }</td>
+									<th class="bd01th" scope="row">방 번호</th>
+									<td class="bd01td">${ lose.spaceNo }</td>
+								</tr>
+								<tr>
+									<th class="bd01th" scope="row">제 목</th>
+									<td class="bd01td">${ lose.title }</td>
+								</tr>
+								<tr>
+									<th class="bd01th" scope="row">첨부파일</th>
+									<c:forEach var="file" items="${ lose.files }">
+										<td colspan="3" class="bd01td">
+										<img src="/spacerental/resources/files/lose-files/${ file.savedFileName }" width="100" height="100">
+										</td>
+									</c:forEach>
+								</tr>
+								<hr>
+							</table>
+						</div></h5>
 				<!-- 본문 내용 시작 { -->
-				<div id="bo_v_con">
-					<p></p>
-				</div>
+				<br><br>
+				<h5><div>내 용</div></h5>
+				<h5><div id="bo_v_con">${ lose.content }</div></h5>
 				<!-- } 본문 내용 끝 -->
 			</section>
 
@@ -66,36 +93,21 @@
 			<!-- 게시물 상단 버튼 시작 { -->
 			<div id="bo_v_top">
 				<ul class="bo_v_left">
-					<li>
-						<a href="" class="btn_b01 btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>수정</a>
-					</li>
-					<li>
-						<a href="" class="btn_b01 btn" onclick="del(this.href); return false;">
+					<li><a class="btn_b01 btn" id="update"><i class="fa fa-pencil-square-o" aria-hidden="true" id="update"></i>수정</a></li>
+					<li><a class="btn_b01 btn" id="delete">
 						<i class="fa fa-trash-o" aria-hidden="true"></i>삭제</a>
+						<a class="btn_b01 btn" id="loselist"><i class="fa fa-list" aria-hidden="true"></i>목록</a>
 					</li>
-				</ul>
-				<ul class="bo_v_com">
-					<li><a href="loselist" class="btn_b01 btn"><i class="fa fa-list" aria-hidden="true"></i>목록</a></li>
-					<li><a href="losewrite" class="btn_b02 btn"><i class="fa fa-pencil" aria-hidden="true"></i>글쓰기</a></li>
 				</ul>
 			</div>
 			<!-- } 게시물 상단 버튼 끝 -->
-			
-			<script>
-				// 글자수 제한
-				var char_min = parseInt(0); // 최소
-				var char_max = parseInt(0); // 최대
-			</script>
-
 			<hr class="dashHr">
 		</article>
 	</div>
 	<!-- // #container 닫음 -->
-	<jsp:include page="sideBar.jsp" />
-</div>
-
-<hr>
-
+	
+		<jsp:include page="sideBar.jsp" />
+	</div>
 <!-- 하단 시작 { -->
 <footer id="footer"></footer>
 
@@ -109,8 +121,42 @@
 <script src="http://sample.paged.kr/purewhite/theme/pagedtheme/plugin/featherlight/featherlight.min.js"></script>
 <!-- 현재위치 및 서브메뉴 활성화 설정// -->
 <script>
-$(function(){$('.snb.bo_tablebasic, .snb .snb2d_bo_tablebasic').addClass('active');});/*  보테이블 : bo_tablebasic  */
-$(document).ready(function(){ if ( $("#snb > li").is(".snb.active") ) { $('.loc1D').text( $('#snb .bo_tablebasic h2 a b').text());$('.loc2D').html( $('.snb2d_bo_tablebasic a b').html());$('.faArr').html('<i class="fa fa-angle-right"></i>');var index = $("#snb > li").index("#snb > li.active");$( "#page_title" ).addClass("subTopBg_0"+($("#snb > li.bo_tablebasic").index() + 1) ); } else { $('.loc1D').text('기본게시판'); $('.noInfoPageTit').html('<h2><a><b>기본게시판</b><sub></sub></a></h2>'); $('.noInfoPageTit').addClass('active');$('#page_title').addClass('subTopBg_00'); } });  </script>
+
+window.addEventListener('load', function(event) {
+var btnUpdate = document.querySelector('#update');
+btnUpdate.addEventListener('click', function(event) {
+	location.href="/spacerental/loseview/loseupdate/${lose.loseNo}";
+});
+var btnUpdate = document.querySelector('#delete');
+btnUpdate.addEventListener('click', function(event) {
+	var ok = confirm("${lose.loseNo}번 자료를 삭제할까요?");
+	if (ok) {
+		location.href = "/spacerental/loseview/losedelete/${lose.loseNo}";		        			
+	}
+});
+var btnUpdate = document.querySelector('#loselist');
+btnUpdate.addEventListener('click', function(event) {
+	location.href="/spacerental/loseview/loselist/${lose.type}";
+});
+});
+
+$(function(){$('.snb.bo_tablebasic, .snb .snb2d_bo_tablebasic').addClass('active');});
+$(document).ready(function(){ 
+	if ( $("#snb > li").is(".snb.active") ) {
+		$('.loc1D').text( $('#snb .bo_tablebasic h2 a b').text());
+		$('.loc2D').html( $('.snb2d_bo_tablebasic a b').html());
+		$('.faArr').html('<i class="fa fa-angle-right"></i>');
+		var index = $("#snb > li").index("#snb > li.active");
+		$( "#page_title" ).addClass("subTopBg_0"+($("#snb > li.bo_tablebasic").index() + 1) ); 
+	} else { 
+		$('.loc1D').text('기본게시판'); 
+		$('.noInfoPageTit').html('<h2><a><b>기본게시판</b><sub></sub></a></h2>'); 
+		$('.noInfoPageTit').addClass('active');
+		$('#page_title').addClass('subTopBg_00'); 
+	} 
+	
+});  
+</script>
 <!-- //현재위치 및 서브메뉴 활성화 설정 -->
 
 </body>

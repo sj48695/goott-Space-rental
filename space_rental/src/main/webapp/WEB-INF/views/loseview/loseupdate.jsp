@@ -73,7 +73,7 @@
 				</div>
 			</div>
 			<div class="btn_confirm write_div">
-				<a href="/spacerental/loseview/loselist" class="btn_cancel btn">취소</a> 
+				<a href="/spacerental/loseview/loselist/${lose.type}" class="btn_cancel btn">취소</a> 
 				<button type="submit"  id="btn_submit" class="btn_submit btn">수정완료</button>
 			</div>
 		</form>
@@ -215,3 +215,4 @@ $(document).ready(function(){
 
 </body>
 </html>
+>>>>>>> branch 'master' of https://github.com/sj48695/goott-Space-rental.git

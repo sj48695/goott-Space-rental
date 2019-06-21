@@ -1,9 +1,15 @@
 package com.spacerental.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
+
+import com.spacerental.common.Pagination;
 import com.spacerental.repository.SpaceRepository;
 import com.spacerental.vo.Host;
+import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
@@ -20,28 +26,43 @@ public class SpaceServiceImpl implements SpaceService {
 	}
 
 	@Override
-	public int registerHost(Host host) {
-		int newHostNo = spaceRepository.insertHost(host);
-		return newHostNo;
-	}
-
-	@Override
 	public Integer registerSpaceTx(Space space) {
 
 		int newSpaceNo = spaceRepository.insertSpace(space);
-
+		
 //		대표이미지
 		SpaceFile titleFile = space.getFile();
 		titleFile.setSpaceNo(newSpaceNo);
 		spaceRepository.insertSpaceFile(titleFile);
-		// System.out.println(titleFile);
+		//System.out.println(titleFile);
 //		이미지
 		for (SpaceFile file : space.getFiles()) {
 			file.setSpaceNo(newSpaceNo);
 			spaceRepository.insertSpaceFile(file);
-			// System.out.println(file);
+			//System.out.println(file);
 		}
 		return newSpaceNo;
+	}
+	
+	@Override
+	public Integer registerHostTx(Host host) {
+		int newHostNo = spaceRepository.insertHost2(host);
+		return newHostNo;
+	}
+	
+	@Override
+	public int findHostListCnt(String type) {
+		int hostCnt = spaceRepository.selectHostListCnt(type);
+		return hostCnt;
+	}
+
+
+	@Override
+	public List<Host> findHostList(Pagination pagination, String type) {
+		
+		List<Host> hosts = spaceRepository.selectHost(pagination, type);
+		
+		return hosts;
 	}
 
 	@Override
@@ -54,12 +75,6 @@ public class SpaceServiceImpl implements SpaceService {
 	public List<SpaceFile> findSpaceFilesBySpaceNo(int spaceNo) {
 		List<SpaceFile> files = spaceRepository.selectSpaceFilesBySpaceNo(spaceNo);
 		return files;
-	}
-
-	@Override
-	public List<Host> findHostList() {
-		List<Host> hosts = spaceRepository.selectHost();
-		return hosts;
 	}
 
 	@Override
@@ -81,6 +96,47 @@ public class SpaceServiceImpl implements SpaceService {
 	}
 
 	@Override
+	public List<Host> searchspacelist(String value) {
+		ArrayList<Host> space = spaceRepository.searchspaceList(value);
+		return space;
+	}
+
+	@Override
+	public List<Host> searchaddlist(String value) {
+		ArrayList<Host> space = spaceRepository.searchaddList(value);
+		return space;
+	}
+
+	@Override
+	public List<Host> computerlist() {
+		ArrayList<Host> space = spaceRepository.searchPCList();
+		return space;
+	}
+
+	@Override
+	public List<Host> beamprojectlist() {
+		ArrayList<Host> space = spaceRepository.searchBeamList();
+		return space;
+	}
+
+	@Override
+	public List<Host> wifilist() {
+		ArrayList<Host> space = spaceRepository.searchWifiList();
+		return space;
+	}
+
+	@Override
+	public List<Host> tenlesslist() {
+		ArrayList<Host> space = spaceRepository.searchTenlessList();
+		return space;
+	}
+
+	@Override
+	public List<Host> tenmore() {
+		ArrayList<Host> space = spaceRepository.searchTenmoreList();
+		return space;
+	}
+	
 	public SpaceFile findHostFile(int hostNo) {
 		SpaceFile file = spaceRepository.selectHostFile(hostNo);
 		return file;
@@ -90,6 +146,13 @@ public class SpaceServiceImpl implements SpaceService {
 	public SpaceFile findSpcaeFile(int spaceNo) {
 		SpaceFile file = spaceRepository.selectSpaceFile(spaceNo);
 		return file;
+
+	}
+
+	@Override
+	public List<Rent> findRentsBySpaceNo(int spaceNo) {
+		List<Rent> rents = spaceRepository.selectRentsBySpaceNo(spaceNo);
+		return rents;
 	}
 
 }

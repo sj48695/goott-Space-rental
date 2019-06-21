@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -28,6 +29,8 @@ import com.spacerental.service.LoseService;
 import com.spacerental.vo.Lose;
 import com.spacerental.vo.LoseFile;
 import com.spacerental.vo.Member;
+
+import lombok.ToString;
 
 @Controller
 @RequestMapping(path = "/loseview")
@@ -47,12 +50,13 @@ public class LoseController {
 	}
 
 	@RequestMapping(path = "/loselist/{type}", method = RequestMethod.GET)
-	public String LoseList(Model model, @PathVariable String type, HttpSession session) {
-
+	public String LoseList( Model model, @PathVariable String type, HttpSession session) {
+		
+		
 		Member loginuser = (Member) session.getAttribute("loginuser");
-
+		
 		List<Lose> loses = loseService.loseList(type);
-
+		
 		model.addAttribute("loginuser", loginuser);
 		model.addAttribute("type", type);
 		model.addAttribute("loses", loses);
@@ -83,21 +87,20 @@ public class LoseController {
 		
 		Member loginuser = (Member) session.getAttribute("loginuser");
 
+		MultipartFile mf = req.getFile("attach");
+		//boolean k = mf.isEmpty();
+		
+		ServletContext application = req.getServletContext();
+		String path = application.getRealPath("/resources/files/lose-files");
+		
+		String userFileName = mf.getOriginalFilename();
+		if (userFileName.contains("\\")) { // iexplore 경우
+			// C:\AAA\BBB\CCC.png -> CCC.png
+			userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
+		}
+		String savedFileName = Util.makeUniqueFileName(userFileName);
+		
 		try {
-			MultipartFile mf = req.getFile("attach");
-	
-			System.out.println(lose);
-	
-			ServletContext application = req.getServletContext();
-			String path = application.getRealPath("/resources/files/lose-files");
-	
-			String userFileName = mf.getOriginalFilename();
-			if (userFileName.contains("\\")) { // iexplore 경우
-				// C:\AAA\BBB\CCC.png -> CCC.png
-				userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
-			}
-			String savedFileName = Util.makeUniqueFileName(userFileName);
-
 			mf.transferTo(new File(path, savedFileName)); // 파일 저장
 
 			LoseFile loseFile = new LoseFile();
@@ -109,13 +112,11 @@ public class LoseController {
 			lose.setUploader(loginuser.getId());
 
 			// 데이터 저장
-
-			System.out.println(lose);
 			loseService.registerLoseTx(lose);
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		}
-		System.out.println(lose.getType());
+		} 
 		
 		String encodedUrl = "";
 		try {
@@ -126,8 +127,9 @@ public class LoseController {
 	}
 
 	@RequestMapping(path = "/losedetail/{loseNo}", method = RequestMethod.GET)
-	public String losedetail(@PathVariable int loseNo, Model model) {
+	public String losedetail(@PathVariable int loseNo, Model model, HttpSession session) {
 
+		Member loginuser = (Member) session.getAttribute("loginuser");
 		Lose lose = loseService.findLoseByLoseNo(loseNo);
 		if (lose == null) {
 			return "redirect:loselist";
@@ -135,9 +137,14 @@ public class LoseController {
 
 		List<LoseFile> files = loseService.findLoseFilesByLoseNo(loseNo);
 		
+		Date date = lose.getLoseDate();
+		String d = date.toString();
+	
+		
 		lose.setFiles((ArrayList<LoseFile>)files);
 		model.addAttribute("lose", lose);
-
+		model.addAttribute("d",d);
+		model.addAttribute("loginuser",loginuser);
 		return "loseview/losedetail";
 	}
 
@@ -173,5 +180,14 @@ public class LoseController {
 
 		return "redirect:/loseview/lose";
 	}
+
+	 @RequestMapping(path = "/losesearch", method = RequestMethod.GET)
+	 public String losssearch(@RequestParam(name="value3") String value, Model model) {
+		 
+	 List<Lose> Losee = loseService.searchlosslist(value);
+	 model.addAttribute("loses", Losee);
+	 
+	 return "loseview/loselist";
+	 }
 
 }

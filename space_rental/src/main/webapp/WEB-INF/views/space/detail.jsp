@@ -44,8 +44,9 @@
 <c:set var="enter" value="
 " />
                <p>${ fn:replace(host.content, enter, '<br>') }</p>
+
                <ul class="py-3" style="list-style: none; padding-left: 0px;">
-                  <li><span class="pr-3 text-black"><strong>영업시간</strong></span> <span>${ host.openStart }시 ~ ${ host.openEnd }시</span></li>
+                  <li><span class="pr-3 text-black"><strong>영업시간</strong></span> <span>${ host.openStart } ~ ${ host.openEnd }</span></li>
                   <li><span class="pr-3 text-black"><strong>휴무일</strong></span> <span>${ host.holiday }</span></li>
                   <li><span class="pr-3 text-black"><strong>주차</strong></span> <span>${ host.parking }</span></li>
                </ul>
@@ -59,7 +60,7 @@
                <c:forEach var="file" items="${ host.files }">
                <div class="col-sm-6 col-md-4 col-lg-3">
                   <a href="/spacerental/resources/files/space-files/${ file.savedFileName }" class="image-popup gal-item">
-                     <img src="/spacerental/resources/files/space-files/${ file.savedFileName }"style="max-width: 100%;width:200px;"class="img-fluid">
+                     <img src="/spacerental/resources/files/space-files/${ file.savedFileName }"style="width:180px;height:180px"class="img-fluid">
                   </a>
                </div>
                </c:forEach>
@@ -69,7 +70,7 @@
             <div class="py-5">
                <h4 class="text-black"><b>지도</b></h4>
                <div><span class="property-icon icon-room"></span>${ host.address }</div>
-               <div id="map" style="width: 650px; height: 400px;"></div>
+               <div id="map" style="width: 100%; height: 400px;"></div>
                <script type="text/javascript"
                   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28206a2925ab959e756fce927cd2cde4&libraries=services"></script>
                <script>
@@ -164,8 +165,6 @@
 				<h4 class="text-black widget-title mb-3"><b>세부공간 선택</b></h4>
 				<hr>
 				<form action="/spacerental/space/rent" class="form-contact-agent" method="get">
-					<input type="hidden" name="year" value="0">
-					<input type="hidden" name="month" value="0">
 					<c:forEach var="space" items="${ spaces }">
 					<div class="custom-control custom-radio mb-3">
 						<input type="radio" class="custom-control-input" id="space${ space.spaceNo }" 

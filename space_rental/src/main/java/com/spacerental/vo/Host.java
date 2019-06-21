@@ -1,7 +1,6 @@
 package com.spacerental.vo;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import lombok.Data;
 
@@ -16,9 +15,9 @@ public class Host {
 	private String type;
 	private String address;
 	private String parking;
+    private int openStart;
+    private int openEnd;
 	private String holiday;
-	private int openStart;
-	private int openEnd;
 	
 	private SpaceFile file;//대표사진 flag=1
 	private ArrayList<SpaceFile> files; //flag=0

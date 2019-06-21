@@ -59,10 +59,42 @@ function dayCheck(i) {
 	}
 }
 
+var n=0;
+var s_t=0;
+var e_t=0;
+function timeClick(i,time){
+	n++;
+
+	$('label').removeClass('timepick');
+	//console.log(n);
+	if(n%2 == 1){
+		s_t=time;
+		startTime(i, s_t);
+	}
+	else if(n%2 == 0){
+		e_t=time;
+		endTime(i, s_t, e_t);
+	}
+}
+
+
+function startTime(i, s_t) {//시작시간 선택
+	//console.log("111 / "+s_t+" / "+e_t + " / " + i);
+		$('#timelabel'+i).addClass('timepick');
+		$('#startTime').attr('value',s_t);
+}
+function endTime(i, s_t, e_t) {//끝나는시간 선택
+	//console.log("222 / "+s_t+" / "+e_t + " / " + i);
+		for(var t=s_t;t<=e_t;t++){
+			$('#timelabel'+t).addClass('timepick');
+		}
+		$('#endTime').attr('value',e_t);
+}
+
 function change() {	
 	$('#calendar-table').load("/spacerental/space/calendar",{
-		"year" : $('#year').val(),
-		"month" : $('#month').val(),
+		"year" : $('#y').val(),
+		"month" : $('#m').val(),
 		"spaceNo" : $('#spaceNo').val()
 	});
 } 

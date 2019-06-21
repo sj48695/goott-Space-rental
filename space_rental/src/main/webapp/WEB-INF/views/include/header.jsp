@@ -37,7 +37,7 @@
 			<div class="menu_close">close</div>
 			<nav class="menu_nav">
 				<ul>
-					<li><a href="/spacerental/">홈</a></li>
+					<li class="active"><a href="/spacerental/aboutusview/aboutus">About Us</a></li>
 					<li><a href="/spacerental/space/spacelist">장소</a></li>
 					<li><a href="/spacerental/loseview/lose">분실물</a></li>
 					<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
@@ -65,7 +65,7 @@
 				<div class="header_right d-flex flex-row align-items-center justify-content-start ml-auto">
 					<nav class="main_nav">
 						<ul class="d-flex flex-row align-items-center justify-content-start">
-							<li class="active"><a href="/spacerental/">홈</a></li>
+							<li class="active"><a href="/spacerental/aboutusview/aboutus">About Us</a></li>
 							<li><a href="/spacerental/space/spacelist">장소</a></li>
 							<c:if test="${ loginuser.type eq 'host' }">
 							<li><a href="/spacerental/space/register_host">장소 등록하기</a></li>

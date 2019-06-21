@@ -41,6 +41,10 @@
 		order by rentNo desc
 	</select>
 	
+	<select id="selectRentsBySpaceNo" parameterType="int" resultType="Rent">
+		select <include refid="rentBasicColumns" /> from rent where spaceNo= #{ spaceNo };
+	</select>
+	
 	<insert id="insertRent" parameterType="Rent">
 		INSERT INTO Rent(
 			<include refid="rentBasicColumns" />

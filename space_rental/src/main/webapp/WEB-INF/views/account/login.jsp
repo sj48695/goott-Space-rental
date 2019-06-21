@@ -50,7 +50,7 @@
 
 			<div class="container-contact100-form-btn">
 				<button class="contact100-form-btn" style="width:150px">로그인</button>
-				<button class="contact100-form-btn" type="submit" id="checkbtn" style="width:150px">아이디 중복확인</button>
+				<button class="contact100-form-btn" type="submit" id="checkbtn" style="width:200px">아이디 중복확인</button>
 			</div>
 		</form>
 	</div>		

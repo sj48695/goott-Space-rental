@@ -215,3 +215,4 @@ $(document).ready(function(){
 
 </body>
 </html>
+>>>>>>> branch 'master' of https://github.com/sj48695/goott-Space-rental.git

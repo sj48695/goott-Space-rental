@@ -1,7 +1,12 @@
 package com.spacerental.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
+
+import com.spacerental.common.Pagination;
 import com.spacerental.repository.SpaceRepository;
 import com.spacerental.vo.Host;
 import com.spacerental.vo.Space;
@@ -39,63 +44,108 @@ public class SpaceServiceImpl implements SpaceService {
 	}
 	
 	@Override
-	public int registerHost(Host host) {
-		int newHostNo = spaceRepository.insertHost(host);
+	public Integer registerHostTx(Host host) {
+		int newHostNo = spaceRepository.insertHost2(host);
 		return newHostNo;
 	}
+	
+	@Override
+	public int findHostListCnt(String type) {
+		int hostCnt = spaceRepository.selectHostListCnt(type);
+		return hostCnt;
+	}
+
 
 	@Override
-	public List<Host> findHostList() {
+	public List<Host> findHostList(Pagination pagination, String type) {
 		
-		List<Host> hosts = spaceRepository.selectHost();
+		List<Host> hosts = spaceRepository.selectHost(pagination, type);
 		
 		return hosts;
 	}
 
 	@Override
-	public Host findHostByHostNo(int hostNo) {
-		
-		Host host = spaceRepository.selectHostByHostNo(hostNo);
-		
-		return host;
-	}
-
-	@Override
-	public SpaceFile findHostFile(int hostNo) {
-		
-		SpaceFile file = spaceRepository.selectHostFile(hostNo);
-		
-		return file;
+	public List<SpaceFile> findHostFilesByHostNo(int hostNo) {
+		List<SpaceFile> hostfiles = spaceRepository.selectHostFilesByHostNo(hostNo);
+		return hostfiles;
 	}
 
 	@Override
 	public List<SpaceFile> findSpaceFilesBySpaceNo(int spaceNo) {
-		
 		List<SpaceFile> files = spaceRepository.selectSpaceFilesBySpaceNo(spaceNo);
-		
 		return files;
 	}
 
 	@Override
-	public List<SpaceFile> findHostFilesByHostNo(int hostNo) {
-		
-		List<SpaceFile> hostfiles = spaceRepository.selectHostFilesByHostNo(hostNo);
-		
-		return hostfiles;
-
-	
+	public List<Space> findSpacesByHostNo(int hostNo) {
+		List<Space> spaces = spaceRepository.selectSpacesByHostNo(hostNo);
+		return spaces;
 	}
 
 	@Override
-	public List<Space> findSpacesByHostNo(int hostNo) {
-		List<Space> spaces =spaceRepository.selectSpacesByHostNo(hostNo);
-		return spaces;
+	public Host findHostByHostNo(int hostNo) {
+		Host host = spaceRepository.selectHostByHostNo(hostNo);
+		return host;
 	}
 
 	@Override
 	public Space findSpaceBySpaceNo(int spaceNo) {
 		Space space = spaceRepository.selectSpaceBySpaceNo(spaceNo);
 		return space;
+	}
+
+	@Override
+	public List<Host> searchspacelist(String value) {
+		ArrayList<Host> space = spaceRepository.searchspaceList(value);
+		return space;
+	}
+
+	@Override
+	public List<Host> searchaddlist(String value) {
+		ArrayList<Host> space = spaceRepository.searchaddList(value);
+		return space;
+	}
+
+	@Override
+	public List<Host> computerlist() {
+		ArrayList<Host> space = spaceRepository.searchPCList();
+		return space;
+	}
+
+	@Override
+	public List<Host> beamprojectlist() {
+		ArrayList<Host> space = spaceRepository.searchBeamList();
+		return space;
+	}
+
+	@Override
+	public List<Host> wifilist() {
+		ArrayList<Host> space = spaceRepository.searchWifiList();
+		return space;
+	}
+
+	@Override
+	public List<Host> tenlesslist() {
+		ArrayList<Host> space = spaceRepository.searchTenlessList();
+		return space;
+	}
+
+	@Override
+	public List<Host> tenmore() {
+		ArrayList<Host> space = spaceRepository.searchTenmoreList();
+		return space;
+	}
+	
+	public SpaceFile findHostFile(int hostNo) {
+		SpaceFile file = spaceRepository.selectHostFile(hostNo);
+		return file;
+	}
+
+	@Override
+	public SpaceFile findSpcaeFile(int spaceNo) {
+		SpaceFile file = spaceRepository.selectSpaceFile(spaceNo);
+		return file;
+
 	}
 
 }

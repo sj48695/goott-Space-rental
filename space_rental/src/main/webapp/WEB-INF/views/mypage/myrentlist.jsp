@@ -21,7 +21,7 @@
 }
 </style>
 
-<div class="container" style="margin-top:10%;">
+<div class="container" style="margin-top:160px;">
 <h1 style="text-align: center"><strong>예약 리스트</strong></h1>
 <br><br>
 
@@ -31,7 +31,7 @@
 			<div class="card border-light col-sm-6">
 				<div class="card-header">${ rent.rentNo }</div>
 				<div class="card-body">
-					<h5 class="card-title"><a href="detail/${ rent.spaceNo }" style="text-decoration: none">${ rent.spaceName }</a></h5>
+					<h5 class="card-title"><a href="/spacerental/space/detail/${ rent.hostNo }" style="text-decoration: none">${ rent.spaceName }</a></h5>
 					<p class="card-text">${ rent.rentDate } / ${ rent.startTime }시 ~ ${ rent.endTime }시</p>
 					<hr>
 					<p class="card-text">${ rent.id }</p>

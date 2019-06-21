@@ -21,6 +21,8 @@ public interface LoseService {
 	void loseDelete(int loseNo);
 	List<Lose> loseList(String string);
 
-	void registerLose2(Lose lose); 
+	//void registerLose2(Lose lose); 
 		
+	List<Lose> searchlosslist(String value);
+
 }

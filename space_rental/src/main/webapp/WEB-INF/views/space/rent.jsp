@@ -8,12 +8,17 @@
 	position: relative;
 	border: 0;
 	background-color: #704de4;
+    color: wheat;
 }
 
 .calender {
 	margin: auto;
 	border: 1px solid #ccccff;
 	width: -webkit-fill-available;
+}
+
+.time{
+	border-radius: 50px;
 }
 </style>
 <div class="site-loader"></div>
@@ -30,14 +35,14 @@
 </div>
 
 <div class="site-blocks-cover inner-page-cover overlay" data-aos="fade" data-stellar-background-ratio="0.5"
-	style="background-image: url(/spacerental/resources/space/images/hero_bg_2.jpg);"></div>
+	style="background-image: url(/spacerental/resources/files/space-files/${host.file.savedFileName});"></div>
 
 <!-- 디테일 박스 -->
 <div class="site-section site-section-sm container">
 	<div class="row">
 		<div class="col-lg-8">
 			<!-- 제목 -->
-			<div class="bg-white property-body border-bottom border-left border-right border-top">
+			<div class="bg-white property-body border">
 				<div class="row mb-5">
 					<div class="col-md-6">
 						<h1 class="text-black"><b>${ space.spaceName }</b></h1>
@@ -46,7 +51,7 @@
 				<!-- 공간 이미지 -->
 				<div>
 					<div class="slide-one-item home-slider owl-carousel">
-						<c:forEach var="file" items="${ host.files }">
+						<c:forEach var="file" items="${ space.files }">
 							<img src="/spacerental/resources/files/space-files/${ file.savedFileName }" class="img-fluid">
 						</c:forEach>
 					</div>
@@ -57,12 +62,32 @@
 <%-- 줄바꿈 문자열을 저장하고 있는 변수 만들기 --%>
 <c:set var="enter" value="
 " />
-					<p class="container">${ fn:replace(space.content, enter, '<br>') }</p>
-					<ul class="py-3" style="list-style: none; padding-left: 0px;">
-						<li><span class="pr-3 text-black">빔프로젝터</span> <span>${ space.bim }</span></li>
-						<li><span class="pr-3 text-black">인터넷/와이파이</span> <span>${ space.wifi }</span></li>
-						<li><span class="pr-3 text-black">컴퓨터</span> <span>${ space.computer }</span></li>
-					</ul>
+					<p>${ fn:replace(space.content, enter, '<br>') }</p>
+					
+					
+					<h4 class="text-black"><b>이용시설</b></h4>
+					<div class="row justify-content-center text-center">
+						<div class="col-sm-2 flex-md-column">
+							<div class="cat_icon"><img src="/spacerental/resources/images/computer.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
+							<div>컴퓨터</div>
+						</div>
+						<div class="col-sm-2 flex-md-column">
+							<div class="cat_icon"><img src="/spacerental/resources/images/beam.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
+							<div>빔 프로젝터</div>
+						</div>
+						<div class="col-sm-2 flex-md-column">
+							<div class="cat_icon"><img src="/spacerental/resources/images/wifi.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
+							<div>WIFI</div>
+						</div>
+						<div class="col-sm-2 flex-md-column">
+							<div class="cat_icon"><i class="far fa-smoking"></i></div>
+							<div>흡연실</div>
+						</div>
+						<div class="col-sm-2 flex-md-column">
+							<div class="cat_icon"><i class="fal fa-burger-soda"></i></div>
+							<div>음식물 반입</div>
+						</div>
+					</div>
 				</div>
 				
 				<!-- 갤러리 -->
@@ -82,10 +107,11 @@
 		</div>
 		<div class="col-lg-4">
 			<div class="bg-white widget border rounded">
-				<form action="rent" method="post">
-					<input type="hidden" name="spaceNo" value="${ space.spaceNo }">
-					<h4>${ nowYear }년 ${ nowMonth }월 일정</h4>
-					<select name="year" onchange="change()">
+				<form action="rent" method="post" id="rentform">
+					<input type="hidden" name="spaceNo" id="spaceNo" value="${ space.spaceNo }">
+					<h5 class="pt-3">날짜 선택</h5>
+					<h6 class="pt-3 px-3 row justify-content-end">
+					<select name="year" id="year" onchange="change()" class="border">
 						<c:forEach var="year" begin="2019" end="2020" varStatus="y_status">
 							<c:if test="${ year eq nowYear}">
 								<option selected>${ y_status.index }</option>
@@ -95,7 +121,7 @@
 							</c:if>
 						</c:forEach>
 					</select>년도&nbsp;&nbsp;&nbsp; 
-					<select name="month" onchange="change()">
+					<select name="month" id="month" onchange="change()" class="border">
 						<c:forEach var="month" begin="1" end="12" varStatus="m_status">
 							<c:if test="${ month eq nowMonth}">
 								<option selected>${ m_status.index }</option>
@@ -105,9 +131,9 @@
 							</c:if>
 						</c:forEach>
 					</select>월
-					
+					</h6>
 					<!-- // 요일출력 start -->
-					<table class="calender">
+					<table id="calendar-table" class="calender">
 						<tr bgcolor="#ccccff">
 							<c:forEach var="week" varStatus="i" items="${ strWeek }">
 								<c:choose>
@@ -121,68 +147,95 @@
 										<c:set var="color" value="black"/>
 									</c:otherwise>
 								</c:choose>
-								<td class="text-center py-1 px-2"><font color="${ color }"><b>${ week }</b></font></td>
+							<td class="text-center py-1 px-2"><font color="${ color }"><b>${ week }</b></font></td>
 							</c:forEach>
 						</tr>
 
-					
-						<c:forEach var="i" begin="1" end="${ lastDay }">
-						<c:if test="${ i eq 1 }">
-							<tr>
-							<c:forEach begin="0" end="${ week-1 }">
-								<td >&nbsp;</td>
-							</c:forEach>
-						</c:if>
-						
+
+				<c:forEach var="i" begin="1" end="${ lastDay }">
+					<c:if test="${ i eq 1 }">
+						<tr>
+						<c:forEach begin="0" end="${ week-1 }">
+							<td>&nbsp;</td>
+						</c:forEach>
+					</c:if>
 							<td class="text-center py-1 px-2" style="cursor: pointer;">
-								<input type="radio" id="day${i}" name="day" value="${i}" hidden="hidden" onclick="javascript:dayCheck(${ i })">
-								<label for="day${i}"class="date">${i}</label>
+								<input type="radio" id="day${i}" name="day" value="${i}"
+									hidden="hidden" onclick="javascript:dayCheck(${ i })"> 
+								<label for="day${i}" class="date m-0">${i}</label>
 							</td>
-								<c:set var="week" value="${week+1}"/>
-							<c:if test="${ week > 6 }">
-								<c:set var="week" value="0"/>
+							
+					<c:if test="${ i eq lastDay }">
+						<c:forEach begin="${ week+1 }" end="${6-week }">
+							<td>&nbsp;</td>
+						</c:forEach>
+					</c:if>
+
+					<c:set var="week" value="${week+1}" />
+					<c:if test="${ week > 6 }">
+						<c:set var="week" value="0" />
 						</tr>
 						<tr>
-							</c:if>
-						</c:forEach>
+					</c:if>
+				</c:forEach>
 						</tr>
 					</table>
-					<h4>시간 선택</h4>
+					<h5 class="pt-3">시간 선택</h5>
 					<div class="row">
-						<div class="select col-sm-5">
-							<select name="startTime" class="col-12">
-								<option>9</option>
-								<option>10</option>
-								<option>11</option>
-								<option>12</option>
-								<option>13</option>
-								<option>14</option>
-							</select>
-						</div>
-							<font size="6" style="vertical-align: center">~</font>
-						<div class="select col-sm-5">
-							<select name="endTime" class="col-12">
-								<option>20</option>
-								<option>21</option>
-								<option>22</option>
-								<option>23</option>
-								<option>24</option>
-								<option>1</option>
-							</select>
+						<div class="select col-sm-12">
+							<c:forEach var="time" begin="${ host.openStart }" end="${ host.openEnd }">
+								<input type="radio" hidden="hidden" name="startTime" id="startTime${ time }">
+								<label for="startTime${ time }" class="py-1 px-2 border time">${ time }</label>
+							</c:forEach>
 						</div>
 					</div>
-					<h4>인원 선택</h4>
+					<h5 class="pt-3">인원 선택</h5>
 					<div class="row">
-						<input class="col-12 form-control" type="text" name="headCount">
+						<div class="col-12">
+							<select name="headCount" class="col-12 border">
+								<c:forEach var="count" begin="1" end="${ space.maximum }">
+									<option>${ count }</option>
+								</c:forEach>
+							</select>
+						</div>
 					</div>
 					<div class="row justify-content-end">
-						<input class="btn btn-primary" type="submit" value="예약">
+					<input class="btn btn-primary" type="button" id="rent_submit" name="rent_submit" value="예약"/>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	
+	<script type="text/javascript">
+	$(function(){
+		$('#rent_submit').on('click', function(event){
+			
+			//serialize() : <form에 포함된 입력 요소의 값을 이름=값&이름=값&... 형식으로 만드는 함수 
+			var formData = $('#rentform').serialize();
+			//alert(formData);
+			
+			 $.ajax({
+				url: "/spacerental/space/rent",
+				method: "POST",
+				data : formData,
+				success: function(data, status, xhr){ //data: 응답받은 데이터
+					alert("예약되었습니다!");
+					window.location.href = '/spacerental/mypage/lentList'; 
+				},
+				error: function(xhr, status, err){
+					alert(err);
+				}
+			});  
+		});
+	});
+	</script>
+		
 	
 	
 <footer class="site-footer">

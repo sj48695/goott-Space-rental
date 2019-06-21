@@ -3,6 +3,7 @@ package com.spacerental.mapper;
 import java.util.List;
 
 import com.spacerental.vo.Host;
+import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
@@ -19,5 +20,7 @@ public interface SpaceMapper {
 	List<Space> selectSpacesByHostNo(int hostNo);
 
 	Space selectSpaceBySpaceNo(int spaceNo);
+
+	SpaceFile selectSpaceFile(int spaceNo);
 
 }

@@ -7,6 +7,7 @@ import com.spacerental.repository.MemberRepository;
 import com.spacerental.vo.Host;
 import com.spacerental.vo.Member;
 import com.spacerental.vo.Rent;
+import com.spacerental.vo.SpaceFile;
 
 public class MemberServiceImpl implements MemberService{
 
@@ -50,9 +51,27 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public List<Rent> selectlentList(String id) {
-		List<Rent> rent = memberRepository.selectlentList(id);
+	public List<Rent> selectrentList(String id) {
+		List<Rent> rent = memberRepository.selectrentList(id);
 		return rent;
+	}
+
+	@Override
+	public List<Host> selectHostList(String id) {
+		List<Host> host = memberRepository.selectHostList(id);
+		return host;
+	}
+
+	@Override
+	public SpaceFile selectHostFile(String id) {
+		SpaceFile file = memberRepository.selectHostFile(id);
+		return file;
+	}
+
+	@Override
+	public List<Rent> selectHostRentList(int hostNo) {
+		List<Rent> rentlist =  memberRepository.selectHostRentList(hostNo);
+		return rentlist;
 	}
 	
 }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spacerental.mapper.AboutUsMapper">
+
+	<select id="countCustomer"  resultType="int">
+		SELECT COUNT (ID)
+		FROM MEMBER
+		WHERE  type  LIKE  'customer'
+	</select>
+	
+	<select id="countHost" resultType="int">
+		SELECT COUNT(ID)
+		FROM MEMBER
+		WHERE  type  LIKE  'host'
+	</select>
+	
+	<select id="countComputer"  resultType="int">
+		SELECT COUNT(SPACENO)
+		FROM SPACE
+		WHERE  computer  LIKE  '1'
+	</select>
+	
+	<select id="countBeam"   resultType="int">
+		SELECT COUNT(SPACENO)
+		FROM SPACE
+		WHERE bim LIKE '1'
+	</select>
+	
+	<select id="countWifi"  resultType="int">
+		SELECT COUNT(SPACENO) 
+		FROM SPACE
+		WHERE wifi LIKE '1'
+	</select>
+	
+	<select id="countTotalSpace"  resultType="int">
+		SELECT COUNT(SPACENO) 
+		FROM SPACE
+	</select>
+	
+	
+</mapper>

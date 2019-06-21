@@ -27,7 +27,6 @@ function readURL(input,target) {
 	}
 }
 $("#writeForm").on("change", "#titleImgFile", function(event) {
-	
 	readURL(this,$(".inner_img"));
 });
 $("#writeForm").on("change", "#imgFile", function(event) {
@@ -47,7 +46,7 @@ $(function() {
         $(this).height(((content.split('\n').length + 1) * 1.5) + 'em');
         $("#spcCtCnt").html(content.length);
     });
-    $("#space_text").keyup();
+    $("#space_text").keyup();    
 });
 
 
@@ -60,5 +59,11 @@ function dayCheck(i) {
 	}
 }
 
-
+function change() {	
+	$('#calendar-table').load("/spacerental/space/calendar",{
+		"year" : $('#year').val(),
+		"month" : $('#month').val(),
+		"spaceNo" : $('#spaceNo').val()
+	});
+} 
 

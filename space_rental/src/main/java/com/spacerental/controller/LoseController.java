@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -28,6 +29,8 @@ import com.spacerental.service.LoseService;
 import com.spacerental.vo.Lose;
 import com.spacerental.vo.LoseFile;
 import com.spacerental.vo.Member;
+
+import lombok.ToString;
 
 @Controller
 @RequestMapping(path = "/loseview")
@@ -177,5 +180,14 @@ public class LoseController {
 
 		return "redirect:/loseview/lose";
 	}
+
+	 @RequestMapping(path = "/losesearch", method = RequestMethod.GET)
+	 public String losssearch(@RequestParam(name="value3") String value, Model model) {
+		 
+	 List<Lose> Losee = loseService.searchlosslist(value);
+	 model.addAttribute("loses", Losee);
+	 
+	 return "loseview/loselist";
+	 }
 
 }

@@ -14,6 +14,9 @@
 		<typeAlias type="com.spacerental.vo.Lose" alias="Lose" />
 		<typeAlias type="com.spacerental.vo.LoseFile" alias="LoseFile" />
 		<typeAlias type="com.spacerental.vo.Rent" alias="Rent" />
+		<typeAlias type="com.spacerental.vo.Rent" alias="Rent" />
+		<typeAlias type="com.spacerental.common.Pagination" alias="Pagination" />
+		
 	</typeAliases>
 
 	<environments default="development">
@@ -34,8 +37,8 @@
 		<mapper resource="com/spacerental/mapper/space-mapper.xml" />
 		<mapper resource="com/spacerental/mapper/host-mapper.xml" />
 		<mapper resource="com/spacerental/mapper/notice-mapper.xml" />
-		<mapper resource="com/spacerental/mapper/search-mapper.xml"/>
 		<mapper resource="com/spacerental/mapper/lose-mapper.xml"/>
 		<mapper resource="com/spacerental/mapper/rent-mapper.xml"/>
+		<mapper resource="com/spacerental/mapper/aboutus-mapper.xml"/>
 	</mappers>
 </configuration>

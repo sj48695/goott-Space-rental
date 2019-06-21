@@ -35,6 +35,8 @@ public interface LoseRepository {
 
 	List<Lose> loseList(String type);
 
-	void registerlose2(Lose lose);
+	//void registerlose2(Lose lose);
+	
+	ArrayList<Lose> searchlossList(String value);
 
 }

@@ -19,8 +19,7 @@ public class Host {
 	private int openStart;
 	private int openEnd;
 	private String holiday;
-	private int openStart;
-	private int openEnd;
+
 	
 	private SpaceFile file;//대표사진 flag=1
 	private ArrayList<SpaceFile> files; //flag=0

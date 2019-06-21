@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" language="java" contentType="text/html; charset=utf-8"
 	     pageEncoding="utf-8"%>
 	     
@@ -51,7 +52,7 @@
 							<div class="mvInlineN">번호</div>
 							<div>제목</div>
 							<div class="mvInlineN">작성자</div>
-							<div class="mvInlineN">등록일</div>
+							<div class="mvInlineN">분실일</div>
 							<div class="mvInlineN">유형</div>
 						</li>
 						<li class="bo_notice likeTblTr likeTblTd">
@@ -86,14 +87,15 @@
 						<li class="likeTblTr likeTblTh" style="background: white;">
 							<div class="mvInlineN">${ fn:length(loses) - i.index }</div>
 							<div><a href="/spacerental/loseview/losedetail/${ lose.loseNo }">${ lose.title }</a></div>
-							<div class="mvInlineN">${ lose.uploader }</div>
-							<div class="mvInlineN">${ lose.loseDate }</div>
+							<div class="mvInlineN">${ lose.uploader }</div><%-- 
+							<div class="mvInlineN">${ lose.loseDate.toString().substring(0,10) }</div> --%>
+							<fmt:formatDate var="date" value="${ lose.loseDate }" type="date" />
+							<div class="mvInlineN">${ date }</div>
 							<div class="mvInlineN">${ lose.type }</div>
 						</li>
 						</c:forEach>
 					</ul>
 				</div>
-
 				<div class="td_subject" style="padding-left: 0px">
 					<div class="bo_tit"></div>
 					<div class="bo_fx">
@@ -114,14 +116,10 @@
 			</form>
 		</div>
 		<!-- // #container 닫음 -->
-		<!-- } 게시글 읽기 끝 -->
-
 		<jsp:include page="sideBar.jsp" />
 	</div>
-<!-- // #ctWrap 닫음 -->
-<!-- } 콘텐츠 끝 -->
 
-<hr>
+	<hr>
 
 <!-- 하단 시작 { -->
 <footer id="footer"></footer>

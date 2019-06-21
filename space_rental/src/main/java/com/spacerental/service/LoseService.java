@@ -19,6 +19,8 @@ public interface LoseService {
 	void updateLoseUpdate(Lose lose);
 	Lose loseDetail(int loseNo);
 	void loseDelete(int loseNo);
-	List<Lose> loseList(String string); 
+	List<Lose> loseList(String string);
+
+	void registerLose2(Lose lose); 
 		
 }

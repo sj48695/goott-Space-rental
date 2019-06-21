@@ -59,7 +59,7 @@
 					<script>
 						var g5_editor_url = "", oEditors = [], ed_nonce = "";
 					</script>
-					<textarea id="wr_content" name="content" class="smarteditor2" maxlength="65536" style="width: 100%; height: 300px" min=""></textarea>
+					<textarea id="wr_content" name="content" class="smarteditor2" maxlength="65536" style="width: 100%; height: 300px"></textarea>
 					<span class="sound_only"></span>
 				</div>
 			</div>
@@ -67,7 +67,7 @@
 				<div class="file_wr write_div">
 					<label for="bf_file_1" class="lb_icon"><i class="fa fa-download" aria-hidden="true"></i>
 					<span class="sound_only">파일</span></label> 
-					<input type="file" name="attach" class="frm_file "
+					<input type="file" name="attach" class="frm_file " required="required"
 						id="bf_file_1" title="파일첨부 1 : 용량 1,048,576 바이트 이하만 업로드 가능">
 				</div>
 			</div>

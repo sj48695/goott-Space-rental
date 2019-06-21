@@ -34,69 +34,72 @@
 				var char_max = parseInt(0); // 최대
 			</script>
 
-			<section id="bo_v_info"></section>
-
 			<section id="bo_v_atc">
 				<h2 id="bo_v_atc_title">본문</h2>
-				
-				<h5><div class="contents">
-					<div class="pageSection">
-						<form name="viewForm" id="viewForm" method="get">
-						<input type="hidden" name="currentPageNo" value="1" />
-						<input type="hidden" name="searchCondition" value="title" />
-						<input type="hidden" name="searchKeyword" value="" />
-						<input type="hidden" name="procMode" id="procMode" value="INSERT"/>
-						<input type="hidden" name="idx" id="idx" value="544"/>
-						<input type="hidden" name="fileIdx" id="fileIdx" value=""/>
-						<div class="tblWrap">
-							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bd00view">
-								<colgroup>
-									<col width="120px" />
-									<col width="240px" />
-									<col width="120px" />
-									<col />
-								</colgroup>
-								<tr>
-									<th class="bd01th" scope="row">작성자</th>
-									<td class="bd01td">${ lose.uploader }</td>
-									<th class="bd01th" scope="row">분실일자</th>
-									<td class="bd01td">${ lose.loseDate }</td>
-									<th class="bd01th" scope="row">유 형</th>
-									<td class="bd01td">${ lose.type }</td>
-									<th class="bd01th" scope="row">방 번호</th>
-									<td class="bd01td">${ lose.spaceNo }</td>
-								</tr>
-								<tr>
-									<th class="bd01th" scope="row">제 목</th>
-									<td class="bd01td">${ lose.title }</td>
-								</tr>
-								<tr>
-									<th class="bd01th" scope="row">첨부파일</th>
-									<c:forEach var="file" items="${ lose.files }">
-										<td colspan="3" class="bd01td">
-										<img src="/spacerental/resources/files/lose-files/${ file.savedFileName }" width="100" height="100">
-										</td>
-									</c:forEach>
-								</tr>
-								<hr>
-							</table>
-						</div></h5>
-				<!-- 본문 내용 시작 { -->
-				<br><br>
-				<h5><div>내 용</div></h5>
-				<h5><div id="bo_v_con">${ lose.content }</div></h5>
-				<!-- } 본문 내용 끝 -->
-			</section>
+				<h5>
+					<div class="contents">
+						<div class="pageSection">
+							<form name="viewForm" id="viewForm" method="get">
+								<input type="hidden" name="currentPageNo" value="1" /> <input
+									type="hidden" name="searchCondition" value="title" /> <input
+									type="hidden" name="searchKeyword" value="" /> <input
+									type="hidden" name="procMode" id="procMode" value="INSERT" /> <input
+									type="hidden" name="idx" id="idx" value="544" /> <input
+									type="hidden" name="fileIdx" id="fileIdx" value="" />
+								<div class="tblWrap">
+									<table border='1'
+										style="height: 100px; width: 1000px; text-align: center">
+										<tr>
+											<td colspan='3'><h2>제목</h2></td>
+											<td colspan='5' style="text-align: center">${ lose.title }</td>
+										</tr>
+										<tr>
+											<td><strong><h3>작성자</h3></strong></td>
+											<td>${ lose.uploader }</td>
+
+											<td><strong><h3>분실일자</h3></strong></td>
+											<td>${ d.substring(0,10) }</td>
+
+											<td><strong><h3>유형</h3></strong></td>
+											<td>${ lose.type }</td>
+
+											<td><strong><h3>방번호</h3></strong></td>
+											<td>${ lose.spaceNo }</td>
+										</tr>
+										<tr>
+											<c:forEach var="file" items="${ lose.files }">
+												<td style="height: 400px" colspan="2"><strong>이미지</strong></td>
+												<td colspan="6" style="text-align: center">
+												<img src="/spacerental/resources/files/lose-files/${ file.savedFileName } "width="600" height="300"></td>
+											</c:forEach>
+										</tr>
+										<tr>
+											<td style="height: 100px" colspan="2">내용</td>
+											<td colspan="6" style="text-align: center">${ lose.content }</td>
+										</tr>
+									</table>
+								</div>
+							</form>
+							</div>
+						</div>
+							
+					</h5>
+				</section>
 
 			<div id="bo_v_share"></div>
 
 			<!-- 게시물 상단 버튼 시작 { -->
 			<div id="bo_v_top">
 				<ul class="bo_v_left">
-					<li><a class="btn_b01 btn" id="update"><i class="fa fa-pencil-square-o" aria-hidden="true" id="update"></i>수정</a></li>
-					<li><a class="btn_b01 btn" id="delete">
+					<li>
+						<c:if test="${ loginuser.id eq lose.uploader }">
+						<a class="btn_b01 btn" id="update">
+						<i class="fa fa-pencil-square-o" aria-hidden="true" id="update"></i>수정</a>
+						<a class="btn_b01 btn" id="delete">
 						<i class="fa fa-trash-o" aria-hidden="true"></i>삭제</a>
-						<a class="btn_b01 btn" id="loselist"><i class="fa fa-list" aria-hidden="true"></i>목록</a>
+						</c:if>
+						<a class="btn_b01 btn" id="loselist">
+						<i class="fa fa-list" aria-hidden="true"></i>목록</a>
 					</li>
 				</ul>
 			</div>

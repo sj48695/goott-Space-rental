@@ -89,4 +89,9 @@ public class LoseRepositoryImpl implements LoseRepository {
 		Lose lose = loseMapper.loseDetail(loseNo);
 		return lose;
 	}
+	@Override
+	public void registerlose2(Lose lose) {
+		loseMapper.insertLose2(lose);
+		
+	}
 }

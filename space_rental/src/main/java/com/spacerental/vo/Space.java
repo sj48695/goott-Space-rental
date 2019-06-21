@@ -11,11 +11,11 @@ public class Space {
 	private String type;
 	private String content;
 	private int maximum;
-	private String bim;
-	private String smoking;
-	private String food;
-	private String wifi;
-	private String computer;
+	private boolean bim;
+	private boolean smoking;
+	private boolean food;
+	private boolean wifi;
+	private boolean computer;
 	private String hostId;
 	private int hostNo;
 

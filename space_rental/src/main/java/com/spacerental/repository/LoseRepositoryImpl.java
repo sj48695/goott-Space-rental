@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.spacerental.mapper.LoseMapper;
 import com.spacerental.vo.Lose;
 import com.spacerental.vo.LoseFile;
+import com.spacerental.vo.Member;
+import com.spacerental.vo.Notice;
 
 @Service("loseRepository")
 public class LoseRepositoryImpl implements LoseRepository {
@@ -88,9 +90,11 @@ public class LoseRepositoryImpl implements LoseRepository {
 		Lose lose = loseMapper.loseDetail(loseNo);
 		return lose;
 	}
+
 	@Override
 	public ArrayList<Lose> searchlossList(String value) {
 		List<Lose> loses = loseMapper.searchlosslist(value);
 		return (ArrayList<Lose>)loses;
 	}
+
 }

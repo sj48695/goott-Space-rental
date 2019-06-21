@@ -3,14 +3,28 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spacerental.mapper.HostMapper">
 	<sql id="hostBasicColumns">
-		hostNo, hostId, name, content, type, address, parking, openstart, openend, holiday 
+		hostNo, hostId, name, content, type, address, parking, openStart, openEnd, holiday 
 	</sql>
 	
-	<select id="selectHost" resultType="Host">
-		select <include refid="hostBasicColumns" />, ok
+	<!-- 총 게시글 개수 확인 -->
+	<select id="selectHostListCnt" parameterType="hashmap" resultType="int">
+		select count(*) as listCnt
 		from host
-		order by hostNo desc
+			<if test="type != 'all'">
+				where type like '%' || #{ type } || '%'
+			</if>
 	</select>
+
+	<select id="selectHost" parameterType="hashmap" resultType="Host">
+		select * from (select <include refid="hostBasicColumns" />, ok, rownum as rnum
+		from host
+			<if test="type != 'all'">
+				where type like '%' || #{ type } || '%'
+			</if>
+		order by hostNo desc)
+        where rnum between #{ startList } and #{ endList }
+	</select>
+	
 	
 	<select id="selectHostByHostNo" parameterType="int" resultType="Host">
 		select <include refid="hostBasicColumns" />, ok
@@ -49,7 +63,28 @@
 			, #{ type }
 			, #{ address }
 			, #{ parking }
-			, #{ open }
+			, #{ openStart }
+			, #{ openEnd }
+			, #{ holiday }
+		) 
+	</insert>
+	
+	<insert id="insertHost2" parameterType="Host">
+		<selectKey keyProperty="hostNo" order="AFTER" resultType="int">
+			SELECT HOST_SEQUENCE.CURRVAL FROM DUAL
+		</selectKey>
+		INSERT INTO HOST(
+			<include refid="hostBasicColumns" />
+		) VALUES(
+			HOST_SEQUENCE.NEXTVAL
+			, #{ hostId }
+			, #{ name }
+			, #{ content }
+			, #{ type }
+			, #{ address }
+			, #{ parking }
+			, #{ openStart }
+			, #{ openEnd }
 			, #{ holiday }
 		) 
 	</insert>

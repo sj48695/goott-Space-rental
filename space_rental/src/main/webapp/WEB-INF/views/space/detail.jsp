@@ -23,7 +23,6 @@
 
 <!-- 디테일 박스 -->
 <div class="site-section site-section-sm container">
-<<<<<<< HEAD
    <div class="row">
       <div class="col-lg-8">
          <div class="bg-white property-body border-bottom border-left border-right border-top">
@@ -44,10 +43,10 @@
 <%-- 줄바꿈 문자열을 저장하고 있는 변수 만들기 --%>
 <c:set var="enter" value="
 " />
-<<<<<<< HEAD
                <p>${ fn:replace(host.content, enter, '<br>') }</p>
+
                <ul class="py-3" style="list-style: none; padding-left: 0px;">
-                  <li><span class="pr-3 text-black"><strong>영업시간</strong></span> <span>${ host.open }</span></li>
+                  <li><span class="pr-3 text-black"><strong>영업시간</strong></span> <span>${ host.openStart } ~ ${ host.openEnd }</span></li>
                   <li><span class="pr-3 text-black"><strong>휴무일</strong></span> <span>${ host.holiday }</span></li>
                   <li><span class="pr-3 text-black"><strong>주차</strong></span> <span>${ host.parking }</span></li>
                </ul>
@@ -61,7 +60,7 @@
                <c:forEach var="file" items="${ host.files }">
                <div class="col-sm-6 col-md-4 col-lg-3">
                   <a href="/spacerental/resources/files/space-files/${ file.savedFileName }" class="image-popup gal-item">
-                     <img src="/spacerental/resources/files/space-files/${ file.savedFileName }"style="max-width: 100%;width:200px;"class="img-fluid">
+                     <img src="/spacerental/resources/files/space-files/${ file.savedFileName }"style="width:180px;height:180px"class="img-fluid">
                   </a>
                </div>
                </c:forEach>
@@ -71,7 +70,7 @@
             <div class="py-5">
                <h4 class="text-black"><b>지도</b></h4>
                <div><span class="property-icon icon-room"></span>${ host.address }</div>
-               <div id="map" style="width: 650px; height: 400px;"></div>
+               <div id="map" style="width: 100%; height: 400px;"></div>
                <script type="text/javascript"
                   src="//dapi.kakao.com/v2/maps/sdk.js?appkey=28206a2925ab959e756fce927cd2cde4&libraries=services"></script>
                <script>
@@ -116,73 +115,74 @@
                   <a class="btn btn-primary py-3 px-4" id="writereview" href="javascript:">댓글<br>등록</a>
                </div>
             </form>
-
-            <!-- review list -->
-            <c:if test="${ not empty upload.reviews and upload.reviews[0].reviewNo != 0 }">
-               <table id="review-list" style="width: 550px; border: solid 1px; margin: 0 auto">
-                  <c:forEach var="review" items="${ upload.reviews }">
-                     <tr id="tr${ review.reviewNo }">
-                        <td
-                           style="text-align:left; border-bottom: solid 1px;padding-left:${ review.depth*20 }px + 10px">
-                           <div id='reviewview${ review.reviewNo }'>
-                              ${ review.writer } &nbsp;&nbsp; [${ review.regDate }] <br />
-                              <br />
-                              <span>${ review.content }</span><br />
-                              <br />
-                              <div
-                                 style='display:${ loginuser.memberId eq review.writer ? "block" : "none" }'>
-                                 <a class="editreview" data-reviewno='${ review.reviewNo }'
-                                    href="javascript:">편집</a> &nbsp; <a class="deletereview"
-                                    href="javascript:" data-reviewno="${ review.reviewNo }">삭제</a>
-                              </div>
-                              <a class="rereview-link btn btn-outline-dark"
-                                 data-reviewno='${ review.reviewNo }' href="javascript:">답글쓰기</a>
-                           </div>
-                           <div id='reviewedit${ review.reviewNo }' style="display: none">
-                              ${ review.writer } &nbsp;&nbsp; [${ review.regDate }] <br />
-                              <br />
-                              <form id="updateform${ review.reviewNo }">
-                                 <input type="hidden" name="reviewNo"
-                                    value="${ review.reviewNo }" />
-                                 <textarea name="content" style="width: 550px" rows="3"
-                                    maxlength="200">${ review.content }</textarea>
-                              </form>
-                              <br />
-                              <div>
-                                 <a class="updatereview" href="javascript:"
-                                    data-reviewno="${ review.reviewNo }">수정</a> &nbsp; <a
-                                    class="cancel" data-reviewno="${ review.reviewNo }"
-                                    href="javascript:">취소</a>
-                              </div>
-                           </div>
-                        </td>
-                     </tr>
-                  </c:forEach>
-               </table>
-            </c:if>
-         </div>
-      </div>
-      <div class="col-lg-4">
-         <div class="bg-white widget border rounded">
-            <h4 class="text-black widget-title mb-3"><b>세부공간 선택</b></h4>
-            <hr>
-            <form action="/spacerental/space/rent" class="form-contact-agent">
-               <c:forEach var="space" items="${ spaces }">
-               <div class="custom-control custom-radio mb-3">
-                  <input type="radio" class="custom-control-input" id="space${ space.spaceNo }" 
-                     name="spaceNo" value="${ space.spaceNo }" required="required"> 
-                  <label class="custom-control-label" for="space${ space.spaceNo }">
-                     ${ space.spaceName }
-                  </label>
-               </div>
-               </c:forEach>   
-               <div class="form-group">
-                  <input type="submit" id="btn" class="btn btn-primary" value="예약 신청하기">
-               </div>
-            </form>
-         </div>
-      </div>
-   </div>
+				<!-- review list -->
+				<c:if test="${ not empty upload.reviews and upload.reviews[0].reviewNo != 0 }">
+					<table id="review-list" style="width: 550px; border: solid 1px; margin: 0 auto">
+						<c:forEach var="review" items="${ upload.reviews }">
+							<tr id="tr${ review.reviewNo }">
+								<td
+									style="text-align:left; border-bottom: solid 1px;padding-left:${ review.depth*20 }px + 10px">
+									<div id='reviewview${ review.reviewNo }'>
+										${ review.writer } &nbsp;&nbsp; [${ review.regDate }] <br />
+										<br />
+										<span>${ review.content }</span><br />
+										<br />
+										<div
+											style='display:${ loginuser.memberId eq review.writer ? "block" : "none" }'>
+											<a class="editreview" data-reviewno='${ review.reviewNo }'
+												href="javascript:">편집</a> &nbsp; <a class="deletereview"
+												href="javascript:" data-reviewno="${ review.reviewNo }">삭제</a>
+										</div>
+										<a class="rereview-link btn btn-outline-dark"
+											data-reviewno='${ review.reviewNo }' href="javascript:">답글쓰기</a>
+									</div>
+									<div id='reviewedit${ review.reviewNo }' style="display: none">
+										${ review.writer } &nbsp;&nbsp; [${ review.regDate }] <br />
+										<br />
+										<form id="updateform${ review.reviewNo }">
+											<input type="hidden" name="reviewNo"
+												value="${ review.reviewNo }" />
+											<textarea name="content" style="width: 550px" rows="3"
+												maxlength="200">${ review.content }</textarea>
+										</form>
+										<br />
+										<div>
+											<a class="updatereview" href="javascript:"
+												data-reviewno="${ review.reviewNo }">수정</a> &nbsp; <a
+												class="cancel" data-reviewno="${ review.reviewNo }"
+												href="javascript:">취소</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</c:if>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="bg-white widget border rounded">
+				<h4 class="text-black widget-title mb-3"><b>세부공간 선택</b></h4>
+				<hr>
+				<form action="/spacerental/space/rent" class="form-contact-agent" method="get">
+					<input type="hidden" name="year" value="0">
+					<input type="hidden" name="month" value="0">
+					<c:forEach var="space" items="${ spaces }">
+					<div class="custom-control custom-radio mb-3">
+						<input type="radio" class="custom-control-input" id="space${ space.spaceNo }" 
+							name="spaceNo" value="${ space.spaceNo }" required="required"> 
+						<label class="custom-control-label" for="space${ space.spaceNo }">
+							${ space.spaceName }
+						</label>
+					</div>
+					</c:forEach>	
+					<div class="form-group">
+						<input type="submit" id="btn" class="btn btn-primary" value="예약 신청하기">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
    
    

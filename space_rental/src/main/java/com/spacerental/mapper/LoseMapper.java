@@ -36,4 +36,5 @@ public interface LoseMapper {
 	List<Lose> loseList(String type);
 
 	List<Lose> searchlosslist(String value);
+
 }

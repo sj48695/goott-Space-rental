@@ -19,14 +19,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.spacerental.common.Pagination;
 import com.spacerental.common.Util;
 import com.spacerental.service.RentService;
 import com.spacerental.service.SpaceService;
 import com.spacerental.vo.Host;
-import com.spacerental.vo.Lose;
 import com.spacerental.vo.Member;
 import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
@@ -45,16 +46,39 @@ public class SpaceController {
 	private RentService rentService;
 	
 	@RequestMapping(value = "/spacelist", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
-	public String list(Model model) {
+	public String list(Model model, String type
+						, @RequestParam(required = false, defaultValue = "1") int page
+						, @RequestParam(required = false, defaultValue = "1") int range){
+		try {
+			if (type == null) {
+				type = "all";
+			}
+		
+			// 전체 게시글 개수
+			int listCnt = spaceService.findHostListCnt(type);
 
-		List<Host> hosts = spaceService.findHostList();
+			// Pagination 객체생성
+			Pagination pagination = new Pagination();
+			pagination.pageInfo(page, range, listCnt);
 
-		for (Host host : hosts) {
-			host.setFile(spaceService.findHostFile(host.getHostNo()));
+			model.addAttribute("pagination", pagination);
+
+			
+	        // 전체리스트
+			List<Host> hosts = spaceService.findHostList(pagination,type);
+			if(hosts ==null) {
+				return "redirect:/";
+			}
+			
+			for (Host host : hosts) {
+				host.setFile(spaceService.findHostFile(host.getHostNo()));
+			}
+			
+			model.addAttribute("hosts", hosts);
+			model.addAttribute("listCnt", listCnt);
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-
-		model.addAttribute("hosts", hosts);
-
 		return "space/spacelist";
 	}
 	
@@ -64,7 +88,7 @@ public class SpaceController {
 		Host host = spaceService.findHostByHostNo(hostNo);
 		List<Space> spaces = spaceService.findSpacesByHostNo(hostNo);
 
-		if (host == null) { // productno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
+		if (host == null) { // hostno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
 			return "redirect:spacelist";
 		}
 
@@ -80,11 +104,9 @@ public class SpaceController {
 	}
 	
 	@RequestMapping(value = "/rent", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
-	public String rentForm(int spaceNo, Model model//, int year, int month
-			) {
-		int year=2019;
-		int month=6;
-		int day=19;
+	public String rentForm(int spaceNo, Model model, int year, int month) {
+
+		int day = 0;
 
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -98,51 +120,42 @@ public class SpaceController {
 			month = Integer.parseInt(st.nextToken());
 		}
 		if (day == 0) {
-			month = Integer.parseInt(st.nextToken());
+			day = Integer.parseInt(st.nextToken());
 		}
 		String[] strWeek = { "일", "월", "화", "수", "목", "금", "토" };
 		int[] lastDay = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-		
-		model.addAttribute("nowYear", year);
-		model.addAttribute("nowMonth", month);
-		model.addAttribute("nowDay", day);
-		model.addAttribute("strWeek", strWeek);
-		model.addAttribute("strMonth", month);
-		model.addAttribute("strYear", year);
 
-		// 요일 출력 end
-		// 달력 출력 start
 		int total = (year - 1) * 365 + (year - 1) / 4 - (year - 1) / 100 + (year - 1) / 400;
-
-		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {//2월 lastDay
 			lastDay[1] = 29;
 		} else {
 			lastDay[1] = 28;
 		}
-
 		for (int i = 0; i < month - 1; i++) {
 			total += lastDay[i];
 		}
-
 		total++;
-
 		int week = total % 7;
 
-		model.addAttribute("lastDay", lastDay[month-1]);
+		model.addAttribute("nowYear", year);
+		model.addAttribute("nowMonth", month);
+		model.addAttribute("nowDay", day);
+		model.addAttribute("strWeek", strWeek);
+		model.addAttribute("lastDay", lastDay[month - 1]);
 		model.addAttribute("week", week);
 
-		
-		
-		
-		
-		/*--------------------------------------------------*/	
-		
+		/*--------------------------------------------------*/
+
 		Space space = spaceService.findSpaceBySpaceNo(spaceNo);
 		if (space == null) { // productno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
 			return "redirect:spacelist";
 		}
 		Host host = spaceService.findHostByHostNo(space.getHostNo());
 		
+		host.setFile(spaceService.findHostFile(space.getHostNo()));
+		space.setFiles((ArrayList<SpaceFile>) spaceService.findSpaceFilesBySpaceNo(space.getSpaceNo()));
+		space.setFile(spaceService.findSpcaeFile(space.getSpaceNo()));
+
 		model.addAttribute("host", host);
 		model.addAttribute("space", space);
 
@@ -150,7 +163,8 @@ public class SpaceController {
 	}
 	
 
-	@RequestMapping(value = "/rent", method = RequestMethod.POST) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	@RequestMapping(value = "/rent", method = RequestMethod.POST, produces = "text/plain;charset=utf-8") // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	@ResponseBody
 	public String rent(Model model, Rent rent,int year, int month, int day, HttpSession session) {
 		Member loginuser = (Member) session.getAttribute("loginuser");
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
@@ -169,10 +183,9 @@ public class SpaceController {
 		System.out.println(rent);
 		rentService.registerRent(rent);
 		
-		return "redirect:rent?spaceNo="+rent.getSpaceNo();
+//		return "redirect:rent?spaceNo="+rent.getSpaceNo();
+		return "success";
 	}
-	
-	
 	
 	@RequestMapping(path = "/register_host", method = RequestMethod.GET)
 	public String showHostRegisterForm() {
@@ -181,14 +194,11 @@ public class SpaceController {
 
 	@RequestMapping(path = "/register_host", method = RequestMethod.POST)
 	public String hostRegister(Host host, HttpSession session
-			, String open_start, String open_end
 			, String roadAddr, String detailAddr, String extraAddr) {
 		Member loginuer = (Member)session.getAttribute("loginuser");
 		host.setHostId(loginuer.getId());
-		host.setOpen(open_start + " ~ " + open_end);
 		host.setAddress(roadAddr + " " + detailAddr + " " +extraAddr);
-		int newHostNo = spaceService.registerHost(host);
-		System.out.println(newHostNo);
+		int newHostNo = spaceService.registerHostTx(host);
 		return "redirect:/space/write/"+newHostNo;
 
 	}
@@ -266,59 +276,157 @@ public class SpaceController {
 		}
 		return "redirect:/";
 	}
-	
-	 @RequestMapping(path = "/spacesearch", method = RequestMethod.GET)
-	 public String spacesearch(@RequestParam(name="value1") String value, Model model) {
-		 
-	 List<Host> space = spaceService.searchspacelist(value);
-	 model.addAttribute("hosts", space);
-	 
-	 return "space/spacelist";
-	 }
-	
-	 @RequestMapping(path = "/addsearch", method = RequestMethod.GET)
-	 public String addsearch(@RequestParam(name="value2") String value, Model model) {
-		 
-	 List<Host> add = spaceService.searchaddlist(value);
-	 model.addAttribute("hosts", add);
-	 
-	 return "space/spacelist";
-	 }
-	 
-	 @RequestMapping(path = "/computer", method = RequestMethod.GET) 
-	 public String computer(Model model) {
-	 
-	 List<Host> computerSpace = spaceService.computerlist();
-	 model.addAttribute("hosts", computerSpace);
-	 return "space/spacelist"; 
- }
-	 
-	 @RequestMapping(path = "/beamproject", method = RequestMethod.GET) 
-	 public String beamProject(Model model) {
-	 
-	 List<Host> beamSpace = spaceService.beamprojectlist();
-	 model.addAttribute("hosts", beamSpace);
-	 return "space/spacelist"; 
- }
-	 @RequestMapping(path = "/wifi", method = RequestMethod.GET) 
-	 public String wifi(Model model) {
-	 
-	 List<Host> wifiSpace = spaceService.wifilist();
-	 model.addAttribute("hosts", wifiSpace);
-	 return "space/spacelist"; 
- }
-	 @RequestMapping(path = "/10less", method = RequestMethod.GET) 
-	 public String tenless(Model model) {
-	 
-	 List<Host> tenlessSpace = spaceService.tenlesslist();
-	 model.addAttribute("hosts", tenlessSpace);
-	 return "space/spacelist"; 
- }
-	 @RequestMapping(path = "/10more", method = RequestMethod.GET) 
-	 public String tenmore(Model model) {
-	 
-	 List<Host> tenmoreSpace = spaceService.tenmore();
-	 model.addAttribute("hosts", tenmoreSpace);
-	 return "space/spacelist"; 
- }
+
+	@RequestMapping(path = "/spacesearch", method = RequestMethod.GET)
+	public String spacesearch(@RequestParam(name = "value1") String value, Model model) {
+
+		List<Host> space = spaceService.searchspacelist(value);
+		
+		for (Host host : space) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", space);
+
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/addsearch", method = RequestMethod.GET)
+	public String addsearch(@RequestParam(name = "value2") String value, Model model) {
+
+		List<Host> add = spaceService.searchaddlist(value);
+		
+		for (Host host : add) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", add);
+
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/computer", method = RequestMethod.GET)
+	public String computer(Model model) {
+
+		List<Host> computerSpace = spaceService.computerlist();
+		
+		for (Host host : computerSpace) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", computerSpace);
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/beamproject", method = RequestMethod.GET)
+	public String beamProject(Model model) {
+
+		List<Host> beamSpace = spaceService.beamprojectlist();
+		
+		for (Host host : beamSpace) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", beamSpace);
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/wifi", method = RequestMethod.GET)
+	public String wifi(Model model) {
+
+		List<Host> wifiSpace = spaceService.wifilist();
+		
+		for (Host host : wifiSpace) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", wifiSpace);
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/10less", method = RequestMethod.GET)
+	public String tenless(Model model) {
+
+		List<Host> tenlessSpace = spaceService.tenlesslist();
+		
+		for (Host host : tenlessSpace) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", tenlessSpace);
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/10more", method = RequestMethod.GET)
+	public String tenmore(Model model) {
+
+		List<Host> tenmoreSpace = spaceService.tenmore();
+		
+		for (Host host : tenmoreSpace) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", tenmoreSpace);
+		return "space/spacelist";
+	}
+
+	@RequestMapping(value = "/calendar", method = RequestMethod.POST) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	public String calendar(int spaceNo, Model model, int year, int month) {
+
+		int day = 0;
+
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		StringTokenizer st = new StringTokenizer(sdf.format(date), "-");
+
+		if (year == 0) {
+			year = Integer.parseInt(st.nextToken());
+		}
+		if (month == 0) {
+			month = Integer.parseInt(st.nextToken());
+		}
+		if (day == 0) {
+			day = Integer.parseInt(st.nextToken());
+		}
+		String[] strWeek = { "일", "월", "화", "수", "목", "금", "토" };
+		int[] lastDay = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+		int total = (year - 1) * 365 + (year - 1) / 4 - (year - 1) / 100 + (year - 1) / 400;
+		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {//2월 lastDay
+			lastDay[1] = 29;
+		} else {
+			lastDay[1] = 28;
+		}
+		for (int i = 0; i < month - 1; i++) {
+			total += lastDay[i];
+		}
+		total++;
+		int week = total % 7;
+
+		model.addAttribute("nowYear", year);
+		model.addAttribute("nowMonth", month);
+		model.addAttribute("nowDay", day);
+		model.addAttribute("strWeek", strWeek);
+		model.addAttribute("lastDay", lastDay[month - 1]);
+		model.addAttribute("week", week);
+
+		/*--------------------------------------------------*/
+
+		Space space = spaceService.findSpaceBySpaceNo(spaceNo);
+		if (space == null) { // productno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
+			return "redirect:spacelist";
+		}
+		Host host = spaceService.findHostByHostNo(space.getHostNo());
+		
+		host.setFile(spaceService.findHostFile(space.getHostNo()));
+		space.setFiles((ArrayList<SpaceFile>) spaceService.findSpaceFilesBySpaceNo(space.getSpaceNo()));
+		space.setFile(spaceService.findSpcaeFile(space.getSpaceNo()));
+
+		model.addAttribute("host", host);
+		model.addAttribute("space", space);
+
+		return "space/calendar";
+	}
+
 }

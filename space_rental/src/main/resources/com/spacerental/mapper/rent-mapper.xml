@@ -2,12 +2,43 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spacerental.mapper.RentMapper">
+
+ 	<resultMap id="rentMap" type="Rent">
+		<id column="rentNo" property="rentNo" />
+		<result column="rentDate" property="rentDate" />
+		<result column="headCount" property="headCount" />
+		<result column="startTime" property="startTime" />
+		<result column="endTime" property="endTime" />
+		<result column="spaceName" property="spaceName" />
+		<result column="spaceNo" property="spaceNo" />
+		<result column="hostNo" property="hostNo" />
+		<result column="id" property="id" />
+	</resultMap>
+
 	<sql id="rentBasicColumns">
 		rentNo, rentDate, headCount, startTime, endTime, spaceNo, id
 	</sql>
 	
 	<select id="selectRent" resultType="Rent">
 		SELECT <include refid="rentBasicColumns" /> FROM Rent 
+	</select>
+	
+	<select id="selectrentList" parameterType="String" resultType="Rent">
+		select rentNo, rentDate,headCount,startTime, endTime , spaceName, s.spaceNo, id, h.hostNo
+		from Rent r, Space s, Host h
+		where r.spaceNo = s.spaceNo
+		and s.hostNo = h.hostNo
+		and id = #{ id }
+		order by rentNo desc
+	</select>
+	
+	<select id="selectHostRentList" parameterType="int" resultType="Rent">
+		select rentNo, rentDate, headCount, startTime, endTime , spaceName, s.spaceNo, id, h.hostNo
+		from Rent r, Space s, Host h
+		where r.spaceNo = s.spaceNo
+		and s.hostNo = h.hostNo
+		and h.hostNo = #{ hostNo }
+		order by rentNo desc
 	</select>
 	
 	<insert id="insertRent" parameterType="Rent">

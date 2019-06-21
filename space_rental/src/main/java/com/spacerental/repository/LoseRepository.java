@@ -36,5 +36,5 @@ public interface LoseRepository {
 	List<Lose> loseList(String type);
 
 	ArrayList<Lose> searchlossList(String value);
-	
+
 }

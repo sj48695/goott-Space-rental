@@ -55,8 +55,6 @@ public class LoseController {
 		Member loginuser = (Member) session.getAttribute("loginuser");
 
 		List<Lose> loses = loseService.loseList(type);
-		Lose lose = new Lose();
-		lose.setContent(loses.toString());
 
 		model.addAttribute("loginuser", loginuser);
 		model.addAttribute("type", type);
@@ -179,7 +177,6 @@ public class LoseController {
 		return "redirect:/loseview/lose";
 	}
 
-	
 	 @RequestMapping(path = "/losesearch", method = RequestMethod.GET)
 	 public String losssearch(@RequestParam(name="value3") String value, Model model) {
 		 
@@ -188,5 +185,5 @@ public class LoseController {
 	 
 	 return "loseview/loselist";
 	 }
-	
+
 }

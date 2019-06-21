@@ -20,7 +20,6 @@ public interface LoseService {
 	Lose loseDetail(int loseNo);
 	void loseDelete(int loseNo);
 	List<Lose> loseList(String string); 
-
 	List<Lose> searchlosslist(String value);
 
 }

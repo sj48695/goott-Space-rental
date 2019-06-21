@@ -46,6 +46,7 @@
 	
 	<bean id="memberRepository" class="com.spacerental.repository.MemberRepositoryImpl">
 		<property name="memberMapper" ref="memberMapper" />
+		<property name="rentMapper" ref="rentMapper" />
 	</bean>
 	
 	<bean id="memberService" class="com.spacerental.service.MemberServiceImpl">
@@ -158,5 +159,4 @@
 		<aop:advisor advice-ref="txAdvice" pointcut="execution( * com.spacerental.service.*.*(..) )"/>
 	</aop:config>
 	
-
 </beans>

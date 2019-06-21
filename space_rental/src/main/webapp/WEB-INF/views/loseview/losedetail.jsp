@@ -57,6 +57,7 @@
 									<col />
 								</colgroup>
 								<tr>
+<<<<<<< HEAD
 									<th class="bd01th" scope="row"><h4>제 목</h4></th>
 									<td class="bd01td"><h5>${ lose.title }</h5></td>
 								</tr>
@@ -75,10 +76,12 @@
 								</tr>
 								<tr>
 									<th class="bd01th" scope="row"><h5>첨부파일</h5></th>
+								</tr>
+								<tr>
 									<c:forEach var="file" items="${ lose.files }">
-										<td colspan="3" class="bd01td">
-										<img src="/spacerental/resources/files/lose-files/${ file.savedFileName }" width="100" height="100">
-										</td>
+										<td colspan="3" class="bd01td"><img
+											src="/spacerental/resources/files/lose-files/${ file.savedFileName }"
+											width="100" height="100"></td>
 									</c:forEach>
 								</tr>
 								<hr>
@@ -124,23 +127,27 @@
 <script src="http://sample.paged.kr/purewhite/theme/pagedtheme/plugin/featherlight/featherlight.min.js"></script>
 <!-- 현재위치 및 서브메뉴 활성화 설정// -->
 <script>
+
 window.addEventListener('load', function(event) {
-var btnUpdate = document.querySelector('#update');
-btnUpdate.addEventListener('click', function(event) {
-	location.href="/spacerental/loseview/loseupdate/${lose.loseNo}";
+	var btnUpdate = document.querySelector('#update');
+	btnUpdate.addEventListener('click', function(event) {
+		location.href="/spacerental/loseview/loseupdate/${lose.loseNo}";
+	});
+	
+	var btnUpdate = document.querySelector('#delete');
+	btnUpdate.addEventListener('click', function(event) {
+		var ok = confirm("${lose.loseNo}번 자료를 삭제할까요?");
+		if (ok) {
+			location.href = "/spacerental/loseview/losedelete/${lose.loseNo}";		        			
+		}
+	});
+	
+	var btnUpdate = document.querySelector('#loselist');
+	btnUpdate.addEventListener('click', function(event) {
+		location.href="/spacerental/loseview/loselist/${lose.type}";
+	});
 });
-var btnUpdate = document.querySelector('#delete');
-btnUpdate.addEventListener('click', function(event) {
-	var ok = confirm("${lose.loseNo}번 자료를 삭제할까요?");
-	if (ok) {
-		location.href = "/spacerental/loseview/losedelete/${lose.loseNo}";		        			
-	}
-});
-var btnUpdate = document.querySelector('#loselist');
-btnUpdate.addEventListener('click', function(event) {
-	location.href="/spacerental/loseview/loselist/${lose.type}";
-});
-});
+
 $(function(){$('.snb.bo_tablebasic, .snb .snb2d_bo_tablebasic').addClass('active');});
 $(document).ready(function(){ 
 	if ( $("#snb > li").is(".snb.active") ) {

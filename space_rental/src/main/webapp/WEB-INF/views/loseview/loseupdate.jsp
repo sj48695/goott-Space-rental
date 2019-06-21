@@ -88,6 +88,7 @@
 				} else
 					obj.value = "";
 			}
+
 			function fwrite_submit(f) {
 				var wr_content_editor_data = oEditors.getById['wr_content']
 						.getIR();
@@ -107,6 +108,7 @@
 					oEditors.getById['wr_content'].exec('FOCUS');
 					return false;
 				}
+
 				var subject = "";
 				var content = "";
 				$.ajax({
@@ -124,11 +126,13 @@
 						content = data.content;
 					}
 				});
+
 				if (subject) {
 					alert("제목에 금지단어('" + subject + "')가 포함되어있습니다");
 					f.wr_subject.focus();
 					return false;
 				}
+
 				if (content) {
 					alert("내용에 금지단어('" + content + "')가 포함되어있습니다");
 					if (typeof (ed_wr_content) != "undefined")
@@ -137,6 +141,7 @@
 						f.wr_content.focus();
 					return false;
 				}
+
 				if (document.getElementById("char_count")) {
 					if (char_min > 0 || char_max > 0) {
 						var cnt = parseInt(check_byte("wr_content",
@@ -150,9 +155,12 @@
 						}
 					}
 				}
+
 				if (!chk_captcha())
 					return false;
+
 				document.getElementById("btn_submit").disabled = "disabled";
+
 				return true;
 			}
 		</script>
@@ -207,3 +215,4 @@ $(document).ready(function(){
 
 </body>
 </html>
+>>>>>>> branch 'master' of https://github.com/sj48695/goott-Space-rental.git

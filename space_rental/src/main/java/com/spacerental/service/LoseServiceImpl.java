@@ -84,6 +84,6 @@ public class LoseServiceImpl implements LoseService {
 	public List<Lose> searchlosslist(String value) {
 		ArrayList<Lose> Loses = loseRepository.searchlossList(value);
 		return Loses;
-		
+
 	}
 }

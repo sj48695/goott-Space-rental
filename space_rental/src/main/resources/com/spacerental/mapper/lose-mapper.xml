@@ -71,12 +71,12 @@
 		FROM NOTICE
 		WHERE loseNo = #{ loseNo }
 	</select>
-	
-	<!--	
-	<select id="registerloseUploadFile" parameterType="int" resultType="LoseFile">
-		SELECT loseFileNo, savedFileName, loseNo, userfileName
-		FROM LOSEFILE
-        where loseNo = #{ loseNo }
-	</select> -->
-	
+
+	<select id="searchlosslist" parameterType="String" resultType="Lose">
+		SELECT loseNo, title, content, loseDate, spaceNo, type, uploader
+		FROM LOSE 
+        where  title LIKE '%'||#{ value }||'%' and type LIKE'습득물'
+        ORDER BY loseNo DESC
+	</select>
+
 </mapper>

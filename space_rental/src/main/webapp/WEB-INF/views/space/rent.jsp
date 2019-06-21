@@ -128,7 +128,7 @@
 		</div>
 		<div class="col-lg-4">
 			<div class="bg-white widget border rounded">
-				<form action="rent" method="post">
+				<form action="rent" method="post" id="rentform">
 					<input type="hidden" name="spaceNo" id="spaceNo" value="${ space.spaceNo }">
 					<h5 class="pt-3">날짜 선택</h5>
 					<h6 class="px-3 row justify-content-end">
@@ -212,8 +212,8 @@
 									
 									>${ time }</label>
 							</c:forEach>
-							<input type="radio" hidden="hidden" name="startTime" id="startTime" >
-							<input type="radio" hidden="hidden" name="endTime" id="endTime" >
+							<input type="radio" hidden="hidden" name="startTime" id="startTime" value="0">
+							<input type="radio" hidden="hidden" name="endTime" id="endTime" value="0">
 						</div>
 					</div>
 					<h5 class="pt-4">인원 선택</h5>
@@ -228,7 +228,7 @@
 					</div>
 					<div class="row justify-content-end">
 						<%-- <c:if test="${ loginuser.type ne 'customer' }"> --%>
-							<input class="btn btn-primary" type="submit" value="예약">
+							<input class="btn btn-primary" type="button" id="rent_submit" name="rent_submit" value="예약"/>
 						<%-- </c:if> --%>
 					</div>
 				</form>
@@ -236,6 +236,35 @@
 		</div>
 	</div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	
+	<script type="text/javascript">
+	$(function(){
+		$('#rent_submit').on('click', function(event){
+			
+			//serialize() : <form에 포함된 입력 요소의 값을 이름=값&이름=값&... 형식으로 만드는 함수 
+			var formData = $('#rentform').serialize();
+			//alert(formData);
+			
+			 $.ajax({
+				url: "/spacerental/space/rent",
+				method: "POST",
+				data : formData,
+				success: function(data, status, xhr){ //data: 응답받은 데이터
+					alert("예약되었습니다!");
+					window.location.href = '/spacerental/mypage/lentList'; 
+				},
+				error: function(xhr, status, err){
+					alert(err);
+				}
+			});  
+		});
+	});
+	</script>
+		
 	
 	
 <footer class="site-footer">

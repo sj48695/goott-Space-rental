@@ -27,9 +27,9 @@
 										<div class="home_content text-center">
 											<div class="home_title"><h1>유형으로 검색하기</h1></div>
 											<div class="search_form_container">
-												<form action="search/room?&value"class="search_form" id="search_form">
+												<form action="/spacerental/space/spacesearch?&value1"class="search_form" id="search_form">
 													<div class="d-flex flex-sm-row flex-column align-items-sm-start align-items-center justify-content-sm-between">
-														<input type="text" class="search_input" placeholder="ex) 스터디룸, 회의실, 세미나실.etc" name="value" required="required">
+														<input type="text" class="search_input" placeholder="ex) 스터디룸, 회의실, 세미나실.etc" name="value1" required="required">
 														<button class="search_button">Search</button>
 													</div>
 												</form>
@@ -51,9 +51,9 @@
 										<div class="home_content text-center">
 											<div class="home_title"><h1>주소지로 검색하기</h1></div>
 											<div class="search_form_container">
-												<form action="search/address?value" class="search_form" id="search_form">
+												<form action="/spacerental/space/addsearch?&value2" class="search_form" id="search_form">
 													<div class="d-flex flex-sm-row flex-column align-items-sm-start align-items-center justify-content-sm-between">
-														<input type="text" class="search_input" placeholder="ex)강남구, 서초구, 동작구, 송파구.etc" name="value" required="required">
+														<input type="text" class="search_input" placeholder="ex)강남구, 서초구, 동작구, 송파구.etc" name="value2" required="required">
 														<button class="search_button">Search</button>
 													</div>
 												</form>
@@ -75,9 +75,9 @@
 										<div class="home_content text-center">
 											<div class="home_title"><h1>분실물 검색하기</h1></div>
 											<div class="search_form_container">
-												<form action="search/lose?&value" class="search_form" id="search_form">
+												<form action="/spacerental/loseview/losesearch?&value3" class="search_form" id="search_form">
 													<div class="d-flex flex-sm-row flex-column align-items-sm-start align-items-center justify-content-sm-between">
-														<input type="text" class="search_input" placeholder="ex)지갑, 핸드폰, 손목시계 .etc" name="value" required="required">
+														<input type="text" class="search_input" placeholder="ex)지갑, 핸드폰, 손목시계 .etc" name="value3" required="required">
 														<button class="search_button">Search</button>
 													</div>
 												</form>
@@ -115,7 +115,7 @@
 							
 							<!-- Category -->
 							<div class="category text-center">
-								<a href="/spacerental/search/computer">
+								<a href="/spacerental/space/computer">
 									<div class="d-flex flex-md-column flex-row align-items-md-center align-items-md-start align-items-center justify-content-start">
 										<div class="cat_icon"><img src="/spacerental/resources/images/computer.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
 										<div class="cat_title">컴퓨터</div>
@@ -125,7 +125,7 @@
 
 							<!-- Category -->
 							<div class="category text-center">
-								<a href="/spacerental/search/beamproject">
+								<a href="/spacerental/space/beamproject">
 									<div class="d-flex flex-md-column flex-row align-items-md-center align-items-md-start align-items-center justify-content-start">
 										<div class="cat_icon"><img src="/spacerental/resources/images/beam.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
 										<div class="cat_title">빔 프로젝터</div>
@@ -135,7 +135,7 @@
 
 							<!-- Category -->
 							<div class="category text-center">
-								<a href="/spacerental/search/wifi">
+								<a href="/spacerental/space/wifi">
 									<div class="d-flex flex-md-column flex-row align-items-md-center align-items-md-start align-items-center justify-content-start">
 										<div class="cat_icon"><img src="/spacerental/resources/images/wifi.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
 										<div class="cat_title">WIFI</div>
@@ -145,7 +145,7 @@
 
 							<!-- Category -->
 							<div class="category text-center">
-								<a href="/spacerental/search/10less">
+								<a href="/spacerental/space/10less">
 									<div class="d-flex flex-md-column flex-row align-items-md-center align-items-md-start align-items-center justify-content-start">
 										<div class="cat_icon"><img src="/spacerental/resources/images/10less.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
 										<div class="cat_title">10인 미만</div>
@@ -155,7 +155,7 @@
 
 							<!-- Category -->
 							<div class="category text-center">
-								<a href="/spacerental/search/10more">
+								<a href="/spacerental/space/10more">
 									<div class="d-flex flex-md-column flex-row align-items-md-center align-items-md-start align-items-center justify-content-start">
 										<div class="cat_icon"><img src="/spacerental/resources/images/10more.svg" class="svg" alt="https://www.flaticon.com/authors/monkik"></div>
 										<div class="cat_title">10인 이상</div>

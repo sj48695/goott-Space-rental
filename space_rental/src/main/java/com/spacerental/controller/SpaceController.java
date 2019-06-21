@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.spacerental.common.Pagination;
 import com.spacerental.common.Util;
 import com.spacerental.service.RentService;
 import com.spacerental.service.SpaceService;
@@ -45,16 +46,39 @@ public class SpaceController {
 	private RentService rentService;
 	
 	@RequestMapping(value = "/spacelist", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
-	public String list(Model model) {
+	public String list(Model model, String type
+						, @RequestParam(required = false, defaultValue = "1") int page
+						, @RequestParam(required = false, defaultValue = "1") int range){
+		try {
+			if (type == null) {
+				type = "all";
+			}
+		
+			// 전체 게시글 개수
+			int listCnt = spaceService.findHostListCnt(type);
 
-		List<Host> hosts = spaceService.findHostList();
+			// Pagination 객체생성
+			Pagination pagination = new Pagination();
+			pagination.pageInfo(page, range, listCnt);
 
-		for (Host host : hosts) {
-			host.setFile(spaceService.findHostFile(host.getHostNo()));
+			model.addAttribute("pagination", pagination);
+
+			
+	        // 전체리스트
+			List<Host> hosts = spaceService.findHostList(pagination,type);
+			if(hosts ==null) {
+				return "redirect:/";
+			}
+			
+			for (Host host : hosts) {
+				host.setFile(spaceService.findHostFile(host.getHostNo()));
+			}
+			
+			model.addAttribute("hosts", hosts);
+			model.addAttribute("listCnt", listCnt);
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-
-		model.addAttribute("hosts", hosts);
-
 		return "space/spacelist";
 	}
 	
@@ -144,8 +168,14 @@ public class SpaceController {
 	}
 	
 
-	@RequestMapping(value = "/rent", method = RequestMethod.POST) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
-	public String rent(Model model, Rent rent,int year, int month, int day, HttpSession session) {
+	@RequestMapping(value = "/rent"
+			, method = RequestMethod.POST
+			, produces = "text/plain;charset=utf-8") // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	@ResponseBody
+	public String rent(Model model, Rent rent
+			, int year, int month, int day
+			, int startTime, int endTime
+			, HttpSession session) {
 		Member loginuser = (Member) session.getAttribute("loginuser");
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 
@@ -160,13 +190,14 @@ public class SpaceController {
 			e.printStackTrace();
 		}
 		rent.setRentDate(date);
+		System.out.println(startTime);
+		System.out.println(endTime);
 		System.out.println(rent);
 		rentService.registerRent(rent);
 		
-		return "redirect:/spacerental/space?spaceNo="+rent.getSpaceNo();
+//		return "redirect:rent?spaceNo="+rent.getSpaceNo();
+		return "success";
 	}
-	
-	
 	
 	@RequestMapping(path = "/register_host", method = RequestMethod.GET)
 	public String showHostRegisterForm() {
@@ -179,8 +210,7 @@ public class SpaceController {
 		Member loginuer = (Member)session.getAttribute("loginuser");
 		host.setHostId(loginuer.getId());
 		host.setAddress(roadAddr + " " + detailAddr + " " +extraAddr);
-		int newHostNo = spaceService.registerHost(host);
-		System.out.println(newHostNo);
+		int newHostNo = spaceService.registerHostTx(host);
 		return "redirect:/space/write/"+newHostNo;
 
 	}
@@ -258,7 +288,100 @@ public class SpaceController {
 		}
 		return "redirect:/";
 	}
-	
+
+	@RequestMapping(path = "/spacesearch", method = RequestMethod.GET)
+	public String spacesearch(@RequestParam(name = "value1") String value, Model model) {
+
+		List<Host> space = spaceService.searchspacelist(value);
+		
+		for (Host host : space) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", space);
+
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/addsearch", method = RequestMethod.GET)
+	public String addsearch(@RequestParam(name = "value2") String value, Model model) {
+
+		List<Host> add = spaceService.searchaddlist(value);
+		
+		for (Host host : add) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", add);
+
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/computer", method = RequestMethod.GET)
+	public String computer(Model model) {
+
+		List<Host> computerSpace = spaceService.computerlist();
+		
+		for (Host host : computerSpace) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", computerSpace);
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/beamproject", method = RequestMethod.GET)
+	public String beamProject(Model model) {
+
+		List<Host> beamSpace = spaceService.beamprojectlist();
+		
+		for (Host host : beamSpace) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", beamSpace);
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/wifi", method = RequestMethod.GET)
+	public String wifi(Model model) {
+
+		List<Host> wifiSpace = spaceService.wifilist();
+		
+		for (Host host : wifiSpace) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", wifiSpace);
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/10less", method = RequestMethod.GET)
+	public String tenless(Model model) {
+
+		List<Host> tenlessSpace = spaceService.tenlesslist();
+		
+		for (Host host : tenlessSpace) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", tenlessSpace);
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/10more", method = RequestMethod.GET)
+	public String tenmore(Model model) {
+
+		List<Host> tenmoreSpace = spaceService.tenmore();
+		
+		for (Host host : tenmoreSpace) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", tenmoreSpace);
+		return "space/spacelist";
+	}
+
 	@RequestMapping(value = "/calendar", method = RequestMethod.POST) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
 	public String calendar(int spaceNo, Model model, 
 			@RequestParam(defaultValue = "0") int year, 

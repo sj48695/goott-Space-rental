@@ -25,5 +25,14 @@ public interface SpaceService {
 	List<Space> findSpacesByHostNo(int hostNo);
 
 	Space findSpaceBySpaceNo(int spaceNo);
+
+	List<Host> searchspacelist(String value);
+	List<Host> searchaddlist(String value);
+
+	List<Host> computerlist();
+	List<Host> beamprojectlist();
+	List<Host> wifilist();
+	List<Host> tenlesslist();
+	List<Host> tenmore();
 	
 }

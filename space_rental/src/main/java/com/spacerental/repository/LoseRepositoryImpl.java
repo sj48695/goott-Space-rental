@@ -1,5 +1,6 @@
 package com.spacerental.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -35,8 +36,61 @@ public class LoseRepositoryImpl implements LoseRepository {
 
 	@Override
 	public List<Lose> findList() {
-		List<Lose> loses = loseMapper.findList();
-		System.out.println(loses);
+		List<Lose> finds = loseMapper.findList();
+		return finds;
+	}
+
+	@Override
+	public int registerlose(Lose lose) {
+		loseMapper.registerlose(lose);
+
+		return lose.getLoseNo();
+	}
+
+	@Override
+	public void registerloseFile(LoseFile file) {
+		loseMapper.registerloseFile(file);
+	}
+//	@Override
+//	public void registerloseUpload2(Lose lose) {
+//		loseMapper.registerloseUpload(lose);
+//		
+//	}
+	@Override
+	public List<Lose> loseList(String type) {
+		List<Lose> loses = loseMapper.loseList(type);
 		return loses;
+	}
+	@Override
+	public Lose findloseByLoseNo(int loseNo) {
+		Lose lose = loseMapper.selectLoseByLoseNo(loseNo);
+		return lose;   
+	} 
+	@Override
+	public List<LoseFile> selectLoseFilesByLoseNo(int loseNo) {
+		List<LoseFile> loses = loseMapper.selectLoseFilesByLoseNo(loseNo);
+		return loses;
+	}
+	@Override
+	public void updateLoseUpdate(Lose lose) {
+		loseMapper.updateLoseUpdate(lose);
+		
+	}
+	@Override
+	public void loseDelete(int loseNo) {
+		
+		loseMapper.loseFileDelete(loseNo);
+		loseMapper.loseDelete(loseNo);
+	}
+	
+	@Override
+	public Lose loseDetail(int loseNo) {
+		Lose lose = loseMapper.loseDetail(loseNo);
+		return lose;
+	}
+	@Override
+	public ArrayList<Lose> searchlossList(String value) {
+		List<Lose> loses = loseMapper.searchlosslist(value);
+		return (ArrayList<Lose>)loses;
 	}
 }

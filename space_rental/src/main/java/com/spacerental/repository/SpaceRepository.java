@@ -1,5 +1,6 @@
 package com.spacerental.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.spacerental.vo.Host;
@@ -27,6 +28,15 @@ public interface SpaceRepository {
 	List<Space> selectSpacesByHostNo(int hostNo);
 
 	Space selectSpaceBySpaceNo(int spaceNo);
+
+	ArrayList<Host> searchspaceList(String value);
+	ArrayList<Host> searchaddList(String value);
+
+	ArrayList<Host> searchPCList();
+	ArrayList<Host> searchBeamList();
+	ArrayList<Host> searchWifiList();
+	ArrayList<Host> searchTenlessList();
+	ArrayList<Host> searchTenmoreList();
 
 
 }

@@ -1,5 +1,6 @@
 package com.spacerental.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.spacerental.repository.SpaceRepository;
@@ -95,6 +96,48 @@ public class SpaceServiceImpl implements SpaceService {
 	@Override
 	public Space findSpaceBySpaceNo(int spaceNo) {
 		Space space = spaceRepository.selectSpaceBySpaceNo(spaceNo);
+		return space;
+	}
+
+	@Override
+	public List<Host> searchspacelist(String value) {
+		ArrayList<Host> space = spaceRepository.searchspaceList(value);
+		return space;
+	}
+
+	@Override
+	public List<Host> searchaddlist(String value) {
+		ArrayList<Host> space = spaceRepository.searchaddList(value);
+		return space;
+	}
+
+	@Override
+	public List<Host> computerlist() {
+		ArrayList<Host> space = spaceRepository.searchPCList();
+		return space;
+	}
+
+	@Override
+	public List<Host> beamprojectlist() {
+		ArrayList<Host> space = spaceRepository.searchBeamList();
+		return space;
+	}
+
+	@Override
+	public List<Host> wifilist() {
+		ArrayList<Host> space = spaceRepository.searchWifiList();
+		return space;
+	}
+
+	@Override
+	public List<Host> tenlesslist() {
+		ArrayList<Host> space = spaceRepository.searchTenlessList();
+		return space;
+	}
+
+	@Override
+	public List<Host> tenmore() {
+		ArrayList<Host> space = spaceRepository.searchTenmoreList();
 		return space;
 	}
 

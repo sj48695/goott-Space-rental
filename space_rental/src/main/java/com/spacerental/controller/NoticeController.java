@@ -45,7 +45,16 @@ public class NoticeController {
 	@RequestMapping(path = "/noticeupload", method = RequestMethod.GET)
 	public String noticeUpload(Notice notice) {
 		
-		NoticeService.noticeUpload(notice);
+		String content = notice.getContent();
+		
+		if(content.length() <= 45) {
+		 return "noticeview/noticealert";	
+		}
+		try {
+			NoticeService.noticeUpload(notice);
+		}catch (Exception ex) {
+			return "noticeview/noticealert";
+		}
 		return "redirect:notice";
 	}
 	
@@ -80,9 +89,17 @@ public class NoticeController {
 	
 	@RequestMapping(path = "/noticeupdatefirm", method = RequestMethod.GET)
 	public String noticeUpdateFirm(Notice notice, Model model) {
-
-		NoticeService.updateNoticeUpdate(notice);
+		String content = notice.getContent();
 		
+		if(content.length() <= 45) {
+			return "noticeview/noticealert";
+		}
+		
+		try {
+			NoticeService.updateNoticeUpdate(notice);
+		} catch (Exception ex) {
+			return "noticeview/noticealert";
+		}
 		return "redirect:notice";
 	}
 	

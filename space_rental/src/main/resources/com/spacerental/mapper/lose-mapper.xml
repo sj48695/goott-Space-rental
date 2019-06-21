@@ -11,47 +11,72 @@
 		SELECT <include refid="loseFileBasicColumns" /> FROM LOSEFILE
 	</select> -->
 	
-	<insert id="insertLose" parameterType="Lose">
+	<insert id="registerlose" parameterType="Lose">
+		<selectKey keyColumn="loseNo" keyProperty="loseNo" order="AFTER" resultType="int">
+			SELECT LOSE_SEQUENCE.CURRVAL FROM DUAL 
+		</selectKey>
 		INSERT INTO LOSE(LOSENO, TITLE, CONTENT, LOSEDATE, SPACENO, TYPE, UPLOADER)
-		VALUES
-		(
-			LOSE_SEQUENCE.NEXTVAL
-			, #{ title }
-			, #{ content }
-			, #{ loseDate }
-			, #{ spaceNo }
-			, #{ type }
-			, #{ Uploader }
-		)
+		VALUES ( LOSE_SEQUENCE.NEXTVAL , #{ title }, #{ content }, #{ loseDate }, #{ spaceNo }, #{ type }, #{ uploader })
 	</insert>
 	
-	<insert id="insertLose2" parameterType="Lose">
-		INSERT INTO LOSE(LOSENO, TITLE, CONTENT, LOSEDATE, SPACENO, TYPE, UPLOADER)
-		VALUES ( LOSE_SEQUENCE.NEXTVAL
-			, #{ title }
-			, #{ content }
-			, #{ loseDate }
-			, #{ spaceNo }
-			, #{ type }
-			, #{ Uploader }
-		)
+	<insert id="registerloseFile" parameterType="LoseFile">
+		INSERT INTO LOSEFILE(loseFileNo, savedFileName, loseNo, userfileName)
+		VALUES ( LOSEFILE_SEQUENCE.NEXTVAL, #{ savedFileName }, #{ loseNo }, #{ userFileName })
 	</insert>
 	
-	<insert id="insertLoseFile" parameterType="LoseFile">
-		INSERT INTO LOSEFILE(
-			loseFileNo, savedFileName, loseNo
-		)
-		VALUES
-		(
-			LOSEFILE_SEQUENCE.NEXTVAL
-			, #{ userFileName }
-			, #{ savedFileName }
-			, #{ loseNo }
-		)
-	</insert>
-	
-	<select id="findList" resultType="Lose">
+	<!-- <select id="findList" resultType="Lose">
 		SELECT loseNo, title, content, loseDate, spaceNo, type, uploader
-		FROM LOSE
+		FROM LOSE 
+		WHERE TYPE= #{  }
+        ORDER BY loseNo ASC
+	</select> -->
+	
+	<select id="loseList" resultType="Lose" parameterType="String">
+		SELECT loseNo, title, content, loseDate, spaceNo, type, uploader
+		FROM LOSE 
+		WHERE TYPE= #{ type }
+        ORDER BY loseNo ASC
 	</select>
+	
+ 	<select id="selectLoseByLoseNo" parameterType="int" resultType="Lose">
+		SELECT LOSENO, TITLE, CONTENT, LOSEDATE, SPACENO, TYPE, UPLOADER
+		FROM LOSE
+        where loseNo = #{ loseNo }
+	</select>
+	
+	<select id="selectLoseFilesByLoseNo" parameterType="int" resultType="LoseFile">
+		SELECT loseFileNo, savedFileName, loseNo, userfileName
+		FROM LOSEFILE
+        where loseNo = #{ loseNo }
+	</select>
+	
+	<update id="updateLoseUpdate" parameterType="Lose">
+	UPDATE LOSE
+	SET title =#{title}, content=#{content}
+	WHERE loseNo = #{loseNo}	
+	</update>
+	
+	<delete id="loseDelete" parameterType="int">
+		DELETE FROM LOSE
+		WHERE loseNo = #{ loseNo }
+	</delete>
+	
+	<delete id="loseFileDelete" parameterType="int">
+		DELETE FROM LOSEFILE
+		WHERE loseNo = #{ loseNo }
+	</delete>
+	
+	<select id="loseDetail" parameterType="int" resultType="Lose">
+		SELECT loseNo, title, content
+		FROM NOTICE
+		WHERE loseNo = #{ loseNo }
+	</select>
+	
+	<select id="searchlosslist" parameterType="String" resultType="Lose">
+		SELECT loseNo, title, content, loseDate, spaceNo, type, uploader
+		FROM LOSE 
+        where  title LIKE '%'||#{ value }||'%' and type LIKE'습득물'
+        ORDER BY loseNo DESC
+	</select>
+	
 </mapper>

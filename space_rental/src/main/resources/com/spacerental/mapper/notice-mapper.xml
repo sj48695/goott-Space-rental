@@ -8,7 +8,7 @@
 	<select id="selectNoticelist" resultType="Notice">
 		SELECT noticeNo, title, content, ID
 		FROM NOTICE
-		ORDER BY NoticeNo ASC
+		ORDER BY NoticeNo DESC
 	</select>
 	
 	<insert id="noticeUpload" parameterType="Notice">

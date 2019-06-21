@@ -1,10 +1,12 @@
 package com.spacerental.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.spacerental.mapper.HostMapper;
 import com.spacerental.mapper.SpaceMapper;
 import com.spacerental.vo.Host;
+import com.spacerental.vo.Lose;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
@@ -87,5 +89,47 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 	public Space selectSpaceBySpaceNo(int spaceNo) {
 		Space space = spaceMapper.selectSpaceBySpaceNo(spaceNo);
 		return space;
+	}
+
+	@Override
+	public ArrayList<Host> searchspaceList(String value) {
+		List<Host> space = hostMapper.searchspacelist(value);
+		return (ArrayList<Host>)space;
+	}
+
+	@Override
+	public ArrayList<Host> searchaddList(String value) {
+		List<Host> space = hostMapper.searchaddlist(value);
+		return (ArrayList<Host>)space;
+	}
+
+	@Override
+	public ArrayList<Host> searchPCList() {
+		List<Host> space = hostMapper.searchPClist();
+		return (ArrayList<Host>)space;
+	}
+
+	@Override
+	public ArrayList<Host> searchBeamList() {
+		List<Host> space = hostMapper.searchBeamlist();
+		return (ArrayList<Host>)space;
+	}
+
+	@Override
+	public ArrayList<Host> searchWifiList() {
+		List<Host> space = hostMapper.searchWifilist();
+		return (ArrayList<Host>)space;
+	}
+
+	@Override
+	public ArrayList<Host> searchTenlessList() {
+		List<Host> space = hostMapper.searchTenlesslist();
+		return (ArrayList<Host>)space;
+	}
+
+	@Override
+	public ArrayList<Host> searchTenmoreList() {
+		List<Host> space = hostMapper.searchTenmorelist();
+		return (ArrayList<Host>)space;
 	}
 }

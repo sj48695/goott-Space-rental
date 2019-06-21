@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -25,6 +26,7 @@ import com.spacerental.common.Util;
 import com.spacerental.service.RentService;
 import com.spacerental.service.SpaceService;
 import com.spacerental.vo.Host;
+import com.spacerental.vo.Lose;
 import com.spacerental.vo.Member;
 import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
@@ -265,4 +267,58 @@ public class SpaceController {
 		return "redirect:/";
 	}
 	
+	 @RequestMapping(path = "/spacesearch", method = RequestMethod.GET)
+	 public String spacesearch(@RequestParam(name="value1") String value, Model model) {
+		 
+	 List<Host> space = spaceService.searchspacelist(value);
+	 model.addAttribute("hosts", space);
+	 
+	 return "space/spacelist";
+	 }
+	
+	 @RequestMapping(path = "/addsearch", method = RequestMethod.GET)
+	 public String addsearch(@RequestParam(name="value2") String value, Model model) {
+		 
+	 List<Host> add = spaceService.searchaddlist(value);
+	 model.addAttribute("hosts", add);
+	 
+	 return "space/spacelist";
+	 }
+	 
+	 @RequestMapping(path = "/computer", method = RequestMethod.GET) 
+	 public String computer(Model model) {
+	 
+	 List<Host> computerSpace = spaceService.computerlist();
+	 model.addAttribute("hosts", computerSpace);
+	 return "space/spacelist"; 
+ }
+	 
+	 @RequestMapping(path = "/beamproject", method = RequestMethod.GET) 
+	 public String beamProject(Model model) {
+	 
+	 List<Host> beamSpace = spaceService.beamprojectlist();
+	 model.addAttribute("hosts", beamSpace);
+	 return "space/spacelist"; 
+ }
+	 @RequestMapping(path = "/wifi", method = RequestMethod.GET) 
+	 public String wifi(Model model) {
+	 
+	 List<Host> wifiSpace = spaceService.wifilist();
+	 model.addAttribute("hosts", wifiSpace);
+	 return "space/spacelist"; 
+ }
+	 @RequestMapping(path = "/10less", method = RequestMethod.GET) 
+	 public String tenless(Model model) {
+	 
+	 List<Host> tenlessSpace = spaceService.tenlesslist();
+	 model.addAttribute("hosts", tenlessSpace);
+	 return "space/spacelist"; 
+ }
+	 @RequestMapping(path = "/10more", method = RequestMethod.GET) 
+	 public String tenmore(Model model) {
+	 
+	 List<Host> tenmoreSpace = spaceService.tenmore();
+	 model.addAttribute("hosts", tenmoreSpace);
+	 return "space/spacelist"; 
+ }
 }

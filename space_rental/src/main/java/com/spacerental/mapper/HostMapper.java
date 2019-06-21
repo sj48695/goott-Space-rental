@@ -16,6 +16,16 @@ public interface HostMapper {
 	
 	SpaceFile selectHostFile(int hostNo); 
 	
-	List<SpaceFile> selectHostFilesByHostNo(int hostNo); 
+	List<SpaceFile> selectHostFilesByHostNo(int hostNo);
+
+	List<Host> searchspacelist(String value);
+	List<Host> searchaddlist(String value);
+
+	List<Host> searchPClist();
+	List<Host> searchBeamlist();
+	List<Host> searchWifilist();
+	List<Host> searchTenlesslist();
+	List<Host> searchTenmorelist();
+
 
 }

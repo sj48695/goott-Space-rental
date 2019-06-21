@@ -164,8 +164,6 @@
 				<h4 class="text-black widget-title mb-3"><b>세부공간 선택</b></h4>
 				<hr>
 				<form action="/spacerental/space/rent" class="form-contact-agent" method="get">
-					<input type="hidden" name="year" value="0">
-					<input type="hidden" name="month" value="0">
 					<c:forEach var="space" items="${ spaces }">
 					<div class="custom-control custom-radio mb-3">
 						<input type="radio" class="custom-control-input" id="space${ space.spaceNo }" 

@@ -3,8 +3,10 @@ package com.spacerental.repository;
 import java.util.List;
 
 import com.spacerental.mapper.HostMapper;
+import com.spacerental.mapper.RentMapper;
 import com.spacerental.mapper.SpaceMapper;
 import com.spacerental.vo.Host;
+import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
@@ -28,6 +30,17 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 
 	public void setHostMapper(HostMapper hostMapper) {
 		this.hostMapper = hostMapper;
+	}
+	
+	private RentMapper rentMapper;
+	
+
+	public RentMapper getRentMapper() {
+		return rentMapper;
+	}
+
+	public void setRentMapper(RentMapper rentMapper) {
+		this.rentMapper = rentMapper;
 	}
 
 	@Override
@@ -93,5 +106,12 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 	public SpaceFile selectSpaceFile(int spaceNo) {
 		SpaceFile file = spaceMapper.selectSpaceFile(spaceNo);
 		return file;
+	}
+
+	@Override
+	public List<Rent> selectRentsBySpaceNo(int spaceNo) {
+		System.out.println(spaceNo);
+		List<Rent> rents = rentMapper.selectRentsBySpaceNo(spaceNo);
+		return rents;
 	}
 }

@@ -3,6 +3,7 @@ package com.spacerental.repository;
 import java.util.List;
 
 import com.spacerental.vo.Host;
+import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
@@ -29,5 +30,7 @@ public interface SpaceRepository {
 	Space selectSpaceBySpaceNo(int spaceNo);
 
 	SpaceFile selectSpaceFile(int spaceNo);
+
+	List<Rent> selectRentsBySpaceNo(int spaceNo);
 
 }

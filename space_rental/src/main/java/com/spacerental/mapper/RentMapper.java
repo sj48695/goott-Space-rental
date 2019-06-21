@@ -12,4 +12,6 @@ public interface RentMapper {
 
 	List<Rent> selectHostRentList(int hostNo);
 
+	List<Rent> selectRentsBySpaceNo(int spaceNo);
+
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.spacerental.repository.SpaceRepository;
 import com.spacerental.vo.Host;
+import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
@@ -90,6 +91,12 @@ public class SpaceServiceImpl implements SpaceService {
 	public SpaceFile findSpcaeFile(int spaceNo) {
 		SpaceFile file = spaceRepository.selectSpaceFile(spaceNo);
 		return file;
+	}
+
+	@Override
+	public List<Rent> findRentsBySpaceNo(int spaceNo) {
+		List<Rent> rents = spaceRepository.selectRentsBySpaceNo(spaceNo);
+		return rents;
 	}
 
 }

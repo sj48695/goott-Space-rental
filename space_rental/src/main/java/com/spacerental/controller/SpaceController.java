@@ -88,7 +88,7 @@ public class SpaceController {
 		Host host = spaceService.findHostByHostNo(hostNo);
 		List<Space> spaces = spaceService.findSpacesByHostNo(hostNo);
 
-		if (host == null) { // productno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
+		if (host == null) { // hostno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
 			return "redirect:spacelist";
 		}
 
@@ -104,11 +104,9 @@ public class SpaceController {
 	}
 	
 	@RequestMapping(value = "/rent", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
-	public String rentForm(int spaceNo, Model model//, int year, int month
-			) {
-		int year=2019;
-		int month=6;
-		int day=19;
+	public String rentForm(int spaceNo, Model model, int year, int month) {
+
+		int day = 0;
 
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -122,51 +120,42 @@ public class SpaceController {
 			month = Integer.parseInt(st.nextToken());
 		}
 		if (day == 0) {
-			month = Integer.parseInt(st.nextToken());
+			day = Integer.parseInt(st.nextToken());
 		}
 		String[] strWeek = { "일", "월", "화", "수", "목", "금", "토" };
 		int[] lastDay = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-		
-		model.addAttribute("nowYear", year);
-		model.addAttribute("nowMonth", month);
-		model.addAttribute("nowDay", day);
-		model.addAttribute("strWeek", strWeek);
-		model.addAttribute("strMonth", month);
-		model.addAttribute("strYear", year);
 
-		// 요일 출력 end
-		// 달력 출력 start
 		int total = (year - 1) * 365 + (year - 1) / 4 - (year - 1) / 100 + (year - 1) / 400;
-
-		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {//2월 lastDay
 			lastDay[1] = 29;
 		} else {
 			lastDay[1] = 28;
 		}
-
 		for (int i = 0; i < month - 1; i++) {
 			total += lastDay[i];
 		}
-
 		total++;
-
 		int week = total % 7;
 
-		model.addAttribute("lastDay", lastDay[month-1]);
+		model.addAttribute("nowYear", year);
+		model.addAttribute("nowMonth", month);
+		model.addAttribute("nowDay", day);
+		model.addAttribute("strWeek", strWeek);
+		model.addAttribute("lastDay", lastDay[month - 1]);
 		model.addAttribute("week", week);
 
-		
-		
-		
-		
-		/*--------------------------------------------------*/	
-		
+		/*--------------------------------------------------*/
+
 		Space space = spaceService.findSpaceBySpaceNo(spaceNo);
 		if (space == null) { // productno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
 			return "redirect:spacelist";
 		}
 		Host host = spaceService.findHostByHostNo(space.getHostNo());
 		
+		host.setFile(spaceService.findHostFile(space.getHostNo()));
+		space.setFiles((ArrayList<SpaceFile>) spaceService.findSpaceFilesBySpaceNo(space.getSpaceNo()));
+		space.setFile(spaceService.findSpcaeFile(space.getSpaceNo()));
+
 		model.addAttribute("host", host);
 		model.addAttribute("space", space);
 
@@ -288,4 +277,63 @@ public class SpaceController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping(value = "/calendar", method = RequestMethod.POST) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	public String calendar(int spaceNo, Model model, int year, int month) {
+
+		int day = 0;
+
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		StringTokenizer st = new StringTokenizer(sdf.format(date), "-");
+
+		if (year == 0) {
+			year = Integer.parseInt(st.nextToken());
+		}
+		if (month == 0) {
+			month = Integer.parseInt(st.nextToken());
+		}
+		if (day == 0) {
+			day = Integer.parseInt(st.nextToken());
+		}
+		String[] strWeek = { "일", "월", "화", "수", "목", "금", "토" };
+		int[] lastDay = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+		int total = (year - 1) * 365 + (year - 1) / 4 - (year - 1) / 100 + (year - 1) / 400;
+		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {//2월 lastDay
+			lastDay[1] = 29;
+		} else {
+			lastDay[1] = 28;
+		}
+		for (int i = 0; i < month - 1; i++) {
+			total += lastDay[i];
+		}
+		total++;
+		int week = total % 7;
+
+		model.addAttribute("nowYear", year);
+		model.addAttribute("nowMonth", month);
+		model.addAttribute("nowDay", day);
+		model.addAttribute("strWeek", strWeek);
+		model.addAttribute("lastDay", lastDay[month - 1]);
+		model.addAttribute("week", week);
+
+		/*--------------------------------------------------*/
+
+		Space space = spaceService.findSpaceBySpaceNo(spaceNo);
+		if (space == null) { // productno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
+			return "redirect:spacelist";
+		}
+		Host host = spaceService.findHostByHostNo(space.getHostNo());
+		
+		host.setFile(spaceService.findHostFile(space.getHostNo()));
+		space.setFiles((ArrayList<SpaceFile>) spaceService.findSpaceFilesBySpaceNo(space.getSpaceNo()));
+		space.setFile(spaceService.findSpcaeFile(space.getSpaceNo()));
+
+		model.addAttribute("host", host);
+		model.addAttribute("space", space);
+
+		return "space/calendar";
+	}
+
 }

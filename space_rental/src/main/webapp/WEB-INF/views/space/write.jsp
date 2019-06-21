@@ -133,11 +133,11 @@
 			<div class="row">
 				<ul class="check_list space">
 					<li>
-						<input type="radio" name="bim" value="유" id="radio1">
+						<input type="radio" name="bim" value="1" id="radio1">
 						<label for="radio1" class="ellip">유</label>
 					</li>
 					<li>
-						<input type="radio" name="bim" value="무" id="radio2">
+						<input type="radio" name="bim" value="0" id="radio2">
 						<label for="radio2" class="ellip">무</label>
 					</li>
 				</ul>
@@ -153,11 +153,11 @@
 			<div class="row">
 				<ul class="check_list space">
 					<li>
-						<input type="radio" name="smoking" value="유" id="radio3">
+						<input type="radio" name="smoking" value="1" id="radio3">
 						<label for="radio3" class="ellip">유</label>
 					</li>
 					<li>
-						<input type="radio" name="smoking" value="무" id="radio4">
+						<input type="radio" name="smoking" value="0" id="radio4">
 						<label for="radio4" class="ellip">무</label>
 					</li>
 				</ul>
@@ -173,11 +173,11 @@
 			<div class="row">
 				<ul class="check_list space">
 					<li>
-						<input type="radio" name="food" value="가능" id="radio5">
+						<input type="radio" name="food" value="1" id="radio5">
 						<label for="radio5" class="ellip">가능</label>
 					</li>
 					<li>
-						<input type="radio" name="food" value="불가능" id="radio6">
+						<input type="radio" name="food" value="0" id="radio6">
 						<label for="radio6" class="ellip">불가능</label>
 					</li>
 				</ul>
@@ -193,11 +193,11 @@
 			<div class="row">
 				<ul class="check_list space">
 					<li>
-						<input type="radio" name="wifi" value="가능" id="radio7">
+						<input type="radio" name="wifi" value="1" id="radio7">
 						<label for="radio7" class="ellip">가능</label>
 					</li>
 					<li>
-						<input type="radio" name="wifi" value="불가능" id="radio8">
+						<input type="radio" name="wifi" value="0" id="radio8">
 						<label for="radio8" class="ellip">불가능</label>
 					</li>
 				</ul>
@@ -213,11 +213,11 @@
 			<div class="row">
 				<ul class="check_list space">
 					<li>
-						<input type="radio" name="computer" value="가능" id="radio9">
+						<input type="radio" name="computer" value="1" id="radio9">
 						<label for="radio9" class="ellip">가능</label>
 					</li>
 					<li>
-						<input type="radio" name="computer" value="불가능" id="radio10">
+						<input type="radio" name="computer" value="0" id="radio10">
 						<label for="radio10" class="ellip">불가능</label>
 					</li>
 				</ul>

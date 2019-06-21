@@ -30,5 +30,7 @@ public interface SpaceService {
 	List<Space> findSpacesByHostNo(int hostNo);
 
 	Space findSpaceBySpaceNo(int spaceNo);
+
+	SpaceFile findSpcaeFile(int hostNo);
 	
 }

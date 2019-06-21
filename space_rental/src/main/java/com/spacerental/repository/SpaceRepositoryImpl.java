@@ -111,4 +111,10 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 		return space;
 	}
 
+	@Override
+	public SpaceFile selectSpaceFile(int spaceNo) {
+		SpaceFile file = spaceMapper.selectSpaceFile(spaceNo);
+		return file;
+	}
+
 }

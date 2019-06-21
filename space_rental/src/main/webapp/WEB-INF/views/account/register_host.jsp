@@ -5,6 +5,21 @@
 <jsp:include page="/WEB-INF/views/include/header.jsp"/>
 <!-- space-writeForm -->
 <link rel="stylesheet" type="text/css" href="/spacerental/resources/styles/spacewrite.css">
+<style>
+.header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 100;
+	background: #3a1a48;
+	-webkit-transition: all 400ms ease;
+	-moz-transition: all 400ms ease;
+	-ms-transition: all 400ms ease;
+	-o-transition: all 400ms ease;
+	transition: all 400ms ease;
+}
+</style>
 
 <section id="contents" class="contents contents_register" role="main">
 	<form action="register_host" method="post">
@@ -122,22 +137,18 @@
 			<div class="row">
 				<div class="select col-sm-3">
 					<select name="openStart" class="col-6">
-						<option value="9">9:00</option>
-						<option value="10">10:00</option>
-						<option value="11">11:00</option>
-						<option value="12">12:00</option>
-						<option value="13">13:00</option>
-						<option value="14">14:00</option>
+						<c:forEach begin="0" end="24" var="start">
+							<option value="${ start }">${ start }</option>
+						</c:forEach>
 					</select>
 				</div>
+				
 					<font size="6" style="vertical-align: center">~</font>
 				<div class="select col-sm-3">
 					<select name="openEnd" class="col-6">
-						<option value="20">20:00</option>
-						<option value="21">21:00</option>
-						<option value="22">22:00</option>
-						<option value="23">23:00</option>
-						<option value="24">24:00</option>
+						<c:forEach begin="0" end="24" var="end">
+							<option value="${ end }" <c:if test="${ end eq 24 }">selected</c:if>>${ end }</option>
+						</c:forEach>
 					</select>
 				</div>
 			</div>

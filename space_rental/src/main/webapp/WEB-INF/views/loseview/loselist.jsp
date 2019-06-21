@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page session="false" language="java" contentType="text/html; charset=utf-8"
 	     pageEncoding="utf-8"%>
 	     
@@ -60,7 +61,15 @@
 							</div>
 							<div class="td_subject" style="padding-left: 0px">
 								<div class="bo_tit">
-									<a href="">분실물 찾아주세요 게시판입니다.</a>
+									분실물 
+									<c:choose>
+										<c:when test="${ type eq '분실물' }">
+									찾아주세요 
+									</c:when>
+										<c:when test="${ type eq '습득물' }">
+									찾아가세요
+									</c:when>
+									</c:choose> 게시판입니다.
 								</div>
 							</div> <span class="onlyMvV" style="padding-left: 0px"></span>
 							<div class="mvInlinev td_name sv_use">
@@ -73,10 +82,10 @@
 								<i class="fa fa-clock-o"></i>-
 							</div>
 						</li>
-						<c:forEach var="lose" items="${ loses }">
+						 <c:forEach var="lose" items="${ loses }" varStatus="i">
 						<li class="likeTblTr likeTblTh" style="background: white;">
-							<div class="mvInlineN">${ lose.loseNo }</div>
-							<div>${ lose.title }</div>
+							<div class="mvInlineN">${ fn:length(loses) - i.index }</div>
+							<div><a href="/spacerental/loseview/losedetail/${ lose.loseNo }">${ lose.title }</a></div>
 							<div class="mvInlineN">${ lose.uploader }</div>
 							<div class="mvInlineN">${ lose.loseDate }</div>
 							<div class="mvInlineN">${ lose.type }</div>
@@ -90,8 +99,14 @@
 					<div class="bo_fx">
 						<ul class="btn_bo_user">
 							<li>
-								<a href="losewrite" class="btn_b02 btn">
+							<c:if test="${ type eq '분실물' && loginuser.type eq 'customer' }">
+								<a href="/spacerental/loseview/losewrite/${ type }" class="btn_b02 btn">
 								<i class="fa fa-pencil" aria-hidden="true"></i> 글쓰기</a>
+							</c:if>
+							<c:if test="${ type eq '습득물' && loginuser.type eq 'host' }">
+								<a href="/spacerental/loseview/losewrite/${ type }" class="btn_b02 btn">
+								<i class="fa fa-pencil" aria-hidden="true"></i> 글쓰기</a>
+							</c:if>
 							</li>
 						</ul>
 					</div>

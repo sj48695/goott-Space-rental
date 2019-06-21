@@ -18,9 +18,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.spacerental.common.Pagination;
 import com.spacerental.common.Util;
 import com.spacerental.service.RentService;
 import com.spacerental.service.SpaceService;
@@ -43,16 +46,39 @@ public class SpaceController {
 	private RentService rentService;
 	
 	@RequestMapping(value = "/spacelist", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
-	public String list(Model model) {
+	public String list(Model model, String type
+						, @RequestParam(required = false, defaultValue = "1") int page
+						, @RequestParam(required = false, defaultValue = "1") int range){
+		try {
+			if (type == null) {
+				type = "all";
+			}
+		
+			// 전체 게시글 개수
+			int listCnt = spaceService.findHostListCnt(type);
 
-		List<Host> hosts = spaceService.findHostList();
+			// Pagination 객체생성
+			Pagination pagination = new Pagination();
+			pagination.pageInfo(page, range, listCnt);
 
-		for (Host host : hosts) {
-			host.setFile(spaceService.findHostFile(host.getHostNo()));
+			model.addAttribute("pagination", pagination);
+
+			
+	        // 전체리스트
+			List<Host> hosts = spaceService.findHostList(pagination,type);
+			if(hosts ==null) {
+				return "redirect:/";
+			}
+			
+			for (Host host : hosts) {
+				host.setFile(spaceService.findHostFile(host.getHostNo()));
+			}
+			
+			model.addAttribute("hosts", hosts);
+			model.addAttribute("listCnt", listCnt);
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-
-		model.addAttribute("hosts", hosts);
-
 		return "space/spacelist";
 	}
 	
@@ -148,7 +174,8 @@ public class SpaceController {
 	}
 	
 
-	@RequestMapping(value = "/rent", method = RequestMethod.POST) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	@RequestMapping(value = "/rent", method = RequestMethod.POST, produces = "text/plain;charset=utf-8") // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	@ResponseBody
 	public String rent(Model model, Rent rent,int year, int month, int day, HttpSession session) {
 		Member loginuser = (Member) session.getAttribute("loginuser");
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
@@ -167,10 +194,9 @@ public class SpaceController {
 		System.out.println(rent);
 		rentService.registerRent(rent);
 		
-		return "redirect:rent?spaceNo="+rent.getSpaceNo();
+//		return "redirect:rent?spaceNo="+rent.getSpaceNo();
+		return "success";
 	}
-	
-	
 	
 	@RequestMapping(path = "/register_host", method = RequestMethod.GET)
 	public String showHostRegisterForm() {
@@ -179,14 +205,11 @@ public class SpaceController {
 
 	@RequestMapping(path = "/register_host", method = RequestMethod.POST)
 	public String hostRegister(Host host, HttpSession session
-			, String open_start, String open_end
 			, String roadAddr, String detailAddr, String extraAddr) {
 		Member loginuer = (Member)session.getAttribute("loginuser");
 		host.setHostId(loginuer.getId());
-		host.setOpen(open_start + " ~ " + open_end);
 		host.setAddress(roadAddr + " " + detailAddr + " " +extraAddr);
-		int newHostNo = spaceService.registerHost(host);
-		System.out.println(newHostNo);
+		int newHostNo = spaceService.registerHostTx(host);
 		return "redirect:/space/write/"+newHostNo;
 
 	}

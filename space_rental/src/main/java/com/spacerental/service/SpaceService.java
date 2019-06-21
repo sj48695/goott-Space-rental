@@ -2,21 +2,26 @@ package com.spacerental.service;
 
 import java.util.List;
 
+import com.spacerental.common.Pagination;
 import com.spacerental.vo.Host;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
 public interface SpaceService {
 	
-	int registerHost(Host host);
+	//int registerHost(Host host);
+	
+	Integer registerHostTx(Host host);
 
 	Integer registerSpaceTx(Space space);
 	
-	List<Host> findHostList();
+	int findHostListCnt(String type);
+	
+	List<Host> findHostList(Pagination pagination, String type);
 	
 	Host findHostByHostNo(int hostNo);
 	
-	SpaceFile findHostFile(int productNo);
+	SpaceFile findHostFile(int hostNo);
 	
 	List<SpaceFile> findSpaceFilesBySpaceNo(int spaceNo);
 	

@@ -33,53 +33,25 @@
 				<label for="space_intro">사업장 유형<span class="ico_required">*</span></label>
 			</div>
 			<p class="option">
-				<span class="txt_guide">최대 5개 선택가능</span><span class="txt_required">필수선택</span>
+				<span class="txt_required">필수선택</span>
 			</p>
 			<div class="row">
 				<ul class="check_list space">
 					<li>
-						<input type="checkbox" name="type" value="회의실" id="cate1">
-						<label for="cate1" class="ellip">회의실</label>
+						<input type="radio" name="type" value="카페" id="cate1">
+						<label for="cate1" class="ellip">카페</label>
 					</li>
 					<li>
-						<input type="checkbox" name="type" value="세미나실" id="cate2">
-						<label for="cate2" class="ellip">세미나실</label>
+						<input type="radio" name="type" value="파티룸" id="cate2">
+						<label for="cate2" class="ellip">파티룸</label>
 					</li>
 					<li>
-						<input type="checkbox" name="type" value="다목적홀" id="cate3">
-						<label for="cate3" class="ellip">다목적홀</label>
+						<input type="radio" name="type" value="스터디룸" id="cate3">
+						<label for="cate3" class="ellip">스터디룸</label>
 					</li>
 					<li>
-						<input type="checkbox" name="type" value="작업실" id="cate4">
-						<label for="cate4" class="ellip">작업실</label>
-					</li>
-					<li>
-						<input type="checkbox" name="type" value="레저시설" id="cate5">
-						<label for="cate5" class="ellip">레저시설</label>
-					</li>
-					<li>
-						<input type="checkbox" name="type" value="파티룸" id="cate6">
-						<label for="cate6" class="ellip">파티룸</label>
-					</li>
-					<li>
-						<input type="checkbox" name="type" value="공연장" id="cate7">
-						<label for="cate7" class="ellip">공연장</label>
-					</li>
-					<li>
-						<input type="checkbox" name="type" value="연습실" id="cate8">
-						<label for="cate8" class="ellip">연습실</label>
-					</li>
-					<li>
-						<input type="checkbox" name="type" value="카페" id="cate9">
-						<label for="cate9" class="ellip">카페</label>
-					</li>
-					<li>
-						<input type="checkbox" name="type" value="스터디룸" id="cate10">
-						<label for="cate10" class="ellip">스터디룸</label>
-					</li>
-					<li>
-						<input type="checkbox" name="type" value="엠티장소" id="cate11">
-						<label for="cate11" class="ellip">엠티장소</label>
+						<input type="radio" name="type" value="회의실" id="cate4">
+						<label for="cate4" class="ellip">회의실</label>
 					</li>
 				</ul>
 			</div>
@@ -149,24 +121,23 @@
 			</div>
 			<div class="row">
 				<div class="select col-sm-3">
-					<select name="open_start" class="col-6">
-						<option>9:00</option>
-						<option>10:00</option>
-						<option>11:00</option>
-						<option>12:00</option>
-						<option>13:00</option>
-						<option>14:00</option>
+					<select name="openStart" class="col-6">
+						<option value="9">9:00</option>
+						<option value="10">10:00</option>
+						<option value="11">11:00</option>
+						<option value="12">12:00</option>
+						<option value="13">13:00</option>
+						<option value="14">14:00</option>
 					</select>
 				</div>
 					<font size="6" style="vertical-align: center">~</font>
 				<div class="select col-sm-3">
-					<select name="open_end" class="col-6">
-						<option>20:00</option>
-						<option>21:00</option>
-						<option>22:00</option>
-						<option>23:00</option>
-						<option>24:00</option>
-						<option>1:00</option>
+					<select name="openEnd" class="col-6">
+						<option value="20">20:00</option>
+						<option value="21">21:00</option>
+						<option value="22">22:00</option>
+						<option value="23">23:00</option>
+						<option value="24">24:00</option>
 					</select>
 				</div>
 			</div>

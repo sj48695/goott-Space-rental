@@ -1,7 +1,9 @@
 package com.spacerental.repository;
 
+import java.util.HashMap;
 import java.util.List;
 
+import com.spacerental.common.Pagination;
 import com.spacerental.mapper.HostMapper;
 import com.spacerental.mapper.SpaceMapper;
 import com.spacerental.vo.Host;
@@ -35,6 +37,12 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 		int newHostNo = hostMapper.insertHost(host);
 		return newHostNo;
 	}
+	
+	@Override
+	public int insertHost2(Host host) {
+		hostMapper.insertHost2(host);
+		return host.getHostNo();
+	}
 
 	@Override
 	public int insertSpace(Space space) {
@@ -46,10 +54,24 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 	public void insertSpaceFile(SpaceFile file) {
 		spaceMapper.insertSpaceFile(file);
 	}
+	
+	@Override
+	public int selectHostListCnt(String type) {
+		HashMap<String,Object> param = new HashMap<String, Object>();
+		param.put("type", type);
+		int hostCnt = hostMapper.selectHostListCnt(param);
+		return hostCnt;
+	}
 
 	@Override
-	public List<Host> selectHost() {
-		List<Host> hosts = hostMapper.selectHost();
+	public List<Host> selectHost(Pagination pagination, String type) {
+		HashMap<String,Object> params = new HashMap<String, Object>();
+		params.put("type", type);
+		//params.put("pagination", pagination);
+		params.put("startList", pagination.getStartList());
+		params.put("endList", pagination.getEndList());
+		
+		List<Host> hosts = hostMapper.selectHost(params);
 		return hosts;
 	}
 
@@ -88,4 +110,5 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 		Space space = spaceMapper.selectSpaceBySpaceNo(spaceNo);
 		return space;
 	}
+
 }

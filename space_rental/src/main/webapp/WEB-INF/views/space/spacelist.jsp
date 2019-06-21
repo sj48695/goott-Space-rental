@@ -46,150 +46,128 @@
       </div>  
 
     </div>
-
-        <div class="row">
-          <div class="col-md-3">
-            <div class="view-options bg-white py-3 px-3 d-md-flex align-items-center">
-              <div class="mr-auto">
-                <a href="index.html" class="icon-view view-module active"><span class="icon-view_module"></span></a>
-                <a href="view-list.html" class="icon-view view-list"><span class="icon-view_list"></span></a>
-                
-              </div>
-              <div class="ml-auto d-flex align-items-center">
-                <div>
-                  <a href="#" class="view-list px-3 border-right active">All</a>
-                  <a href="#" class="view-list px-3 border-right">Rent</a>
-                  <a href="#" class="view-list px-3">Sale</a>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-	<!-- 공간 목록 -->
+    
+	<form class="form-inline offset-9 px-5 py-3" action="/spacerental/space/spacelist" method="get" >
+		<select name="type" class="form-control" id="type_form">
+	        <option value="all" <c:if test="${param.type eq 'all'}">selected</c:if>>전체</option>
+	        <option value="카페" <c:if test="${param.type eq '카페'}">selected</c:if>>카페</option>
+	        <option value="파티룸" <c:if test="${param.type eq '파티룸'}">selected</c:if>>파티룸</option>
+	        <option value="스터디룸" <c:if test="${param.type eq '스터디룸'}">selected</c:if>>스터디룸</option>
+	        <option value="회의실" <c:if test="${param.type eq '회의실'}">selected</c:if>>회의실</option>
+      	</select>
+	</form>
+	
+	
+<!-- 공간 목록 -->
     <div class="site-section site-section-sm bg-light">
       <div class="container">
-      
-        <div class="row mb-5">
-        <c:forEach var="host" items="#{ hosts }">
-          <div class="col-md-6 col-lg-4 mb-4">
-            <div class="property-entry h-100">
-              <a href="/spacerental/space/detail/${ host.hostNo }" class="property-thumbnail">
-                <img src="/spacerental/resources/files/space-files/${ host.file.savedFileName  }" style="width:400px;height:300px" alt="Image" class="img-fluid">
-              </a>
-              <div class="p-4 property-body">
-                <h2 class="property-title"><a href="detail/${ host.hostNo }">${ host.name }</a></h2>
-                <span class="property-location d-block mb-3"><span class="property-icon icon-room"></span>${ host.address }</span>
-                <strong class="property-price text-primary mb-3 d-block text-success">$2,265,500</strong>
-                <ul class="property-specs-wrap mb-3 mb-lg-0">
-                  <li>
-                    <span class="property-specs">Beds</span>
-                    <span class="property-specs-number">2 <sup>+</sup></span>
-                    
-                  </li>
-                  <li>
-                    <span class="property-specs">Baths</span>
-                    <span class="property-specs-number">2</span>
-                    
-                  </li>
-                  <li>
-                    <span class="property-specs">SQ FT</span>
-                    <span class="property-specs-number">7,000</span>
-                    
-                  </li>
-                </ul>
+		<div class="row mb-5">
+			<c:if test="${ listCnt == 0 }">
+				<div class="text-center">
+					<b>등록된 공간이 없습니다.</b>
+				</div>
+			</c:if>
+			<c:forEach var="host" items="${ hosts }">
+				<div class="col-md-6 col-lg-4 mb-4">
+					<div class="property-entry h-100">
+						<a href="/spacerental/space/detail/${ host.hostNo }" class="property-thumbnail"> 
+						<img src="/spacerental/resources/files/space-files/${ host.file.savedFileName  }"
+							style="width: 400px; height: 300px" alt="Image" class="img-fluid">
+						</a>
+						<div class="p-4 property-body">
+							<h2 class="property-title">
+								<a href="detail/${ host.hostNo }">${ host.name }</a>
+							</h2>
+							<span class="property-location d-block mb-3">
+							<span class="property-icon icon-room"></span>${ host.address }</span>
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
 
-              </div>
-            </div>
-          </div>
-          </c:forEach>
-	</div>
-     
-        <div class="row">
-          <div class="col-md-12 text-center">
-            <div class="site-pagination">
-              <a href="#" class="active">1</a>
-              <a href="#">2</a>
-              <a href="#">3</a>
-              <a href="#">4</a>
-              <a href="#">5</a>
-              <span>...</span>
-              <a href="#">10</a>
-            </div>
-          </div>  
-        </div>
+		<div class="container offset-md-5" id="paginationBox">
+			<ul class="pagination">
+				<c:if test="${pagination.prev}">
+					<li class="page-item"><a class="page-link" href="#"
+						onClick="fn_prev('${pagination.page}', '${pagination.range}', '${pagination.rangeSize}', '${ param.type }')">Previous</a></li>
+				</c:if>
+				<c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="idx">
+					<li class="page-item <c:out value="${pagination.page == idx ? 'active' : ''}"/> ">
+						<a class="page-link" href="#" onClick="fn_pagination('${idx}', '${pagination.range}', '${pagination.rangeSize}', '${ param.type }')">${idx}</a>
+					</li>
+				</c:forEach>
+
+				<c:if test="${pagination.next}">
+					<li class="page-item">
+						<a class="page-link" href="#" onClick="fn_next('${pagination.range}','${pagination.range}', '${pagination.rangeSize}', '${ param.type }')">Next</a>
+					</li>
+				</c:if>
+			</ul>
+		</div>
         
       </div>
     </div>
 
     
-
-    <footer class="site-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="mb-5">
-              <h3 class="footer-heading mb-4">About Homeland</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe pariatur reprehenderit vero atque, consequatur id ratione, et non dignissimos culpa? Ut veritatis, quos illum totam quis blanditiis, minima minus odio!</p>
-            </div>
-
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	
+	<script type="text/javascript">              
+      $(function(){
+                  
+         $('#type_form').on('change', function(event){
             
+            this.form.submit();
             
-          </div>
-          <div class="col-lg-4 mb-5 mb-lg-0">
-            <div class="row mb-5">
-              <div class="col-md-12">
-                <h3 class="footer-heading mb-4">Navigations</h3>
-              </div>
-              <div class="col-md-6 col-lg-6">
-                <ul class="list-unstyled">
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">Buy</a></li>
-                  <li><a href="#">Rent</a></li>
-                  <li><a href="#">Properties</a></li>
-                </ul>
-              </div>
-              <div class="col-md-6 col-lg-6">
-                <ul class="list-unstyled">
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Privacy Policy</a></li>
-                  <li><a href="#">Contact Us</a></li>
-                  <li><a href="#">Terms</a></li>
-                </ul>
-              </div>
-            </div>
+         });
+      });
+ 
+   
+		//이전 버튼 이벤트
+		function fn_prev(page, range, rangeSize , type) {
 
+			var page = ((range - 2) * rangeSize) + 1;
+			var range = range - 1;
+			var url = "${pageContext.request.contextPath}/space/spacelist";
 
-          </div>
+			url = url + "?page=" + page;
+			url = url + "&range=" + range; 
+			url = url + "&type=" + type ;
 
-          <div class="col-lg-4 mb-5 mb-lg-0">
-            <h3 class="footer-heading mb-4">Follow Us</h3>
+			location.href = url;
 
-                <div>
-                  <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
-                  <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
-                  <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
-                  <a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
-                </div>
+		}
 
-            
+		//페이지 번호 클릭
+		function fn_pagination(page, range, rangeSize, type) {
 
-          </div>
-          
-        </div>
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" >Colorlib</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
-          </div>
-          
-        </div>
-      </div>
-    </footer>
+			var url = "${pageContext.request.contextPath}/space/spacelist";
+
+			url = url + "?page=" + page;
+			url = url + "&range=" + range;
+			url = url + "&type=" + type ;
+
+			location.href = url;
+
+		}
+
+		//다음 버튼 이벤트
+		function fn_next(page, range, rangeSize, type) {
+
+			var page = parseInt((range * rangeSize)) + 1;
+
+			var range = parseInt(range) + 1;
+
+			var url = "${pageContext.request.contextPath}/space/spacelist";
+
+			url = url + "?page=" + page;
+			url = url + "&range=" + range;
+			url = url + "&type=" + type ;
+
+			location.href = url;
+		}
+	</script>
     
 <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>

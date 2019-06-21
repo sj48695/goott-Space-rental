@@ -2,6 +2,10 @@ package com.spacerental.service;
 
 import java.util.List;
 
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
+
+import com.spacerental.common.Pagination;
 import com.spacerental.repository.SpaceRepository;
 import com.spacerental.vo.Host;
 import com.spacerental.vo.Space;
@@ -38,16 +42,29 @@ public class SpaceServiceImpl implements SpaceService {
 		return newSpaceNo;
 	}
 	
+//	@Override
+//	public int registerHost(Host host) {
+//		int newHostNo = spaceRepository.insertHost(host);
+//		return newHostNo;
+//	}
+	
 	@Override
-	public int registerHost(Host host) {
-		int newHostNo = spaceRepository.insertHost(host);
+	public Integer registerHostTx(Host host) {
+		int newHostNo = spaceRepository.insertHost2(host);
 		return newHostNo;
 	}
+	
+	@Override
+	public int findHostListCnt(String type) {
+		int hostCnt = spaceRepository.selectHostListCnt(type);
+		return hostCnt;
+	}
+
 
 	@Override
-	public List<Host> findHostList() {
+	public List<Host> findHostList(Pagination pagination, String type) {
 		
-		List<Host> hosts = spaceRepository.selectHost();
+		List<Host> hosts = spaceRepository.selectHost(pagination, type);
 		
 		return hosts;
 	}

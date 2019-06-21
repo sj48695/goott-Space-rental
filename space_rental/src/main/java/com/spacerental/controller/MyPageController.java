@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spacerental.service.MemberService;
 import com.spacerental.vo.Member;
@@ -30,7 +31,7 @@ public class MyPageController {
 		Member member = (Member) session.getAttribute("loginuser");
 		
 		if (member == null) {
-			return "redirect:/spacerental/account/login";
+			return "redirect:/account/login";
 		}		 
 
 		model.addAttribute("member", member);

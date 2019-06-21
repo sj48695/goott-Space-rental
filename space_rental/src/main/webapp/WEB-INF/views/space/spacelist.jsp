@@ -3,6 +3,39 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 
+<style>
+
+.d3 {background: #F9F0DA;}
+.d3 form {
+  background: #A3D0C3;
+}
+.d3 input, .d3 button {
+  border: none;
+  outline: none;
+  background: transparent;
+}
+.d3 input {
+  width: 100%;
+  height: 42px;
+  padding-left: 15px;
+}
+.d3 button {
+  height: 42px;
+  width: 42px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+}
+.d3 button:before {
+  content: "\f002";
+  font-family: FontAwesome;
+  font-size: 16px;
+  color: #F9F0DA;
+}
+
+</style>
+
 <div class="site-loader"></div>
   
   <div class="site-wrap">
@@ -23,10 +56,7 @@
         <div class="container">
           <div class="row align-items-center justify-content-center text-center">
             <div class="col-md-10">
-              <span class="d-inline-block bg-success text-white px-3 mb-3 property-offer-type rounded">For Rent</span>
-              <h1 class="mb-2">871 Crenshaw Blvd</h1>
-              <p class="mb-5"><strong class="h2 text-success font-weight-bold">$2,250,500</strong></p>
-              <p><a href="#" class="btn btn-white btn-outline-white py-3 px-5 rounded-0 btn-2">See Details</a></p>
+             	
             </div>
           </div>
         </div>
@@ -46,6 +76,13 @@
       </div>  
 
     </div>
+    
+  		<div class="d3 container">
+			<form>
+			  <input type="text" placeholder="검색어 입력">
+			  <button type="submit"></button>
+			</form>
+		</div>
     
 	<form class="form-inline offset-9 px-5 py-3" action="/spacerental/space/spacelist" method="get" >
 		<select name="type" class="form-control" id="type_form">

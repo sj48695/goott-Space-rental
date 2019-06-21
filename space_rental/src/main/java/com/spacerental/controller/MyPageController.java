@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spacerental.service.MemberService;
 import com.spacerental.vo.Host;
+import com.spacerental.vo.Lose;
+import com.spacerental.vo.LoseFile;
 import com.spacerental.vo.Member;
 import com.spacerental.vo.Rent;
 import com.spacerental.vo.SpaceFile;
@@ -83,14 +85,14 @@ public class MyPageController {
 		Member loginuser = (Member) session.getAttribute("loginuser");
 		String id = loginuser.getId();
 		
-		List<Rent> rent = memberService.selectrentList(id);
-		model.addAttribute("rent", rent);
+		List<Rent> rents = memberService.selectrentList(id);
+		model.addAttribute("rents", rents);
 		model.addAttribute("loginuser", loginuser);
 		
 		return "mypage/myrentlist";
 	}
 	
-	@RequestMapping(path = "/hostList", method = RequestMethod.GET)
+	@RequestMapping(path = "/hostlist", method = RequestMethod.GET)
 	public String hostList(Model model, HttpSession session) {
 		
 		Member loginuser = (Member) session.getAttribute("loginuser");
@@ -119,6 +121,20 @@ public class MyPageController {
 		model.addAttribute("loginuser", loginuser);
 		
 		return "mypage/hostrentlist";
+	}
+	
+	@RequestMapping(path = "/loselist", method = RequestMethod.GET)
+	public String lostlist(Model model, HttpSession session) {
+		
+		Member loginuser = (Member) session.getAttribute("loginuser");
+		String uploader = loginuser.getId();
+		
+		List<Lose> lose = memberService.selectLoseList(uploader);
+		
+		model.addAttribute("lose", lose);
+		model.addAttribute("loginuser", loginuser);
+		
+		return "mypage/loselist";
 	}
 
 }

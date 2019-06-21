@@ -33,6 +33,13 @@
 		and rownum = 1
 	</select>
 	
+	<select id="selectLoseList" parameterType="String" resultType="Lose">
+		select loseNo, title, content, loseDate, spaceNo, type, uploader
+		from lose
+		where uploader = #{ uploader }
+		and type like '분실물' 
+	</select>
+	
 	<update id="updateMember" parameterType="Member">
 		update Member
 		set passwd = #{ passwd }, phone = #{ phone }

@@ -1,6 +1,7 @@
 package com.spacerental.vo;
 
 import java.util.Date;
+import java.util.List;
 import java.util.ArrayList;
 
 import lombok.Data;
@@ -16,4 +17,5 @@ public class Lose {
 	private String uploader;
 	
 	private ArrayList<LoseFile> files;
+	
 }

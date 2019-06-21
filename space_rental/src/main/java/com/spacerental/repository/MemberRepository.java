@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.spacerental.vo.Host;
+import com.spacerental.vo.Lose;
 import com.spacerental.vo.Member;
 import com.spacerental.vo.Rent;
 import com.spacerental.vo.SpaceFile;
@@ -25,5 +26,7 @@ public interface MemberRepository {
 	SpaceFile selectHostFile(String id);
 
 	List<Rent> selectHostRentList(int hostNo);
+
+	List<Lose> selectLoseList(String uploader);
 
 }

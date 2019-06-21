@@ -7,6 +7,7 @@ import lombok.Data;
 
 @Data
 public class Host {
+	
 	private int hostNo;
 	private String hostId;
 	private String name;
@@ -16,6 +17,8 @@ public class Host {
 	private String address;
 	private String parking;
 	private String holiday;
+	private int openStart;
+	private int openEnd;
 	
 	private SpaceFile file;//대표사진 flag=1
 	private ArrayList<SpaceFile> files; //flag=0

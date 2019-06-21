@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.spacerental.vo.Host;
+import com.spacerental.vo.Lose;
 import com.spacerental.vo.Member;
 import com.spacerental.vo.Rent;
 import com.spacerental.vo.SpaceFile;
@@ -23,5 +24,7 @@ public interface MemberMapper {
 	List<Host> selectHostList(String id);
 
 	SpaceFile selectHostFile(String id);
+
+	List<Lose> selectLoseList(String uploader);
 	
 }

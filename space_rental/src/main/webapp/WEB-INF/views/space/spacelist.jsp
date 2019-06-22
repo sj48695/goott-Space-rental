@@ -77,12 +77,12 @@
 
     </div>
     
-  		<div class="d3 container">
+  		<!-- <div class="d3 container">
 			<form>
 			  <input type="text" placeholder="검색어 입력">
 			  <button type="submit"></button>
 			</form>
-		</div>
+		</div> -->
     
 	<form class="form-inline offset-9 px-5 py-3" action="/spacerental/space/spacelist" method="get" >
 		<select name="type" class="form-control" id="type_form">

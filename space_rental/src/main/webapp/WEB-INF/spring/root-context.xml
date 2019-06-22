@@ -126,19 +126,19 @@
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
 	</bean>
 	
-	<bean id="SearchRepository"
-		class="com.spacerental.repository.SearchRepositoryImpl">
-		<property name="searchMapper" ref="SearchMapper" />
+	 <bean id="AboutUsRepository"
+		class="com.spacerental.repository.AboutUsRepositoryImpl">
+		<property name="aboutUsMapper" ref="AboutUsMapper" />
 	</bean>
 	
-	<bean id="SearchService"
-		class="com.spacerental.service.SearchServiceImpl">
-		<property name="searchRepository" ref="SearchRepository" />
+	<bean id="AboutUsService"
+		class="com.spacerental.service.AboutUsServiceImpl">
+		<property name="aboutUsRepository" ref="AboutUsRepository" />
 	</bean>
 	
-	<bean id="SearchMapper"
+	<bean id="AboutUsMapper"
 		class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.spacerental.mapper.SearchMapper" />
+		<property name="mapperInterface" value="com.spacerental.mapper.AboutUsMapper" />
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
 	</bean>
 	

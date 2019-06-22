@@ -84,29 +84,6 @@
 
 	<!-- Footer -->
 
-	<footer class="footer container_custom">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="footer_container d-flex flex-md-row flex-column align-items-center justify-content-md-start justify-content-center">
-						<div class="copyright order-md-1 order-2"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-</div>
-							<nav class="footer_nav ml-md-auto order-md-2 order-1">
-								<ul class="d-flex flex-row align-items-center justify-content-start">
-									<li><a href="/spacerental/">홈</a></li>
-									
-									<li><a href="listings.html">장소</a></li>
-									<li><a href="blog.html">분실물</a></li>
-									<li class="active"><a href="/spacerental/noticeview/notice">공지사항</a></li>
-								</ul>
-							</nav>
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
 	</div>
 </div>
 	</div>

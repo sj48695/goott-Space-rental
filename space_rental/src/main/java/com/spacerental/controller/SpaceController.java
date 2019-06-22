@@ -104,44 +104,45 @@ public class SpaceController {
 	}
 	
 	@RequestMapping(value = "/rent", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
-	public String rentForm(int spaceNo, Model model, int year, int month) {
+	public String rentForm(int spaceNo, Model model, HttpSession session) {
 
-		int day = 0;
-
+		Member loginuser = (Member) session.getAttribute("loginuser");
+		int nowYear = 0, nowMonth = 0, nowDay = 0;
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat yearSdf = new SimpleDateFormat("yyyy");
+		SimpleDateFormat monthSdf = new SimpleDateFormat("MM");
+		SimpleDateFormat daySdf = new SimpleDateFormat("dd");
+		nowYear = Integer.parseInt(yearSdf.format(date));
+		nowMonth = Integer.parseInt(monthSdf.format(date));
+		nowDay = Integer.parseInt(daySdf.format(date));
 
-		StringTokenizer st = new StringTokenizer(sdf.format(date), "-");
-
-		if (year == 0) {
-			year = Integer.parseInt(st.nextToken());
-		}
-		if (month == 0) {
-			month = Integer.parseInt(st.nextToken());
-		}
-		if (day == 0) {
-			day = Integer.parseInt(st.nextToken());
-		}
 		String[] strWeek = { "일", "월", "화", "수", "목", "금", "토" };
 		int[] lastDay = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-		int total = (year - 1) * 365 + (year - 1) / 4 - (year - 1) / 100 + (year - 1) / 400;
-		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {//2월 lastDay
+		int total = (nowYear - 1) * 365 + (nowYear - 1) / 4 - (nowYear - 1) / 100 + (nowYear - 1) / 400;
+		if ((nowYear % 4 == 0 && nowYear % 100 != 0) || (nowYear % 400 == 0)) {//2월 lastDay
 			lastDay[1] = 29;
 		} else {
 			lastDay[1] = 28;
 		}
-		for (int i = 0; i < month - 1; i++) {
+		for (int i = 0; i < nowMonth - 1; i++) {
 			total += lastDay[i];
 		}
 		total++;
 		int week = total % 7;
 
-		model.addAttribute("nowYear", year);
-		model.addAttribute("nowMonth", month);
-		model.addAttribute("nowDay", day);
+//		/* 캘린더 change	*/
+//		model.addAttribute("year", year);
+//		model.addAttribute("month", month);
+//		model.addAttribute("day", day);
+		
+		/* 현재 날짜	*/
+		model.addAttribute("nowYear", nowYear);
+		model.addAttribute("nowMonth", nowMonth);
+		model.addAttribute("nowDay", nowDay);
+		
 		model.addAttribute("strWeek", strWeek);
-		model.addAttribute("lastDay", lastDay[month - 1]);
+		model.addAttribute("lastDay", lastDay[nowMonth - 1]);
 		model.addAttribute("week", week);
 
 		/*--------------------------------------------------*/
@@ -156,16 +157,25 @@ public class SpaceController {
 		space.setFiles((ArrayList<SpaceFile>) spaceService.findSpaceFilesBySpaceNo(space.getSpaceNo()));
 		space.setFile(spaceService.findSpcaeFile(space.getSpaceNo()));
 
+		//List<Rent> rents = spaceService.findRentsBySpaceNo(spaceNo);
+		
+		//model.addAttribute("rents", rents);
 		model.addAttribute("host", host);
 		model.addAttribute("space", space);
+		model.addAttribute("loginuser",loginuser);
 
 		return "space/rent";
 	}
 	
 
-	@RequestMapping(value = "/rent", method = RequestMethod.POST, produces = "text/plain;charset=utf-8") // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	@RequestMapping(value = "/rent"
+			, method = RequestMethod.POST
+			, produces = "text/plain;charset=utf-8") // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
 	@ResponseBody
-	public String rent(Model model, Rent rent,int year, int month, int day, HttpSession session) {
+	public String rent(Model model, Rent rent
+			, int year, int month, int day
+			, int startTime, int endTime
+			, HttpSession session) {
 		Member loginuser = (Member) session.getAttribute("loginuser");
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 
@@ -180,6 +190,8 @@ public class SpaceController {
 			e.printStackTrace();
 		}
 		rent.setRentDate(date);
+		System.out.println(startTime);
+		System.out.println(endTime);
 		System.out.println(rent);
 		rentService.registerRent(rent);
 		
@@ -201,6 +213,15 @@ public class SpaceController {
 		int newHostNo = spaceService.registerHostTx(host);
 		return "redirect:/space/write/"+newHostNo;
 
+	}
+	
+	@RequestMapping(path="/update_host/{hostNo}", method = RequestMethod.GET)
+	public String updateHost(@PathVariable int hostNo, Model model) {
+		Host host = spaceService.findHostByHostNo(hostNo);
+		
+		model.addAttribute(host);
+		
+		return "account/update_host";
 	}
 
 	@RequestMapping(value = "/write/{hostNo}", method = RequestMethod.GET)
@@ -276,26 +297,128 @@ public class SpaceController {
 		}
 		return "redirect:/";
 	}
-	
+
+	@RequestMapping(path = "/spacesearch", method = RequestMethod.GET)
+	public String spacesearch(@RequestParam(name = "value1") String value, Model model) {
+
+		List<Host> space = spaceService.searchspacelist(value);
+		
+		for (Host host : space) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", space);
+
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/addsearch", method = RequestMethod.GET)
+	public String addsearch(@RequestParam(name = "value2") String value, Model model) {
+
+		List<Host> add = spaceService.searchaddlist(value);
+		
+		for (Host host : add) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", add);
+
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/computer", method = RequestMethod.GET)
+	public String computer(Model model) {
+
+		List<Host> computerSpace = spaceService.computerlist();
+		
+		for (Host host : computerSpace) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", computerSpace);
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/beamproject", method = RequestMethod.GET)
+	public String beamProject(Model model) {
+
+		List<Host> beamSpace = spaceService.beamprojectlist();
+		
+		for (Host host : beamSpace) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", beamSpace);
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/wifi", method = RequestMethod.GET)
+	public String wifi(Model model) {
+
+		List<Host> wifiSpace = spaceService.wifilist();
+		
+		for (Host host : wifiSpace) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", wifiSpace);
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/10less", method = RequestMethod.GET)
+	public String tenless(Model model) {
+
+		List<Host> tenlessSpace = spaceService.tenlesslist();
+		
+		for (Host host : tenlessSpace) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", tenlessSpace);
+		return "space/spacelist";
+	}
+
+	@RequestMapping(path = "/10more", method = RequestMethod.GET)
+	public String tenmore(Model model) {
+
+		List<Host> tenmoreSpace = spaceService.tenmore();
+		
+		for (Host host : tenmoreSpace) {
+			host.setFile(spaceService.findHostFile(host.getHostNo()));
+		}
+		
+		model.addAttribute("hosts", tenmoreSpace);
+		return "space/spacelist";
+	}
+
 	@RequestMapping(value = "/calendar", method = RequestMethod.POST) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
-	public String calendar(int spaceNo, Model model, int year, int month) {
+	public String calendar(int spaceNo, Model model, 
+			@RequestParam(defaultValue = "0") int year, 
+			@RequestParam(defaultValue = "0") int month, 
+			@RequestParam(defaultValue = "0") int day) {
 
-		int day = 0;
-
+		int nowYear = 0, nowMonth = 0, nowDay = 0;
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat yearSdf = new SimpleDateFormat("yyyy");
+		SimpleDateFormat monthSdf = new SimpleDateFormat("MM");
+		SimpleDateFormat daySdf = new SimpleDateFormat("dd");
+		nowYear = Integer.parseInt(yearSdf.format(date));
+		nowMonth = Integer.parseInt(monthSdf.format(date));
+		nowDay = Integer.parseInt(daySdf.format(date));
 
-		StringTokenizer st = new StringTokenizer(sdf.format(date), "-");
+
+		//StringTokenizer st = new StringTokenizer(sdf.format(date), "-");
 
 		if (year == 0) {
-			year = Integer.parseInt(st.nextToken());
+			year = Integer.parseInt(yearSdf.format(date));
 		}
 		if (month == 0) {
-			month = Integer.parseInt(st.nextToken());
+			month = Integer.parseInt(monthSdf.format(date));
 		}
 		if (day == 0) {
-			day = Integer.parseInt(st.nextToken());
+			day = Integer.parseInt(daySdf.format(date));
 		}
+		
 		String[] strWeek = { "일", "월", "화", "수", "목", "금", "토" };
 		int[] lastDay = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
@@ -311,9 +434,16 @@ public class SpaceController {
 		total++;
 		int week = total % 7;
 
-		model.addAttribute("nowYear", year);
-		model.addAttribute("nowMonth", month);
-		model.addAttribute("nowDay", day);
+		/* 캘린더 change	*/
+		model.addAttribute("year", year);
+		model.addAttribute("month", month);
+		model.addAttribute("day", day);
+		
+		/* 현재 날짜	*/
+		model.addAttribute("nowYear", nowYear);
+		model.addAttribute("nowMonth", nowMonth);
+		model.addAttribute("nowDay", nowDay);
+		
 		model.addAttribute("strWeek", strWeek);
 		model.addAttribute("lastDay", lastDay[month - 1]);
 		model.addAttribute("week", week);

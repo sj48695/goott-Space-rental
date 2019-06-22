@@ -88,4 +88,60 @@
 			, #{ holiday }
 		) 
 	</insert>
+	
+	<update id="updateHost" parameterType="Host">
+		update host
+		set content = #{ content }
+			, address = #{ address }
+			, parking = #{ parking }
+			, openStart = #{ openStart }
+			, openEnd = #{ openEnd }
+			, holiday = { holiday }
+		where hostno = #{ hostNo }
+	</update>
+	
+	<select id="searchaddlist" parameterType="String" resultType="Host">
+		select hostNo, hostId, name, content, type, address, parking, openstart, openend, holiday, ok
+		from host
+		WHERE ADDRESS LIKE '%'||#{ value }||'%'
+		order by hostNo DESC 
+	</select>
+	
+	<select id="searchspacelist" parameterType="String" resultType="Host">
+		select hostNo, hostId, name, content, type, address, parking, openstart, openend, holiday, ok
+		from host
+		WHERE type LIKE '%'||#{ value }||'%'
+		order by hostNo DESC 
+	</select>
+	
+	<select id="searchPClist" resultType="Host">
+		SELECT hostNo, hostId, name, content, type, address, parking, openstart, openend, holiday, ok
+		FROM host
+		WHERE hostNo IN (SELECT hostNo FROM SPACE WHERE computer='1')
+		order by hostNo DESC 
+	</select>
+	<select id="searchBeamlist" resultType="Host">
+		SELECT hostNo, hostId, name, content, type, address, parking, openstart, openend, holiday, ok
+		FROM host
+		WHERE hostNo IN (SELECT hostNo FROM SPACE WHERE bim ='1')
+		order by hostNo DESC 
+	</select>
+	<select id="searchWifilist" resultType="Host">
+		SELECT hostNo, hostId, name, content, type, address, parking, openstart, openend, holiday, ok
+		FROM host
+		WHERE hostNo IN (SELECT hostNo FROM SPACE WHERE wifi='1')
+		order by hostNo DESC 
+	</select>
+	<select id="searchTenlesslist" resultType="Host">
+		SELECT hostNo, hostId, name, content, type, address, parking, openstart, openend, holiday, ok
+		FROM host
+		where hostNo IN (<![CDATA[select hostNo from space where maximum < 10]]>)
+		order by hostNo DESC
+	</select> 
+	<select id="searchTenmorelist" resultType="Host">
+		SELECT hostNo, hostId, name, content, type, address, parking, openstart, openend, holiday, ok
+		FROM host
+		WHERE hostNo IN (<![CDATA[SELECT hostNo FROM SPACE WHERE maximum > 9]]>)
+		order by hostNo DESC  
+	</select>
 </mapper>

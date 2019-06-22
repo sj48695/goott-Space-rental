@@ -1,9 +1,11 @@
 package com.spacerental.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.spacerental.common.Pagination;
 import com.spacerental.vo.Host;
+import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
@@ -32,6 +34,18 @@ public interface SpaceRepository {
 
 	Space selectSpaceBySpaceNo(int spaceNo);
 
+	ArrayList<Host> searchspaceList(String value);
+	ArrayList<Host> searchaddList(String value);
+
+	ArrayList<Host> searchPCList();
+	ArrayList<Host> searchBeamList();
+	ArrayList<Host> searchWifiList();
+	ArrayList<Host> searchTenlessList();
+	ArrayList<Host> searchTenmoreList();
+
 	SpaceFile selectSpaceFile(int spaceNo);
+
+	List<Rent> selectRentsBySpaceNo(int spaceNo);
+	void updateHost(Host host);
 
 }

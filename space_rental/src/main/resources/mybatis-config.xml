@@ -37,8 +37,8 @@
 		<mapper resource="com/spacerental/mapper/space-mapper.xml" />
 		<mapper resource="com/spacerental/mapper/host-mapper.xml" />
 		<mapper resource="com/spacerental/mapper/notice-mapper.xml" />
-		<mapper resource="com/spacerental/mapper/search-mapper.xml"/>
 		<mapper resource="com/spacerental/mapper/lose-mapper.xml"/>
 		<mapper resource="com/spacerental/mapper/rent-mapper.xml"/>
+		<mapper resource="com/spacerental/mapper/aboutus-mapper.xml"/>
 	</mappers>
 </configuration>

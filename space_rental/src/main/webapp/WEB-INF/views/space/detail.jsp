@@ -29,7 +29,13 @@
             <!-- 제목 -->
             <div class="row mb-3">
                <h1 class="text-black col-md-12"><b>${ host.name }</b><font size="4">   |   ${ host.type }</font></h1>
+               <%-- 로그인한 사용자와 글의 작성자가 같으면 삭제, 수정 버튼 활성화 --%>
+		        	<c:if test="${ loginuser.id eq host.hostId }"> 
+		        	<input type="button" class="btn btn-primary" id="update_button" value="수정" onClick="location.href='/spacerental/account/update_host/${host.hostNo}'">
+		        	<input type="button" class="btn btn-danger" id="delete_button" value="삭제" />
+		        	</c:if> 
             </div>
+            
             
             <!-- 공간 이미지 -->
             <div class="slide-one-item home-slider owl-carousel">
@@ -165,8 +171,6 @@
 				<h4 class="text-black widget-title mb-3"><b>세부공간 선택</b></h4>
 				<hr>
 				<form action="/spacerental/space/rent" class="form-contact-agent" method="get">
-					<input type="hidden" name="year" value="0">
-					<input type="hidden" name="month" value="0">
 					<c:forEach var="space" items="${ spaces }">
 					<div class="custom-control custom-radio mb-3">
 						<input type="radio" class="custom-control-input" id="space${ space.spaceNo }" 
@@ -248,6 +252,13 @@
 </footer>
 
 <script type="text/javascript">
+window.addEventListener('load', function(event) {//js의 main 함수 역할
+	var btnUpdate = document.querySelector('#update_button');
+	btnUpdate.addEventListener('click', function(event) {
+		location.href = "/spacerental/account/update_host/${ host.hostNo }";
+	});
+});
+
    $(function () {
       $('#writereview').on('click', function (event) {
 
@@ -269,7 +280,6 @@
             }
          });
       });
-      
 
       var currentreviewNo= -1;
       /* $('.editreview').on('click', function (event) {  */

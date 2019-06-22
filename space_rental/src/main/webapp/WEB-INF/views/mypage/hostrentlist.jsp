@@ -40,7 +40,7 @@
 		<fmt:formatDate value="${ rent.rentDate }" var="rentDate" type="date" pattern="yyyy-MM-dd"/>
 			<tr>
 				<td>${ fn:length(rentlist) - i.index }</td>
-				<td>${ rent.spaceName }</td>
+				<td><a href="/spacerental/space/rent?spaceNo=${ rent.spaceNo }">${ rent.spaceName }</a></td>
 				<td>${ rent.id }</td>
 				<td>${ rentDate }</td>
 			</tr>

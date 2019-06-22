@@ -28,7 +28,6 @@ public class LoseServiceImpl implements LoseService {
 		return finds;
 	}
 
-	
 	@Override
 	public Integer registerLoseTx(Lose lose) {
 		int newloseNo = loseRepository.registerlose(lose);
@@ -42,10 +41,12 @@ public class LoseServiceImpl implements LoseService {
 	}
 
 	
-	/*
-	 * @Override public void registerLose2(Lose lose) {
-	 * loseRepository.registerloseUpload2(lose); }
-	 */
+	
+//	 @Override 
+//	 public void registerLose2(Lose lose) {
+//		 loseRepository.registerlose2(lose); 
+//		 }
+	 
 	 
 	
 	@Override
@@ -79,5 +80,11 @@ public class LoseServiceImpl implements LoseService {
 	public Lose loseDetail(int loseNo) {
 		Lose lose = loseRepository.loseDetail(loseNo);
 		return lose;
+	}	
+	@Override
+	public List<Lose> searchlosslist(String value) {
+		ArrayList<Lose> Loses = loseRepository.searchlossList(value);
+		return Loses;
+
 	}
 }

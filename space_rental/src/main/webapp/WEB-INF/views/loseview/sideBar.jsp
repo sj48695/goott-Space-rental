@@ -25,7 +25,7 @@
 		<dt>CS CENTER</dt>
 		<dd>
 			<strong><i class="fa fa-phone-square"></i><span> Tel.070-0000-0000</span></strong> 
-			<b><span> E-mail. <a href='mailto:admin@websiting.co.kr'>admin@space.co.kr</a></span></b> 
+			<b><span> E-mail. <a href=''>admin@space.co.kr</a></span></b> 
 			<b><span>Fax. 050-0000-0000</span></b> <br> <span>고객센터 운영시간 <br>09:00 ~ 18:00</span>
 		</dd>
 	</dl>

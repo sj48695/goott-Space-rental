@@ -1,5 +1,6 @@
 package com.spacerental.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -89,4 +90,16 @@ public class LoseRepositoryImpl implements LoseRepository {
 		Lose lose = loseMapper.loseDetail(loseNo);
 		return lose;
 	}
+//	@Override
+//	public void registerlose2(Lose lose) {
+//		loseMapper.insertLose2(lose);
+//		
+//	}
+
+	@Override
+	public ArrayList<Lose> searchlossList(String value) {
+		List<Lose> loses = loseMapper.searchlosslist(value);
+		return (ArrayList<Lose>)loses;
+	}
+
 }

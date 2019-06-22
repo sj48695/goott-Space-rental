@@ -23,13 +23,19 @@
 		where hostId = #{ hostId }
 	</select>
 	
-	<select id="selectHostFile" parameterType="String" resultType="SpaceFile">
+	<select id="selectOkHostList" resultType="Host">
+		select name, content, type, address, parking, hostNo, hostId, holiday, openStart, openEnd, ok
+		from Host
+		where ok = #{ ok }
+	</select>
+	
+	<select id="selectHostFile" parameterType="int" resultType="SpaceFile">
 		select sf.savedfilename
 		from host h, space s, spacefile sf
-		where h.hostid = s.hostid 
+		where h.hostNo = s.hostNo
 		and s.spaceno = sf.spaceno 
 		and sf.flag = 1 
-		and h.hostId = #{ hostId }
+		and h.hostNo = #{ hostNo }
 		and rownum = 1
 	</select>
 	
@@ -44,6 +50,12 @@
 		update Member
 		set passwd = #{ passwd }, phone = #{ phone }
 		where id = #{ id }
+	</update>
+	
+	<update id="updateOk" parameterType="Host">
+		update host
+		set ok = #{ ok }
+		where hostNo = #{ hostNo }
 	</update>
 	
 	<delete id="deleteMember" parameterType="String">

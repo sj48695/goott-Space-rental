@@ -43,7 +43,7 @@
 	  <br>
 	  <div class="buttons">
        	<input type="button" class="btn col-sm-3" id="update_button" value="수정" style="margin-left:13%" />
-       	<input type="button" class="btn btn-warning col-sm-3" id="list_button" value="예약관리리스트" />
+       	<input type="button" class="btn btn-warning col-sm-3" id="list_button" value="예약관리" />
        	<input type="button" class="btn btn-link col-sm-3" id="delete_button" value="탈퇴"/>
        	<script type="text/javascript">
        	window.addEventListener('load', function(event) {	        		

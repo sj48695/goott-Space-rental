@@ -30,17 +30,23 @@ public class MyPageController {
 	private MemberService memberService;
 
 	@RequestMapping(path = "/{type}", method = RequestMethod.GET)
-	public String showCustomerForm(@PathVariable String type, Model model, HttpSession session) {
-		
+	public String showMypageForm(@PathVariable String type, Model model, HttpSession session) {
+
 		Member member = (Member) session.getAttribute("loginuser");
-		
+
 		if (member == null) {
 			return "redirect:/account/login";
-		}		 
+		}
+
+		String id = member.getId();
+
+		if (type.equals("manager") && !id.equals("manager")) {
+			return "redirect:/spacerental/account/login";
+		}
 
 		model.addAttribute("member", member);
-		return "mypage/" + type ;
-		
+		return "mypage/" + type;
+
 	}
 	
 	@RequestMapping(path = "/update", method = RequestMethod.POST)
@@ -101,7 +107,7 @@ public class MyPageController {
 		List<Host> hosts = memberService.selectHostList(id);
 		
 		for (Host host : hosts) {
-			host.setFile(memberService.selectHostFile(id));
+			host.setFile(memberService.selectHostFile(host.getHostNo()));
 		}
 				
 		model.addAttribute("hosts", hosts);
@@ -135,6 +141,77 @@ public class MyPageController {
 		model.addAttribute("loginuser", loginuser);
 		
 		return "mypage/loselist";
+	}
+	
+	@ResponseBody
+	@RequestMapping(path = "/okCheck", method = RequestMethod.POST)
+	public String ok(Model model, HttpSession session, int okCheck, int hostNo) {
+		boolean ok = false;
+		Member loginuser = (Member) session.getAttribute("loginuser");
+		String id = loginuser.getId();
+		System.out.println(okCheck);
+		System.out.println(hostNo);
+		Host host = new Host();
+
+		if (okCheck == 1)
+			ok = true;
+		else
+			ok = false;
+		
+		host.setOk(ok);
+		host.setHostNo(hostNo);
+		memberService.updateOk(host);
+		
+		if(host.isOk() == true) {//승인완료
+			return "ok";
+		} else {//승인취소
+			return "okCancel";
+		}
+	}
+	
+	
+	@RequestMapping(path = "/beforeOk", method = RequestMethod.GET)
+	public String beforeOk(Model model, HttpSession session) {
+		
+		Member loginuser = (Member) session.getAttribute("loginuser");
+		String id = loginuser.getId();
+		
+		if(!id.equals("manager")) {
+			return "redirect:/spacerental/account/login";
+		}
+		
+		List<Host> hosts = memberService.selectOkHostList(0);
+		
+		for (Host host : hosts) {
+			host.setFile(memberService.selectHostFile(host.getHostNo()));
+		}
+				
+		model.addAttribute("hosts", hosts);
+		model.addAttribute("loginuser", loginuser);
+		
+		return "mypage/hostlist";
+	}
+	
+	@RequestMapping(path = "/afterOk", method = RequestMethod.GET)
+	public String afterOk(Model model, HttpSession session) {
+		
+		Member loginuser = (Member) session.getAttribute("loginuser");
+		String id = loginuser.getId();
+		
+		if(!id.equals("manager")) {
+			return "redirect:/spacerental/account/login";
+		}
+		
+		List<Host> hosts = memberService.selectOkHostList(1);
+		
+		for (Host host : hosts) {
+			host.setFile(memberService.selectHostFile(host.getHostNo()));
+		}
+				
+		model.addAttribute("hosts", hosts);
+		model.addAttribute("loginuser", loginuser);
+		
+		return "mypage/hostlist";
 	}
 
 }

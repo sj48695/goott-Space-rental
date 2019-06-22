@@ -42,7 +42,7 @@
 	</select>
 	
 	<select id="selectRentsBySpaceNo" parameterType="int" resultType="Rent">
-		select <include refid="rentBasicColumns" /> from rent where spaceNo= #{ spaceNo };
+		select startTime, endTime, spaceNo from rent where spaceNo = #{ spaceNo }
 	</select>
 	
 	<insert id="insertRent" parameterType="Rent">

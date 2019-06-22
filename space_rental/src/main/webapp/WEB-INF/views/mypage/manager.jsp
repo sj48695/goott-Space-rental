@@ -21,7 +21,47 @@
 	transition: all 400ms ease;
 }
 </style>
-
+<div class="jumbotron" style="margin-top:10%; background-color:white; width:40%;margin-left:29%">
+<div class="container" style="border: solid 1px; padding:5%">
+	<form class="form-signin">
+	  <div class="text-center mb-4">
+	    <h1><strong>마이페이지</strong></h1><br>
+	  </div>
+	  <table class="table">
+	      <tr>
+	          <th>아이디</th>
+	          <td>${ member.id }</td>
+	      </tr>
+	      <tr>
+	      	<th>이름</th>
+	      	<td>${ member.name }</td>
+	      </tr>
+	      <tr>
+	          <th>전화번호</th>
+	          <td>${ member.phone }</td>
+	      </tr>
+	  </table>
+	  <br>
+	  <div class="buttons">
+       	<input type="button" class="btn btn-warning col-sm-3" id="before_button" value="승인요청 사업장" />
+       	<input type="button" class="btn btn-link col-sm-3" id="after_button" value="승인완료 사업장"/>
+       	<script type="text/javascript">
+       	window.addEventListener('load', function(event) {
+       		
+       		$('#before_button').on('click', function(event) {
+       			location.href = "/spacerental/mypage/beforeOk";
+       		});
+       		
+       		$('#after_button').on('click', function(event) {
+       			location.href = "/spacerental/mypage/afterOk";
+       		});
+       		
+       	});
+       	</script>      	
+      </div>
+	</form>
+</div>
+</div>
 
 
 

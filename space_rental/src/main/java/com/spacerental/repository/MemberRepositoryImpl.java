@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.spacerental.mapper.MemberMapper;
 import com.spacerental.mapper.RentMapper;
-import com.spacerental.mapper.SpaceMapper;
 import com.spacerental.vo.Host;
 import com.spacerental.vo.Lose;
 import com.spacerental.vo.Member;
@@ -75,8 +74,8 @@ public class MemberRepositoryImpl implements MemberRepository {
 	}
 
 	@Override
-	public SpaceFile selectHostFile(String id) {
-		SpaceFile file = memberMapper.selectHostFile(id);
+	public SpaceFile selectHostFile(int hostNo) {
+		SpaceFile file = memberMapper.selectHostFile(hostNo);
 		return file;
 	}
 
@@ -90,6 +89,17 @@ public class MemberRepositoryImpl implements MemberRepository {
 	public List<Lose> selectLoseList(String uploader) {
 		List<Lose> loselist = memberMapper.selectLoseList(uploader);
 		return loselist;
+	}
+
+	@Override
+	public List<Host> selectOkHostList(int i) {
+		List<Host> host = memberMapper.selectOkHostList(i);
+		return host;
+	}
+
+	@Override
+	public void updateOk(Host host) {
+		memberMapper.updateOk(host);
 	}
 
 }

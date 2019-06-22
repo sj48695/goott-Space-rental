@@ -64,8 +64,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public SpaceFile selectHostFile(String id) {
-		SpaceFile file = memberRepository.selectHostFile(id);
+	public SpaceFile selectHostFile(int hostNo) {
+		SpaceFile file = memberRepository.selectHostFile(hostNo);
 		return file;
 	}
 
@@ -80,5 +80,15 @@ public class MemberServiceImpl implements MemberService{
 		List<Lose> loselist = memberRepository.selectLoseList(uploader);
 		return loselist;
 	}
-	
+
+	@Override
+	public List<Host> selectOkHostList(int i) {
+		List<Host> host = memberRepository.selectOkHostList(i);
+		return host;
+	}
+
+	@Override
+	public void updateOk(Host host) {
+		memberRepository.updateOk(host);
+	}
 }

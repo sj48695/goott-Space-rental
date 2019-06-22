@@ -1,6 +1,7 @@
 package com.spacerental.repository;
 
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 import com.spacerental.common.Pagination;
@@ -45,6 +46,6 @@ public interface SpaceRepository {
 
 	SpaceFile selectSpaceFile(int spaceNo);
 
-	List<Rent> selectRentsBySpaceNo(int spaceNo);
+	List<Rent> selectRentsBySpaceNo(int spaceNo, Date rentDate);
 
 }

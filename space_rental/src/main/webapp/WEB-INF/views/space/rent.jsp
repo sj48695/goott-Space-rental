@@ -65,7 +65,7 @@
 				<div>
 					<div class="slide-one-item home-slider owl-carousel">
 						<c:forEach var="file" items="${ space.files }">
-							<img src="/spacerental/resources/files/space-files/${ file.savedFileName }" style="width:668px;height:400px;" class="img-fluid">
+							<img src="/spacerental/resources/files/space-files/${ file.savedFileName }" style="width:668; height:400px" class="img-fluid">
 						</c:forEach>
 					</div>
 				</div>
@@ -119,7 +119,7 @@
 					<c:forEach var="file" items="${ space.files }">
 					<div class="col-sm-6 col-md-4 col-lg-3">
 						<a href="/spacerental/resources/files/space-files/${ file.savedFileName }" class="image-popup gal-item">
-							<img src="/spacerental/resources/files/space-files/${ file.savedFileName }" class="img-fluid">
+							<img src="/spacerental/resources/files/space-files/${ file.savedFileName }" style="width:180px; height:180px" class="img-fluid">
 						</a>
 					</div>
 					</c:forEach>
@@ -195,21 +195,26 @@
 					</table>
 					<h5 class="pt-4">시간 선택</h5>
 					<div class="pt-2 row justify-content-center col-sm-12 m-0">
-						<div class="select">
-						
-							<%-- <c:forEach var="rent" items="${ rents }">
-								<c:set var="start" value="${ rent.startTime }"/>
-								<c:set var="end" value="${ rent.endTime }"/>
-							</c:forEach> --%>
-							
+						<div class="select" id="time-table">
 							<c:forEach var="time" begin="${ host.openStart }" end="${ host.openEnd }" varStatus="i">
 								<label class="py-1 px-2 border time" id="timelabel${ i.index }"
-							<%-- 	<c:if test="${ i.index >=start && i.index <= end  }">
-									style="background: #a9a9a92e;color: #c1c1c1;"
-								</c:if> --%>
-									onclick="javascript:timeClick(${ i.index },${ time })"
-									
-									
+								<c:forEach var="rent" items="${ rents }">
+								<c:set var="start" value="${ rent.startTime }"/>
+								<c:set var="end" value="${ rent.endTime }"/>
+								<c:choose>
+									<c:when test="${ i.index >=start && i.index <= end  }">
+										<c:if test="${ loginuser.id ne rent.id }">
+										style="background: #a9a9a92e; color: #c1c1c1;"
+										</c:if>
+										<c:if test="${ loginuser.id eq rent.id }">
+										style="background: #ccccff; color: #8d119a;"
+										</c:if>
+									</c:when>
+									<c:otherwise>
+										onclick="javascript:timeClick(${ i.index },${ time })"
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
 									>${ time }</label>
 							</c:forEach>
 							<input type="radio" hidden="hidden" name="startTime" id="startTime" value="0">
@@ -237,36 +242,6 @@
 	</div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	
-	<script type="text/javascript">
-	$(function(){
-		$('#rent_submit').on('click', function(event){
-			
-			//serialize() : <form에 포함된 입력 요소의 값을 이름=값&이름=값&... 형식으로 만드는 함수 
-			var formData = $('#rentform').serialize();
-			//alert(formData);
-			
-			 $.ajax({
-				url: "/spacerental/space/rent",
-				method: "POST",
-				data : formData,
-				success: function(data, status, xhr){ //data: 응답받은 데이터
-					alert("예약되었습니다!");
-					window.location.href = '/spacerental/mypage/lentList'; 
-				},
-				error: function(xhr, status, err){
-					alert(err);
-				}
-			});  
-		});
-	});
-	</script>
-		
-	
-	
 <footer class="site-footer">
 	<div class="container">
 		<div class="row">

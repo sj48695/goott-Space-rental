@@ -1,6 +1,11 @@
 package com.spacerental.repository;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -174,9 +179,48 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 	}
 	
 	@Override
-	public List<Rent> selectRentsBySpaceNo(int spaceNo) {
-		System.out.println(spaceNo);
-		List<Rent> rents = rentMapper.selectRentsBySpaceNo(spaceNo);
+	public List<Rent> selectRentsBySpaceNo(int spaceNo, Date rentDate) {
+		Connection conn = null; 
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Rent> rents = new ArrayList<Rent>();
+		
+		try {
+			//1. 드라이버 준비
+			Class.forName("oracle.jdbc.OracleDriver");
+			
+			//2. 연결 (연결 객체 가져오기)
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@211.197.18.246:1551:xe","space","cloud");
+	
+			//3. SQL 작성 + 명령 객체 가져오기
+			String sql = 
+					"select rentNo, rentDate, startTime, endTime, id from rent where spaceNo = ? and rentDate = ?"; 
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, spaceNo);
+			pstmt.setDate(2, rentDate);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+			Rent rent = new Rent();
+			rent.setRentNo(rs.getInt(1));
+			rent.setRentDate(rs.getDate(2));
+			rent.setStartTime(rs.getInt(3));
+			rent.setEndTime(rs.getInt(4));
+			rent.setId(rs.getString(5));;
+			rents.add(rent);
+			}
+		} catch (Exception ex) { 
+			ex.printStackTrace(); 
+		} finally {
+		try {rs.close(); } catch (Exception ex){}
+		try {pstmt.close(); } catch (Exception ex){}
+		try {conn.close(); } catch (Exception ex){}
+		}
+		System.out.println(rentDate);
 		return rents;
+		
+//		System.out.println(spaceNo);
+//		List<Rent> rents = rentMapper.selectRentsBySpaceNo(spaceNo);
+//		System.out.println(rents);
+//		return rents;
 	}
 }

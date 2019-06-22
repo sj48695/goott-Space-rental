@@ -1,6 +1,5 @@
 package com.spacerental.repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.spacerental.vo.Host;
@@ -23,10 +22,14 @@ public interface MemberRepository {
 
 	List<Host> selectHostList(String id);
 
-	SpaceFile selectHostFile(String id);
+	SpaceFile selectHostFile(int hostNo);
 
 	List<Rent> selectHostRentList(int hostNo);
 
 	List<Lose> selectLoseList(String uploader);
+
+	List<Host> selectOkHostList(int i);
+
+	void updateOk(Host host);
 
 }

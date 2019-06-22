@@ -135,11 +135,21 @@ $(function () {
 			}
 		});
 	});
+	
+	
+	$('#before_ok').on('click', function(event) {
+		location.href = "/spacerental/mypage/beforeOk";
+	});
+	$('#after_ok').on('click', function(event) {
+		location.href = "/spacerental/mypage/afterOk";
+	});
 });
 
 
+
 /* ----------- hostOk ---------- */
-function okCheck(okCheck, hostNo) {
+function okCheck(i,okCheck, hostNo) {
+	var btn = $('.ok'+i);
 	$.ajax({
 		url: "/spacerental/mypage/okCheck",
 		method: "POST",
@@ -148,18 +158,16 @@ function okCheck(okCheck, hostNo) {
 			"hostNo": hostNo
 		},
 		success: function (data, status, xhr) { // data: 응답받은 데이터
-			alert(data);
 			if(data == "ok"){
-				alert($(this).attr("value"));
-				$(this).removeClass("btn-outline-dark");
-				$(this).addClass("btn-dark okCancel");			
-				$(this).attr("value","승인 취소");
-				
+				btn.removeClass("btn-outline-dark");
+				btn.addClass("btn-dark");			
+				btn.attr("value","승인 취소");
+				btn.attr("onclick","javascript:okCheck("+i+",0,"+hostNo+")");
 			}else if(data == "okCancel"){
-				alert($(this).attr("value"));
-				$(this).removeClass("btn-dark");
-				$(this).addClass("btn-outline-dark ok");			
-				$(this).val("value","승인 하기");
+				btn.removeClass("btn-dark");
+				btn.addClass("btn-outline-dark");			
+				btn.attr("value","승인 하기");
+				btn.attr("onclick","javascript:okCheck("+i+",1,"+hostNo+")");
 			}
 		},
 		error: function (xhr, status, err) {

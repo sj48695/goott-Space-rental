@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.spacerental.service.MemberService;
 import com.spacerental.vo.Host;
 import com.spacerental.vo.Lose;
-import com.spacerental.vo.LoseFile;
 import com.spacerental.vo.Member;
 import com.spacerental.vo.Rent;
-import com.spacerental.vo.SpaceFile;
 
 @Controller
 @RequestMapping(value = "/mypage")
@@ -145,72 +143,62 @@ public class MyPageController {
 	
 	@ResponseBody
 	@RequestMapping(path = "/okCheck", method = RequestMethod.POST)
-	public String ok(Model model, HttpSession session, int okCheck, int hostNo) {
+	public String ok(Model model, int okCheck, int hostNo) {
 		boolean ok = false;
-		Member loginuser = (Member) session.getAttribute("loginuser");
-		String id = loginuser.getId();
-		System.out.println(okCheck);
-		System.out.println(hostNo);
 		Host host = new Host();
 
-		if (okCheck == 1)
-			ok = true;
-		else
-			ok = false;
-		
+		if (okCheck == 1) ok = true;
+		else ok = false;
+
 		host.setOk(ok);
 		host.setHostNo(hostNo);
 		memberService.updateOk(host);
-		
-		if(host.isOk() == true) {//승인완료
-			return "ok";
-		} else {//승인취소
-			return "okCancel";
-		}
+
+		if (host.isOk() == true) return "ok";
+		else return "okCancel";
 	}
-	
 	
 	@RequestMapping(path = "/beforeOk", method = RequestMethod.GET)
 	public String beforeOk(Model model, HttpSession session) {
-		
+
 		Member loginuser = (Member) session.getAttribute("loginuser");
 		String id = loginuser.getId();
-		
-		if(!id.equals("manager")) {
+
+		if (!id.equals("manager")) {
 			return "redirect:/spacerental/account/login";
 		}
-		
+
 		List<Host> hosts = memberService.selectOkHostList(0);
-		
+
 		for (Host host : hosts) {
 			host.setFile(memberService.selectHostFile(host.getHostNo()));
 		}
-				
+
 		model.addAttribute("hosts", hosts);
 		model.addAttribute("loginuser", loginuser);
-		
+
 		return "mypage/hostlist";
 	}
-	
+
 	@RequestMapping(path = "/afterOk", method = RequestMethod.GET)
 	public String afterOk(Model model, HttpSession session) {
-		
+
 		Member loginuser = (Member) session.getAttribute("loginuser");
 		String id = loginuser.getId();
-		
-		if(!id.equals("manager")) {
+
+		if (!id.equals("manager")) {
 			return "redirect:/spacerental/account/login";
 		}
-		
+
 		List<Host> hosts = memberService.selectOkHostList(1);
-		
+
 		for (Host host : hosts) {
 			host.setFile(memberService.selectHostFile(host.getHostNo()));
 		}
-				
+
 		model.addAttribute("hosts", hosts);
 		model.addAttribute("loginuser", loginuser);
-		
+
 		return "mypage/hostlist";
 	}
 

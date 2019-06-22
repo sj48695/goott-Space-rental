@@ -42,7 +42,8 @@
 			    <h5 class="card-title"><a href="/spacerental/mypage/hostRentList/${ host.hostNo }" style="text-decoration: none">${ host.name }</a></h5>
 			  	<c:if test="${ host.ok eq false }">
 			  		<c:if test="${ loginuser.id  eq 'manager' }">
-				    	<button class="py-2 btn btn-outline-dark ok" onclick="javascript:okCheck(1,${ host.hostNo })" value="승인 하기">승인 하기</button>
+				    	<input type="button" class="py-2 col-sm-5 btn btn-outline-dark ok${ hostnum.index }" value="승인 하기"
+				    		onclick="javascript:okCheck(${ hostnum.index },1,${ host.hostNo })">
 					</c:if>
 				  	<c:if test="${ loginuser.id  ne 'manager' }">
 				    	<div class="py-2">승인 대기</div>
@@ -50,7 +51,8 @@
 			    </c:if>
 			    <c:if test="${ host.ok eq true }">
 			    	<c:if test="${ loginuser.id  eq 'manager' }">
-				    	<button class="py-2 btn btn-dark okCancel" onclick="javascript:okCheck(0,${ host.hostNo })" value="승인 취소">승인 취소</button>
+				    	<input type="button" class="py-2 col-sm-5 btn btn-dark ok${ hostnum.index }" value="승인 취소"
+				    		onclick="javascript:okCheck(${ hostnum.index },0,${ host.hostNo })">
 					</c:if>
 				  	<c:if test="${ loginuser.id  ne 'manager' }">
 				    	<div class="py-2">승인 완료</div>

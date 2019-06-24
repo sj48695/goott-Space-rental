@@ -52,7 +52,7 @@
 							<div class="mvInlineN">번호</div>
 							<div>제목</div>
 							<div class="mvInlineN">작성자</div>
-							<div class="mvInlineN">분실일</div>
+							<div class="mvInlineN" style="width: 100px;">분실일</div>
 							<div class="mvInlineN">유형</div>
 						</li>
 						<li class="bo_notice likeTblTr likeTblTd">

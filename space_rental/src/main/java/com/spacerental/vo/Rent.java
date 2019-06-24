@@ -16,6 +16,6 @@ public class Rent {
 	private String id;
 
 	private String spaceName;
-	private String hostNo;
+	private int hostNo;
 
 }

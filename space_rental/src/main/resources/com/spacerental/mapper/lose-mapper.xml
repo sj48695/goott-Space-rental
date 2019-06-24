@@ -78,5 +78,14 @@
         where  title LIKE '%'||#{ value }||'%' and type LIKE'습득물'
         ORDER BY loseNo DESC
 	</select>
+	
+	<!-- <select id="selectrentList" parameterType="String" resultType="Rent">
+		select rentNo, rentDate,headCount,startTime, endTime , spaceName, s.spaceNo, id, h.hostNo
+		from Rent r, Space s, Host h
+		where r.spaceNo = s.spaceNo
+		and s.hostNo = h.hostNo
+		and id = #{ id }
+		order by rentNo desc
+	</select> -->
 
 </mapper>

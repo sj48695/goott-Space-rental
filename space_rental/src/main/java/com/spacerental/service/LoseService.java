@@ -6,6 +6,7 @@ import com.spacerental.vo.Lose;
 import com.spacerental.vo.LoseFile;
 import com.spacerental.vo.Member;
 import com.spacerental.vo.Notice;
+import com.spacerental.vo.Rent;
 
 public interface LoseService {
 
@@ -24,5 +25,9 @@ public interface LoseService {
 	//void registerLose2(Lose lose); 
 		
 	List<Lose> searchlosslist(String value);
+	
+//	void registerRent(Rent rent);
+
+//	List<Rent> selectrentList(String id);
 
 }

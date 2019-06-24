@@ -39,10 +39,18 @@
 				<input type="text" name="uploader" id="wr_uploader" class="frm_input uploader " placeholder="작성자" value="${ loginuser.id }">
 				
 				<label for="wr_date" class="sound_only">분실일자</label> 
-				<input type="date" name="loseDate" id="wr_date" class="frm_input date " placeholder="분실일자" required> 
+				<input type="date" name="loseDate" id="wr_date" class="frm_input date " placeholder="분실일자">&nbsp&nbsp 
+ 				
+				<c:forEach var="rent" items="${ rents }">
+					<input type="radio" name="spaceNo" value="${ rent.spaceNo }">${ rent.spaceName }
+				</c:forEach>
 				
+				<c:if test="${ loginuser.type eq 'host' && type eq '습득물' }">
 				<label for="wr_roomno" class="sound_only">방 번호</label>
 				<input type="text" name="spaceNo" id="wr_type" class="frm_input type " placeholder="방번호">
+				</c:if>
+				
+				<%-- <input type="text" name="rentList" id="rentList" class="frm_input rentList" style="width: 64%;" placeholder="예약정보" value="${ rent.rentDate }"> --%>
 			</div>
 			<br>
 			<div class="bo_w_tit write_div">

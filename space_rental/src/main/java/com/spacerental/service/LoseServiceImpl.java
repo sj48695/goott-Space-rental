@@ -10,6 +10,7 @@ import com.spacerental.vo.Lose;
 import com.spacerental.vo.LoseFile;
 import com.spacerental.vo.Member;
 import com.spacerental.vo.Notice;
+import com.spacerental.vo.Rent;
 
 @Service("loseService")
 public class LoseServiceImpl implements LoseService {
@@ -87,4 +88,6 @@ public class LoseServiceImpl implements LoseService {
 		return Loses;
 
 	}
+
+	
 }

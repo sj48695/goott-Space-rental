@@ -95,6 +95,17 @@
 		) 
 	</insert>
 	
+	<update id="updateHost" parameterType="Host">
+		update host
+		set content = #{ content }
+			, address = #{ address }
+			, parking = #{ parking }
+			, openStart = #{ openStart }
+			, openEnd = #{ openEnd }
+			, holiday = #{ holiday }
+		where hostNo = #{ hostNo }
+	</update>
+	
 	<select id="searchaddlist" parameterType="String" resultType="Host">
 		select hostNo, hostId, name, content, type, address, parking, openstart, openend, holiday, ok
 		from host
@@ -139,4 +150,14 @@
 		WHERE hostNo IN (<![CDATA[SELECT hostNo FROM SPACE WHERE maximum > 9]]>) and ok=1
 		order by hostNo DESC  
 	</select>
+	
+	<delete id="deleteHost" parameterType="int">
+		delete from host
+		where hostNo = #{ hostNo }
+	</delete>
+	
+	<delete id="deleteSpaceByHostNo" parameterType="int">
+		delete from space
+		where hostNo = #{ hostNo }
+	</delete>
 </mapper>

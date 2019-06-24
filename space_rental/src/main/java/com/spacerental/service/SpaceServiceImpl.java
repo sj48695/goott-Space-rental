@@ -35,13 +35,22 @@ System.out.println(space);
 		titleFile.setSpaceNo(newSpaceNo);
 		spaceRepository.insertSpaceFile(titleFile);
 		//System.out.println(titleFile);
+		
+		insertSpaceFiles(space, newSpaceNo);
+		
+		return newSpaceNo;
+	}
+	
+	@Override
+	public void insertSpaceFiles(Space space, int spaceNo) {
+
 //		이미지
 		for (SpaceFile file : space.getFiles()) {
-			file.setSpaceNo(newSpaceNo);
+			file.setSpaceNo(spaceNo);
+			System.out.println(file);
 			spaceRepository.insertSpaceFile(file);
-			//System.out.println(file);
+			System.out.println(file);
 		}
-		return newSpaceNo;
 	}
 	
 	@Override
@@ -143,10 +152,16 @@ System.out.println(space);
 	}
 
 	@Override
-	public SpaceFile findSpcaeFile(int spaceNo) {
+	public SpaceFile findSpaceFile(int spaceNo) {
 		SpaceFile file = spaceRepository.selectSpaceFile(spaceNo);
 		return file;
 
+	}
+	
+	@Override
+	public SpaceFile findSpaceFileBySpaceFileNo(int spaceFileNo) {
+		SpaceFile file = spaceRepository.selectSpaceFileBySpaceFileNo(spaceFileNo);
+		return file;
 	}
 
 	@Override
@@ -186,6 +201,42 @@ System.out.println(space);
 		review.setStep(parent.getStep() + 1);		
 		
 		spaceRepository.insertComment(review);
+	}
+
+	@Override
+	public void updateHost(Host host) {
+		spaceRepository.updateHost(host);
+		
+	}
+
+	@Override
+	public void updateSpace(Space space) {
+		spaceRepository.updateSpace(space);
+		
+	}
+
+	@Override
+	public void updateSpaceFile(SpaceFile file) {
+		spaceRepository.updateSpaceFile(file);
+		
+	}
+
+	@Override
+	public void deleteSpace(int spaceNo) {
+		spaceRepository.deleteSpace(spaceNo);
+		
+	}
+
+	@Override
+	public void deleteHost(int hostNo) {
+		spaceRepository.deleteHost(hostNo);
+		
+	}
+
+	@Override
+	public void deleteSpaceFile(int spaceFileNo) {
+		spaceRepository.deleteSpaceFile(spaceFileNo);
+		
 	}
 
 }

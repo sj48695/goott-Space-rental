@@ -21,18 +21,31 @@
 <div class="site-blocks-cover inner-page-cover overlay" data-aos="fade" data-stellar-background-ratio="0.5"
    style="background-image: url(/spacerental/resources/files/space-files/${host.file.savedFileName});"></div>
 
-
 <!-- 디테일 박스 -->
 <div class="site-section site-section-sm container">
    <div class="row">
       <div class="col-lg-8">
          <div class="bg-white property-body border-bottom border-left border-right border-top">
             <!-- 제목 -->
-            <div class="row mb-3">
-               <h1 class="text-black col-md-12"><b>${ host.name }</b><font size="4">   |   ${ host.type }</font></h1>
-            </div>
-            
-            <!-- 공간 이미지 -->
+				<div class="row mb-3">
+					<h1 class="text-black col-md-9">
+						<b>${ host.name }</b><font size="4"> | ${ host.type }</font>
+					</h1>
+					<%-- 로그인한 사용자와 글의 작성자가 같으면 삭제, 수정 버튼 활성화 --%>
+					<c:if test="${ loginuser.id eq host.hostId }">
+						<div>
+							<a class="btn btn-primary"
+								href="/spacerental/space/update_host/${ host.hostNo }"
+								role="button">수정</a> 
+							<a class="btn btn-danger"
+								href="/spacerental/space/delete_host/${ host.hostNo }"
+								role="button" onclick="return confirm('삭제하시겠습니까?');">삭제</a> 
+						</div>
+					</c:if>
+				</div>
+
+
+				<!-- 공간 이미지 -->
             <div class="slide-one-item home-slider owl-carousel">
                <c:forEach var="file" items="${ host.files }">
                <img src="/spacerental/resources/files/space-files/${ file.savedFileName }" style="width:668px;height:400px;" class="img-fluid">
@@ -121,77 +134,26 @@
 						<label class="custom-control-label" for="space${ space.spaceNo }">
 							${ space.spaceName }
 						</label>
+						<%-- 로그인한 사용자와 글의 작성자가 같으면 삭제, 수정 버튼 활성화 --%>
+					<c:if test="${ loginuser.id eq host.hostId }">
+						<div>
+							<a class="btn btn-primary btn-sm"
+								href="/spacerental/space/updatespace/${ space.spaceNo }"
+								role="button">수정</a> 
+							<a class="btn btn-danger btn-sm"
+									href="/spacerental/space/deletespace/${ space.spaceNo }"
+									role="button" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
+						</div>
+					</c:if>
 					</div>
 					</c:forEach>	
 					<div class="form-group">
-						<input type="submit" id="btn" class="btn btn-primary" value="예약 신청하기">
+						<input type="submit" id="btn" class="btn btn-primary" value="${ loginuser.type eq 'host' ? '상세공간보기' : '예약신청하기'}">
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
-   
-   
-<!-- <footer class="site-footer">
-   <div class="container">
-      <div class="row">
-         <div class="col-lg-4">
-            <div class="mb-5">
-               <h3 class="footer-heading mb-4">About Homeland</h3>
-               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Saepe pariatur reprehenderit vero atque, consequatur id ratione,
-                  et non dignissimos culpa? Ut veritatis, quos illum totam quis
-                  blanditiis, minima minus odio!</p>
-            </div>
-         </div>
-         <div class="col-lg-4 mb-5 mb-lg-0">
-            <div class="row mb-5">
-               <div class="col-md-12">
-                  <h3 class="footer-heading mb-4">Navigations</h3>
-               </div>
-               <div class="col-md-6 col-lg-6">
-                  <ul class="list-unstyled">
-                     <li><a href="#">Home</a></li>
-                     <li><a href="#">Buy</a></li>
-                     <li><a href="#">Rent</a></li>
-                     <li><a href="#">Properties</a></li>
-                  </ul>
-               </div>
-               <div class="col-md-6 col-lg-6">
-                  <ul class="list-unstyled">
-                     <li><a href="#">About Us</a></li>
-                     <li><a href="#">Privacy Policy</a></li>
-                     <li><a href="#">Contact Us</a></li>
-                     <li><a href="#">Terms</a></li>
-                  </ul>
-               </div>
-            </div>
-         </div>
-         <div class="col-lg-4 mb-5 mb-lg-0">
-            <h3 class="footer-heading mb-4">Follow Us</h3>
-            <div>
-               <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
-               <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
-               <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
-               <a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
-            </div>
-         </div>
-      </div>
-      <div class="row pt-5 mt-5 text-center">
-         <div class="col-md-12">
-            <p>
-               Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. Copyright &copy;
-               <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-               <script>document.write(new Date().getFullYear());</script>
-               All rights reserved | This template is made with 
-               <i class="icon-heart text-danger" aria-hidden="true"></i> by 
-               <a href="https://colorlib.com" target="_blank">Colorlib</a> Link
-               back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
-            </p>
-         </div>
-      </div>
-   </div>
-</footer> -->
 
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />

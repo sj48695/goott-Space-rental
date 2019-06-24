@@ -25,7 +25,7 @@
         <div class="container">
           <div class="row align-items-center justify-content-center text-center">
             <div class="col-md-10">
-              <span class="d-inline-block bg-success text-white px-3 mb-3 property-offer-type rounded">OUR SPACE</span>
+      <span class="d-inline-block bg-success text-white px-3 mb-3 property-offer-type rounded">OUR SPACE</span>
               <h1 class="mb-2">CAFE</h1>
               <p class="mb-5"><strong class="h2 text-success font-weight-bold"></strong></p>
               <p><a href="#" class="btn btn-white btn-outline-white py-3 px-5 rounded-0 btn-2">SEE DETAILS</a></p>

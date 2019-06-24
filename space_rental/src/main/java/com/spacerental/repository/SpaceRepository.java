@@ -37,15 +37,34 @@ public interface SpaceRepository {
 	Space selectSpaceBySpaceNo(int spaceNo);
 
 	ArrayList<Host> searchspaceList(String value);
+	
 	ArrayList<Host> searchaddList(String value);
 
 	ArrayList<Host> searchPCList();
+	
 	ArrayList<Host> searchBeamList();
+	
 	ArrayList<Host> searchWifiList();
+	
 	ArrayList<Host> searchTenlessList();
+	
 	ArrayList<Host> searchTenmoreList();
 
 	SpaceFile selectSpaceFile(int spaceNo);
+	
+	SpaceFile selectSpaceFileBySpaceFileNo(int spaceFileNo);
+	
+	void updateHost(Host host);
+	
+	void updateSpace(Space space);
+	
+	void updateSpaceFile(SpaceFile file);
+	
+	void deleteSpace(int spaceNo);
+	
+	void deleteHost(int hostNo);
+	
+	void deleteSpaceFile(int spaceFileNo);
 
 	List<Rent> selectRentsBySpaceNo(int spaceNo, Date rentDate);
 	void insertReview(Review review);

@@ -18,7 +18,7 @@
 	</select>
 	
 	<select id="selectHostList" parameterType="String" resultType="Host">
-		select name, content, type, address, parking, hostNo, hostId, holiday, openStart, openEnd
+		select name, content, type, address, parking, hostNo, hostId, holiday, openStart, openEnd, ok
 		from Host
 		where hostId = #{ hostId }
 	</select>

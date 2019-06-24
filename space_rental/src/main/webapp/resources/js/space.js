@@ -39,12 +39,30 @@ $(function () {
 	});
 
 	$("#updateForm").on("change", "#titleImgFile", function (event) {
-		readURL(this, $(".inner_img"));
+		$(".inner_img").empty();
+	    readURL(this, $(".inner_img"));
 	});
 	$("#updateForm").on("change", "#imgFile", function (event) {
-		readURL(this, $(".inner_imgs"));
+	    readURL(this, $(".inner_imgs"));
 	});
 
+	//이미지 삭제
+	$('.img-wrap .close').on('click', function() {
+		var spaceFileNo = $(this).attr('data-fileNo');
+		var deleteBtn = $(this).parent().parent();
+		$.ajax({
+			url: "/spacerental/space/delete-file",
+			method: "GET",
+			data: {"spaceFileNo" : spaceFileNo },
+			success: function(data, status, xhr){
+				deleteBtn.remove();
+			},
+			error: function(xhr, status, err){
+				alert('삭제 실패');
+			}
+		});
+	   
+	});
 	/* ----------- textCount ---------- */
 	$("#space_name").keyup(function (e) {
 		var content = $(this).val();

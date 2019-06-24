@@ -36,9 +36,12 @@ public interface SpaceService {
 	Space findSpaceBySpaceNo(int spaceNo);
 
 	List<Host> searchspacelist(String value);
+	
 	List<Host> searchaddlist(String value);
 
-	SpaceFile findSpcaeFile(int hostNo);
+	SpaceFile findSpaceFile(int hostNo);
+	
+	SpaceFile findSpaceFileBySpaceFileNo(int spaceFileNo);
 
 	ArrayList<Rent> findRentsBySpaceNo(int spaceNo, Date rentDate);
 	
@@ -47,6 +50,20 @@ public interface SpaceService {
 	List<Host> wifilist();
 	List<Host> tenlesslist();
 	List<Host> tenmore();
+	
+	void updateHost(Host host);
+	
+	void updateSpace(Space space);
+
+	void updateSpaceFile(SpaceFile file);
+	
+	void deleteSpace(int spaceNo);
+	
+	void deleteHost(int hostNo);
+	
+	void deleteSpaceFile(int spaceFileNo);
+
+	void insertSpaceFiles(Space space, int spaceNo);
 
 	void writeReview(Review review);
 

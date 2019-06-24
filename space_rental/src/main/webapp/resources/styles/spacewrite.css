@@ -4394,10 +4394,10 @@ table caption.blind {
 }
 
 .fileImg {
-	width: 200px;
-	height: 200px;
-	margin-right: 16px;
-	margin-bottom: 16px;
+   width: 200px;
+   height: 200px;
+   margin-right: 16px;
+   margin-bottom: 16px;
 }
 
 .file .btn_box {

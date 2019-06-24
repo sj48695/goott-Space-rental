@@ -25,7 +25,13 @@
 	<select id="selectSpaceFilesBySpaceNo" parameterType="int" resultType="SpaceFile">
 		select <include refid="spaceFileBasicColumns"/> 
 		from spacefile
-		where spaceno = #{ spaceNo } 
+		where spaceno = #{ spaceNo } and flag = 0
+	</select>
+	
+	<select id="selectSpaceFileBySpaceFileNo" parameterType="int" resultType="SpaceFile">
+		select <include refid="spaceFileBasicColumns"/>  
+		from spacefile
+		where spacefileno = #{ spaceFileNo }
 	</select>
 	
 	<select id="selectSpacesByHostNo" parameterType="int" resultType="Space">
@@ -71,6 +77,35 @@
 		)
 	</insert>
 	
+	<update id="updateSpace" parameterType="Space">
+		update space
+		set spaceName = #{ spaceName }
+			, content = #{ content }
+			, maximum = #{ maximum }
+			, bim = #{ bim }
+			, smoking = #{ smoking }
+			, food = #{ food }
+			, wifi = #{ wifi }
+			, computer = #{ computer }
+		where spaceNo = #{ spaceNo }
+	</update>
+	
+	<update id="updateSpaceFile" parameterType="SpaceFile">
+		update spacefile
+		set savedFileName = #{ savedFileName }
+		where spaceNo = #{ spaceNo } and flag = 1
+	</update>
+	
+	<delete id="deleteSpace" parameterType="int">
+		delete from space
+		where spaceNo = #{ spaceNo }
+	</delete>
+	
+	<delete id="deleteSpaceFile" parameterType="int">
+		delete from spacefile
+		where spaceFileNo = #{ spaceFileNo }
+	</delete>
+
 	<!-- =========================================
 						Review 
 	============================================= -->

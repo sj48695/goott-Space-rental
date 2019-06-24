@@ -33,8 +33,13 @@ public interface HostMapper {
 	List<Host> searchWifilist();
 	List<Host> searchTenlesslist();
 	List<Host> searchTenmorelist();
+	
+	void updateHost(Host host);
+	
+	void deleteHost(int hostNo);
+
+	void deleteSpaceByHostNo(int hostNo);
 
 	ArrayList<Host> selectHostById(String id);
-
 
 }

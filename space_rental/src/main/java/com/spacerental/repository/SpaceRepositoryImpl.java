@@ -176,6 +176,14 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 	@Override
 	public SpaceFile selectSpaceFile(int spaceNo) {
 		SpaceFile file = spaceMapper.selectSpaceFile(spaceNo);
+
+		System.out.println(file);
+		return file;
+	}
+	
+	@Override
+	public SpaceFile selectSpaceFileBySpaceFileNo(int spaceFileNo) {
+		SpaceFile file = spaceMapper.selectSpaceFileBySpaceFileNo(spaceFileNo);
 		return file;
 	}
 	
@@ -223,6 +231,43 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 //		List<Rent> rents = rentMapper.selectRentsBySpaceNo(spaceNo);
 //		System.out.println(rents);
 //		return rents;
+
+	}
+
+	@Override
+	public void updateHost(Host host) {
+		hostMapper.updateHost(host);
+		
+	}
+
+	@Override
+	public void updateSpace(Space space) {
+		spaceMapper.updateSpace(space);
+		
+	}
+
+	@Override
+	public void updateSpaceFile(SpaceFile file) {
+		spaceMapper.updateSpaceFile(file);
+		
+	}
+
+	@Override
+	public void deleteSpace(int spaceNo) {
+		spaceMapper.deleteSpace(spaceNo);
+		
+	}
+
+	@Override
+	public void deleteHost(int hostNo) {
+		hostMapper.deleteHost(hostNo);
+		hostMapper.deleteSpaceByHostNo(hostNo);
+		
+	}
+
+	@Override
+	public void deleteSpaceFile(int spaceFileNo) {
+		spaceMapper.deleteSpaceFile(spaceFileNo);
 	}
 
 	@Override

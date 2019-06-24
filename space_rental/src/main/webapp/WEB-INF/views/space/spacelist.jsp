@@ -1,40 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
-
-<style>
-
-.d3 {background: #F9F0DA;}
-.d3 form {
-  background: #A3D0C3;
-}
-.d3 input, .d3 button {
-  border: none;
-  outline: none;
-  background: transparent;
-}
-.d3 input {
-  width: 100%;
-  height: 42px;
-  padding-left: 15px;
-}
-.d3 button {
-  height: 42px;
-  width: 42px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  cursor: pointer;
-}
-.d3 button:before {
-  content: "\f002";
-  font-family: FontAwesome;
-  font-size: 16px;
-  color: #F9F0DA;
-}
-
-</style>
+<c:set var="nav" value="space" scope="request"/>
+<c:set var="title" value="장소리스트" scope="request"/>
+<jsp:include page="/WEB-INF/views/include/header.jsp" />
 
 <div class="site-loader"></div>
   
@@ -52,37 +21,59 @@
 
     <div class="slide-one-item home-slider owl-carousel">
 
-      <div class="site-blocks-cover overlay" style="background-image: url(/spacerental/resources/space/images/hero_bg_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+      <div class="site-blocks-cover overlay" style="background-image: url(/spacerental/resources/images/cafebg.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center justify-content-center text-center">
             <div class="col-md-10">
-             	
+      <span class="d-inline-block bg-success text-white px-3 mb-3 property-offer-type rounded">OUR SPACE</span>
+              <h1 class="mb-2">CAFE</h1>
+              <p class="mb-5"><strong class="h2 text-success font-weight-bold"></strong></p>
+              <p><a href="#" class="btn btn-white btn-outline-white py-3 px-5 rounded-0 btn-2">SEE DETAILS</a></p>
             </div>
           </div>
         </div>
       </div>  
 
-      <div class="site-blocks-cover overlay" style="background-image: url(/spacerental/resources/space/images/hero_bg_2.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+      <div class="site-blocks-cover overlay" style="background-image: url(/spacerental/resources/images/partyroombg.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center justify-content-center text-center">
             <div class="col-md-10">
-              <span class="d-inline-block bg-danger text-white px-3 mb-3 property-offer-type rounded">For Sale</span>
-              <h1 class="mb-2">625 S. Berendo St</h1>
-              <p class="mb-5"><strong class="h2 text-success font-weight-bold">$1,000,500</strong></p>
-              <p><a href="#" class="btn btn-white btn-outline-white py-3 px-5 rounded-0 btn-2">See Details</a></p>
+              <span class="d-inline-block bg-danger text-white px-3 mb-3 property-offer-type rounded">OUR SPACE</span>
+              <h1 class="mb-2">PARTY ROOM</h1>
+              <p class="mb-5"><strong class="h2 text-success font-weight-bold"></strong></p>
+              <p><a href="#" class="btn btn-white btn-outline-white py-3 px-5 rounded-0 btn-2">SEE DETAILS</a></p>
             </div>
           </div>
         </div>
       </div>  
+      
+      <div class="site-blocks-cover overlay" style="background-image: url(/spacerental/resources/images/conf2.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+        <div class="container">
+          <div class="row align-items-center justify-content-center text-center">
+            <div class="col-md-10">
+              <span class="d-inline-block bg-danger text-white px-3 mb-3 property-offer-type rounded">OUR SPACE</span>
+              <h1 class="mb-2">CONFERENCE ROOM</h1>
+              <p class="mb-5"><strong class="h2 text-success font-weight-bold"></strong></p>
+              <p><a href="#" class="btn btn-white btn-outline-white py-3 px-5 rounded-0 btn-2">SEE DETAILS</a></p>
+            </div>
+          </div>
+        </div>
+      </div> 
+      
+      <div class="site-blocks-cover overlay" style="background-image: url(/spacerental/resources/images/study.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+        <div class="container">
+          <div class="row align-items-center justify-content-center text-center">
+            <div class="col-md-10">
+              <span class="d-inline-block bg-danger text-white px-3 mb-3 property-offer-type rounded">OUR SPACE</span>
+              <h1 class="mb-2">STUDY ROOM</h1>
+              <p class="mb-5"><strong class="h2 text-success font-weight-bold"></strong></p>
+              <p><a href="#" class="btn btn-white btn-outline-white py-3 px-5 rounded-0 btn-2">SEE DETAILS</a></p>
+            </div>
+          </div>
+        </div>
+      </div> 
 
     </div>
-    
-  		<!-- <div class="d3 container">
-			<form>
-			  <input type="text" placeholder="검색어 입력">
-			  <button type="submit"></button>
-			</form>
-		</div> -->
     
 	<form class="form-inline offset-9 px-5 py-3" action="/spacerental/space/spacelist" method="get" >
 		<select name="type" class="form-control" id="type_form">
@@ -123,7 +114,7 @@
 			</c:forEach>
 		</div>
 
-		<div class="container offset-md-5" id="paginationBox">
+		<div class="container row justify-content-center" id="paginationBox">
 			<ul class="pagination">
 				<c:if test="${pagination.prev}">
 					<li class="page-item"><a class="page-link" href="#"

@@ -27,7 +27,7 @@ public class AccountController {
 	public String showLoginForm() {
 		return "account/login";
 	}
-	
+
 	@RequestMapping(path = "/login", method = RequestMethod.POST)
 	public String login(String id, String passwd, HttpSession session) {
 
@@ -35,19 +35,19 @@ public class AccountController {
 
 		if (member != null) {
 			session.setAttribute("loginuser", member);
-			return "redirect:/"; 			
+			return "redirect:/";
 		} else {
-			return "account/login";			
+			return "account/login";
 		}
-		
+
 	}
-	
+
 	@RequestMapping(path = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
-		
+
 		session.removeAttribute("loginuser");
 		return "redirect:/";
-		
+
 	}
 
 	@RequestMapping(path = "/register", method = RequestMethod.GET)
@@ -60,13 +60,5 @@ public class AccountController {
 		memberService.insertMember(member);
 		return "redirect:/account/login";
 	}
-	
-	/*
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping(path = "/idCheck", method = RequestMethod.POST) public int
-	 * idCheck(@RequestParam("id") String id) { return
-	 * memberService.userIdCheck(id); }
-	 */
 
 }

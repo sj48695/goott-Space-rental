@@ -2,7 +2,7 @@
 <%@ page session="false" language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import ="com.spacerental.vo.Lose" %>
 <%@ page import ="com.spacerental.vo.LoseFile" %>
-	     
+<c:set var="nav" value="lose" scope="request"/>
 <c:set var="title" value="상세보기" scope="request" />
 <jsp:include page="/WEB-INF/views/include/header.jsp" /> 
 <!-- lose -->
@@ -35,7 +35,9 @@
 			</script>
 
 			<section id="bo_v_atc">
+
 				<h2 id="bo_v_atc_title">본문</h2>
+
 				<h5>
 					<div class="contents">
 						<div class="pageSection">
@@ -154,7 +156,7 @@
 						<a class="btn_b01 btn" id="delete">
 						<i class="fa fa-trash-o" aria-hidden="true"></i>삭제</a>
 						</c:if>
-						<a class="btn_b01 btn" id="loselist">
+						<a href="/spacerental/loseview/loselist/${ lose.type }" class="btn_b01 btn" id="loselist">
 						<i class="fa fa-list" aria-hidden="true"></i>목록</a>
 					</li>
 				</ul>
@@ -180,7 +182,6 @@
 <script src="http://sample.paged.kr/purewhite/theme/pagedtheme/plugin/featherlight/featherlight.min.js"></script>
 <!-- 현재위치 및 서브메뉴 활성화 설정// -->
 <script>
-
 window.addEventListener('load', function(event) {
 	var btnUpdate = document.querySelector('#update');
 	btnUpdate.addEventListener('click', function(event) {
@@ -200,7 +201,6 @@ window.addEventListener('load', function(event) {
 		location.href="/spacerental/loseview/loselist/${lose.type}";
 	});
 });
-
 $(function(){$('.snb.bo_tablebasic, .snb .snb2d_bo_tablebasic').addClass('active');});
 $(document).ready(function(){ 
 	if ( $("#snb > li").is(".snb.active") ) {

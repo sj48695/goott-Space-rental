@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" language="java" contentType="text/html; charset=utf-8"
 	     pageEncoding="utf-8"%>
-
+<c:set var="nav" value="lose" scope="request"/>
 <c:set var="title" value="분실물찾기" scope="request" />
 <jsp:include page="/WEB-INF/views/include/header.jsp" /> 
 
@@ -45,13 +45,16 @@
 						<div>분실물 찾기 게시판입니다.</div>
 							<br>
 							<br>
-						<div>공간 사용시 발생한 분실물을 찾을 수 있는 게시판입니다 .</div>
+						<div>공간 사용시 발생한 분실물을 찾을 수 있는 게시판입니다.</div>
+							<br>
+							<br>
+						<div>분실물을 잃어버린 경우 찾아주세요에 등록하세요.</div>
 							<br>
 							<br>
 						<div>분실물을 습득한 경우 찾아가세요에 등록하세요.</div>
+						<br>
 							<br>
-							<br>
-						<div>분실물을 잃어버린 경우 찾아주세요에 등록하세요</div>
+						<div>*분실일 및 공간번호를 올바르게 입력하시기 바랍니다.</div>
 					</div>
 				</h1>
 				<!-- } 본문 내용 끝 -->

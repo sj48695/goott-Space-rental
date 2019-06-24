@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" language="java" contentType="text/html; charset=utf-8"
 	     pageEncoding="utf-8"%>
-	     
+<c:set var="nav" value="lose" scope="request"/>
 <c:set var="title" value="분실물찾기" scope="request" />
 <jsp:include page="/WEB-INF/views/include/header.jsp" /> 
 <!-- lose -->
@@ -39,10 +39,21 @@
 				<input type="text" name="uploader" id="wr_uploader" class="frm_input uploader " placeholder="작성자" value="${ loginuser.id }">
 				
 				<label for="wr_date" class="sound_only">분실일자</label> 
-				<input type="date" name="loseDate" id="wr_date" class="frm_input date " placeholder="분실일자" required> 
+				<input type="date" name="loseDate" id="wr_date" class="frm_input date " placeholder="분실일자">&nbsp; &nbsp; 
+ 				
+				<c:if test="${ loginuser.type eq 'customer' && type eq '분실물' }">
+				<c:forEach var="rent" items="${ rents }">
+					<input type="radio" name="hostNo" value="${ rent.hostNo }">${ rent.spaceName }
+				</c:forEach>
+				</c:if>
 				
-				<label for="wr_roomno" class="sound_only">방 번호</label>
-				<input type="text" name="spaceNo" id="wr_type" class="frm_input type " placeholder="방번호">
+				<c:if test="${ loginuser.type eq 'host' && type eq '습득물' }">
+				<c:forEach var="host" items="${ hosts }">
+					<input type="radio" name="hostNo" value="${ host.hostNo }">${ host.name }
+				</c:forEach>
+				</c:if>
+				
+				<%-- <input type="text" name="rentList" id="rentList" class="frm_input rentList" style="width: 64%;" placeholder="예약정보" value="${ rent.rentDate }"> --%>
 			</div>
 			<br>
 			<div class="bo_w_tit write_div">

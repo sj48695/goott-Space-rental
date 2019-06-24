@@ -15,11 +15,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter { // class 상속
 		
 		String uri = req.getRequestURI();
 		
-		if (uri.contains("/write/")|| uri.contains("/rent") || uri.contains("/register_host") || uri.contains("/losewrite") || uri.contains("/findwrite") || uri.contains("/loseupdate/") || uri.contains("/noticewrite")) {
+		if (uri.contains("/write/") || uri.contains("/spaceupdate") || uri.contains("/rent") || uri.contains("/register_host") || uri.contains("/update_host")
+				|| uri.contains("/losewrite") || uri.contains("/findwrite") || uri.contains("/loseupdate/")
+				|| uri.contains("/noticewrite") || uri.contains("/mypage/")) {
 			HttpSession session = req.getSession();
-			if (session.getAttribute("loginuser") == null) {//로그인하지 않은 경우				
+			if (session.getAttribute("loginuser") == null) {// 로그인하지 않은 경우
 				resp.sendRedirect("/spacerental/account/login");
-				return false; //컨트롤러 호출 취소
+				return false; // 컨트롤러 호출 취소
 			}
 		}
 		return true; // 정상적으로 컨트롤러 호출

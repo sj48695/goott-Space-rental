@@ -14,9 +14,8 @@
 		<typeAlias type="com.spacerental.vo.Lose" alias="Lose" />
 		<typeAlias type="com.spacerental.vo.LoseFile" alias="LoseFile" />
 		<typeAlias type="com.spacerental.vo.Rent" alias="Rent" />
-		<typeAlias type="com.spacerental.vo.Rent" alias="Rent" />
+		<typeAlias type="com.spacerental.vo.Review" alias="Review" />
 		<typeAlias type="com.spacerental.common.Pagination" alias="Pagination" />
-		
 	</typeAliases>
 
 	<environments default="development">

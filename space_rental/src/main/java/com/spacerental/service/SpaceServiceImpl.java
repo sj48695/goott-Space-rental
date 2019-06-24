@@ -1,10 +1,8 @@
 package com.spacerental.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.support.TransactionTemplate;
 
 import com.spacerental.common.Pagination;
 import com.spacerental.repository.SpaceRepository;
@@ -12,6 +10,7 @@ import com.spacerental.vo.Host;
 import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
+import com.spacerental.vo.Review;
 
 public class SpaceServiceImpl implements SpaceService {
 
@@ -27,8 +26,9 @@ public class SpaceServiceImpl implements SpaceService {
 
 	@Override
 	public Integer registerSpaceTx(Space space) {
-
+System.out.println(space);
 		int newSpaceNo = spaceRepository.insertSpace(space);
+		System.out.println(space);
 		
 //		대표이미지
 		SpaceFile titleFile = space.getFile();
@@ -165,9 +165,42 @@ public class SpaceServiceImpl implements SpaceService {
 	}
 
 	@Override
-	public List<Rent> findRentsBySpaceNo(int spaceNo) {
-		List<Rent> rents = spaceRepository.selectRentsBySpaceNo(spaceNo);
-		return rents;
+	public ArrayList<Rent> findRentsBySpaceNo(int spaceNo, Date rentDate) {
+		List<Rent> rents = spaceRepository.selectRentsBySpaceNo(spaceNo, rentDate);
+		return (ArrayList<Rent>) rents;
+	}
+
+	@Override
+	public void writeReview(Review review) {
+		spaceRepository.insertReview(review);
+	}
+
+	@Override
+	public void deleteReview(int reviewNo) {
+		spaceRepository.deleteReview(reviewNo);
+	}
+
+	@Override
+	public void updateReview(Review review) {
+		spaceRepository.updateReview(review);		
+	}
+
+	@Override
+	public List<Review> findReviewListBySpaceNo(int spaceNo) {
+		List<Review> reviews = spaceRepository.selectReviewsBySpaceNo(spaceNo);
+		return reviews;
+	}
+	@Override
+	public void writeComment(Review review) {		
+		
+		Review parent = spaceRepository.selectReviewByReviewNo(review.getReviewNo());
+		spaceRepository.updateReviewStep(parent);
+		
+		review.setGroupNo(parent.getGroupNo());
+		review.setDepth(parent.getDepth() + 1);
+		review.setStep(parent.getStep() + 1);		
+		
+		spaceRepository.insertComment(review);
 	}
 
 	@Override

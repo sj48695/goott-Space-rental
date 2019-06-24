@@ -15,8 +15,8 @@
 		<selectKey keyColumn="loseNo" keyProperty="loseNo" order="AFTER" resultType="int">
 			SELECT LOSE_SEQUENCE.CURRVAL FROM DUAL 
 		</selectKey>
-		INSERT INTO LOSE(LOSENO, TITLE, CONTENT, LOSEDATE, SPACENO, TYPE, UPLOADER)
-		VALUES ( LOSE_SEQUENCE.NEXTVAL , #{ title }, #{ content }, #{ loseDate }, #{ spaceNo }, #{ type }, #{ uploader })
+		INSERT INTO LOSE(LOSENO, TITLE, CONTENT, LOSEDATE, hostNo, TYPE, UPLOADER)
+		VALUES ( LOSE_SEQUENCE.NEXTVAL , #{ title }, #{ content }, #{ loseDate }, #{ hostNo }, #{ type }, #{ uploader })
 	</insert>
 	
 	<insert id="registerloseFile" parameterType="LoseFile">
@@ -25,21 +25,21 @@
 	</insert>
 	
 	<!-- <select id="findList" resultType="Lose">
-		SELECT loseNo, title, content, loseDate, spaceNo, type, uploader
+		SELECT loseNo, title, content, loseDate, hostNo, type, uploader
 		FROM LOSE 
 		WHERE TYPE= #{  }
         ORDER BY loseNo ASC
 	</select> -->
 	
 	<select id="loseList" resultType="Lose" parameterType="String">
-		SELECT loseNo, title, content, loseDate, spaceNo, type, uploader
+		SELECT loseNo, title, content, loseDate, hostNo, type, uploader
 		FROM LOSE 
 		WHERE TYPE= #{ type }
         ORDER BY loseNo ASC
 	</select>
 	
  	<select id="selectLoseByLoseNo" parameterType="int" resultType="Lose">
-		SELECT LOSENO, TITLE, CONTENT, LOSEDATE, SPACENO, TYPE, UPLOADER
+		SELECT LOSENO, TITLE, CONTENT, LOSEDATE, hostNo, TYPE, UPLOADER
 		FROM LOSE
         where loseNo = #{ loseNo }
 	</select>
@@ -73,7 +73,7 @@
 	</select>
 
 	<select id="searchlosslist" parameterType="String" resultType="Lose">
-		SELECT loseNo, title, content, loseDate, spaceNo, type, uploader
+		SELECT loseNo, title, content, loseDate, hostNo, type, uploader
 		FROM LOSE 
         where  title LIKE '%'||#{ value }||'%' and type LIKE'습득물'
         ORDER BY loseNo DESC

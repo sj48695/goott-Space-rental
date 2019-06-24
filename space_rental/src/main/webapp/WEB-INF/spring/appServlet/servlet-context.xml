@@ -27,9 +27,10 @@
 				
 	<interceptors>
 		<interceptor>
-			<mapping path="/space/**" />  <!-- ** 두개 써줘야 하위경로 전체를 가져온다 -->
+			<mapping path="/space/**" /> <!-- ** 두개 써줘야 하위경로 전체를 가져온다 -->
 			<mapping path="/loseview/**" />
 			<mapping path="/noticeview/**" />
+			<mapping path="/mypage/**" /> 
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 	</interceptors>

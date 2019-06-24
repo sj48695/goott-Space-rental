@@ -4374,7 +4374,7 @@ table caption.blind {
 
 @media ( min-width :768px) {
 	.file .inner {
-		padding: 16px 16px 0;
+		padding: 16px 16px 16px;
 		min-height: 50px;
 		font-size: 16px;
 		line-height: 19px

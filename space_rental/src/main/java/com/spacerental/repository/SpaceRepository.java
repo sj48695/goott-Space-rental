@@ -1,6 +1,7 @@
 package com.spacerental.repository;
 
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 import com.spacerental.common.Pagination;
@@ -8,6 +9,7 @@ import com.spacerental.vo.Host;
 import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
+import com.spacerental.vo.Review;
 
 public interface SpaceRepository {
 
@@ -51,8 +53,6 @@ public interface SpaceRepository {
 	SpaceFile selectSpaceFile(int spaceNo);
 	
 	SpaceFile selectSpaceFileBySpaceFileNo(int spaceFileNo);
-
-	List<Rent> selectRentsBySpaceNo(int spaceNo);
 	
 	void updateHost(Host host);
 	
@@ -65,5 +65,14 @@ public interface SpaceRepository {
 	void deleteHost(int hostNo);
 	
 	void deleteSpaceFile(int spaceFileNo);
+
+	List<Rent> selectRentsBySpaceNo(int spaceNo, Date rentDate);
+	void insertReview(Review review);
+	void deleteReview(int reviewNo);
+	void updateReview(Review review);
+	List<Review> selectReviewsBySpaceNo(int spaceNo);
+	Review selectReviewByReviewNo(int reviewNo);
+	void updateReviewStep(Review parent);
+	void insertComment(Review review);
 
 }

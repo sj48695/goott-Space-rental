@@ -5,22 +5,46 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.spacerental.mapper.HostMapper;
 import com.spacerental.mapper.LoseMapper;
+import com.spacerental.mapper.RentMapper;
+import com.spacerental.vo.Host;
 import com.spacerental.vo.Lose;
 import com.spacerental.vo.LoseFile;
-import com.spacerental.vo.Member;
-import com.spacerental.vo.Notice;
 
 @Service("loseRepository")
 public class LoseRepositoryImpl implements LoseRepository {
 	
 	private LoseMapper loseMapper;
+
 	public LoseMapper getLoseMapper() {
 		return loseMapper;
 	}
+
 	public void setLoseMapper(LoseMapper loseMapper) {
 		this.loseMapper = loseMapper;
 	}
+
+	private RentMapper rentMapper;
+
+	public RentMapper getRentMapper() {
+		return rentMapper;
+	}
+
+	public void setRentMapper(RentMapper rentMapper) {
+		this.rentMapper = rentMapper;
+	}
+	
+	private HostMapper hostMapper;
+
+	public HostMapper getHostMapper() {
+		return hostMapper;
+	}
+
+	public void setHostMapper(HostMapper hostMapper) {
+		this.hostMapper = hostMapper;
+	}
+
 	@Override
 	public void insertLose(Lose lose) {
 		loseMapper.insertLose(lose);
@@ -101,5 +125,18 @@ public class LoseRepositoryImpl implements LoseRepository {
 		List<Lose> loses = loseMapper.searchlosslist(value);
 		return (ArrayList<Lose>)loses;
 	}
+
+	@Override
+	public ArrayList<Host> selectHostNoById(String id) {
+		ArrayList<Host> hostNos = hostMapper.selectHostById(id);
+		return hostNos;
+	}
+	
+//	@Override
+//	public List<Rent> selectrentList(String id) {
+//		List<Rent> rent = rentMapper.selectrentList(id);
+//		return rent;
+//	}
+
 
 }

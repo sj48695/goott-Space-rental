@@ -1,5 +1,6 @@
 package com.spacerental.mapper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,5 +40,6 @@ public interface HostMapper {
 
 	void deleteSpaceByHostNo(int hostNo);
 
+	ArrayList<Host> selectHostById(String id);
 
 }

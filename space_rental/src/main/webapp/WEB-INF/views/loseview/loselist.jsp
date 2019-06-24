@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" language="java" contentType="text/html; charset=utf-8"
 	     pageEncoding="utf-8"%>
-	     
+<c:set var="nav" value="lose" scope="request"/>
 <c:set var="title" value="분실물찾기" scope="request" />
 <jsp:include page="/WEB-INF/views/include/header.jsp" /> 
 <!-- lose -->
@@ -52,7 +52,7 @@
 							<div class="mvInlineN">번호</div>
 							<div>제목</div>
 							<div class="mvInlineN">작성자</div>
-							<div class="mvInlineN">분실일</div>
+							<div class="mvInlineN" style="width: 100px;">분실일</div>
 							<div class="mvInlineN">유형</div>
 						</li>
 						<li class="bo_notice likeTblTr likeTblTd">

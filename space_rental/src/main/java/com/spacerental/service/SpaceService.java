@@ -1,5 +1,7 @@
 package com.spacerental.service;
 
+import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 import com.spacerental.common.Pagination;
@@ -7,6 +9,7 @@ import com.spacerental.vo.Host;
 import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
+import com.spacerental.vo.Review;
 
 public interface SpaceService {
 	
@@ -40,7 +43,7 @@ public interface SpaceService {
 	
 	SpaceFile findSpaceFileBySpaceFileNo(int spaceFileNo);
 
-	List<Rent> findRentsBySpaceNo(int spaceNo);
+	ArrayList<Rent> findRentsBySpaceNo(int spaceNo, Date rentDate);
 	
 	List<Host> computerlist();
 	List<Host> beamprojectlist();
@@ -61,5 +64,15 @@ public interface SpaceService {
 	void deleteSpaceFile(int spaceFileNo);
 
 	void insertSpaceFiles(Space space, int spaceNo);
+
+	void writeReview(Review review);
+
+	List<Review> findReviewListBySpaceNo(int spaceNo);
+
+	void deleteReview(int reviewNo);
+
+	void updateReview(Review review);
+
+	void writeComment(Review review);
 
 }

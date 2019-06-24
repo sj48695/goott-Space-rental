@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" language="java" contentType="text/html; charset=utf-8"
 	     pageEncoding="utf-8"%>
-	     
+<c:set var="nav" value="lose" scope="request"/>
 <c:set var="title" value="분실물찾기" scope="request" />
 <jsp:include page="/WEB-INF/views/include/header.jsp" /> 
 <!-- lose -->
@@ -69,7 +69,7 @@
 					<label for="bf_file_1" class="lb_icon"><i class="fa fa-download" aria-hidden="true"></i>
 					<span class="sound_only">파일</span></label> 
 					<input type="file" name="attach" class="frm_file "
-						id="bf_file_1" title="파일첨부 1 : 용량 1,048,576 바이트 이하만 업로드 가능">
+						id="bf_file_1" title="파일첨부 1 : 용량 1,048,576 바이트 이하만 업로드 가능" value="${ files.savedFileName }"/>
 				</div>
 			</div>
 			<div class="btn_confirm write_div">

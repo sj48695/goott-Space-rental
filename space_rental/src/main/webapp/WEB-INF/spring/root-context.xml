@@ -113,6 +113,8 @@
 	<bean id="loseRepository"
 		class="com.spacerental.repository.LoseRepositoryImpl">
 		<property name="loseMapper" ref="loseMapper" />
+		<property name="rentMapper" ref="rentMapper" />
+		<property name="hostMapper" ref="hostMapper" />
 	</bean>
 	
 	<bean id="loseService"

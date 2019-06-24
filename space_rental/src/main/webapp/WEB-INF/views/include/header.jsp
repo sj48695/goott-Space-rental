@@ -65,13 +65,13 @@
 				<div class="header_right d-flex flex-row align-items-center justify-content-start ml-auto">
 					<nav class="main_nav">
 						<ul class="d-flex flex-row align-items-center justify-content-start">
-							<li class="active"><a href="/spacerental/aboutusview/aboutus">About Us</a></li>
-							<li><a href="/spacerental/space/spacelist">장소</a></li>
-							<c:if test="${ loginuser.type eq 'host' }">
-							<li><a href="/spacerental/space/register_host">장소 등록하기</a></li>
-							</c:if>
-							<li><a href="/spacerental/loseview/lose">분실물</a></li>
-							<li><a href="/spacerental/noticeview/notice">공지사항</a></li>
+							<li class="${ nav eq 'about' ? 'active' : '' }"><a href="/spacerental/aboutusview/aboutus">About Us</a></li>
+								<li class="${ nav eq 'space' ? 'active' : '' }"><a href="/spacerental/space/spacelist">장소</a></li>
+								<c:if test="${ loginuser.type eq 'host' }">
+								<li class="${ nav eq 'host' ? 'active' : '' }"><a href="/spacerental/space/register_host">장소 등록하기</a></li>
+								</c:if>
+								<li class="${ nav eq 'lose' ? 'active' : '' }"><a href="/spacerental/loseview/lose">분실물</a></li>
+								<li class="${ nav eq 'notice' ? 'active' : '' }"><a href="/spacerental/noticeview/notice">공지사항</a></li>
 						</ul>
 					</nav>
 					<!-- <div class="add_listing text-center trans_200"><a href="#">+Add Listing</a></div> -->				

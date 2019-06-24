@@ -26,11 +26,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spacerental.common.Util;
 import com.spacerental.service.LoseService;
+import com.spacerental.service.MemberService;
+import com.spacerental.vo.Host;
 import com.spacerental.vo.Lose;
 import com.spacerental.vo.LoseFile;
 import com.spacerental.vo.Member;
-
-import lombok.ToString;
+import com.spacerental.vo.Rent;
 
 @Controller
 @RequestMapping(path = "/loseview")
@@ -39,6 +40,10 @@ public class LoseController {
 	@Autowired
 	@Qualifier("loseService")
 	private LoseService loseService;
+	
+	@Autowired
+	@Qualifier("memberService")
+	private MemberService memberService;
 
 	@RequestMapping(path = "/lose", method = RequestMethod.GET)
 	public String Lose(Model model, HttpSession session) {
@@ -76,7 +81,17 @@ public class LoseController {
 		if(loginuser == null) {
 			return "redirect:/loseview/lose";
 		}
+		List<Rent> rents = memberService.selectrentList(loginuser.getId());
 		
+		try {
+			ArrayList<Host> hosts = loseService.findHostNoById(loginuser.getId());
+			model.addAttribute("hosts",hosts);
+			System.out.println(hosts);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("rents", rents);
 		model.addAttribute("loginuser",loginuser);
 		model.addAttribute("type", type);
 		return "loseview/losewrite";
@@ -190,4 +205,5 @@ public class LoseController {
 	 return "loseview/loselist";
 	 }
 
+	 
 }

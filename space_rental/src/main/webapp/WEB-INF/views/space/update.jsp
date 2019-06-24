@@ -34,7 +34,6 @@
 		<input type="hidden" name="hostId" value="${ loginuser.id }">
 		<input type="hidden" name="hostNo" value="${ space.hostNo }">
 		<input type="hidden" name="spaceNo" value="${ space.spaceNo }">
-		<input>
 		<div class="heading">
 			<h3>공간 정보를 입력해주세요.</h3>
 			<span class="option"><span class="txt_required"><span class="ico_required">* </span>필수입력</span></span>

@@ -23,10 +23,18 @@ public interface MemberService {
 
 	List<Host> selectHostList(String id);
 
-	SpaceFile selectHostFile(String id);
+	SpaceFile selectHostFile(int hostNo);
 
 	List<Rent> selectHostRentList(int hostNo);
 
 	List<Lose> selectLoseList(String uploader);
+
+	List<Host> selectOkHostList(int i);
+
+	void updateOk(Host host);
+
+	List<Host> selectAllHostList(int hostNo);
+
+	void cancelRent(Rent rent);
 	
 }

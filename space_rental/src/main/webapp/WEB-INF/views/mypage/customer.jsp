@@ -20,7 +20,11 @@
 }
 </style>
 
-<div class="jumbotron" style="margin-top:10%; background-color:white; width:40%;margin-left:29%">
+<nav aria-label="breadcrumb" class="col-sm-8" style="margin-top:160px; margin-left:270px">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">마이페이지</li>
+  </ol>
+</nav>
 <div class="container" style="border: solid 1px; padding:5%">
 	<form class="form-signin">
 	  <div class="text-center mb-4">
@@ -42,7 +46,7 @@
 	  </table>
 	  <br>
 	  <div class="buttons">
-       	<input type="button" class="btn col-sm-2" id="update_button" value="수정" style="margin-left:13%" />
+       	<input type="button" class="btn col-sm-2" id="update_button" value="수정"  style="margin-left:13%"/>
        	<input type="button" class="btn col-sm-3" id="list_button" value="나의 예약리스트" />
        	<input type="button" class="btn col-sm-2" id="lose_button" value="분실물" />
        	<input type="button" class="btn btn-link col-sm-2" id="delete_button" value="탈퇴"/>
@@ -75,7 +79,6 @@
        	</script>      	
       </div>
 	</form>
-</div>
 </div>
 
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/>

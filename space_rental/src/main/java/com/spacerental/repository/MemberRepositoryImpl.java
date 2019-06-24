@@ -102,4 +102,15 @@ public class MemberRepositoryImpl implements MemberRepository {
 		memberMapper.updateOk(host);
 	}
 
+	@Override
+	public List<Host> selectAllHostList(int hostNo) {
+		List<Host> host = memberMapper.selectAllHostList(hostNo);
+		return host;
+	}
+
+	@Override
+	public void cancelRent(Rent rent) {
+		rentMapper.cancelRent(rent);
+	}
+
 }

@@ -32,4 +32,8 @@ public interface MemberRepository {
 
 	void updateOk(Host host);
 
+	List<Host> selectAllHostList(int spaceNo);
+
+	void cancelRent(Rent rent);
+
 }

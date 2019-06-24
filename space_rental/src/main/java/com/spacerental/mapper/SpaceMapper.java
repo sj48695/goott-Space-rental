@@ -23,7 +23,7 @@ public interface SpaceMapper {
 	Space selectSpaceBySpaceNo(int spaceNo);
 
 	SpaceFile selectSpaceFile(int spaceNo);
-
+	
 	void insertReview(Review review);
 
 	void updateReview(Review review);
@@ -37,5 +37,5 @@ public interface SpaceMapper {
 	void updateReviewStep(Review review);
 
 	void insertComment(Review review);
-
+	
 }

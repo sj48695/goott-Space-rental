@@ -1,5 +1,6 @@
 package com.spacerental.mapper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,6 +33,8 @@ public interface HostMapper {
 	List<Host> searchWifilist();
 	List<Host> searchTenlesslist();
 	List<Host> searchTenmorelist();
+
+	ArrayList<Host> selectHostById(String id);
 
 
 }

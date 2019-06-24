@@ -22,6 +22,18 @@
 </style>
 
 <div class="container" style="margin-top:160px;">
+	<nav aria-label="breadcrumb">
+	  <ol class="breadcrumb">
+	    <li class="breadcrumb-item"><a href="/spacerental/mypage/${ loginuser.type }">마이페이지</a></li>
+	    <c:if test="${ loginuser.id eq 'manager' }">
+	    	<li class="breadcrumb-item active" aria-current="page">사업장 승인현황</li>
+	    </c:if>	    
+		<c:if test="${ loginuser.id ne 'manager' }">
+			<li class="breadcrumb-item active" aria-current="page">내 사업장 리스트</li>
+		</c:if>
+	  </ol>
+	</nav>
+	<br>
 	<h1 style="text-align: center">
 		<strong>
 			<c:if test="${ loginuser.id eq 'manager' }">사업장 승인현황</c:if>
@@ -39,7 +51,14 @@
 			<div class="card col-sm-4 p-0">						 
 			  <img src="/spacerental/resources/files/space-files/${ host.file.savedFileName }" class="card-img-top" alt="Image" style="height:300px;">
 			  <div class="card-body">
-			    <h5 class="card-title"><a href="/spacerental/mypage/hostRentList/${ host.hostNo }" style="text-decoration: none">${ host.name }</a></h5>
+			    <h5 class="card-title">
+			    	<c:if test="${ loginuser.id  eq 'manager' }">
+				    	<a href="/spacerental/space/detail/${ host.hostNo }" id="previewBtn" style="text-decoration: none">${ host.name }</a>
+					</c:if>
+				  	<c:if test="${ loginuser.id  ne 'manager' }">
+				    	<a href="/spacerental/mypage/hostRentList/${ host.hostNo }" style="text-decoration: none">${ host.name }</a>
+					</c:if>	
+			    </h5>
 			  	<c:if test="${ host.ok eq false }">
 			  		<c:if test="${ loginuser.id  eq 'manager' }">
 				    	<input type="button" class="py-2 col-sm-5 btn btn-outline-dark ok${ hostnum.index }" value="승인 하기"
@@ -65,6 +84,17 @@
 		</div>
 		<br>
 	</c:forEach>
+	<script type="text/javascript">
+	window.addEventListener('load', function(event) {
+		var btn = document.querySelector('#previewBtn');
+   		btn.addEventListener('click', function(event) {
+   			var ok = confirm("현재 페이지는 미리보기 페이지입니다.");
+   			if (ok) {
+    			location.href = "/spacerental/space/detail/${ host.hostNo }";		        			
+   			}
+   		});
+	});
+	</script>
 	
 </div>
 

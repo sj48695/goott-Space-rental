@@ -30,5 +30,7 @@ public interface MemberMapper {
 	List<Host> selectOkHostList(int i);
 
 	void updateOk(Host host);
+
+	List<Host> selectAllHostList(int hostNo);
 	
 }

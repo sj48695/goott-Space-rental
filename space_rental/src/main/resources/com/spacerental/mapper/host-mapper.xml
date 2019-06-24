@@ -10,16 +10,18 @@
 	<select id="selectHostListCnt" parameterType="hashmap" resultType="int">
 		select count(*) as listCnt
 		from host
+		where ok = 1
 			<if test="type != 'all'">
-				where type like '%' || #{ type } || '%'
+				and type like '%' || #{ type } || '%' 
 			</if>
 	</select>
 
 	<select id="selectHost" parameterType="hashmap" resultType="Host">
 		select * from (select <include refid="hostBasicColumns" />, ok, rownum as rnum
 		from host
+		where ok = 1
 			<if test="type != 'all'">
-				where type like '%' || #{ type } || '%'
+				and type like '%' || #{ type } || '%'
 			</if>
 		order by hostNo desc)
         where rnum between #{ startList } and #{ endList }
@@ -49,6 +51,10 @@
 		where h.hostno = s.hostno 
 		and s.spaceno = sf.spaceno  
 		and h.hostno = #{ hostNo }
+	</select>
+	
+	<select id="selectHostById" parameterType="String" resultType="Host">
+		select <include refid="hostBasicColumns" /> from host where hostId = #{ value } and ok = 1
 	</select>
 	
 	<!--  host등록   -->    	
@@ -92,45 +98,45 @@
 	<select id="searchaddlist" parameterType="String" resultType="Host">
 		select hostNo, hostId, name, content, type, address, parking, openstart, openend, holiday, ok
 		from host
-		WHERE ADDRESS LIKE '%'||#{ value }||'%'
+		WHERE ADDRESS LIKE '%'||#{ value }||'%' and ok=1
 		order by hostNo DESC 
 	</select>
 	
 	<select id="searchspacelist" parameterType="String" resultType="Host">
 		select hostNo, hostId, name, content, type, address, parking, openstart, openend, holiday, ok
 		from host
-		WHERE type LIKE '%'||#{ value }||'%'
+		WHERE type LIKE '%'||#{ value }||'%' and ok=1
 		order by hostNo DESC 
 	</select>
 	
 	<select id="searchPClist" resultType="Host">
 		SELECT hostNo, hostId, name, content, type, address, parking, openstart, openend, holiday, ok
 		FROM host
-		WHERE hostNo IN (SELECT hostNo FROM SPACE WHERE computer='1')
+		WHERE hostNo IN (SELECT hostNo FROM SPACE WHERE computer='1') and ok=1
 		order by hostNo DESC 
 	</select>
 	<select id="searchBeamlist" resultType="Host">
 		SELECT hostNo, hostId, name, content, type, address, parking, openstart, openend, holiday, ok
 		FROM host
-		WHERE hostNo IN (SELECT hostNo FROM SPACE WHERE bim ='1')
+		WHERE hostNo IN (SELECT hostNo FROM SPACE WHERE bim ='1') and ok=1
 		order by hostNo DESC 
 	</select>
 	<select id="searchWifilist" resultType="Host">
 		SELECT hostNo, hostId, name, content, type, address, parking, openstart, openend, holiday, ok
 		FROM host
-		WHERE hostNo IN (SELECT hostNo FROM SPACE WHERE wifi='1')
+		WHERE hostNo IN (SELECT hostNo FROM SPACE WHERE wifi='1') and ok=1
 		order by hostNo DESC 
 	</select>
 	<select id="searchTenlesslist" resultType="Host">
 		SELECT hostNo, hostId, name, content, type, address, parking, openstart, openend, holiday, ok
 		FROM host
-		where hostNo IN (<![CDATA[select hostNo from space where maximum < 10]]>)
+		where hostNo IN (<![CDATA[select hostNo from space where maximum < 10]]>) and ok=1
 		order by hostNo DESC
 	</select> 
 	<select id="searchTenmorelist" resultType="Host">
 		SELECT hostNo, hostId, name, content, type, address, parking, openstart, openend, holiday, ok
 		FROM host
-		WHERE hostNo IN (<![CDATA[SELECT hostNo FROM SPACE WHERE maximum > 9]]>)
+		WHERE hostNo IN (<![CDATA[SELECT hostNo FROM SPACE WHERE maximum > 9]]>) and ok=1
 		order by hostNo DESC  
 	</select>
 </mapper>

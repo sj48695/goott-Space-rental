@@ -302,7 +302,25 @@ $(function () {
 		location.href = "/spacerental/mypage/afterOk";
 	});
 });
-
+      		
+function rent_cancel(i) {
+	var formData = $("#rentform"+i).serialize();
+	var ok = confirm("예약을 취소하시겠습니까?");
+	if (ok) {
+		$.ajax({
+			url : "/spacerental/mypage/rent_cancel",
+			method: "GET",
+			data: formData,
+			success: function (data, status, xhr) { // data: 응답받은 데이터
+				alert("예약 취소되었습니다.");
+				$("#card"+i).remove();
+			},
+			error: function (xhr, status, err) {
+				alert(err);
+			}
+		});	        			
+	}
+}
 
 
 /* ----------- hostOk ---------- */

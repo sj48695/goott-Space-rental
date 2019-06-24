@@ -14,4 +14,6 @@ public interface RentMapper {
 
 	List<Rent> selectRentsBySpaceNo(int spaceNo);
 
+	void cancelRent(Rent rent);
+
 }

@@ -4393,6 +4393,13 @@ table caption.blind {
 	}
 }
 
+.fileImg {
+   width: 200px;
+   height: 200px;
+   margin-right: 16px;
+   margin-bottom: 16px;
+}
+
 .file .btn_box {
 	width: 74px;
 	line-height: 40px;

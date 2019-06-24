@@ -20,24 +20,31 @@
 <div class="site-blocks-cover inner-page-cover overlay" data-aos="fade" data-stellar-background-ratio="0.5"
    style="background-image: url(/spacerental/resources/files/space-files/${host.file.savedFileName});"></div>
 
-
 <!-- 디테일 박스 -->
 <div class="site-section site-section-sm container">
    <div class="row">
       <div class="col-lg-8">
          <div class="bg-white property-body border-bottom border-left border-right border-top">
             <!-- 제목 -->
-            <div class="row mb-3">
-               <h1 class="text-black col-md-12"><b>${ host.name }</b><font size="4">   |   ${ host.type }</font></h1>
-               <%-- 로그인한 사용자와 글의 작성자가 같으면 삭제, 수정 버튼 활성화 --%>
-		        	<c:if test="${ loginuser.id eq host.hostId }"> 
-		        	<input type="button" class="btn btn-primary" id="update_button" value="수정" onClick="location.href='/spacerental/account/update_host/${host.hostNo}'">
-		        	<input type="button" class="btn btn-danger" id="delete_button" value="삭제" />
-		        	</c:if> 
-            </div>
-            
-            
-            <!-- 공간 이미지 -->
+				<div class="row mb-3">
+					<h1 class="text-black col-md-9">
+						<b>${ host.name }</b><font size="4"> | ${ host.type }</font>
+					</h1>
+					<%-- 로그인한 사용자와 글의 작성자가 같으면 삭제, 수정 버튼 활성화 --%>
+					<c:if test="${ loginuser.id eq host.hostId }">
+						<div>
+							<a class="btn btn-primary"
+								href="/spacerental/space/update_host/${ host.hostNo }"
+								role="button">수정</a> 
+							<a class="btn btn-danger"
+								href="/spacerental/space/delete_host/${ host.hostNo }"
+								role="button" onclick="return confirm('삭제하시겠습니까?');">삭제</a> 
+						</div>
+					</c:if>
+				</div>
+
+
+				<!-- 공간 이미지 -->
             <div class="slide-one-item home-slider owl-carousel">
                <c:forEach var="file" items="${ host.files }">
                <img src="/spacerental/resources/files/space-files/${ file.savedFileName }" style="width:668px;height:400px;" class="img-fluid">
@@ -178,10 +185,21 @@
 						<label class="custom-control-label" for="space${ space.spaceNo }">
 							${ space.spaceName }
 						</label>
+						<%-- 로그인한 사용자와 글의 작성자가 같으면 삭제, 수정 버튼 활성화 --%>
+					<c:if test="${ loginuser.id eq host.hostId }">
+						<div>
+							<a class="btn btn-primary btn-sm"
+								href="/spacerental/space/updatespace/${ space.spaceNo }"
+								role="button">수정</a> 
+							<a class="btn btn-danger btn-sm"
+									href="/spacerental/space/deletespace/${ space.spaceNo }"
+									role="button" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
+						</div>
+					</c:if>
 					</div>
 					</c:forEach>	
 					<div class="form-group">
-						<input type="submit" id="btn" class="btn btn-primary" value="예약 신청하기">
+						<input type="submit" id="btn" class="btn btn-primary" value="${ loginuser.type eq 'host' ? '상세공간보기' : '예약신청하기'}">
 					</div>
 				</form>
 			</div>
@@ -252,12 +270,7 @@
 </footer>
 
 <script type="text/javascript">
-window.addEventListener('load', function(event) {//js의 main 함수 역할
-	var btnUpdate = document.querySelector('#update_button');
-	btnUpdate.addEventListener('click', function(event) {
-		location.href = "/spacerental/account/update_host/${ host.hostNo }";
-	});
-});
+
 
    $(function () {
       $('#writereview').on('click', function (event) {
@@ -271,7 +284,7 @@ window.addEventListener('load', function(event) {//js의 main 함수 역할
             method: "POST",
             data: formData,
             success: function (data, status, xhr) {
-               $("#review-list").load('/springdemoweb5/upload/review-list', 
+          	   $("#review-list").load('/springdemoweb5/upload/review-list', 
                      { "uploadNo" : ${ upload.uploadNo } }, 
                      function() {})
             },
@@ -376,8 +389,7 @@ window.addEventListener('load', function(event) {//js의 main 함수 역할
                alert('fail');
             }
          });
-      
-      });   
+      });  
    });
 </script>
 

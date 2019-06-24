@@ -41,8 +41,7 @@
 			    <c:if test="${ host.ok eq true }">
 			    	<div class="py-2">승인 완료</div>
 			    </c:if>
-			    <a class="btn btn-primary" href="/spacerental/space/detail/${ host.hostNo }" role="button">수정</a>
-			    <a class="btn btn-danger" href="#" role="button">삭제</a>
+			    <a class="btn btn-primary offset-md-10" href="/spacerental/space/detail/${ host.hostNo }" role="button">수정</a>
 			    <p class="card-text"></p>			  
 			  </div>			  
 			</div>

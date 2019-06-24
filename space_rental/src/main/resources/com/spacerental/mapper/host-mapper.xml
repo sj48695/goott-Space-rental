@@ -96,8 +96,8 @@
 			, parking = #{ parking }
 			, openStart = #{ openStart }
 			, openEnd = #{ openEnd }
-			, holiday = { holiday }
-		where hostno = #{ hostNo }
+			, holiday = #{ holiday }
+		where hostNo = #{ hostNo }
 	</update>
 	
 	<select id="searchaddlist" parameterType="String" resultType="Host">
@@ -144,4 +144,14 @@
 		WHERE hostNo IN (<![CDATA[SELECT hostNo FROM SPACE WHERE maximum > 9]]>)
 		order by hostNo DESC  
 	</select>
+	
+	<delete id="deleteHost" parameterType="int">
+		delete from host
+		where hostNo = #{ hostNo }
+	</delete>
+	
+	<delete id="deleteSpaceByHostNo" parameterType="int">
+		delete from space
+		where hostNo = #{ hostNo }
+	</delete>
 </mapper>

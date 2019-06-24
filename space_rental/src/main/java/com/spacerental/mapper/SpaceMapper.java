@@ -22,5 +22,15 @@ public interface SpaceMapper {
 	Space selectSpaceBySpaceNo(int spaceNo);
 
 	SpaceFile selectSpaceFile(int spaceNo);
+	
+	SpaceFile selectSpaceFileBySpaceFileNo(int spaceFileNo);
+	
+	void updateSpace(Space space);
+
+	void updateSpaceFile(SpaceFile file);
+	
+	void deleteSpace(int spaceNo);
+	
+	void deleteSpaceFile(int spaceFileNo);
 
 }

@@ -32,7 +32,7 @@
 			<div class="tit">
 				<label for="host_name">상호명<span class="ico_required">*</span></label>
 			</div>
-			<span class="option"><span class="txt_count"><em id="spcNmCnt">0</em>자/<em>18</em>자</span></span>
+			<span class="option"><span class="spcNmCnt"><em id="spcNmCnt">0</em>자/<em>18</em>자</span></span>
 			<div class="input">
 				<input type="text" id="host_name" min="1" maxlength="18" name="name">
 			</div>
@@ -82,7 +82,7 @@
 				<label for="space_text">회사 소개<span class="ico_required">*</span></label>
 			</div>
 			<span class="option">
-				<span class="txt_count"><em>0</em>자/<em>500</em>자<span class="txt_guide">(최소 20자)</span></span>
+				<span class="spcCtCnt"><em>0</em>자/<em>500</em>자<span class="txt_guide">(최소 20자)</span></span>
 			</span>
 			<div class="input">
 				<textarea id="space_text" maxlength="500" style="height: 108px;" name="content" minlength="20" 

@@ -34,6 +34,10 @@ public interface HostMapper {
 	List<Host> searchTenmorelist();
 	
 	void updateHost(Host host);
+	
+	void deleteHost(int hostNo);
+
+	void deleteSpaceByHostNo(int hostNo);
 
 
 }

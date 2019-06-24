@@ -22,7 +22,7 @@
 </style>
 
 <section id="contents" class="contents contents_register" role="main">
-	<form action="register_host" method="post">
+	<form action="/spacerental/space/update_host" method="post">
 	<input type="hidden" name="hostNo" value="${ host.hostNo }"> <!-- 수정할 사업장번호 -->
 		<input type="hidden" name="hostId" value="${ loginuser.id }">
 		<div class="heading">
@@ -33,9 +33,9 @@
 			<div class="tit">
 				<label for="host_name">상호명<span class="ico_required">*</span></label>
 			</div>
-			<span class="option"><span class="txt_count"><em id="spcNmCnt">0</em>자/<em>18</em>자</span></span>
+			<span class="option"><span class="spcNmCnt"><em id="spcNmCnt">0</em>자/<em>18</em>자</span></span>
 			<div class="input">
-				<input type="text" id="host_name" min="1" maxlength="18" name="name" value="${ host.name }">
+				<input type="text" id="host_name" min="1" maxlength="18" name="name" value="${ host.name }" readonly>
 			</div>
 			<p class="p_guide normal">
 				<i class="sp_icon ico_alert"></i>사용 가능한 특수문자 : ( , ) , [ , ] , - , .(마침표), ,(쉼표)
@@ -54,19 +54,19 @@
 			<div class="row">
 				<ul class="check_list space">
 					<li>
-						<input type="radio" name="type" value="카페" id="cate1">
+						<input type="radio" name="type" value="카페" id="cate1" <c:if test="${ host.type eq '카페' }">checked</c:if>>
 						<label for="cate1" class="ellip">카페</label>
 					</li>
 					<li>
-						<input type="radio" name="type" value="파티룸" id="cate2">
+						<input type="radio" name="type" value="파티룸" id="cate2" <c:if test="${ host.type eq '파티룸' }">checked</c:if>>
 						<label for="cate2" class="ellip">파티룸</label>
 					</li>
 					<li>
-						<input type="radio" name="type" value="스터디룸" id="cate3">
+						<input type="radio" name="type" value="스터디룸" id="cate3" <c:if test="${ host.type eq '스터디룸' }">checked</c:if>>
 						<label for="cate3" class="ellip">스터디룸</label>
 					</li>
 					<li>
-						<input type="radio" name="type" value="회의실" id="cate4">
+						<input type="radio" name="type" value="회의실" id="cate4" <c:if test="${ host.type eq '회의실' }">checked</c:if>>
 						<label for="cate4" class="ellip">회의실</label>
 					</li>
 				</ul>
@@ -83,11 +83,11 @@
 				<label for="space_text">회사 소개<span class="ico_required">*</span></label>
 			</div>
 			<span class="option">
-				<span class="txt_count"><em>0</em>자/<em>500</em>자<span class="txt_guide">(최소 20자)</span></span>
+				<span class="spcCtCnt"><em>0</em>자/<em>500</em>자<span class="txt_guide">(최소 20자)</span></span>
 			</span>
 			<div class="input">
 				<textarea id="space_text" maxlength="500" style="height: 108px;" name="content" minlength="20" 
-					placeholder="공간을 상세하게 소개해보세요. 공간의 특징이나 주변환경 등의 세부정보를 작성하시면 효과적입니다." value="${ host.content }"></textarea>
+					placeholder="공간을 상세하게 소개해보세요. 공간의 특징이나 주변환경 등의 세부정보를 작성하시면 효과적입니다.">${ host.content }</textarea>
 			</div>
 			<p class="p_guide warn">
 				<i class="sp_icon ico_alert"></i>공간 소개는 필수 입력입니다.
@@ -98,7 +98,7 @@
 			<span class="tit"><label for="sp_adrs">주소(위치)<span
 					class="ico_required">*</span></label></span>
 			<div class="file ">
-				<input type="text" name="roadAddr" id="roadAddr" placeholder="주소등록 버튼을 눌러주세요." >
+				<input type="text" name="roadAddr" id="roadAddr" placeholder="주소등록 버튼을 눌러주세요." value="${ host.address }" >
 				<div class="btn_box">
 					<a class="addrBtn btn" title="레이어 팝업 열림">주소등록</a>
 				</div>
@@ -118,11 +118,11 @@
 			<div class="row">
 				<ul class="check_list space">
 					<li>
-						<input type="radio" name="parking" value="가능" id="radio1">
+						<input type="radio" name="parking" value="가능" id="radio1" <c:if test="${ host.parking eq '가능' }">checked</c:if>>
 						<label for="radio1" class="ellip">가능</label>
 					</li>
 					<li>
-						<input type="radio" name="parking" value="불가능" id="radio2">
+						<input type="radio" name="parking" value="불가능" id="radio2" <c:if test="${ host.parking eq '불가능' }">checked</c:if>>
 						<label for="radio2" class="ellip">불가능</label>
 					</li>
 				</ul>
@@ -139,7 +139,7 @@
 				<div class="select col-sm-3">
 					<select name="openStart" class="col-6">
 						<c:forEach begin="0" end="24" var="start">
-							<option value="${ start }">${ host.openStart }</option>
+							<option value="${ start }" <c:if test="${ host.openStart eq start }">selected</c:if>>${ start }</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -148,7 +148,7 @@
 				<div class="select col-sm-3">
 					<select name="openEnd" class="col-6">
 						<c:forEach begin="0" end="24" var="end">
-							<option value="${ end }" <c:if test="${ end eq 24 }">selected</c:if>>${ host.openEnd }</option>
+							<option value="${ end }"<c:if test="${ host.openEnd eq end }">selected</c:if>>${ end }</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -163,14 +163,14 @@
 			</div>
 			<div class="row select">
 				<select name="holiday">
-					<option>없음</option>
-					<option>월</option>
-					<option>화</option>
-					<option>수</option>
-					<option>목</option>
-					<option>금</option>
-					<option>토</option>
-					<option>일</option>
+					<option <c:if test="${ host.holiday eq '없음' }">selected</c:if>>없음</option>
+					<option <c:if test="${ host.holiday eq '월' }">selected</c:if>>월</option>
+					<option <c:if test="${ host.holiday eq '화' }">selected</c:if>>화</option>
+					<option <c:if test="${ host.holiday eq '수' }">selected</c:if>>수</option>
+					<option <c:if test="${ host.holiday eq '목' }">selected</c:if>>목</option>
+					<option <c:if test="${ host.holiday eq '금' }">selected</c:if>>금</option>
+					<option <c:if test="${ host.holiday eq '토' }">selected</c:if>>토</option>
+					<option <c:if test="${ host.holiday eq '일' }">selected</c:if>>일</option>
 				</select>
 			</div>
 			<p class="p_guide warn">

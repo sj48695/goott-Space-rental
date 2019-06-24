@@ -155,7 +155,7 @@ public class SpaceController {
 		
 		host.setFile(spaceService.findHostFile(space.getHostNo()));
 		space.setFiles((ArrayList<SpaceFile>) spaceService.findSpaceFilesBySpaceNo(space.getSpaceNo()));
-		space.setFile(spaceService.findSpcaeFile(space.getSpaceNo()));
+		space.setFile(spaceService.findSpaceFile(space.getSpaceNo()));
 
 		//List<Rent> rents = spaceService.findRentsBySpaceNo(spaceNo);
 		
@@ -219,9 +219,27 @@ public class SpaceController {
 	public String updateHost(@PathVariable int hostNo, Model model) {
 		Host host = spaceService.findHostByHostNo(hostNo);
 		
-		model.addAttribute(host);
+		model.addAttribute("host", host);
 		
 		return "account/update_host";
+	}
+	
+	@RequestMapping(path="/update_host", method = RequestMethod.POST)
+	public String updateHostForm(Host host, String roadAddr, String detailAddr, String extraAddr) {
+		
+		host.setAddress(roadAddr + " " + detailAddr + " " +extraAddr);
+		spaceService.updateHost(host);
+		
+		return "redirect:/space/detail/" + host.getHostNo();
+	}
+	
+	// @PathVariable : 요청 경로의 {}부분을 데이터로 읽는 annotation
+	@RequestMapping(path = "/delete_host/{hostNo}", method = RequestMethod.GET)
+	public String deleteHost(@PathVariable int hostNo) {
+
+		spaceService.deleteHost(hostNo);
+		
+		return "redirect:/space/spacelist"; // new RedirectView("/upload/list");
 	}
 
 	@RequestMapping(value = "/write/{hostNo}", method = RequestMethod.GET)
@@ -296,6 +314,130 @@ public class SpaceController {
 			e.printStackTrace();
 		}
 		return "redirect:/";
+	}
+	
+	@RequestMapping(path="/updatespace/{spaceNo}", method = RequestMethod.GET)
+	public String updateSpace(@PathVariable int spaceNo, Model model) {
+		Space space = spaceService.findSpaceBySpaceNo(spaceNo);
+		SpaceFile titlefile = spaceService.findSpaceFile(spaceNo);
+		System.out.println(titlefile);
+		List<SpaceFile> spacefiles = spaceService.findSpaceFilesBySpaceNo(spaceNo);
+		
+		space.setFile(titlefile);
+		space.setFiles((ArrayList<SpaceFile>)spacefiles);
+		
+		model.addAttribute("space", space);
+		
+		return "space/update";
+	}
+	
+	@RequestMapping(path="/updatespace", method = RequestMethod.POST)
+	public String updateSpaceForm(MultipartHttpServletRequest req, Space space, Model model) {
+		
+		space.setFile(spaceService.findSpaceFile(space.getSpaceNo()));
+		
+		ServletContext application = req.getServletContext();
+		String path = application.getRealPath("/resources/files/space-files");// 최종 파일 저장 경로
+		String userFileName = "";
+		try {
+
+			MultipartFile titleImg = req.getFile("titleImgFile");
+			if (titleImg != null) {
+				userFileName = titleImg.getOriginalFilename();
+				if (userFileName.contains("\\")) { // iexplore 경우
+					// C:\AAA\BBB\CCC.png -> CCC.png
+					userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
+				}
+				if (userFileName != null && userFileName.length() > 0) { // 내용이 있는 경우
+					if (userFileName.contains("\\")) { // iexplore 경우
+						// C:\AAA\BBB\CCC.png -> CCC.png
+						userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
+					}
+					String uniqueFileName = Util.makeUniqueFileName(path, userFileName);// 파일이름_1.jpg
+					// String uniqueFileName=Util.makeUniqueFileName(fileName);//고유한 파일이름.jpg
+					titleImg.transferTo(new File(path, uniqueFileName));// 파일 저장
+
+					SpaceFile spaceFile = new SpaceFile();
+					spaceFile.setSavedFileName(uniqueFileName);
+					spaceFile.setFlag(true);
+					spaceFile.setSpaceNo(space.getSpaceNo());
+					
+					spaceService.updateSpaceFile(spaceFile);
+					
+					space.setFile(spaceFile);
+				}
+			}
+
+			List<MultipartFile> img = req.getFiles("imgFile");
+
+			if (img != null) {
+				File file = new File(path);
+				ArrayList<SpaceFile> files = new ArrayList<SpaceFile>();
+
+				for (int i = 0; i < img.size(); i++) {
+					userFileName = img.get(i).getOriginalFilename();
+					if (userFileName.contains("\\")) { // iexplore 경우
+						// C:\AAA\BBB\CCC.png -> CCC.png
+						userFileName = userFileName.substring(userFileName.lastIndexOf("\\") + 1);
+					}
+					if (userFileName != null && userFileName.length() > 0) { // 내용이 있는 경우
+
+						System.out.println(userFileName + " 업로드");
+						// 파일 업로드 소스 여기에 삽입
+						String uniqueFileName = Util.makeUniqueFileName(path, userFileName);// 파일이름_1.jpg
+						file = new File(path, uniqueFileName);
+						img.get(i).transferTo(file);
+						
+						SpaceFile spaceFile = new SpaceFile();
+						spaceFile.setSavedFileName(uniqueFileName);
+						spaceFile.setFlag(false);
+						spaceFile.setSpaceNo(space.getSpaceNo());
+						files.add(spaceFile);
+						
+						space.setFiles(files);
+						
+						spaceService.insertSpaceFiles(space, space.getSpaceNo());
+						
+					}
+				}
+			}
+			System.out.println(space);
+			//데이터 저장
+			spaceService.updateSpace(space);
+			model.addAttribute("space", space);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/space/detail/" + space.getHostNo();
+	}
+	
+	// @PathVariable : 요청 경로의 {}부분을 데이터로 읽는 annotation
+	@RequestMapping(path = "/deletespace/{spaceNo}", method = RequestMethod.GET)
+	public String delete(@PathVariable int spaceNo, Space space) {
+
+		spaceService.deleteSpace(spaceNo);
+
+		return "redirect:/space/spacelist";  // new RedirectView("/upload/list");
+	}
+	
+	@RequestMapping(path = "/delete-file", method = RequestMethod.GET)
+	@ResponseBody
+	public String deletefile(int spaceFileNo, Model model) {
+		//데이터베이스에서 파일 정보 조회
+		SpaceFile file = spaceService.findSpaceFileBySpaceFileNo(spaceFileNo);
+
+		
+		/*
+		 * //파일 삭제 File f = new File(file.getSavedFileName()); if (f.exists()) {
+		 * f.delete(); }
+		 */
+		
+		//데이터베이스에서 파일 데이터 삭제
+		spaceService.deleteSpaceFile(spaceFileNo);
+
+		return "success" ; 
 	}
 
 	@RequestMapping(path = "/spacesearch", method = RequestMethod.GET)
@@ -458,7 +600,7 @@ public class SpaceController {
 		
 		host.setFile(spaceService.findHostFile(space.getHostNo()));
 		space.setFiles((ArrayList<SpaceFile>) spaceService.findSpaceFilesBySpaceNo(space.getSpaceNo()));
-		space.setFile(spaceService.findSpcaeFile(space.getSpaceNo()));
+		space.setFile(spaceService.findSpaceFile(space.getSpaceNo()));
 
 		model.addAttribute("host", host);
 		model.addAttribute("space", space);

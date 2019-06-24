@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spacerental.service.MemberService;
+import com.spacerental.service.SpaceService;
 import com.spacerental.vo.Host;
 import com.spacerental.vo.Lose;
 import com.spacerental.vo.Member;
@@ -26,6 +27,10 @@ public class MyPageController {
 	@Autowired
 	@Qualifier("memberService")
 	private MemberService memberService;
+	
+	@Autowired
+	@Qualifier("spaceService")
+	private SpaceService spaceService;
 
 	@RequestMapping(path = "/{type}", method = RequestMethod.GET)
 	public String showMypageForm(@PathVariable String type, Model model, HttpSession session) {
@@ -90,6 +95,7 @@ public class MyPageController {
 		String id = loginuser.getId();
 		
 		List<Rent> rents = memberService.selectrentList(id);
+		
 		model.addAttribute("rents", rents);
 		model.addAttribute("loginuser", loginuser);
 		
@@ -200,6 +206,30 @@ public class MyPageController {
 		model.addAttribute("loginuser", loginuser);
 
 		return "mypage/hostlist";
+	}
+	
+	@RequestMapping(path = "/host_list/{hostNo}", method = RequestMethod.GET)
+	public String host_list(Model model, HttpSession session, @PathVariable int hostNo) {
+		
+		Member loginuser = (Member) session.getAttribute("loginuser");
+		
+		List<Host> host = memberService.selectAllHostList(hostNo);
+		
+		model.addAttribute("host", host);
+		model.addAttribute("loginuser", loginuser); 
+		
+		return "mypage/host_list";
+	}
+	
+	@RequestMapping(path = "/rent_cancel", method = RequestMethod.GET)
+	public String rent_cancel(Model model, HttpSession session, Rent rent) {
+		
+		Member loginuser = (Member) session.getAttribute("loginuser");
+		
+		memberService.cancelRent(rent);
+		model.addAttribute("loginuser", loginuser);
+	
+		return "redirect:/mypage/rentList";
 	}
 
 }

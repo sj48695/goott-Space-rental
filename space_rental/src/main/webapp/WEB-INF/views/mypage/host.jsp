@@ -20,7 +20,11 @@
 }
 </style>
 
-<div class="jumbotron" style="margin-top:10%; background-color:white; width:40%;margin-left:29%">
+<nav aria-label="breadcrumb" class="col-sm-8" style="margin-top:160px; margin-left:270px">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">마이페이지</li>
+  </ol>
+</nav>
 <div class="container" style="border: solid 1px; padding:5%">
 	<form class="form-signin">
 	  <div class="text-center mb-4">
@@ -69,7 +73,6 @@
        	</script>      	
       </div>
 	</form>
-</div>
 </div>
 
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/>

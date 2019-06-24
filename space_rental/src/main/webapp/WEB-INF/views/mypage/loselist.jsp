@@ -23,6 +23,12 @@
 </style>
 
 <div class="container" style="margin-top:160px;">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/spacerental/mypage/${ loginuser.type }">마이페이지</a></li>
+    <li class="breadcrumb-item active" aria-current="page">분실물리스트</li>
+  </ol>
+</nav>
 <h1 style="text-align: center"><strong>나의 분실물 리스트</strong></h1>
 <br><br><br>
 	<c:if test="${ empty lose }">

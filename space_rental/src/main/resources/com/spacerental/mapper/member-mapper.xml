@@ -46,6 +46,13 @@
 		and type like '분실물' 
 	</select>
 	
+	<select id="selectAllHostList" parameterType="int" resultType="Host">
+		select name, ok, type, address, hostNo, hostId, holiday, openStart, openEnd
+		from Host
+		where hostNo = #{ hostNo }
+		order by hostNo desc
+	</select>
+	
 	<update id="updateMember" parameterType="Member">
 		update Member
 		set passwd = #{ passwd }, phone = #{ phone }
@@ -62,5 +69,11 @@
 		delete from Member
 		where id = #{ id }
 	</delete>
+	
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(*)
+		from Member
+		where id = #{ id }
+	</select>
 	
 </mapper>

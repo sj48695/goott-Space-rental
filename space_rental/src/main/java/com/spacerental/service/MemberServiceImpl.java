@@ -91,4 +91,15 @@ public class MemberServiceImpl implements MemberService{
 	public void updateOk(Host host) {
 		memberRepository.updateOk(host);
 	}
+
+	@Override
+	public List<Host> selectAllHostList(int hostNo) {
+		List<Host> host = memberRepository.selectAllHostList(hostNo);
+		return host;
+	}
+
+	@Override
+	public void cancelRent(Rent rent) {
+		memberRepository.cancelRent(rent);
+	}
 }

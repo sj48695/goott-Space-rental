@@ -23,6 +23,19 @@
 </style>
 
 <div class="container" style="margin-top:160px;">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/spacerental/mypage/${ loginuser.type }">마이페이지</a></li>
+    <c:if test="${ loginuser.id eq 'manager' }">
+    	<li class="breadcrumb-item"><a href="/spacerental/mypage/beforeOk">사업장 승인현황</a></li>
+    </c:if>	    
+	<c:if test="${ loginuser.id ne 'manager' }">
+		<li class="breadcrumb-item"><a href="/spacerental/mypage/hostlist">내 사업장 리스트</a></li>
+	</c:if>
+    <li class="breadcrumb-item active" aria-current="page">예약리스트</li>
+  </ol>
+</nav>
+<br>
 <h1 style="text-align: center"><strong>예약 리스트</strong></h1>
 <br><br>
 	<c:if test="${ empty rentlist }">

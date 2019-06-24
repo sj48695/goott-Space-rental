@@ -25,6 +25,7 @@
 	<form action="/spacerental/space/write" method="post" enctype="multipart/form-data" id="writeForm">
 		<input type="hidden" name="hostId" value="${ loginuser.id }">
 		<input type="hidden" name="hostNo" id="hostNo" value="${ hostNo }"> 
+		<input type="hidden" name="again" id="again-hidden">
 		<div class="heading">
 			<h3>공간 정보를 입력해주세요.</h3>
 			<span class="option"><span class="txt_required"><span class="ico_required">* </span>필수입력</span></span>
@@ -216,7 +217,7 @@
 		</div>
 		<div class="box_form">
 			<div class="btn_box">
-				<input type="button" class="btn" value="공간 등록" onclick="javascript:spaceAddConfirm()">
+				<input type="button" class="btn" value="공간 등록" id="register-space-button">
 			</div>
 		</div>
 
@@ -229,7 +230,7 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<p class="container">공간을 추가하시겠습니까?</p>
+						<p class="container">공간을  계속해서 추가하시겠습니까?</p>
 					</div>
 					<div class="modal-footer" style="border:0">
 						<button type="button" class="btn btn-primary col-sm-2 ok">예</button>
@@ -241,3 +242,12 @@
 	</form>
 </section>
 <jsp:include page="/WEB-INF/views/include/footer.jsp"/>
+<script type="text/javascript">
+$(function() {
+	$('#register-space-button').on('click', function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		spaceAddConfirm()
+	});
+});
+</script>

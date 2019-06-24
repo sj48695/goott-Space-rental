@@ -260,7 +260,7 @@ public class SpaceController {
 	}
 	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String write(Space space, MultipartHttpServletRequest req, HttpSession session, int hostNo) {
+	public String write(Space space, MultipartHttpServletRequest req, HttpSession session, int hostNo, int again) {
 		ServletContext application = req.getServletContext();
 		String path = application.getRealPath("/resources/files/space-files");// 최종 파일 저장 경로
 		String userFileName = "";
@@ -325,7 +325,12 @@ public class SpaceController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/";
+		
+		if (again == 1) {
+			return "redirect:/space/write/"+hostNo;
+		} else {
+			return "redirect:/";
+		}
 	}
 	
 	@RequestMapping(path="/updatespace/{spaceNo}", method = RequestMethod.GET)

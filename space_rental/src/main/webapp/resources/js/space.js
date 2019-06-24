@@ -85,12 +85,15 @@ function spaceAddConfirm(){
 	$('#confirmModel').modal("show");
 	$('.ok').on('click',function(){
 		var hostNo = $('#hostNo').val();
-		$(this).form.submit();
-		window.location.href = '/spacerental/space/write/'+hostNo;
+		$('#again-hidden').val('1');
+		$('#writeForm').submit();
+		//window.location.href = '/spacerental/space/write/'+hostNo;
 	});
 	$('.cancel').on('click',function(){
-		$(this).form.submit();
-		window.location.href = '/spacerental/';
+		$('#again-hidden').val('2');
+		$('#writeForm').submit();
+		
+		//window.location.href = '/spacerental/';
 	});
 }
 

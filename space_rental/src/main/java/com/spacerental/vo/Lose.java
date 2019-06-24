@@ -12,7 +12,7 @@ public class Lose {
 	private String title;
 	private String content;
 	private Date loseDate;
-	private int spaceNo;
+	private int hostNo;
 	private String type;
 	private String uploader;
 	

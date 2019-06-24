@@ -42,8 +42,17 @@
 				<label for="wr_date" class="sound_only">분실일자</label> 
 				<input type="date" name="loseDate" id="wr_date" class="frm_input date " required/> 
 				
-				<label for="wr_roomno" class="sound_only">방 번호</label>
-				<input type="text" name="spaceNo" id="wr_type" class="frm_input type " placeholder="방번호" value="${ lose.spaceNo }"/>
+				<c:if test="${ loginuser.type eq 'customer' && type eq '분실물' }">
+				<c:forEach var="rent" items="${ rents }">
+					<input type="radio" name="hostNo" value="${ rent.hostNo }">${ rent.spaceName }
+				</c:forEach>
+				</c:if>
+				
+				<c:if test="${ loginuser.type eq 'host' && type eq '습득물' }">
+				<c:forEach var="host" items="${ hosts }">
+					<input type="radio" name="hostNo" value="${ host.hostNo }">${ host.name }
+				</c:forEach>
+				</c:if>
 			</div>
 			<br>
 			<div class="bo_w_tit write_div">

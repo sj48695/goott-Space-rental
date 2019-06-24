@@ -231,7 +231,11 @@
 					</table>
 				</c:if>
 				<c:if test="${ empty space.reviews or space.reviews[0].reviewNo eq 0 }">
-					등록된 후기가 없습니다.
+					<table id="review-list" class="w-100 m-auto border-top">
+						<tr>
+							<td>등록된 후기가 없습니다.</td>
+						</tr>
+					</table>
 				</c:if>
 			</div>
 		</div>

@@ -66,7 +66,7 @@
 											<td>${ lose.type }</td>
 
 											<td><strong><h3>방번호</h3></strong></td>
-											<td>${ lose.spaceNo }</td>
+											<td>${ lose.hostNo }</td>
 										</tr>
 										<tr>
 											<c:forEach var="file" items="${ lose.files }">

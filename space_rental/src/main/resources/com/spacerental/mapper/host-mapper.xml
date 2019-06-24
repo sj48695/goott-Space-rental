@@ -54,7 +54,7 @@
 	</select>
 	
 	<select id="selectHostById" parameterType="String" resultType="Host">
-		select <include refid="hostBasicColumns" /> from host where hostId = #{ value } and ok = 1
+		select <include refid="hostBasicColumns" /> from host where hostId = #{ value }
 	</select>
 	
 	<!--  host등록   -->    	

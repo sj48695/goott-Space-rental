@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<c:set var="nav" value="host" scope="request"/>
 <c:set var="title" value="사업장 등록" scope="request"/>
 <jsp:include page="/WEB-INF/views/include/header.jsp"/>
 <!-- space-writeForm -->
@@ -34,7 +35,7 @@
 			</div>
 			<span class="option"><span class="spcNmCnt"><em id="spcNmCnt">0</em>자/<em>18</em>자</span></span>
 			<div class="input">
-				<input type="text" id="host_name" min="1" maxlength="18" name="name">
+				<input type="text" id="space_name" min="1" maxlength="18" name="name" required>
 			</div>
 			<p class="p_guide normal">
 				<i class="sp_icon ico_alert"></i>사용 가능한 특수문자 : ( , ) , [ , ] , - , .(마침표), ,(쉼표)
@@ -53,19 +54,19 @@
 			<div class="row">
 				<ul class="check_list space">
 					<li>
-						<input type="radio" name="type" value="카페" id="cate1">
+						<input type="radio" name="type" value="카페" id="cate1" required>
 						<label for="cate1" class="ellip">카페</label>
 					</li>
 					<li>
-						<input type="radio" name="type" value="파티룸" id="cate2">
+						<input type="radio" name="type" value="파티룸" id="cate2" required>
 						<label for="cate2" class="ellip">파티룸</label>
 					</li>
 					<li>
-						<input type="radio" name="type" value="스터디룸" id="cate3">
+						<input type="radio" name="type" value="스터디룸" id="cate3" required>
 						<label for="cate3" class="ellip">스터디룸</label>
 					</li>
 					<li>
-						<input type="radio" name="type" value="회의실" id="cate4">
+						<input type="radio" name="type" value="회의실" id="cate4" required>
 						<label for="cate4" class="ellip">회의실</label>
 					</li>
 				</ul>
@@ -82,10 +83,10 @@
 				<label for="space_text">회사 소개<span class="ico_required">*</span></label>
 			</div>
 			<span class="option">
-				<span class="spcCtCnt"><em>0</em>자/<em>500</em>자<span class="txt_guide">(최소 20자)</span></span>
+				<span class="spcCtCnt"><em id="spcCtCnt">0</em>자/<em>500</em>자<span class="txt_guide">(최소 20자)</span></span>
 			</span>
 			<div class="input">
-				<textarea id="space_text" maxlength="500" style="height: 108px;" name="content" minlength="20" 
+				<textarea id="space_text" maxlength="500" style="height: 108px;" name="content" minlength="20" required
 					placeholder="공간을 상세하게 소개해보세요. 공간의 특징이나 주변환경 등의 세부정보를 작성하시면 효과적입니다."></textarea>
 			</div>
 			<p class="p_guide warn">
@@ -117,11 +118,11 @@
 			<div class="row">
 				<ul class="check_list space">
 					<li>
-						<input type="radio" name="parking" value="가능" id="radio1">
+						<input type="radio" name="parking" value="가능" id="radio1" required>
 						<label for="radio1" class="ellip">가능</label>
 					</li>
 					<li>
-						<input type="radio" name="parking" value="불가능" id="radio2">
+						<input type="radio" name="parking" value="불가능" id="radio2" required>
 						<label for="radio2" class="ellip">불가능</label>
 					</li>
 				</ul>
@@ -161,7 +162,7 @@
 				<label for="space_text">휴무일<span class="ico_required">*</span></label>
 			</div>
 			<div class="row select">
-				<select name="holiday">
+				<select name="holiday" required>
 					<option>없음</option>
 					<option>월</option>
 					<option>화</option>

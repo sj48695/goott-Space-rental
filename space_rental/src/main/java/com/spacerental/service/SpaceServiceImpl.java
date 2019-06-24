@@ -1,7 +1,7 @@
 package com.spacerental.service;
 
-import java.util.ArrayList;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.spacerental.common.Pagination;
@@ -10,6 +10,7 @@ import com.spacerental.vo.Host;
 import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
+import com.spacerental.vo.Review;
 
 public class SpaceServiceImpl implements SpaceService {
 
@@ -152,6 +153,39 @@ System.out.println(space);
 	public ArrayList<Rent> findRentsBySpaceNo(int spaceNo, Date rentDate) {
 		List<Rent> rents = spaceRepository.selectRentsBySpaceNo(spaceNo, rentDate);
 		return (ArrayList<Rent>) rents;
+	}
+
+	@Override
+	public void writeReview(Review review) {
+		spaceRepository.insertReview(review);
+	}
+
+	@Override
+	public void deleteReview(int reviewNo) {
+		spaceRepository.deleteReview(reviewNo);
+	}
+
+	@Override
+	public void updateReview(Review review) {
+		spaceRepository.updateReview(review);		
+	}
+
+	@Override
+	public List<Review> findReviewListBySpaceNo(int spaceNo) {
+		List<Review> reviews = spaceRepository.selectReviewsBySpaceNo(spaceNo);
+		return reviews;
+	}
+	@Override
+	public void writeComment(Review review) {		
+		
+		Review parent = spaceRepository.selectReviewByReviewNo(review.getReviewNo());
+		spaceRepository.updateReviewStep(parent);
+		
+		review.setGroupNo(parent.getGroupNo());
+		review.setDepth(parent.getDepth() + 1);
+		review.setStep(parent.getStep() + 1);		
+		
+		spaceRepository.insertComment(review);
 	}
 
 }

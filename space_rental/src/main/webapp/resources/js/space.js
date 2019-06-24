@@ -59,7 +59,23 @@ $(function () {
 		$("#spcCtCnt").html(content.length);
 	});
 	$("#space_text").keyup();
+	
 });
+
+/* ----------- 세부공간추가 ---------- */
+function spaceAddConfirm(){
+	$('#confirmModel').modal("show");
+	$('.ok').on('click',function(){
+		var hostNo = $('#hostNo').val();
+		$(this).form.submit();
+		window.location.href = '/spacerental/space/write/'+hostNo;
+	});
+	$('.cancel').on('click',function(){
+		$(this).form.submit();
+		window.location.href = '/spacerental/';
+	});
+}
+
 
 /* ----------- year & monthChange ---------- */
 function change() {
@@ -89,30 +105,173 @@ function dayCheck(i) {
 
 /* ----------- timeChange ---------- */
 var n = 0, s_t = 0, e_t = 0;
-function timeClick(i, time) {
+function timeClick(time) {
 	n++;
 
 	$('label').removeClass('timepick');
 	if (n % 2 == 1) {
 		s_t = time;
-		startTime(i, s_t);
+		startTime(time, s_t);
 	} else if (n % 2 == 0) {
 		e_t = time;
-		endTime(i, s_t, e_t);
+		endTime(time, s_t, e_t);
 	}
 }
 
-function startTime(i, s_t) {// 시작시간 선택
-	$('#timelabel' + i).addClass('timepick');
+function startTime(time, s_t) {// 시작시간 선택
+	$('#timelabel' + time).addClass('timepick');
 	$('#startTime').attr('value', s_t);
+	$('#endTime').attr('value', s_t);
 }
 
-function endTime(i, s_t, e_t) {// 끝나는시간 선택
+function endTime(time, s_t, e_t) {// 끝나는시간 선택
 	for (var t = s_t; t <= e_t; t++) {
 		$('#timelabel' + t).addClass('timepick');
 	}
 	$('#endTime').attr('value', e_t);
 }
+
+/* ----------- Review ---------- */
+$(function () {
+	var spaceNo = $('#reviewform #spaceNo').val();
+	$('#writereview').on('click', function (event) {
+		
+		//serialize   -   form에 포함된 입력요소의 값을 이름=값&이름=값...형식으로 만드는 함수
+		var formData = $('#reviewform').serialize();
+		
+		$.ajax({
+			url: "/spacerental/space/write-review",
+			method: "POST",
+			data: formData,
+			success: function (data, status, xhr) {
+				$('textarea').val();
+				alert("댓글 등록");
+				$("#review-list").load('/spacerental/space/review-list',
+					{ "spaceNo": spaceNo },
+					function () {
+						$('#spaceNo').attr("value", spaceNo);
+					});
+			},
+			error: function (xhr, status, err) {
+				alert(err);
+			}
+		});
+	});
+
+	var currentreviewNo = -1;
+	
+	$('#review-list').on('click', '.editreview', function (event) {
+		reviewNo = $(this).attr('data-reviewno');
+		$('.collapse').collapse('hide');
+		
+		if (currentreviewNo != -1) {
+			$('#reviewview' + currentreviewNo).css('display', '');
+			$('#reviewedit' + currentreviewNo).css('display', 'none');
+		}
+		$('#reviewview' + reviewNo).css('display', 'none');
+		$('#reviewedit' + reviewNo).css('display', '');
+		currentreviewNo = reviewNo;
+	});
+
+	$('#review-list').on('click', '.cancel', function (event) {
+		reviewNo = $(this).attr('data-reviewno');
+		$('#reviewview' + reviewNo).css('display', '');
+		$('#reviewedit' + reviewNo).css('display', 'none');
+		currentreviewNo = -1;
+	});
+
+	$('#review-list').on('click', '.deletereview', function (event) { //새로 만들어지는 객체에도 이벤트를 적용시키도록 하는 것??
+		reviewNo = $(this).attr('data-reviewno');
+		$.ajax({
+			url: "/spacerental/space/delete-review",
+			method: "GET",
+			data: "reviewNo=" + reviewNo,
+			success: function (data, status, xhr) {
+				if (data == 'success') {
+					$('#tr' + reviewNo).remove();
+					alert('삭제했습니다');
+				}
+				else alert('삭제실패');
+			},
+			error: function (xhr, status, err) {
+				console.log(err);
+			}
+		});
+	});
+
+	$('#review-list').on('click', '.updatereview', function (event) {
+		//현재 클릭된 <a 의 data-reviewno 속성 값 읽기
+		var reviewNo = $(this).attr('data-reviewno');
+		var content = $('#updateform' + reviewNo + ' textarea').val();
+		var inputData = $('#updateform' + reviewNo).serialize();
+
+		//ajax 방식으로 데이터 수정
+		$.ajax({
+			"url": "/spacerental/space/update-review",
+			"method": "POST",
+			"data": inputData,
+			"success": function (data, status, xhr) {
+				alert('댓글을 수정했습니다.');
+				var span = $('#reviewview' + reviewNo + ' span');
+				span.html(content.replace(/\n/gi, '<br>'));
+				//view-div는 숨기고, edit-div는 표시하기   
+				$('#reviewview' + reviewNo).css('display', 'block');
+				$('#reviewedit' + reviewNo).css('display', 'none');
+			},
+			"error": function (xhr, status, err) {
+				alert('댓글 수정 실패');
+			}
+		});
+	});
+
+	$('#write-comment').on('click', function (event) {
+		var reviewNo = $(this).attr('data-reviewno');
+		var content = $('#comment-form textarea').val();
+		if (content.length == 0) return;
+
+		var commentData = $('#comment-form').serialize();
+
+		$.ajax({
+			url: "/spacerental/space/write-comment",
+			method: "POST",
+			data: commentData,
+			success: function (data, status, xhr) {
+				alert('댓글을 달았습니다.');
+				$('#comment-collapse' + reviewNo).collapse('hide'); //hide bootstrap modal
+				$('#comment-form').each(function () {
+					this.reset();
+				});
+				
+				$("#review-list").load('/spacerental/space/review-list',
+						{ "spaceNo": spaceNo },
+						function () {
+							$('#spaceNo').attr("value", spaceNo);
+//							$('#star').attr("id","star"+spaceNo);
+//							$('#star_input').attr("id","star_input"+spaceNo);
+						});
+			},
+			error: function (xhr, status, err) {
+				alert('fail');
+			}
+		});
+	});
+
+	/* ----------- rating ---------- */
+//	    var $s_input = $('#star_input');
+//	$('#star').starrr({
+//		max : 5,
+//		rating : $s_input.val(),
+//		change : function(e, value) {
+//			$s_input.val(value).trigger('input');
+//		}
+//	});
+//	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+//	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+//	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+//	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+//	    ga('create', 'UA-39205841-5', 'dobtco.github.io');
+//	    ga('send', 'pageview');
+});
 
 /* ----------- rent ---------- */
 $(function () {
@@ -134,8 +293,7 @@ $(function () {
 				alert(err);
 			}
 		});
-	});
-	
+	});	
 	
 	$('#before_ok').on('click', function(event) {
 		location.href = "/spacerental/mypage/beforeOk";

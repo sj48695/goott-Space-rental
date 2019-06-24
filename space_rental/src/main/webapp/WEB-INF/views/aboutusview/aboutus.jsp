@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-
-<c:set var="title" value="공간 등록" scope="request"/>
+<c:set var="nav" value="about" scope="request"/>
+<c:set var="title" value="About Us" scope="request"/>
 <jsp:include page="/WEB-INF/views/include/header.jsp"/>
 <meta name="description" content="DirectoryPlus template project">
 <meta name="viewport" content="width=device-width, initial-scale=1">

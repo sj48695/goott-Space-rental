@@ -70,5 +70,82 @@
 			, #{ flag }
 		)
 	</insert>
+	
+	<!-- =========================================
+						Review 
+	============================================= -->
+	
+	<sql id="reviewBasicColumns">
+		reviewNo, groupNo, step, depth, content, writer, spaceNo
+	</sql>
+	
+	<insert id="insertReview" parameterType="Review">
+		INSERT INTO Review
+		(
+			<include refid="reviewBasicColumns"/>
+		)
+		VALUES
+		(
+			Review_SEQUENCE.NEXTVAL
+			, Review_SEQUENCE.CURRVAL
+			, 1
+			, 0
+			, #{content}
+			, #{writer}
+			, #{spaceNo}
+		)
+	</insert>
+	
+	<update id="updateReview" parameterType="Review">
+		UPDATE Review
+		SET CONTENT = #{ content }
+		WHERE reviewNo = #{ reviewNo }
+	</update>
+	
+	<delete id="deleteReview" parameterType="int">
+		DELETE FROM Review			
+		WHERE reviewNo = #{ reviewNo }
+	</delete>	
+	
+	<!-- ============================================
+							reReview 
+		============================================= -->
+	
+	<select id="selectReviewByReviewNo" 
+		parameterType="int" resultType="Review">
+		SELECT <include refid="reviewBasicColumns"/>, regDate
+		FROM Review 
+		WHERE reviewNo = #{ reviewNo }
+	</select>
+	
+	<update id="updateReviewStep" parameterType="Review">
+		UPDATE Review
+		SET STEP = STEP + 1
+		WHERE GROUPNO = #{ groupNo } AND STEP <![CDATA[>]]> #{ step }
+	</update>
+	
+	<insert id="insertComment" parameterType="Review">
+		INSERT INTO Review
+		(
+			<include refid="reviewBasicColumns"/>
+		)
+		VALUES
+		(
+			Review_SEQUENCE.NEXTVAL
+			, #{groupNo}
+			, #{step}
+			, #{depth}
+			, #{content}
+			, #{writer}
+			, #{spaceNo}
+		)	
+	</insert>
+	
+	<select id="selectReviewsBySpaceNo" 
+		parameterType="int" resultType="Review">
+		SELECT <include refid="reviewBasicColumns"/>, regDate
+		FROM Review 
+		WHERE spaceNO = #{ spaceNo } ORDER BY GROUPNO DESC, STEP ASC 
+	</select>
 
 </mapper>

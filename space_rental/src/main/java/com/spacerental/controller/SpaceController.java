@@ -32,6 +32,7 @@ import com.spacerental.vo.Member;
 import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
+import com.spacerental.vo.Review;
 
 @Controller
 @RequestMapping(value = "/space")
@@ -152,6 +153,7 @@ public class SpaceController {
 		host.setFile(spaceService.findHostFile(space.getHostNo()));
 		space.setFiles((ArrayList<SpaceFile>) spaceService.findSpaceFilesBySpaceNo(space.getSpaceNo()));
 		space.setFile(spaceService.findSpcaeFile(space.getSpaceNo()));
+		space.setReviews((ArrayList<Review>) spaceService.findReviewListBySpaceNo(space.getSpaceNo()));
 		try {
 			String rentDateStr = Integer.toString(nowYear) + "-" 
 								+ Integer.toString(nowMonth) + "-"
@@ -160,6 +162,14 @@ public class SpaceController {
 			java.sql.Date rentDate = new java.sql.Date(utildate.getTime());
 			ArrayList<Rent> rents = spaceService.findRentsBySpaceNo(spaceNo, rentDate);
 
+//			for(Rent rent : rents) {
+//				if(rent.getId().equals(loginuser.getId())){//현재 사용자가 예약한 내역이 있으면
+//					space.setReviewCheck(true);
+//				}else {
+//					space.setReviewCheck(false);
+//				}
+//			}
+			
 			model.addAttribute("rents", rents);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -502,6 +512,56 @@ public class SpaceController {
 		model.addAttribute("loginuser", loginuser);
 
 		return "space/time";
+	}
+	
+
+	@RequestMapping(path="/write-review", 
+					method=RequestMethod.POST, 
+					produces="text/plain;charset=utf-8")//응답컨텐프의 종류 지정
+	@ResponseBody//반환값은 뷰이름이 아니고 응답컨텐츠이다.
+	public String writeReview(Review review){
+		spaceService.writeReview(review);
+		return "success";
+	}
+	
+	@RequestMapping(value = "/review-list", method = RequestMethod.POST)
+	public String reviewList(int spaceNo, Model model) {
+		
+		List<Review> reviews = spaceService.findReviewListBySpaceNo(spaceNo);
+		model.addAttribute("reviews", reviews);
+		
+		return "space/reviews";
+	}
+	
+	@RequestMapping(value = "/delete-review", method = RequestMethod.GET)
+	@ResponseBody
+	public String deleteReview(int reviewNo) {
+		
+		spaceService.deleteReview(reviewNo);
+		
+		return "success";
+	}
+	
+	@RequestMapping(value = "/update-review", method = RequestMethod.POST)
+	@ResponseBody
+	public String updateReview(Review review) {
+		
+		spaceService.updateReview(review);
+		
+		return "success";
+	}
+	
+	
+	
+	@RequestMapping(path = "/write-comment", 
+			method = RequestMethod.POST, 
+			produces = "text/plain;charset=utf-8") //응답 컨텐츠의 종류 지정
+	@ResponseBody //반환 값은 뷰이름이 아니고 응답컨텐츠입니다
+	public String writeRereview(Review review) {
+	
+		spaceService.writeComment(review);
+		
+		return "success"; // WEB-INF/views/success.jsp
 	}
 
 }

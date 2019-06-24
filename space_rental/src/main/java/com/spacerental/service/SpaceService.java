@@ -9,6 +9,7 @@ import com.spacerental.vo.Host;
 import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
+import com.spacerental.vo.Review;
 
 public interface SpaceService {
 	
@@ -46,5 +47,15 @@ public interface SpaceService {
 	List<Host> wifilist();
 	List<Host> tenlesslist();
 	List<Host> tenmore();
+
+	void writeReview(Review review);
+
+	List<Review> findReviewListBySpaceNo(int spaceNo);
+
+	void deleteReview(int reviewNo);
+
+	void updateReview(Review review);
+
+	void writeComment(Review review);
 
 }

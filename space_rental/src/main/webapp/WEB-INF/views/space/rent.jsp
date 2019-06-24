@@ -1,23 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %><%-- JSTL의 함수를 제공하는 taglib --%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="nav" value="space" scope="request"/>
 <c:set var="title" value="공간 상세 페이지" scope="request"/>
 <jsp:include page="/WEB-INF/views/include/header.jsp"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <style>
 .datepick {
 	position: relative;
 	border: 0;
 	background-color: #704de4;
-    color: wheat;
+	color: wheat;
 }
 
-.nowDay{
+.nowDay {
 	background: blue;
 }
 
 .timepick {
-    background: #704de4;
-    color: wheat;
+	background: #704de4;
+	color: wheat;
 }
 
 .calender {
@@ -26,11 +29,24 @@
 	width: -webkit-fill-available;
 }
 
-.time{
-    text-align: -webkit-center;
+.time {
+	text-align: -webkit-center;
 	width: 37px;
-    height: 37px;
+	height: 37px;
 	border-radius: 50px;
+}
+
+/* rating */
+.starrr {
+	display: inline-block;
+}
+
+.starrr a {
+	font-size: 16px;
+	padding: 0 1px;
+	cursor: pointer;
+	color: #FFD119;
+	text-decoration: none;
 }
 </style>
 <div class="site-loader"></div>
@@ -124,6 +140,99 @@
 					</div>
 					</c:forEach>
 				</div>
+				
+				<!-- 후기 -->
+				<%-- <c:if test="${ space.reviewCheck }"> --%>
+	            <form id="reviewform" class="form-inline row">
+	               <h4 class="text-black col-md-12 py-3"><b>후기</b></h4>
+	               <input type="hidden" name="spaceNo" id="spaceNo" value="${ space.spaceNo }"> 
+	               <input type="hidden" name="writer" value="${ loginuser.id }">
+					<div class="col-md-12">
+						<!-- <div class='starrr' id='star'></div>
+						<br /> 
+						<input type="hidden" name='rating' id='star_input' /> -->
+						<textarea class="form-control mr-1" id="review_content"
+							name="content" cols="65" rows="3"></textarea>
+						<a class="btn btn-primary py-3 px-4" id="writereview"
+							href="javascript:">댓글<br>등록
+						</a>
+					</div>
+				</form>
+	            <%-- </c:if> --%>
+	            
+	            <hr style="border-color: #4a2773;">
+				<!-- review list -->
+				<c:if test="${ not empty space.reviews and space.reviews[0].reviewNo != 0 }">
+					<table id="review-list" class="w-100 m-auto border-top">
+						<c:forEach var="review" items="${ space.reviews }">
+						<fmt:formatDate value="${ review.regDate }" var="regDate" type="date" pattern="yyyy-MM-dd hh:mm:ss"/>
+							<tr id="tr${ review.reviewNo }">
+								<td class="border-bottom text-left" style="padding-left:${ review.depth*20 + 10 }px">
+									<div id='reviewview${ review.reviewNo }' class="container">
+										<div class="col-sm-12 row justify-content-between py-1">
+											${ review.writer } &nbsp;&nbsp; [${ regDate }] 
+											<div class="row"style='display:${ loginuser.id eq review.writer ? "block" : "none" }'>
+												<a class="editreview" data-reviewno='${ review.reviewNo }' href="javascript:" style="width: 30px; height: 30px">
+													편집<!-- <img src="/spacerental/resources/images/edit.svg" class="svg"> -->
+												</a> &nbsp; 
+												<a class="deletereview" href="javascript:" data-reviewno="${ review.reviewNo }" style="width: 30px; height: 30px">
+													삭제<!-- <img src="/spacerental/resources/images/delete.svg" class="svg"> -->
+												</a>
+											</div>
+										</div>
+										<span>${ review.content }</span>
+										
+										<div style="width: 30px;height: 30px">
+											<a class="comment-link"
+												data-toggle="collapse" href="#comment-collapse${ review.reviewNo }"
+												aria-controls="comment-collapse${ review.reviewNo }">
+													<img src="/spacerental/resources/images/comment.svg" class="svg">
+											</a>
+										</div>
+
+									</div>
+									<div>
+									<div class="row">
+										<div class="col">
+											<div class="collapse multi-collapse" id="comment-collapse${ review.reviewNo }">
+												<div class="card-body">
+												<form id="comment-form" class="form-inline row">
+													<input type="hidden" name="reviewNo" value="${ review.reviewNo }">
+									               <input type="hidden" name="spaceNo" id="spaceNo" value="${ space.spaceNo }"> 
+									               <input type="hidden" name="writer" value="${ loginuser.id }">
+									               <div class="col-md-12">
+									                  <textarea class="form-control mr-1" name="content" cols="${ 60 - review.depth*5 }" rows="3"></textarea>
+									                  <a class="btn btn-primary py-3 px-4" id="write-comment" 
+									                  	data-reviewno='${ review.reviewNo }' href="javascript:">댓글<br>등록</a>
+									               </div>
+									            </form>
+									            </div>
+											</div>
+										</div>
+									</div>
+									</div>
+									<div id='reviewedit${ review.reviewNo }' style="display: none" class="container">
+										<div class="col-sm-12 row justify-content-between py-1">
+											${ review.writer } &nbsp;&nbsp; [${ regDate }]
+										</div>
+										<form id="updateform${ review.reviewNo }">
+											<input type="hidden" name="reviewNo" value="${ review.reviewNo }" />
+											<textarea class="form-control"name="content" style="width: 550px" rows="3"
+												maxlength="200">${ review.content }</textarea>
+										</form>
+										<div>
+											<a class="updatereview" href="javascript:" data-reviewno="${ review.reviewNo }">수정</a> &nbsp; 
+											<a class="cancel" data-reviewno="${ review.reviewNo }" href="javascript:">취소</a>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</c:if>
+				<c:if test="${ empty space.reviews or space.reviews[0].reviewNo eq 0 }">
+					등록된 후기가 없습니다.
+				</c:if>
 			</div>
 		</div>
 		<div class="col-lg-4">
@@ -157,8 +266,6 @@
 								</td>
 							</c:forEach>
 						</tr>
-
-
 				<c:forEach var="i" begin="1" end="${ lastDay }">
 					<c:if test="${ i eq 1 }">
 						<tr>
@@ -193,33 +300,10 @@
 				</c:forEach>
 						</tr>
 					</table>
+					
 					<h5 class="pt-4">시간 선택</h5>
-					<div class="pt-2 row justify-content-center col-sm-12 m-0">
-						<div class="select" id="time-table">
-							<c:forEach var="time" begin="${ host.openStart }" end="${ host.openEnd }" varStatus="i">
-								<label class="py-1 px-2 border time" id="timelabel${ i.index }"
-								<c:forEach var="rent" items="${ rents }">
-								<c:set var="start" value="${ rent.startTime }"/>
-								<c:set var="end" value="${ rent.endTime }"/>
-								<c:choose>
-									<c:when test="${ i.index >=start && i.index <= end  }">
-										<c:if test="${ loginuser.id ne rent.id }">
-										style="background: #a9a9a92e; color: #c1c1c1;"
-										</c:if>
-										<c:if test="${ loginuser.id eq rent.id }">
-										style="background: #ccccff; color: #8d119a;"
-										</c:if>
-									</c:when>
-									<c:otherwise>
-										onclick="javascript:timeClick(${ i.index },${ time })"
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-									>${ time }</label>
-							</c:forEach>
-							<input type="radio" hidden="hidden" name="startTime" id="startTime" value="0">
-							<input type="radio" hidden="hidden" name="endTime" id="endTime" value="0">
-						</div>
+					<div class="pt-2 row justify-content-center col-sm-12 m-0" id="time-table">
+						날짜를 먼저 선택해주세요.
 					</div>
 					<h5 class="pt-4">인원 선택</h5>
 					<div class="pt-2 row">
@@ -241,7 +325,7 @@
 		</div>
 	</div>
 </div>
-
+<!-- 
 <footer class="site-footer">
 	<div class="container">
 		<div class="row">
@@ -301,5 +385,5 @@
 			</div>
 		</div>
 	</div>
-</footer>
+</footer> -->
 <jsp:include page="/WEB-INF/views/include/footer.jsp" />

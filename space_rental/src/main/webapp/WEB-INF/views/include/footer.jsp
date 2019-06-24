@@ -1,6 +1,6 @@
 <%@ page session="false" language="java" contentType="text/html; charset=utf-8"
 	     pageEncoding="utf-8"%>
-<!-- <div class="container">
+<%-- <div class="container">
 	<div align="left">
 		<div class="section_title" align="left">
 			<h4>구트아카데미s<br></h4>
@@ -53,11 +53,10 @@
 						</div>
 						<nav class="footer_nav ml-md-auto order-md-2 order-1">
 							<ul class="d-flex flex-row align-items-center justify-content-start">
-								<li><a href="index.html">Home</a></li>
-								<li><a href="#">About us</a></li>
-								<li><a href="listings.html">Listings</a></li>
-								<li><a href="blog.html">News</a></li>
-								<li class="active"><a href="contact.html">Contact</a></li>
+								<li class="${ nav eq 'about' ? 'active' : '' }"><a href="/spacerental/aboutusview/aboutus">About Us</a></li>
+								<li class="${ nav eq 'space' ? 'active' : '' }"><a href="/spacerental/space/spacelist">장소</a></li>
+								<li class="${ nav eq 'lose' ? 'active' : '' }"><a href="/spacerental/loseview/lose">분실물</a></li>
+								<li class="${ nav eq 'notice' ? 'active' : '' }"><a href="/spacerental/noticeview/notice">공지사항</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -66,7 +65,7 @@
 		</div>
 	</footer>
 
-</div> -->
+</div> --%>
 <script src="/spacerental/resources/js/jquery-3.3.1.min.js"></script>
 <script src="/spacerental/resources/styles/bootstrap-4.1.2/popper.js"></script>
 <script src="/spacerental/resources/styles/bootstrap-4.1.2/bootstrap.min.js"></script>
@@ -98,6 +97,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="/spacerental/resources/js/space.js"></script>
+<script src="/spacerental/resources/js/strrr.js"></script>
 
 
 <!-- home -->

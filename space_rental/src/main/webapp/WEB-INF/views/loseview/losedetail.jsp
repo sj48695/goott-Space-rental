@@ -2,7 +2,7 @@
 <%@ page session="false" language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import ="com.spacerental.vo.Lose" %>
 <%@ page import ="com.spacerental.vo.LoseFile" %>
-	     
+<c:set var="nav" value="lose" scope="request"/>
 <c:set var="title" value="상세보기" scope="request" />
 <jsp:include page="/WEB-INF/views/include/header.jsp" /> 
 <!-- lose -->

@@ -9,6 +9,7 @@ import com.spacerental.vo.Host;
 import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
+import com.spacerental.vo.Review;
 
 public interface SpaceRepository {
 
@@ -47,5 +48,12 @@ public interface SpaceRepository {
 	SpaceFile selectSpaceFile(int spaceNo);
 
 	List<Rent> selectRentsBySpaceNo(int spaceNo, Date rentDate);
+	void insertReview(Review review);
+	void deleteReview(int reviewNo);
+	void updateReview(Review review);
+	List<Review> selectReviewsBySpaceNo(int spaceNo);
+	Review selectReviewByReviewNo(int reviewNo);
+	void updateReviewStep(Review parent);
+	void insertComment(Review review);
 
 }

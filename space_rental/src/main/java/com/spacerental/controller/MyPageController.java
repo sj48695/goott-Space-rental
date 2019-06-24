@@ -142,7 +142,9 @@ public class MyPageController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(path = "/okCheck", method = RequestMethod.POST)
+	@RequestMapping(path = "/okCheck"
+					, method = RequestMethod.POST
+					, produces="text/plain;charset=utf-8")
 	public String ok(Model model, int okCheck, int hostNo) {
 		boolean ok = false;
 		Host host = new Host();

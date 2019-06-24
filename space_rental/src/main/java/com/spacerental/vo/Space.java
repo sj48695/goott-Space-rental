@@ -19,6 +19,8 @@ public class Space {
 	private int hostNo;
 
 	private ArrayList<Rent> rent;
+//	private boolean reviewCheck;
+	private ArrayList<Review> reviews;
 	private SpaceFile file;//대표사진 flag=1
 	private ArrayList<SpaceFile> files; //flag=0
 }

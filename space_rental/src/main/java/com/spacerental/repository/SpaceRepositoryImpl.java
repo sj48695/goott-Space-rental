@@ -1,11 +1,11 @@
 package com.spacerental.repository;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,6 +17,7 @@ import com.spacerental.vo.Host;
 import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
+import com.spacerental.vo.Review;
 
 public class SpaceRepositoryImpl implements SpaceRepository {
 
@@ -223,4 +224,44 @@ public class SpaceRepositoryImpl implements SpaceRepository {
 //		System.out.println(rents);
 //		return rents;
 	}
+
+	@Override
+	public void insertReview(Review review) {
+		spaceMapper.insertReview(review);
+	}
+	
+	@Override
+	public void updateReview(Review review) {
+		spaceMapper.updateReview(review);
+	}
+	
+	@Override
+	public void deleteReview(int reviewNo) {
+		spaceMapper.deleteReview(reviewNo);
+	}
+
+	@Override
+	public ArrayList<Review> selectReviewsBySpaceNo(int spaceNo) {
+		List<Review> reviews =
+			spaceMapper.selectReviewsBySpaceNo(spaceNo);
+		return (ArrayList<Review>)reviews;
+	}
+	
+	@Override
+	public Review selectReviewByReviewNo(int reviewNo) {
+		Review review =
+			spaceMapper.selectReviewByReviewNo(reviewNo);
+		return review;
+	}
+	
+	@Override
+	public void updateReviewStep(Review review) {
+		spaceMapper.updateReviewStep(review);
+	}
+	
+	@Override
+	public void insertComment(Review review) {
+		spaceMapper.insertComment(review);
+	}
+
 }

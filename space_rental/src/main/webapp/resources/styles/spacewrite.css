@@ -4374,7 +4374,7 @@ table caption.blind {
 
 @media ( min-width :768px) {
 	.file .inner {
-		padding: 16px 16px 0;
+		padding: 16px 16px 16px;
 		min-height: 50px;
 		font-size: 16px;
 		line-height: 19px
@@ -4391,6 +4391,13 @@ table caption.blind {
 		font-size: 16px;
 		line-height: 16px
 	}
+}
+
+.fileImg {
+	width: 200px;
+	height: 200px;
+	margin-right: 16px;
+	margin-bottom: 16px;
 }
 
 .file .btn_box {

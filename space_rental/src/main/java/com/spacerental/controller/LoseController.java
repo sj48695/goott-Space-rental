@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.spacerental.common.Util;
 import com.spacerental.service.LoseService;
 import com.spacerental.service.MemberService;
+import com.spacerental.vo.Host;
 import com.spacerental.vo.Lose;
 import com.spacerental.vo.LoseFile;
 import com.spacerental.vo.Member;
@@ -81,6 +82,15 @@ public class LoseController {
 			return "redirect:/loseview/lose";
 		}
 		List<Rent> rents = memberService.selectrentList(loginuser.getId());
+		
+		try {
+			ArrayList<Host> hosts = loseService.findHostNoById(loginuser.getId());
+			model.addAttribute("hosts",hosts);
+			System.out.println(hosts);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		model.addAttribute("rents", rents);
 		model.addAttribute("loginuser",loginuser);
 		model.addAttribute("type", type);

@@ -1,14 +1,13 @@
 package com.spacerental.service;
 
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
-
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.support.TransactionTemplate;
 
 import com.spacerental.common.Pagination;
 import com.spacerental.repository.SpaceRepository;
 import com.spacerental.vo.Host;
+import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
@@ -26,8 +25,9 @@ public class SpaceServiceImpl implements SpaceService {
 
 	@Override
 	public Integer registerSpaceTx(Space space) {
-
+System.out.println(space);
 		int newSpaceNo = spaceRepository.insertSpace(space);
+		System.out.println(space);
 		
 //		대표이미지
 		SpaceFile titleFile = space.getFile();
@@ -146,6 +146,12 @@ public class SpaceServiceImpl implements SpaceService {
 		SpaceFile file = spaceRepository.selectSpaceFile(spaceNo);
 		return file;
 
+	}
+
+	@Override
+	public ArrayList<Rent> findRentsBySpaceNo(int spaceNo, Date rentDate) {
+		List<Rent> rents = spaceRepository.selectRentsBySpaceNo(spaceNo, rentDate);
+		return (ArrayList<Rent>) rents;
 	}
 
 }

@@ -22,5 +22,5 @@ public interface SpaceMapper {
 	Space selectSpaceBySpaceNo(int spaceNo);
 
 	SpaceFile selectSpaceFile(int spaceNo);
-
+	
 }

@@ -1,10 +1,12 @@
 package com.spacerental.repository;
 
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 import com.spacerental.common.Pagination;
 import com.spacerental.vo.Host;
+import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
@@ -43,5 +45,7 @@ public interface SpaceRepository {
 	ArrayList<Host> searchTenmoreList();
 
 	SpaceFile selectSpaceFile(int spaceNo);
+
+	List<Rent> selectRentsBySpaceNo(int spaceNo, Date rentDate);
 
 }

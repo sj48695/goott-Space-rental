@@ -94,7 +94,10 @@
 <script src="/spacerental/resources/space/js/aos.js"></script>
 <!-- <script src="/spacerental/resources/space/js/circleaudioplayer.js"></script> -->
 <script src="/spacerental/resources/space/js/main.js"></script>
-<script src="/spacerental/resources/js/write.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="/spacerental/resources/js/space.js"></script>
 
 
 <!-- home -->

@@ -8,7 +8,6 @@ import lombok.Data;
 public class Space {
 	private int spaceNo;
 	private String spaceName;
-	private String type;
 	private String content;
 	private int maximum;
 	private boolean bim;

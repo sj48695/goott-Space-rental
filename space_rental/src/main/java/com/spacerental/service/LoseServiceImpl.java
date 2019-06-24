@@ -6,11 +6,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.spacerental.repository.LoseRepository;
+import com.spacerental.vo.Host;
 import com.spacerental.vo.Lose;
 import com.spacerental.vo.LoseFile;
-import com.spacerental.vo.Member;
-import com.spacerental.vo.Notice;
-import com.spacerental.vo.Rent;
 
 @Service("loseService")
 public class LoseServiceImpl implements LoseService {
@@ -87,6 +85,11 @@ public class LoseServiceImpl implements LoseService {
 		ArrayList<Lose> Loses = loseRepository.searchlossList(value);
 		return Loses;
 
+	}
+	@Override
+	public ArrayList<Host> findHostNoById(String id) {
+		ArrayList<Host> hostNos = loseRepository.selectHostNoById(id);
+		return hostNos;
 	}
 
 	

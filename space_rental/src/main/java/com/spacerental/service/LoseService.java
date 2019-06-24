@@ -1,7 +1,9 @@
 package com.spacerental.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.spacerental.vo.Host;
 import com.spacerental.vo.Lose;
 import com.spacerental.vo.LoseFile;
 import com.spacerental.vo.Member;
@@ -25,6 +27,8 @@ public interface LoseService {
 	//void registerLose2(Lose lose); 
 		
 	List<Lose> searchlosslist(String value);
+
+	ArrayList<Host> findHostNoById(String id);
 	
 //	void registerRent(Rent rent);
 

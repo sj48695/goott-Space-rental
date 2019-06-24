@@ -12,6 +12,7 @@
 		<result column="spaceName" property="spaceName" />
 		<result column="spaceNo" property="spaceNo" />
 		<result column="hostNo" property="hostNo" />
+		<result column="name" property="name" />
 		<result column="id" property="id" />
 	</resultMap>
 
@@ -24,7 +25,7 @@
 	</select>
 	
 	<select id="selectrentList" parameterType="String" resultType="Rent">
-		select rentNo, rentDate,headCount,startTime, endTime , spaceName, s.spaceNo, id, h.hostNo
+		select rentNo, rentDate,headCount,startTime, endTime , spaceName, s.spaceNo, id, h.hostNo, h.name
 		from Rent r, Space s, Host h
 		where r.spaceNo = s.spaceNo
 		and s.hostNo = h.hostNo
@@ -39,6 +40,10 @@
 		and s.hostNo = h.hostNo
 		and h.hostNo = #{ hostNo }
 		order by rentNo desc
+	</select>
+	
+	<select id="selectRentsBySpaceNo" parameterType="int" resultType="Rent">
+		select startTime, endTime, spaceNo from rent where spaceNo = #{ spaceNo }
 	</select>
 	
 	<insert id="insertRent" parameterType="Rent">
@@ -56,5 +61,11 @@
 			, #{ id }
 		)
 	</insert>
+	
+	<delete id="cancelRent" parameterType="Rent">
+		delete from Rent
+		where spaceNo = #{ spaceNo }
+		and id = #{ id }
+	</delete>
 
 </mapper>

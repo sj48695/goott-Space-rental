@@ -51,6 +51,10 @@
 		and h.hostno = #{ hostNo }
 	</select>
 	
+	<select id="selectHostById" parameterType="String" resultType="Host">
+		select <include refid="hostBasicColumns" /> from host where hostId = #{ value }
+	</select>
+	
 	<!--  host등록   -->    	
 	<insert id="insertHost" parameterType="Host" useGeneratedKeys="true" keyColumn="hostNo" keyProperty="hostNo">
 		INSERT INTO HOST(

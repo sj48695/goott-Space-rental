@@ -1,9 +1,12 @@
 package com.spacerental.service;
 
+import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 import com.spacerental.common.Pagination;
 import com.spacerental.vo.Host;
+import com.spacerental.vo.Rent;
 import com.spacerental.vo.Space;
 import com.spacerental.vo.SpaceFile;
 
@@ -34,12 +37,14 @@ public interface SpaceService {
 	List<Host> searchspacelist(String value);
 	List<Host> searchaddlist(String value);
 
+	SpaceFile findSpcaeFile(int hostNo);
+
+	ArrayList<Rent> findRentsBySpaceNo(int spaceNo, Date rentDate);
+	
 	List<Host> computerlist();
 	List<Host> beamprojectlist();
 	List<Host> wifilist();
 	List<Host> tenlesslist();
 	List<Host> tenmore();
-	
-	SpaceFile findSpcaeFile(int hostNo);
 
 }

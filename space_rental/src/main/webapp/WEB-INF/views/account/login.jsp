@@ -23,37 +23,36 @@
 }
 </style>
 
+<div class="container-contact100">
+	<div class="wrap-contact100">
+		<div class="contact100-pic js-tilt" data-tilt>
+			<img src="/spacerental/resources/images/register_picture.png" alt="IMG">
+		</div>
+		<form class="contact100-form validate-form" action="login" onsubmit="return checkpwd()" data-ajax="false" method="post">
+			<span class="contact100-form-title">로그인</span>
 
-	<div class="container-contact100">
-		<div class="wrap-contact100">
-			<div class="contact100-pic js-tilt" data-tilt>
-				<img src="/spacerental/resources/images/register_picture.png" alt="IMG">
+			<div class="wrap-input100 validate-input" data-validate = "아이디는 필수항목입니다.">
+				<input class="input100" type="text" name="id" id="id" placeholder="아이디">
+				<span class="focus-input100"></span>
+				<span class="symbol-input100">
+					<i class="fa fa-user" aria-hidden="true"></i>
+				</span>
 			</div>
-			<form class="contact100-form validate-form" action="login" method="post">
-				<span class="contact100-form-title">로그인</span>
 
-				<div class="wrap-input100 validate-input" data-validate = "아이디는 필수항목입니다.">
-					<input class="input100" type="text" name="id" placeholder="아이디">
-					<span class="focus-input100"></span>
-					<span class="symbol-input100">
-						<i class="fa fa-user" aria-hidden="true"></i>
-					</span>
-				</div>
+			<div class="wrap-input100 validate-input" data-validate = "비밀번호는 필수항목입니다.">
+				<input class="input100" type="password" name="passwd" placeholder="비밀번호">
+				<span class="focus-input100"></span>
+				<span class="symbol-input100">
+					<i class="fa fa-user" aria-hidden="true"></i>
+				</span>
+				<p id="pwdCheck" style="color:red"></p>
+			</div>
 
-				<div class="wrap-input100 validate-input" data-validate = "비밀번호는 필수항목입니다.">
-					<input class="input100" type="password" name="passwd" placeholder="비밀번호">
-					<span class="focus-input100"></span>
-					<span class="symbol-input100">
-						<i class="fa fa-user" aria-hidden="true"></i>
-					</span>
-				</div>
-
-				<div class="container-contact100-form-btn">
-					<button class="contact100-form-btn">로그인</button>
-				</div>
-			</form>
-		</div>		
-	</div>
+			<div class="container-contact100-form-btn">
+				<button class="contact100-form-btn">로그인</button>
+			</div>
+		</form>
+	</div>		
 </div>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

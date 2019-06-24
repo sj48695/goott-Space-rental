@@ -104,44 +104,41 @@ public class SpaceController {
 	}
 	
 	@RequestMapping(value = "/rent", method = RequestMethod.GET) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
-	public String rentForm(int spaceNo, Model model, int year, int month) {
+	public String rentForm(int spaceNo, Model model, HttpSession session) {
 
-		int day = 0;
-
+		Member loginuser = (Member) session.getAttribute("loginuser");
+		int nowYear = 0, nowMonth = 0, nowDay = 0;
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		StringTokenizer st = new StringTokenizer(sdf.format(date), "-");
 
-		if (year == 0) {
-			year = Integer.parseInt(st.nextToken());
-		}
-		if (month == 0) {
-			month = Integer.parseInt(st.nextToken());
-		}
-		if (day == 0) {
-			day = Integer.parseInt(st.nextToken());
-		}
+		nowYear = Integer.parseInt(st.nextToken());
+		nowMonth = Integer.parseInt(st.nextToken());
+		nowDay = Integer.parseInt(st.nextToken());
+
 		String[] strWeek = { "일", "월", "화", "수", "목", "금", "토" };
 		int[] lastDay = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-		int total = (year - 1) * 365 + (year - 1) / 4 - (year - 1) / 100 + (year - 1) / 400;
-		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {//2월 lastDay
+		int total = (nowYear - 1) * 365 + (nowYear - 1) / 4 - (nowYear - 1) / 100 + (nowYear - 1) / 400;
+		if ((nowYear % 4 == 0 && nowYear % 100 != 0) || (nowYear % 400 == 0)) {// 2월 lastDay
 			lastDay[1] = 29;
 		} else {
 			lastDay[1] = 28;
 		}
-		for (int i = 0; i < month - 1; i++) {
+		for (int i = 0; i < nowMonth - 1; i++) {
 			total += lastDay[i];
 		}
 		total++;
 		int week = total % 7;
 
-		model.addAttribute("nowYear", year);
-		model.addAttribute("nowMonth", month);
-		model.addAttribute("nowDay", day);
+		/* 현재 날짜 */
+		model.addAttribute("nowYear", nowYear);
+		model.addAttribute("nowMonth", nowMonth);
+		model.addAttribute("nowDay", nowDay);
+
 		model.addAttribute("strWeek", strWeek);
-		model.addAttribute("lastDay", lastDay[month - 1]);
+		model.addAttribute("lastDay", lastDay[nowMonth - 1]);
 		model.addAttribute("week", week);
 
 		/*--------------------------------------------------*/
@@ -151,25 +148,41 @@ public class SpaceController {
 			return "redirect:spacelist";
 		}
 		Host host = spaceService.findHostByHostNo(space.getHostNo());
-		
+
 		host.setFile(spaceService.findHostFile(space.getHostNo()));
 		space.setFiles((ArrayList<SpaceFile>) spaceService.findSpaceFilesBySpaceNo(space.getSpaceNo()));
 		space.setFile(spaceService.findSpcaeFile(space.getSpaceNo()));
+		try {
+			String rentDateStr = Integer.toString(nowYear) + "-" 
+								+ Integer.toString(nowMonth) + "-"
+								+ Integer.toString(nowDay);
+			java.util.Date utildate = sdf.parse(rentDateStr);
+			java.sql.Date rentDate = new java.sql.Date(utildate.getTime());
+			ArrayList<Rent> rents = spaceService.findRentsBySpaceNo(spaceNo, rentDate);
 
+			model.addAttribute("rents", rents);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		model.addAttribute("host", host);
 		model.addAttribute("space", space);
+		model.addAttribute("loginuser", loginuser);
 
 		return "space/rent";
 	}
 	
 
-	@RequestMapping(value = "/rent", method = RequestMethod.POST, produces = "text/plain;charset=utf-8") // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	@RequestMapping(value = "/rent"
+			, method = RequestMethod.POST
+			, produces = "text/plain;charset=utf-8") // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
 	@ResponseBody
-	public String rent(Model model, Rent rent,int year, int month, int day, HttpSession session) {
+	public String rent(Model model, Rent rent
+			, int year, int month, int day
+			, int startTime, int endTime
+			, HttpSession session) {
 		Member loginuser = (Member) session.getAttribute("loginuser");
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 
-		System.out.println(rent);
 		rent.setId(loginuser.getId());
 		String strDate = year+"-"+month+"-"+day;
 		Date date = null;
@@ -180,7 +193,6 @@ public class SpaceController {
 			e.printStackTrace();
 		}
 		rent.setRentDate(date);
-		System.out.println(rent);
 		rentService.registerRent(rent);
 		
 //		return "redirect:rent?spaceNo="+rent.getSpaceNo();
@@ -270,6 +282,7 @@ public class SpaceController {
 			Member loginuser = (Member) session.getAttribute("loginuser");
 			space.setHostId(loginuser.getId().toString());
 			space.setHostNo(hostNo);
+			System.out.println(space);
 			spaceService.registerSpaceTx(space);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -371,24 +384,33 @@ public class SpaceController {
 	}
 
 	@RequestMapping(value = "/calendar", method = RequestMethod.POST) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
-	public String calendar(int spaceNo, Model model, int year, int month) {
+	public String calendar(int spaceNo, Model model, 
+			@RequestParam(defaultValue = "0") int year, 
+			@RequestParam(defaultValue = "0") int month, 
+			@RequestParam(defaultValue = "0") int day) {
 
-		int day = 0;
-
+		int nowYear = 0, nowMonth = 0, nowDay = 0;
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat yearSdf = new SimpleDateFormat("yyyy");
+		SimpleDateFormat monthSdf = new SimpleDateFormat("MM");
+		SimpleDateFormat daySdf = new SimpleDateFormat("dd");
+		nowYear = Integer.parseInt(yearSdf.format(date));
+		nowMonth = Integer.parseInt(monthSdf.format(date));
+		nowDay = Integer.parseInt(daySdf.format(date));
 
-		StringTokenizer st = new StringTokenizer(sdf.format(date), "-");
+
+		//StringTokenizer st = new StringTokenizer(sdf.format(date), "-");
 
 		if (year == 0) {
-			year = Integer.parseInt(st.nextToken());
+			year = Integer.parseInt(yearSdf.format(date));
 		}
 		if (month == 0) {
-			month = Integer.parseInt(st.nextToken());
+			month = Integer.parseInt(monthSdf.format(date));
 		}
 		if (day == 0) {
-			day = Integer.parseInt(st.nextToken());
+			day = Integer.parseInt(daySdf.format(date));
 		}
+		
 		String[] strWeek = { "일", "월", "화", "수", "목", "금", "토" };
 		int[] lastDay = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
@@ -404,9 +426,16 @@ public class SpaceController {
 		total++;
 		int week = total % 7;
 
-		model.addAttribute("nowYear", year);
-		model.addAttribute("nowMonth", month);
-		model.addAttribute("nowDay", day);
+		/* 캘린더 change	*/
+		model.addAttribute("year", year);
+		model.addAttribute("month", month);
+		model.addAttribute("day", day);
+		
+		/* 현재 날짜	*/
+		model.addAttribute("nowYear", nowYear);
+		model.addAttribute("nowMonth", nowMonth);
+		model.addAttribute("nowDay", nowDay);
+		
 		model.addAttribute("strWeek", strWeek);
 		model.addAttribute("lastDay", lastDay[month - 1]);
 		model.addAttribute("week", week);
@@ -427,6 +456,52 @@ public class SpaceController {
 		model.addAttribute("space", space);
 
 		return "space/calendar";
+	}
+	
+	@RequestMapping(value = "/time", method = RequestMethod.POST) // {} 여러개의 경로 요청에대해 메서드를 매핑 시킬 수 있다
+	public String time(int spaceNo, Model model, String year, String month, String day, HttpSession session) {
+
+		Member loginuser = (Member) session.getAttribute("loginuser");
+
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+		StringTokenizer st = new StringTokenizer(sdf.format(date), "-");
+
+		if (year == null) {
+			year = st.nextToken();
+		}
+		if (month == null) {
+			month = st.nextToken();
+		}
+		if (day == null) {
+			day = st.nextToken();
+		}
+
+		/*--------------------------------------------------*/
+
+		Space space = spaceService.findSpaceBySpaceNo(spaceNo);
+		if (space == null) { // productno가 유효하지 않은 경우(데이터베이스에 없는 번호인 경우)
+			return "redirect:spacelist";
+		}
+		Host host = spaceService.findHostByHostNo(space.getHostNo());
+
+		try {
+
+			java.util.Date utildate = sdf.parse(year + "-" + month + "-" + day);
+			java.sql.Date rentDate = new java.sql.Date(utildate.getTime());
+			ArrayList<Rent> rents = spaceService.findRentsBySpaceNo(spaceNo, rentDate);
+
+			model.addAttribute("rents", rents);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		model.addAttribute("host", host);
+		model.addAttribute("space", space);
+		model.addAttribute("loginuser", loginuser);
+
+		return "space/time";
 	}
 
 }

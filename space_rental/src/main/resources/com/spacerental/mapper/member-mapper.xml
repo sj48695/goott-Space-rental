@@ -23,14 +23,34 @@
 		where hostId = #{ hostId }
 	</select>
 	
-	<select id="selectHostFile" parameterType="String" resultType="SpaceFile">
+	<select id="selectOkHostList" resultType="Host">
+		select name, content, type, address, parking, hostNo, hostId, holiday, openStart, openEnd, ok
+		from Host
+		where ok = #{ ok }
+	</select>
+	
+	<select id="selectHostFile" parameterType="int" resultType="SpaceFile">
 		select sf.savedfilename
 		from host h, space s, spacefile sf
-		where h.hostid = s.hostid 
+		where h.hostNo = s.hostNo
 		and s.spaceno = sf.spaceno 
 		and sf.flag = 1 
-		and h.hostId = #{ hostId }
+		and h.hostNo = #{ hostNo }
 		and rownum = 1
+	</select>
+	
+	<select id="selectLoseList" parameterType="String" resultType="Lose">
+		select loseNo, title, content, loseDate, spaceNo, type, uploader
+		from lose
+		where uploader = #{ uploader }
+		and type like '분실물' 
+	</select>
+	
+	<select id="selectAllHostList" parameterType="int" resultType="Host">
+		select name, ok, type, address, hostNo, hostId, holiday, openStart, openEnd
+		from Host
+		where hostNo = #{ hostNo }
+		order by hostNo desc
 	</select>
 	
 	<update id="updateMember" parameterType="Member">
@@ -39,9 +59,21 @@
 		where id = #{ id }
 	</update>
 	
+	<update id="updateOk" parameterType="Host">
+		update host
+		set ok = #{ ok }
+		where hostNo = #{ hostNo }
+	</update>
+	
 	<delete id="deleteMember" parameterType="String">
 		delete from Member
 		where id = #{ id }
 	</delete>
+	
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(*)
+		from Member
+		where id = #{ id }
+	</select>
 	
 </mapper>

@@ -98,7 +98,7 @@
 						<input type="file" class="_fileRel" name="imgFile" id="imgFile" style="display: none;"
 							accept="image/*" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, PNG)" multiple>
 					</label>
-					<div class="nav_btn">
+					<!-- <div class="nav_btn">
 						<a class="btn_move">
 							<i class="sp_icon ico_select_prev"></i>
 							<em class="blind">앞으로 순서 이동</em>
@@ -111,7 +111,7 @@
 							<i class="sp_icon ico_select_next"></i>
 							<em class="blind">뒤로 순서 이동</em>
 						</a>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>

@@ -5,6 +5,7 @@ import java.util.List;
 import com.spacerental.common.Util;
 import com.spacerental.repository.MemberRepository;
 import com.spacerental.vo.Host;
+import com.spacerental.vo.Lose;
 import com.spacerental.vo.Member;
 import com.spacerental.vo.Rent;
 import com.spacerental.vo.SpaceFile;
@@ -63,8 +64,8 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public SpaceFile selectHostFile(String id) {
-		SpaceFile file = memberRepository.selectHostFile(id);
+	public SpaceFile selectHostFile(int hostNo) {
+		SpaceFile file = memberRepository.selectHostFile(hostNo);
 		return file;
 	}
 
@@ -73,5 +74,32 @@ public class MemberServiceImpl implements MemberService{
 		List<Rent> rentlist =  memberRepository.selectHostRentList(hostNo);
 		return rentlist;
 	}
-	
+
+	@Override
+	public List<Lose> selectLoseList(String uploader) {
+		List<Lose> loselist = memberRepository.selectLoseList(uploader);
+		return loselist;
+	}
+
+	@Override
+	public List<Host> selectOkHostList(int i) {
+		List<Host> host = memberRepository.selectOkHostList(i);
+		return host;
+	}
+
+	@Override
+	public void updateOk(Host host) {
+		memberRepository.updateOk(host);
+	}
+
+	@Override
+	public List<Host> selectAllHostList(int hostNo) {
+		List<Host> host = memberRepository.selectAllHostList(hostNo);
+		return host;
+	}
+
+	@Override
+	public void cancelRent(Rent rent) {
+		memberRepository.cancelRent(rent);
+	}
 }

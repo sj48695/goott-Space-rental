@@ -3,6 +3,7 @@ package com.spacerental.repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.spacerental.vo.Host;
 import com.spacerental.vo.Lose;
 import com.spacerental.vo.LoseFile;
 import com.spacerental.vo.Member;
@@ -39,6 +40,8 @@ public interface LoseRepository {
 	//void registerlose2(Lose lose);
 	
 	ArrayList<Lose> searchlossList(String value);
+
+	ArrayList<Host> selectHostNoById(String id);
 
 //	List<Rent> selectrentList(String id);
 	

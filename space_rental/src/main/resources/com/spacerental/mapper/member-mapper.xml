@@ -40,7 +40,7 @@
 	</select>
 	
 	<select id="selectLoseList" parameterType="String" resultType="Lose">
-		select loseNo, title, content, loseDate, spaceNo, type, uploader
+		select loseNo, title, content, loseDate, hostNo, type, uploader
 		from lose
 		where uploader = #{ uploader }
 		and type like '분실물' 

@@ -67,12 +67,19 @@ public interface SpaceRepository {
 	void deleteSpaceFile(int spaceFileNo);
 
 	List<Rent> selectRentsBySpaceNo(int spaceNo, Date rentDate);
+
 	void insertReview(Review review);
+
 	void deleteReview(int reviewNo);
+
 	void updateReview(Review review);
+
 	List<Review> selectReviewsBySpaceNo(int spaceNo);
+
 	Review selectReviewByReviewNo(int reviewNo);
+
 	void updateReviewStep(Review parent);
+
 	void insertComment(Review review);
 
 }

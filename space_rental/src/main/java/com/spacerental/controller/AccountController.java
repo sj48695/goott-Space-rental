@@ -1,5 +1,6 @@
 package com.spacerental.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,22 @@ public class AccountController {
 	public String register(Member member) {
 		memberService.insertMember(member);
 		return "redirect:/account/login";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
+	public int IdCheck(HttpServletRequest req) throws Exception {
+	 
+	 String id = req.getParameter("id");
+	 Member idCheck =  memberService.idCheck(id);
+	 
+	 int result = 0;
+	 
+	 if(idCheck != null) {
+	  result = 1;
+	 } 
+	 
+	 return result;
 	}
 
 }

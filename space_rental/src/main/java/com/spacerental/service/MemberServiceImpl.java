@@ -102,4 +102,9 @@ public class MemberServiceImpl implements MemberService{
 	public void cancelRent(Rent rent) {
 		memberRepository.cancelRent(rent);
 	}
+
+	@Override
+	public Member idCheck(String id) {
+		return memberRepository.idCheck(id);
+	}
 }

@@ -113,4 +113,9 @@ public class MemberRepositoryImpl implements MemberRepository {
 		rentMapper.cancelRent(rent);
 	}
 
+	@Override
+	public Member idCheck(String id) {
+		return memberMapper.idCheck(id);
+	}
+
 }

@@ -36,4 +36,6 @@ public interface MemberRepository {
 
 	void cancelRent(Rent rent);
 
+	Member idCheck(String id);
+
 }

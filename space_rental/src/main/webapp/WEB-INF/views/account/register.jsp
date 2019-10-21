@@ -37,7 +37,9 @@
 					<i class="fa fa-user" aria-hidden="true"></i>
 				</span>
 			</div>
-			<div class="wrap-input100" id="checkMsg"></div>
+			<p class="result">
+				<span class="msg">아이디를 확인해 주세요.</span>
+			</p>
 
 			<div class="wrap-input100 validate-input" data-validate = "비밀번호는 필수항목입니다.">
 				<input class="input100" type="password" name="passwd" placeholder="비밀번호">
@@ -66,13 +68,13 @@
 				<input type="radio" name="type" value="customer">개인
 				<input type="radio" name="type" value="host">사업자
 			</div>
+			<button type="button" class="idCheck">아이디 중복확인</button>
 
 			<div class="container-contact100-form-btn">
-				<input class="contact100-form-btn" id="register" type="submit" value="가입하기" style="width:170px"/>
+				<input class="contact100-form-btn" id="submit" type="submit" value="가입하기" style="width:170px" disabled="disabled" />
 				&nbsp;
 	        	<input class="contact100-form-btn" id="cancel_button" type="button" value="취소" style="width:170px"/>
-			</div>
-			<button class="btn btn-link" type="submit" id="checkbtn">아이디 중복확인</button>
+			</div>			
 			
 			<script type="text/javascript">
         	window.addEventListener('load', function(event) {
@@ -88,7 +90,7 @@
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-<script>
+<script type="text/javascript">
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -96,21 +98,32 @@
   gtag('config', 'UA-23581568-13');
 </script>
 
+<jsp:include page="/WEB-INF/views/include/footer.jsp"/> 
 <script type="text/javascript">
-$("#id").blur(function() {
-	var id = $('#id').val();
+$(".idCheck").click(function() {
+	var query = { id : $("#id").val() };
+
 	$.ajax({
-		url: '${pageContext.request.contextPath}/account/idCheck?id='+ id,
-		type: 'post',
-		success: function(data) {
-			if(data == 1) {
-				$("#checkMsg").text("이미 사용중인 아이디입니다.");
+		url : "/spacerental/account/idCheck",
+		type : "POST",
+		data : query,
+		success : function(data) {
+			if (data == 1) {
+				$(".result .msg").text("이미 사용중인 아이디 입니다.");
+				$(".result .msg").attr("style", "color:#f00");
+				$("#submit").attr("disabled", "disabled");
 			} else {
-				$("#checkMsg").text("사용가능한 아이디입니다.");
+				$(".result .msg").text("사용 가능한 아이디 입니다.");
+				$(".result .msg").attr("style", "color:#00f");
+				$("#submit").removeAttr("disabled");
 			}
 		}
 	});
 });
-</script>
+$("#id").keyup(function() {
+	$(".result .msg").text("중복확인을 해주세요.");
+	$(".result .msg").attr("style", "color:#000");
+	$("#submit").attr("disabled", "disabled");
 
-<jsp:include page="/WEB-INF/views/include/footer.jsp"/> 
+});
+</script>

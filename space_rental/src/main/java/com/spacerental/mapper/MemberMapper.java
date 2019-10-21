@@ -32,5 +32,7 @@ public interface MemberMapper {
 	void updateOk(Host host);
 
 	List<Host> selectAllHostList(int hostNo);
+
+	Member idCheck(String id);
 	
 }

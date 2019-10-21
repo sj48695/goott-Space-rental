@@ -27,7 +27,6 @@
 <link rel="stylesheet" href="/spacerental/resources/space/css/magnific-popup.css">
 <link rel="stylesheet" href="/spacerental/resources/space/css/owl.theme.default.min.css">
 <link rel="stylesheet" href="/spacerental/resources/space/css/style.css">
-
 </head>
 <body>
 

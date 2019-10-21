@@ -70,8 +70,8 @@
 		where id = #{ id }
 	</delete>
 	
-	<select id="idCheck" parameterType="String" resultType="int">
-		select count(*)
+	<select id="idCheck" parameterType="String" resultType="Member">
+		select id
 		from Member
 		where id = #{ id }
 	</select>

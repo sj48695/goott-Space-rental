@@ -36,5 +36,7 @@ public interface MemberService {
 	List<Host> selectAllHostList(int hostNo);
 
 	void cancelRent(Rent rent);
+
+	Member idCheck(String id);
 	
 }

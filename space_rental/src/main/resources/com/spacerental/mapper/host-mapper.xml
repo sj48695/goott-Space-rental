@@ -18,12 +18,13 @@
 
 	<select id="selectHost" parameterType="hashmap" resultType="Host">
 		select * from (select <include refid="hostBasicColumns" />, ok, rownum as rnum
-		from host
-		where ok = 1
-			<if test="type != 'all'">
+		from (select <include refid="hostBasicColumns" />, ok
+			  from host
+			  where ok = 1
+			 <if test="type != 'all'">
 				and type like '%' || #{ type } || '%'
-			</if>
-		order by hostNo desc)
+			 </if>
+			 order by hostNo desc))
         where rnum between #{ startList } and #{ endList }
 	</select>
 	
